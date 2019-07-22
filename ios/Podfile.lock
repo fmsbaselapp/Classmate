@@ -9,9 +9,8 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
-  - Crashlytics (3.13.0):
-    - Fabric (~> 1.10.0)
-  - Fabric (1.10.0)
+  - Firebase/Analytics (6.0.0):
+    - Firebase/Core
   - Firebase/Auth (6.0.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.0.0)
@@ -23,16 +22,15 @@ PODS:
   - Firebase/Firestore (6.0.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.3.0)
+  - firebase_analytics (0.0.1):
+    - Firebase/Analytics (~> 6.0)
+    - Firebase/Core
+    - Flutter
   - firebase_auth (0.0.1):
     - Firebase/Auth (~> 6.0)
     - Firebase/Core
     - Flutter
   - firebase_core (0.0.1):
-    - Firebase/Core
-    - Flutter
-  - firebase_crashlytics (0.0.1):
-    - Crashlytics
-    - Fabric
     - Firebase/Core
     - Flutter
   - FirebaseAnalytics (6.0.0):
@@ -122,19 +120,20 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.7.0)
+  - shared_preferences (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
-  - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BoringSSL-GRPC
-    - Crashlytics
-    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -154,24 +153,24 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  firebase_analytics:
+    :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
-  firebase_crashlytics:
-    :path: ".symlinks/plugins/firebase_crashlytics/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   cloud_firestore: 5698a9bd01b94fd31e7b7b56d8fe1665f4fb43cb
-  Crashlytics: 1f5f752c7feac0add0cc1774756f96444fa3b1a7
-  Fabric: 09de1e053eb7dc415593166ad3e53d4c88123405
   Firebase: fa80b9d987ca014a1ba9357496ef2a0178b28b12
+  firebase_analytics: b17a5a903692aa4085d017d707c969b17cb3d3cd
   firebase_auth: b5657b3e35c8af36d74c8b67b068bc77d056b474
   firebase_core: 44f31f51532812598f0f9f4af0caa705b9edfc19
-  firebase_crashlytics: 90224b1e8534bb61de9db7d786892ba582e49a9a
   FirebaseAnalytics: 1743c5f4de3687d0745709dfdc4b1dea1484f44c
   FirebaseAuth: efc72b0f6fe075d2a6de8d81a6d9de83ef2b47eb
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
@@ -187,6 +186,7 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
+  shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
 
 PODFILE CHECKSUM: 7fb83752f59ead6285236625b82473f90b1cb932
 

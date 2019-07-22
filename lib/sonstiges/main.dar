@@ -13,11 +13,10 @@ class Classmate extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-       
+        //StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
       ],
-      child: 
-      MaterialApp(
+      child: MaterialApp(
         // Firebase Analytics
         navigatorObservers: [
           FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
@@ -25,15 +24,16 @@ class Classmate extends StatelessWidget {
 
         // Named Routes
         routes: {
-          '/': (context) => SignUpEmail(),
-          '/home': (context) => HomeScreen(),
-          '/profile': (context) => ProfileScreen(),
-          '/about': (context) => AboutScreen(),
+          '/': (context) => LoginScreen(),
+          '/ausfaelle':(context) => AusfaelleScreen()
+          //'/topics': (context) => TopicsScreen(),
+          //'/profile': (context) => ProfileScreen(),
+          //'/about': (context) => AboutScreen(),
         },
 
         // Theme
         theme: ThemeData(
-          fontFamily: 'Nunito',
+          //fontFamily: 'Nunito',
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black87,
           ),
