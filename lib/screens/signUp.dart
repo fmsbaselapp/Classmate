@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../shared/shared.dart';
 import '../services/services.dart';
 
 class SignUpEmail extends StatefulWidget {
@@ -37,7 +36,9 @@ class SignUpEmailState extends State<SignUpEmail> {
                 if (input.isEmpty) {
                   return 'Please type an Email';
                 }
+                return null;
               },
+              //TODO onchanged?
               onChanged: (input) => email = input,
               decoration: InputDecoration(labelText: 'Edubs Email'),
             ),
@@ -59,7 +60,7 @@ class SignUpEmailState extends State<SignUpEmail> {
 }
 
 class _SignUpPassword extends StatefulWidget {
-  String email;
+  final String email;
 
   _SignUpPassword({Key key, @required this.email}) : super(key: key);
 
@@ -88,6 +89,7 @@ class __SignUpPasswordState extends State<_SignUpPassword> {
                   if (input.length < 6) {
                     return 'Your Password is too short';
                   }
+                  return null;
                 },
                 onChanged: (input) => password = input,
                 decoration: InputDecoration(labelText: 'Password'),
@@ -97,8 +99,12 @@ class __SignUpPasswordState extends State<_SignUpPassword> {
             RaisedButton(
               onPressed: () async {
                 var user = await auth.edubslogin(widget.email, password);
-                if (user != null) {
-                  Navigator.pushReplacementNamed(context, '/home');
+
+                if (user != null /* TODO && verification true*/) {
+                  Navigator.pushReplacementNamed(context, '/verification');
+                }
+                else if(user != null){
+                //verificationscreen TODO
                 }
               },
             ),

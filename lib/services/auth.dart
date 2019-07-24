@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
-
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
@@ -13,21 +12,26 @@ class AuthService {
 
   Future<FirebaseUser> edubslogin(String email, String password) async {
     try {
-      FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+      final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      print('not verified!');
+      await user.sendEmailVerification();
+      print('gesendet');
 
+      
       updateUserData(user);
-      
-      
       return user;
-      
     } catch (error) {
       print(error);
       return null;
     }
   }
+
+
+
+
 
   Future<void> updateUserData(FirebaseUser user) {
     DocumentReference reportRef = _db.collection('Nutzer').document(user.uid);

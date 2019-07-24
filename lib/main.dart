@@ -29,6 +29,7 @@ class Classmate extends StatelessWidget {
           '/home': (context) => HomeScreen(),
           '/profile': (context) => ProfileScreen(),
           '/about': (context) => AboutScreen(),
+          '/verification': (context) => VerificationScreen(),
         },
 
         // Theme
