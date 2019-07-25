@@ -31,6 +31,11 @@ class SignUpEmailState extends State<SignUpEmail> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/emailLink');
+              },
+            ),
             TextFormField(
               validator: (input) {
                 if (input.isEmpty) {
@@ -43,69 +48,17 @@ class SignUpEmailState extends State<SignUpEmail> {
               decoration: InputDecoration(labelText: 'Edubs Email'),
             ),
             RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => _SignUpPassword(email: email),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SignUpPassword extends StatefulWidget {
-  final String email;
-
-  _SignUpPassword({Key key, @required this.email}) : super(key: key);
-
-  @override
-  __SignUpPasswordState createState() => __SignUpPasswordState();
-}
-
-class __SignUpPasswordState extends State<_SignUpPassword> {
-  AuthService auth = AuthService();
-
-  String password;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(30),
-        decoration: BoxDecoration(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Center(
-              child: TextFormField(
-                validator: (input) {
-                  if (input.length < 6) {
-                    return 'Your Password is too short';
-                  }
-                  return null;
-                },
-                onChanged: (input) => password = input,
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-              ),
-            ),
-            RaisedButton(
               onPressed: () async {
-                var user = await auth.edubslogin(widget.email, password);
+                //var user = await auth.edubslogin(email);
+                print(email);
+                await auth.sendemail(email);
 
-                if (user != null /* TODO && verification true*/) {
+                //await auth.edubslogin(email);
+                /*if (user != null) {
                   Navigator.pushReplacementNamed(context, '/verification');
-                }
-                else if(user != null){
-                //verificationscreen TODO
-                }
+                } else {
+                  //verificationscreen TODO
+                } */
               },
             ),
           ],

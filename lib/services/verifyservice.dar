@@ -1,0 +1,27 @@
+import 'dart:async';
+
+import 'package:Classmate/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+
+
+
+
+
+class Stream{
+Widget build(BuildContext context) {
+FirebaseUser user = Provider.of<FirebaseUser>(context);
+bool _verificationState = false;
+
+final _checker = StreamController<bool>();
+StreamSink<bool> get _verificationState => _checker.sink;
+
+Stream<bool> get timon => _checker.stream;
+
+final _checkerEvent = StreamController<Counter>();
+Sink<CheckEvent> 
+
+return null;
+}
+}

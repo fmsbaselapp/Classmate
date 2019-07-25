@@ -13,11 +13,9 @@ class Classmate extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-       
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
       ],
-      child: 
-      MaterialApp(
+      child: MaterialApp(
         // Firebase Analytics
         navigatorObservers: [
           FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
@@ -26,6 +24,7 @@ class Classmate extends StatelessWidget {
         // Named Routes
         routes: {
           '/': (context) => SignUpEmail(),
+          '/emailLink': (context) => EmailLinkSignInSection(),
           '/home': (context) => HomeScreen(),
           '/profile': (context) => ProfileScreen(),
           '/about': (context) => AboutScreen(),

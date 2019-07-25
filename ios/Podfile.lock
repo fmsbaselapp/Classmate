@@ -19,6 +19,9 @@ PODS:
     - FirebaseAnalytics (= 6.0.0)
   - Firebase/CoreOnly (6.0.0):
     - FirebaseCore (= 6.0.0)
+  - Firebase/DynamicLinks (6.0.0):
+    - Firebase/CoreOnly
+    - FirebaseDynamicLinks (~> 4.0.0)
   - Firebase/Firestore (6.0.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.3.0)
@@ -33,6 +36,9 @@ PODS:
   - firebase_core (0.0.1):
     - Firebase/Core
     - Flutter
+  - firebase_dynamic_links (0.1.0):
+    - Firebase/DynamicLinks
+    - Flutter
   - FirebaseAnalytics (6.0.0):
     - FirebaseCore (~> 6.0)
     - FirebaseInstanceID (~> 4.0)
@@ -42,6 +48,7 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
+  - FirebaseAnalyticsInterop (1.2.0)
   - FirebaseAuth (6.0.0):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
@@ -52,6 +59,9 @@ PODS:
   - FirebaseCore (6.0.0):
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseDynamicLinks (4.0.0):
+    - FirebaseAnalyticsInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
   - FirebaseFirestore (1.3.0):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
@@ -128,6 +138,7 @@ DEPENDENCIES:
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
@@ -136,9 +147,11 @@ SPEC REPOS:
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
     - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseDynamicLinks
     - FirebaseFirestore
     - FirebaseInstanceID
     - GoogleAppMeasurement
@@ -159,6 +172,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_dynamic_links:
+    :path: ".symlinks/plugins/firebase_dynamic_links/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
   shared_preferences:
@@ -171,10 +186,13 @@ SPEC CHECKSUMS:
   firebase_analytics: b17a5a903692aa4085d017d707c969b17cb3d3cd
   firebase_auth: b5657b3e35c8af36d74c8b67b068bc77d056b474
   firebase_core: 44f31f51532812598f0f9f4af0caa705b9edfc19
+  firebase_dynamic_links: de8575bb5e9f2bb42a6c71c842d84aec82c45f35
   FirebaseAnalytics: 1743c5f4de3687d0745709dfdc4b1dea1484f44c
+  FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
   FirebaseAuth: efc72b0f6fe075d2a6de8d81a6d9de83ef2b47eb
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: e38f025287b413255a53acc1945d048a112047f7
+  FirebaseDynamicLinks: 25fc45fdf2557ee2ee630999c301245d8911792e
   FirebaseFirestore: 0537b2a960a4819fae2834e688e5daeb571c81d6
   FirebaseInstanceID: 0e0348a3c00a734fa376a070f5ad4533ad975cb5
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
