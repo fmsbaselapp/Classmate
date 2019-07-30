@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -77,6 +78,7 @@ class EmailLinkSignInSectionState extends State<EmailLinkSignInSection>
               padding: const EdgeInsets.all(16),
               alignment: Alignment.center,
             ),
+            CupertinoTextField(),
             TextFormField(
               controller: _emailController,
               decoration: InputDecoration(labelText: 'Email'),
