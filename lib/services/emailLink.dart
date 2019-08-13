@@ -1,37 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'auth.dart';
+import 'package:flutter/material.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class EmailLinkSignInSection extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => EmailLinkSignInSectionState();
-}
 
-class EmailLinkSignInSectionState extends State<EmailLinkSignInSection>
-    with WidgetsBindingObserver {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+
+class EmailLinkSignInSection with WidgetsBindingObserver {
+  EmailLinkSignInSection(this._userEmail);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final Firestore _db = Firestore.instance;
+
+  Future<FirebaseUser> get getUser => _auth.currentUser();
+
+  Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
 
   bool _success;
   String _userEmail;
   String _userID;
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
+  
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -46,15 +39,18 @@ class EmailLinkSignInSectionState extends State<EmailLinkSignInSection>
 
         if (user != null) {
           _userID = user.uid;
+          updateUserData(user);
           _success = true;
         } else {
+          print('link leer');
           _success = false;
         }
       } else {
+        print('applifecicle changes');
         _success = false;
       }
 
-      setState(() {});
+    
     }
   }
 
@@ -65,62 +61,8 @@ class EmailLinkSignInSectionState extends State<EmailLinkSignInSection>
     return data?.link;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: const Text('Test sign in with email and link'),
-              padding: const EdgeInsets.all(16),
-              alignment: Alignment.center,
-            ),
-            CupertinoTextField(),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Please enter your email.';
-                }
-                return null;
-              },
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              alignment: Alignment.center,
-              child: RaisedButton(
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    _signInWithEmailAndLink();
-                  }
-                },
-                child: const Text('Submit'),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                _success == null
-                    ? ''
-                    : (_success
-                        ? 'Successfully signed in, uid: ' + _userID
-                        : 'Sign in failed'),
-                style: TextStyle(color: Colors.red),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _signInWithEmailAndLink() async {
-    _userEmail = _emailController.text;
+  Future<void> signInWithEmailAndLink(_userEmail) async {
+   
    
     return await _auth.sendSignInWithEmailLink(
       email: _userEmail,
@@ -132,5 +74,15 @@ class EmailLinkSignInSectionState extends State<EmailLinkSignInSection>
       androidMinimumVersion: "1",
     );
     
+  }
+  Future<void> updateUserData(FirebaseUser user) {
+    DocumentReference reportRef = _db.collection('Nutzer').document(user.uid);
+
+    return reportRef.setData({'uid': user.uid, 'lastActivity': DateTime.now()},
+        merge: true);
+  }
+
+  Future<void> signOut() {
+    return _auth.signOut();
   }
 }

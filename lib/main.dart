@@ -27,12 +27,11 @@ class Classmate extends StatelessWidget {
 
         // Named Routes
         routes: {
-          '/': (context) => SignUpEmail(),
-          '/emailLink': (context) => EmailLinkSignInSection(),
+          
+          '/': (context) => LoginScreen(),
           '/home': (context) => HomeScreen(),
           '/profile': (context) => ProfileScreen(),
           '/about': (context) => AboutScreen(),
-          '/verification': (context) => VerificationScreen(),
         },
 
         // Theme
