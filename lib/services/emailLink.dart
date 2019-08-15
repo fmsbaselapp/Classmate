@@ -7,11 +7,7 @@ import 'package:flutter/material.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
-
 class EmailLinkSignInSection with WidgetsBindingObserver {
-  EmailLinkSignInSection(this._userEmail);
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
 
@@ -24,7 +20,28 @@ class EmailLinkSignInSection with WidgetsBindingObserver {
   String _userID;
 
 
-  
+
+  Future<void> signInWithEmailAndLink(_userEmail) async {
+    _userEmail = _userEmail;
+    print(_userEmail);
+    return await _auth.sendSignInWithEmailLink(
+      email: _userEmail,
+      url: 'https://appclassmate.page.link/verification',
+      handleCodeInApp: true,
+      iOSBundleID: 'ch.classmate.app',
+      androidPackageName: 'ch.classmate.app',
+      androidInstallIfNotAvailable: true,
+      androidMinimumVersion: "1",
+    );
+  }
+
+test(){
+  Future<Uri> _retrieveDynamicLink() async {
+    final PendingDynamicLinkData data =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+
+    return data?.link;
+  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -32,6 +49,7 @@ class EmailLinkSignInSection with WidgetsBindingObserver {
       final Uri link = await _retrieveDynamicLink();
 
       if (link != null) {
+        print(link);
         final FirebaseUser user = await _auth.signInWithEmailAndLink(
           email: _userEmail,
           link: link.toString(),
@@ -45,36 +63,17 @@ class EmailLinkSignInSection with WidgetsBindingObserver {
           print('link leer');
           _success = false;
         }
-      } else {
+      } else //else if link != null pop up
+      {
         print('applifecicle changes');
         _success = false;
       }
-
-    
     }
   }
 
-  Future<Uri> _retrieveDynamicLink() async {
-    final PendingDynamicLinkData data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
+}
 
-    return data?.link;
-  }
 
-  Future<void> signInWithEmailAndLink(_userEmail) async {
-   
-   
-    return await _auth.sendSignInWithEmailLink(
-      email: _userEmail,
-      url: 'https://appclassmate.page.link/verification',
-      handleCodeInApp: true,
-      iOSBundleID: 'ch.classmate.app',
-      androidPackageName: 'ch.classmate.app',
-      androidInstallIfNotAvailable: true,
-      androidMinimumVersion: "1",
-    );
-    
-  }
   Future<void> updateUserData(FirebaseUser user) {
     DocumentReference reportRef = _db.collection('Nutzer').document(user.uid);
 

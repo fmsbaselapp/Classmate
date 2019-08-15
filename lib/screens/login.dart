@@ -1,5 +1,5 @@
 
-
+import 'package:Classmate/services/emailLink.dart';
 import 'package:Classmate/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +11,18 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _userEmail = TextEditingController();
   AuthService auth = AuthService();
+  
+  @override
+  void dispose() {
+    // Clean up the email Controller  when the widget is disposed.
+    _userEmail.dispose();
+    super.dispose();}
+
 
   bool _emailGesendet;
-  String _userEmail;
+
 
 
   @override
@@ -46,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
            
             TextFormField(
-              controller: _emailController,
+              controller: _userEmail,
               decoration: InputDecoration(labelText: 'Email'),
               validator: (String value) {
                 if (value.isEmpty) {
@@ -60,8 +67,18 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: Alignment.center,
               child: RaisedButton(
                 onPressed: () async {
+                
                   if (_formKey.currentState.validate()) {
-                    signInWithEmailAndLink();
+                    try {
+                      EmailLinkSignInSection().signInWithEmailAndLink(_userEmail.text);
+                      try {
+                        await EmailLinkSignInSection().test();
+                      } catch (e) {
+                      }
+                    } catch (e) {
+                      print(e);
+                    } 
+                    
                   }
                 },
                 child: const Text('Submit'),
