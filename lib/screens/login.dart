@@ -1,30 +1,23 @@
-
-import 'package:Classmate/services/emailLink.dart';
-import 'package:Classmate/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import 'package:Classmate/services/auth.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key}) : super(key: key);
-
-  _LoginScreenState createState() => _LoginScreenState();
+  @override
+  State<StatefulWidget> createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _userEmail = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   AuthService auth = AuthService();
-  
-  @override
-  void dispose() {
-    // Clean up the email Controller  when the widget is disposed.
-    _userEmail.dispose();
-    super.dispose();}
 
-
-  bool _emailGesendet;
-
-
-
+//Check ob Nutzer angemeldet + Dynamic Links
   @override
   void initState() {
     super.initState();
@@ -37,6 +30,32 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  //Values
+  bool _sentEmail = false;
+  String userEmail;
+
+  //DISPOSE FROM EmailController
+  @override
+  void dispose() {
+    _emailController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  //Email Link senden
+  Future<void> _signInWithEmailAndLink() async {
+    userEmail = _emailController.text;
+    print(userEmail);
+    return await _auth.sendSignInWithEmailLink(
+      email: userEmail,
+      url: 'https://appclassmate.page.link/verification',
+      handleCodeInApp: true,
+      iOSBundleID: 'ch.classmate.app',
+      androidPackageName: 'ch.classmate.app',
+      androidInstallIfNotAvailable: true,
+      androidMinimumVersion: "1",
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              child: const Text('Test sign in with email and link'),
-              padding: const EdgeInsets.all(16),
-              alignment: Alignment.center,
-            ),
-           
             TextFormField(
-              controller: _userEmail,
+              controller: _emailController,
               decoration: InputDecoration(labelText: 'Email'),
               validator: (String value) {
                 if (value.isEmpty) {
@@ -67,26 +80,22 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: Alignment.center,
               child: RaisedButton(
                 onPressed: () async {
-                
                   if (_formKey.currentState.validate()) {
-                    try {
-                      EmailLinkSignInSection().signInWithEmailAndLink(_userEmail.text);
-                      try {
-                        await EmailLinkSignInSection().test();
-                      } catch (e) {
-                      }
-                    } catch (e) {
-                      print(e);
-                    } 
-                    
-                  }
+                    await _signInWithEmailAndLink()
+                        .catchError((onError) => _sentEmail = false);
+                    _sentEmail = true;
+
+                    if (_sentEmail == true) {
+                      Navigator.pushReplacementNamed(context, '/verifizieren');
+                    }
+                  } //Todo else fail
                 },
-                child: const Text('Submit'),
+                child: const Text('okay'),
               ),
-            )
-          ]
-        )
-      )
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

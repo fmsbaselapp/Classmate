@@ -10,8 +10,22 @@ class AuthService {
 
   Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
 
+  Future<void> signIn(userEmail, link) async {
+    
+      final FirebaseUser user = await _auth.signInWithEmailAndLink(
+        email: userEmail,
+        link: link.toString(),
+      ).catchError((onError) => print(onError));
 
-  //await _auth.isSignInWithEmailLink(link);
+      if (user != null) {
+        await updateUserData(user);
+        return true;
+      } else {
+        print('link leer');
+       
+      }
+    
+  }
 
   Future<void> updateUserData(FirebaseUser user) {
     DocumentReference reportRef = _db.collection('Nutzer').document(user.uid);
@@ -24,5 +38,3 @@ class AuthService {
     return _auth.signOut();
   }
 }
-
-// keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore

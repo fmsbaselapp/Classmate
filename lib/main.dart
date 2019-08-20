@@ -29,6 +29,7 @@ class Classmate extends StatelessWidget {
         routes: {
           
           '/': (context) => LoginScreen(),
+          '/verifizieren': (context) => VerifizierenScreen(),
           '/home': (context) => HomeScreen(),
           '/profile': (context) => ProfileScreen(),
           '/about': (context) => AboutScreen(),
@@ -40,7 +41,7 @@ class Classmate extends StatelessWidget {
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black87,
           ),
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
           textTheme: TextTheme(
             body1: TextStyle(fontSize: 18),
             body2: TextStyle(fontSize: 16),
