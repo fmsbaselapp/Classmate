@@ -1,3 +1,4 @@
+import 'package:Classmate/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,12 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                 }
                 return null;
               },
+              /*
+              onChanged: (text){if (input(text)) {
+                
+              } else {
+              }},
+              */
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -86,7 +93,12 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                     _sentEmail = true;
 
                     if (_sentEmail == true) {
-                      Navigator.pushReplacementNamed(context, '/verifizieren');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              VerifizierenScreen(userEmail: userEmail),
+                        ),
+                      );
                     }
                   } //Todo else fail
                 },
@@ -98,4 +110,16 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       ),
     );
   }
+/*
+  input(text){
+    bool emailValid = RegExp (/^([a-zA-Z]{2,15})+\.+([a-zA-Z]{2,15})+@(stud.edubs.ch)$/gm).hasMatch(text);
+  if (emailValid) {
+    
+  } else {
+  }
+
+  }
+  */
+
+
 }

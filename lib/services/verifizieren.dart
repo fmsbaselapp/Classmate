@@ -4,7 +4,9 @@ import 'package:Classmate/services/auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 class VerifizierenScreen extends StatefulWidget {
-  VerifizierenScreen({Key key}) : super(key: key);
+  final userEmail;
+
+  VerifizierenScreen({Key key, @required this.userEmail}) : super(key: key);
 
   _VerifizierenScreenState createState() => _VerifizierenScreenState();
 }
@@ -12,6 +14,9 @@ class VerifizierenScreen extends StatefulWidget {
 class _VerifizierenScreenState extends State<VerifizierenScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AuthService auth = AuthService();
+
+  //Values
+  bool _success;
 
 //Check ob Nutzer angemeldet + Dynamic Links
   @override
@@ -26,10 +31,6 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
       },
     );
   }
-
-  //Values
-  bool _success;
-  String _userEmail;
 
   //DeepLink wenn app neu geöffnet wird
   void initDynamicLinks() async {
@@ -72,9 +73,16 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         if (_linkvalidation) {
           print(_linkvalidation);
           print('link isch guet');
-          await auth.signIn(_userEmail, link);
+          await auth.signIn(widget.userEmail, link);
           print('successè!!!!!!!!!!!!!!');
           _success = true;
+          auth.getUser.then(
+            (user) {
+              if (user != null) {
+                Navigator.pushReplacementNamed(context, '/home');
+              }
+            },
+          );
           setState(() {});
         } else {
           print('link leer');
@@ -92,6 +100,9 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
     return Container(
       child: Scaffold(
         backgroundColor: Colors.orange,
+        body: Column(
+          children: <Widget>[Text(widget.userEmail)],
+        ),
       ),
     );
   }
