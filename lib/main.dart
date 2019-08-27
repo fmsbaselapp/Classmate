@@ -7,9 +7,6 @@ import 'services/services.dart';
 import 'screens/screens.dart';
 import 'package:provider/provider.dart';
 
-
-
-
 void main() => runApp(Classmate());
 
 class Classmate extends StatelessWidget {
@@ -25,9 +22,27 @@ class Classmate extends StatelessWidget {
           FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
         ],
 
+        // Theme
+        theme: ThemeData(
+          bottomAppBarTheme: BottomAppBarTheme(
+            color: Colors.black,
+          ),
+          brightness: Brightness.light,
+          textTheme: TextTheme(
+            title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
+            headline: TextStyle(fontSize: 17, fontFamily: 'MaaxMedium'),
+            subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
+          ),
+          buttonTheme: ButtonThemeData(
+            shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+            buttonColor: Colors.white,
+            padding: EdgeInsets.only(top: 10, bottom: 10,left: 20,right: 20),
+            
+          ),
+        ),
+
         // Named Routes
         routes: {
-          
           '/': (context) => LandingScreen(),
           '/login': (context) => LoginScreen(),
           //'/verifizieren': (context) => VerifizierenScreen(),
@@ -35,23 +50,6 @@ class Classmate extends StatelessWidget {
           '/profile': (context) => ProfileScreen(),
           '/about': (context) => AboutScreen(),
         },
-
-        // Theme
-        theme: ThemeData(
-          fontFamily: 'Nunito',
-          bottomAppBarTheme: BottomAppBarTheme(
-            color: Colors.black87,
-          ),
-          brightness: Brightness.light,
-          textTheme: TextTheme(
-            body1: TextStyle(fontSize: 18),
-            body2: TextStyle(fontSize: 16),
-            button: TextStyle(letterSpacing: 1, fontWeight: FontWeight.bold),
-            headline: TextStyle(fontWeight: FontWeight.bold),
-            subhead: TextStyle(color: Colors.grey),
-          ),
-          buttonTheme: ButtonThemeData(),
-        ),
       ),
     );
   }

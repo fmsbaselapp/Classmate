@@ -10,21 +10,21 @@ class AuthService {
 
   Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
 
-  Future<void> signIn(userEmail, link) async {
-    
-      final FirebaseUser user = await _auth.signInWithEmailAndLink(
-        email: userEmail,
-        link: link.toString(),
-      ).catchError((onError) => print(onError));
+  Future<void> signIn(userEmail, link, personalData) async {
+    final FirebaseUser user = await _auth
+        .signInWithEmailAndLink(
+          email: userEmail,
+          link: link.toString(),
+        )
+        .catchError((onError) => print(onError));
 
-      if (user != null) {
-        await updateUserData(user);
-        return true;
-      } else {
-        print('link leer');
-       
-      }
-    
+    if (user != null) {
+      await updateUserData(user);
+      await updateName(personalData, user);
+      return true;
+    } else {
+      print('link leer');
+    }
   }
 
   Future<void> updateUserData(FirebaseUser user) {
@@ -32,6 +32,16 @@ class AuthService {
 
     return reportRef.setData({'uid': user.uid, 'lastActivity': DateTime.now()},
         merge: true);
+  }
+
+  Future<void> updateName(personalData, FirebaseUser user) {
+    DocumentReference reportRef = _db.collection('Nutzer').document(user.uid);
+
+    return reportRef.setData({
+      'Vorname': personalData[0],
+      'Nachname': personalData[1],
+      'Email': personalData[2]
+    }, merge: true);
   }
 
   Future<void> signOut() {

@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:provider/provider.dart';
+
 //// Embedded Maps
 
 class Option {
@@ -94,31 +98,42 @@ class Report {
   }
 }
 
-class Name {
-  nameAusEmail() {
-    String emailInput = "can.peter.saRac@stud.edubs.ch";
 
-    //email kleingeschrieben
-    var email = emailInput.toLowerCase();
+class Name{
+nameAusEmail(userEmail) async {
+  String emailInput = userEmail;
+  String vorname;
+  String nachname;
+  String email;
 
-    //@stud.edubs.ch wegmachen
-    var email2 = email.replaceAll(RegExp('@stud.edubs.ch'), '');
+  //leerzeichen wegmachen
+  var email1 = emailInput.trim();
 
-    //vor,nachname splitten
-    var email4 = email2.split('.');
+  //email kleingeschrieben
+   email = email1.toLowerCase();
 
-    //kleingeschribener vorname
-    var vornameKlein = email4.first;
-    var vorname = vornameKlein[0].toUpperCase() +
-        vornameKlein.substring(1); //grossschreiben
+  //@stud.edubs.ch wegmachen
+  var email2 = email.replaceAll(RegExp('@stud.edubs.ch'), '');
 
-    //kleingeschribener nachname
-    var nachnameKlein = email4.last;
-    var nachname = nachnameKlein[0].toUpperCase() +
-        nachnameKlein.substring(1); //grossschreiben
+  //vor,nachname splitten
+  var email4 = email2.split('.');
 
-    print('Vorname: ' + vorname);
-    print('Nachname: ' + nachname);
-    print('Email: ' + email);
-  }
+  //kleingeschribener vorname
+  var vornameKlein = email4.first;
+      vorname = vornameKlein[0].toUpperCase() +
+      vornameKlein.substring(1); //grossschreiben
+
+  //kleingeschribener nachname
+  var nachnameKlein = email4.last;
+      nachname = nachnameKlein[0].toUpperCase() +
+      nachnameKlein.substring(1); //grossschreiben
+
+  print('Vorname: ' + vorname);
+  print('Nachname: ' + nachname);
+  print('Email: ' + email);
+
+  var personalData = [vorname, nachname, email];
+  return personalData;
+ //return [vorname, nachname, email];
+}
 }

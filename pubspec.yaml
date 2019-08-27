@@ -35,6 +35,7 @@ dependencies:
 
   firebase_auth: ^0.11.1+10
 
+  url_launcher: ^5.1.2
   rxdart: ^0.21.0
   provider: 2.0.0+1
 
@@ -64,16 +65,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  #  fonts:
-  # - family: MaaxBold
-  #  fonts:
-  #   - asset: /asset/fonts/Maax-Bold.otf
-  #- family: MaaxMedium
-  # fonts:
-  #  - asset: /asset/fonts/Maax-Medium.otf
-  # - family: MaaxRegular
-  #  fonts:
-  #   - asset: /asset/fonts/Maax-Regular.otf
+
+  fonts:
+    - family: MaaxBold
+      fonts:
+        - asset: asset/fonts/Maax-Bold.otf
+    - family: MaaxMedium
+      fonts:
+        - asset: asset/fonts/Maax-Medium.otf
+    - family: MaaxRegular
+      fonts:
+        - asset: asset/fonts/Maax-Regular.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
