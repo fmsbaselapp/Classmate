@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:Classmate/shared/button.dart';
 import 'package:Classmate/services/auth.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -63,7 +63,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 30),
             child: Text(
               'Anmelden',
               style: Theme.of(context).textTheme.title,
@@ -110,9 +110,8 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   alignment: Alignment.center,
-                  child: RaisedButton(
-                    elevation: 7,
-                    highlightElevation: 0,
+                  child: SmallButton(
+                    
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         userEmail = _emailController.text;
@@ -134,7 +133,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                         }
                       } //Todo else fail
                     },
-                    child: const Text('Anmelden'),
+                    child: const Text('Weiter'),
                   ),
                 ),
               ],

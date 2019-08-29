@@ -32,11 +32,10 @@ class Classmate extends StatelessWidget {
             title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
             headline: TextStyle(fontSize: 17, fontFamily: 'MaaxMedium'),
             subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
+            button: TextStyle(fontSize: 21, fontFamily: 'MaaxBold')
           ),
           buttonTheme: ButtonThemeData(
-            shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-            buttonColor: Colors.white,
-            padding: EdgeInsets.only(top: 10, bottom: 10,left: 20,right: 20),
+            
             
           ),
         ),

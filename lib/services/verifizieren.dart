@@ -105,7 +105,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         body: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 50),
+              padding: EdgeInsets.only(top: 30),
               child: Text(
                 "Hey " + widget.personalData[0].toString() + ",",
                 textAlign: TextAlign.center,
