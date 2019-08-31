@@ -1,5 +1,7 @@
+import 'package:Classmate/shared/actionSheet.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Classmate/services/auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -44,7 +46,6 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
     final Uri deepLink = data?.link;
 
     if (deepLink != null) {
-
       print(deepLink);
       print('link empfangen');
       confirmSignIn(deepLink);
@@ -132,11 +133,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
               //email button
               LableButton(
-                onPressed: () {
-                  PopupMenuButton(
-                //TODO Popup
-                  );
-                },
+                onPressed: () => neverSatisfied(context),
                 child: Text(
                   widget.userEmail,
                   overflow: TextOverflow.ellipsis,

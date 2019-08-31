@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import 'services/services.dart';
 import 'screens/screens.dart';
@@ -16,39 +18,39 @@ class Classmate extends StatelessWidget {
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
       ],
-      child: MaterialApp(
-        // Firebase Analytics
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
-        ],
-
-        // Theme
-        theme: ThemeData(
+      child: Theme(
+        data: ThemeData(
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,
           ),
           brightness: Brightness.light,
           textTheme: TextTheme(
-            title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
-            headline: TextStyle(fontSize: 16, fontFamily: 'MaaxMedium'),
-            subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
-            button: TextStyle(fontSize: 16, fontFamily: 'MaaxBold')
-          ),
-          buttonTheme: ButtonThemeData(
-            
-            
-          ),
+              title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
+              headline: TextStyle(fontSize: 16, fontFamily: 'MaaxMedium'),
+              subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
+              button: TextStyle(fontSize: 16, fontFamily: 'MaaxBold')),
+          buttonTheme: ButtonThemeData(),
         ),
+        child: PlatformApp(
+          // Named Routes
+          onUnknownRoute: null,//TODO
+          routes: {
+            '/': (context) => LandingScreen(),
+            '/login': (context) => LoginScreen(),
+            '/home': (context) => HomeScreen(),
+            '/profile': (context) => ProfileScreen(),
+            '/about': (context) => AboutScreen(),
+          },
+          // Firebase Analytics
+          navigatorObservers: [
+            FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+          ],
 
-        // Named Routes
-        routes: {
-          '/': (context) => LandingScreen(),
-          '/login': (context) => LoginScreen(),
-          //'/verifizieren': (context) => VerifizierenScreen(),
-          '/home': (context) => HomeScreen(),
-          '/profile': (context) => ProfileScreen(),
-          '/about': (context) => AboutScreen(),
-        },
+          // Theme
+          android: (_) => MaterialAppData(),
+
+          ios: (_) => CupertinoAppData(),
+        ),
       ),
     );
   }
