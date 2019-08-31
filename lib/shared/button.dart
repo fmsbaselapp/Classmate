@@ -23,15 +23,16 @@ class SmallButton extends StatelessWidget {
 }
 
 class LableButton extends StatelessWidget {
-  LableButton({@required this.onPressed, this.child});
+  LableButton({@required this.onPressed, this.child, this.color});
   GestureTapCallback onPressed;
   var child;
+  var color;
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
       splashColor: Colors.grey,
-      fillColor: Colors.white,
+      fillColor:  getColor(),
       shape:
           RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
       padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
@@ -42,4 +43,14 @@ class LableButton extends StatelessWidget {
       onPressed: onPressed,
     );
   }
+
+  //button color
+  Color getColor() {
+  if (color != null) {
+    return color;
+  } else {
+    return Colors.white;
+  }}
 }
+
+

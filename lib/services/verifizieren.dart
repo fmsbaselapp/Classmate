@@ -22,7 +22,6 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
   //Values
   bool _success;
-  
 
 //Check ob Nutzer angemeldet + Dynamic Links
   @override
@@ -45,10 +44,11 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
     final Uri deepLink = data?.link;
 
     if (deepLink != null) {
+
       print(deepLink);
       print('link empfangen');
       confirmSignIn(deepLink);
-      //Todo
+      //Todo Loading spinner
     }
 
     //DeepLink wenn app schon offen ist
@@ -60,7 +60,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         print(deepLink);
         print('link empfangen wenn app offen');
         confirmSignIn(deepLink);
-        //Todo
+        //Todo Loading spinner
       }
     }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
@@ -132,7 +132,11 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
               //email button
               LableButton(
-                onPressed: () {},
+                onPressed: () {
+                  PopupMenuButton(
+                //TODO Popup
+                  );
+                },
                 child: Text(
                   widget.userEmail,
                   overflow: TextOverflow.ellipsis,
@@ -156,7 +160,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Sieh in deinen Mails oder öffne:",
+                      "Sieh in deinen Mails, oder öffne:",
                       style: Theme.of(context).textTheme.headline,
                     ),
                   ),
@@ -170,16 +174,30 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                   padding: const EdgeInsets.only(bottom: 30),
                   child: SizedBox(
                     width: double.infinity,
-                    child: LableButton(
-                      onPressed: _launchURL,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Icon(OMIcons.email),
-                          Text(
-                            'Edubs Teamwork',
-                          ),
-                        ],
+                    child: ButtonTheme(
+                      child: LableButton(
+                        color: Colors.lightBlue[800],
+                        onPressed: _launchURL,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Icon(
+                              OMIcons.email,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'Edubs Teamwork',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Icon(
+                              Icons.open_in_new,
+                              color: Colors.white,
+                            )
+
+                            //todo same height
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -192,12 +210,13 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
     );
   }
 
+//öffnet url im browser
   _launchURL() async {
     const url = 'https://teamwork.edubs.ch/appsuite/';
     if (await canLaunch(url)) {
-      await launch(url);
+      await launch(url, forceSafariVC: false);
     } else {
-      throw 'Could not launch $url';
+      throw 'Teamwork konnte nicht geöffnet werden';
     }
   }
 }

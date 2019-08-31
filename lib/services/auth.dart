@@ -11,6 +11,7 @@ class AuthService {
   Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
 
   Future<void> signIn(userEmail, link, personalData) async {
+    //TODO Error try catch
     final FirebaseUser user = await _auth
         .signInWithEmailAndLink(
           email: userEmail,

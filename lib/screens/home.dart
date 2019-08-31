@@ -8,19 +8,28 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 30, left: 10, right: 10),
-            child:
-          Text("angemeldet"),
+      body: WillPopScope(
+        onWillPop: () async {
+          Future.value(
+              false); 
+        },
+              child: Column(
           
-          
-          )
-        ],
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+              child:
+            Text("angemeldet"),
+            
+            
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: AppBottomNav(),
     );
   }
+  
 }
+
+       
