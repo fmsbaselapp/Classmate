@@ -28,6 +28,7 @@ dependencies:
   firebase_analytics: ^4.0.1
   cloud_firestore: ^0.12.7
 
+  outline_material_icons: ^0.1.0
   shared_preferences:
   flushbar: ^1.3.1
   firebase_dynamic_links: ^0.5.0

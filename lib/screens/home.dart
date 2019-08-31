@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import '../services/services.dart';
+
 import '../shared/shared.dart';
 
 
 class HomeScreen extends StatelessWidget {
-  AuthService auth = AuthService();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        
         children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 30, left: 10, right: 10),
+            child:
           Text("angemeldet"),
-          RaisedButton(
-            onPressed: () {
-              auth.signOut();
-              Navigator.pushReplacementNamed(context, '/');
-            },
+          
+          
           )
         ],
       ),

@@ -63,7 +63,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 30),
+            padding: EdgeInsets.only(top: 40),
             child: Text(
               'Anmelden',
               style: Theme.of(context).textTheme.title,
@@ -98,7 +98,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             .hasMatch(value)) {
                           return null;
                         } else if (value.isEmpty) {
-                          return 'Bitte gib deine Email Adresse ein.';
+                          return 'Bitte gib deine Edubs Email Adresse ein.';
                         } else if (RegExp("^([a-zA-Z.])+@(edubs\.ch)")
                             .hasMatch(value)) {
                           return 'Lehrpersonen können sich leider nicht anmelden.';

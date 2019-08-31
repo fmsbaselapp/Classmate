@@ -1,8 +1,10 @@
+import 'package:Classmate/shared/button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:Classmate/services/auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 class VerifizierenScreen extends StatefulWidget {
   final userEmail;
@@ -20,6 +22,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
   //Values
   bool _success;
+  
 
 //Check ob Nutzer angemeldet + Dynamic Links
   @override
@@ -99,76 +102,102 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 30),
-              child: Text(
-                "Hey " + widget.personalData[0].toString() + ",",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.title,
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              //hey name
+              Padding(
+                padding: EdgeInsets.only(top: 40),
+                child: Text(
+                  "Hey " + widget.personalData[0].toString(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.title,
+                ),
               ),
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
-              child: Text(
-                "Wir haben eine Email an",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline,
+
+              //text über email button
+              Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: Text(
+                  "Wir haben eine Email an",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline,
+                ),
               ),
-            ),
-            Container(
-              color: Colors.blue,
-              alignment: Alignment.center,
-              padding:
-                  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-              child: Text(
-                widget.userEmail,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline,
+
+              //email button
+              LableButton(
+                onPressed: () {},
+                child: Text(
+                  widget.userEmail,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                "geschickt, mit der du dich anmelden kannst.",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline,
+
+              //text unter email
+              Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 20),
+                child: Text(
+                  "gesendet, mit der du dich\nanmelden kannst.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline,
+                ),
               ),
-            ),
-            RaisedButton(
-              elevation: 100,
-              highlightElevation: 100,
-              onPressed: _launchURL,
-              child: Text(
-                'Teamwork öffnen',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subhead,
+
+              //text über Teamwork öffnen
+              Expanded(
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      "Sieh in deinen Mails oder öffne:",
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            RaisedButton(
-              elevation: 100,
-              highlightElevation: 100,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Email bearbeiten'),
-            )
-          ],
+
+              //Teamwork öffnen
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 30),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: LableButton(
+                      onPressed: _launchURL,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Icon(OMIcons.email),
+                          Text(
+                            'Edubs Teamwork',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
-_launchURL() async {
-  const url = 'https://teamwork.edubs.ch/appsuite/';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+
+  _launchURL() async {
+    const url = 'https://teamwork.edubs.ch/appsuite/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
