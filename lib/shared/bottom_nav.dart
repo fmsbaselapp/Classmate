@@ -1,10 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 
 class AppBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
+    return
+ PlatformNavBar(/*
+  currentIndex: _selectedTabIndex,
+  itemChanged: (index) => setState(
+        () {
+          _selectedTabIndex = index;
+        },
+      ),*/
+  items: [
+     BottomNavigationBarItem(
+            icon: Icon(Icons.hourglass_empty, size: 20),
+            title: Text('Topics')),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.adb, size: 20),
+            title: Text('About')),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.verified_user, size: 20),
+            title: Text('Profile')),
+            
+      ].toList(),
+      
+  
+  android: (_) => MaterialNavBarData(),
+  ios: (_) => CupertinoTabBarData(),
+);
+  }
+}
+
+
+/*
+
+
+return BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
             icon: Icon(Icons.hourglass_empty, size: 20),
@@ -31,5 +64,4 @@ class AppBottomNav extends StatelessWidget {
         }
       },
     );
-  }
-}
+    */

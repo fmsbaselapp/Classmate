@@ -1,7 +1,3 @@
-import 'dart:math';
-
-import 'package:provider/provider.dart';
-
 //// Embedded Maps
 
 class Option {
@@ -98,42 +94,64 @@ class Report {
   }
 }
 
+class Name {
+  nameAusEmail(userEmail) async {
+    String emailInput = userEmail;
+    String vorname;
+    String nachname;
+    String email;
 
-class Name{
-nameAusEmail(userEmail) async {
-  String emailInput = userEmail;
-  String vorname;
-  String nachname;
-  String email;
+    //leerzeichen wegmachen
+    var email1 = emailInput.trim();
 
-  //leerzeichen wegmachen
-  var email1 = emailInput.trim();
+    //email kleingeschrieben
+    email = email1.toLowerCase();
 
-  //email kleingeschrieben
-   email = email1.toLowerCase();
+    //@stud.edubs.ch wegmachen
+    var email2 = email.replaceAll(RegExp('@stud.edubs.ch'), '');
 
-  //@stud.edubs.ch wegmachen
-  var email2 = email.replaceAll(RegExp('@stud.edubs.ch'), '');
+    //vor,nachname splitten
+    var email4 = email2.split('.');
 
-  //vor,nachname splitten
-  var email4 = email2.split('.');
+    //kleingeschribener vorname
+    var vornameKlein = email4.first;
+    vorname = vornameKlein[0].toUpperCase() +
+        vornameKlein.substring(1); //grossschreiben
 
-  //kleingeschribener vorname
-  var vornameKlein = email4.first;
-      vorname = vornameKlein[0].toUpperCase() +
-      vornameKlein.substring(1); //grossschreiben
+    //kleingeschribener nachname
+    var nachnameKlein = email4.last;
+    nachname = nachnameKlein[0].toUpperCase() +
+        nachnameKlein.substring(1); //grossschreiben
 
-  //kleingeschribener nachname
-  var nachnameKlein = email4.last;
-      nachname = nachnameKlein[0].toUpperCase() +
-      nachnameKlein.substring(1); //grossschreiben
+    print('Vorname: ' + vorname);
+    print('Nachname: ' + nachname);
+    print('Email: ' + email);
 
-  print('Vorname: ' + vorname);
-  print('Nachname: ' + nachname);
-  print('Email: ' + email);
-
-  var personalData = [vorname, nachname, email];
-  return personalData;
- //return [vorname, nachname, email];
+    var personalData = [vorname, nachname, email];
+    return personalData;
+    //return [vorname, nachname, email];
+  }
 }
+
+class Ausfall {
+  final String klasse;
+  final String zeit;
+  final String grund;
+  final String raum;
+
+  Ausfall({
+    this.klasse,
+    this.zeit,
+    this.grund,
+    this.raum,
+  });
+
+ factory Ausfall.fromMap(Map data){
+   return Ausfall(
+     klasse: data['klasse'],
+     zeit: data['zeit'],
+     grund: data['grund'],
+     raum: data['raum'],
+   );
+ }
 }
