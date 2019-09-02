@@ -1,24 +1,34 @@
+import 'package:Classmate/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
-Future<void> neverSatisfied(context) async {
-  return showCupertinoDialog<void>(
+Future<void> emailAction(context, userEmail) async {
+  AuthService auth = AuthService();
+  return showCupertinoModalPopup<void>(
     context: context,
-    
     builder: (BuildContext context) {
-      return CupertinoAlertDialog(
-        title: Text('Rewind and remember'),
-        
+      return CupertinoActionSheet(
         actions: <Widget>[
-          FlatButton(
-            child: Text('Regret'),
+          CupertinoActionSheetAction(
+            child: Text('Email bearbeiten'),
             onPressed: () {
-              Navigator.of(context).pop();
+              int _count = 0;
+              Navigator.of(context).popUntil((_) => _count++ >= 2);
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: Text('Email erneut senden'),
+            onPressed: () {
+              auth.signInWithEmailAndLink(userEmail);
+              Navigator.pop(context, 'Email erneut senden');
+              //TODO Feedback
             },
           ),
         ],
+        cancelButton: CupertinoActionSheetAction(
+          child: Text('Abbrechen'),
+          onPressed: () => Navigator.pop(context, 'Abbrechen'),
+        ),
       );
     },
   );

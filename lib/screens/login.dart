@@ -43,19 +43,6 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  //Email Link senden
-  Future<void> _signInWithEmailAndLink() async {
-    print(userEmail);
-    return await _auth.sendSignInWithEmailLink(
-      email: userEmail,
-      url: 'https://appclassmate.page.link/verification',
-      handleCodeInApp: true,
-      iOSBundleID: 'ch.classmate.app',
-      androidPackageName: 'ch.classmate.app',
-      androidInstallIfNotAvailable: true,
-      androidMinimumVersion: "1",
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +85,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             userEmail = _emailController.text;
                             final personalData =
                                 await Name().nameAusEmail(userEmail);
-                            await _signInWithEmailAndLink()
+                            await auth.signInWithEmailAndLink(userEmail)
                                 .catchError((onError) => _sentEmail = false);
                             _sentEmail = true;
 
@@ -142,7 +129,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           userEmail = _emailController.text;
                           final personalData =
                               await Name().nameAusEmail(userEmail);
-                          await _signInWithEmailAndLink()
+                          await auth.signInWithEmailAndLink(userEmail)
                               .catchError((onError) => _sentEmail = false);
                           _sentEmail = true;
 

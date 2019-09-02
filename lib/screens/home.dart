@@ -27,14 +27,15 @@ class HomeScreen extends StatelessWidget {
             child: Text('Einstellungen'),
           ),
           StreamBuilder(
-            stream: Firestore.instance.collection('posts').document('').snapshots(),
+             stream:
+                Firestore.instance.collection('posts').snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 //todo loadding
                 return Text("Loading..",
                     style: Theme.of(context).textTheme.title);
-              } 
-                return ListView.builder(
+              }
+              return ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                  
@@ -43,11 +44,11 @@ class HomeScreen extends StatelessWidget {
                     return _buildList(context, snapshot.data.documents[index]);
                   },
                 );
-              
             },
-          ),
+          )
         ],
       ),
     );
   }
 }
+

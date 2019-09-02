@@ -133,7 +133,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
               //email button
               LableButton(
-                onPressed: () => neverSatisfied(context),
+                onPressed: () => emailAction(context, widget.userEmail),
                 child: Text(
                   widget.userEmail,
                   overflow: TextOverflow.ellipsis,
