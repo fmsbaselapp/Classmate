@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 //// Embedded Maps
 
 class Option {
@@ -134,24 +136,43 @@ class Name {
 }
 
 class Ausfall {
-  final String klasse;
   final String zeit;
   final String grund;
   final String raum;
 
   Ausfall({
-    this.klasse,
     this.zeit,
     this.grund,
     this.raum,
   });
 
- factory Ausfall.fromMap(Map data){
-   return Ausfall(
-     klasse: data['klasse'],
-     zeit: data['zeit'],
-     grund: data['grund'],
-     raum: data['raum'],
-   );
- }
+  factory Ausfall.fromMap(Map data) {
+    return Ausfall(
+      zeit: data['zeit'] ?? 'keine zeit',
+      grund: data['grund'] ?? 'kein grund',
+      raum: data['raum'] ?? 'kein raum',
+    );
+  }
+}
+
+class Weapon {
+  final String id;
+  final String name;
+  final int hitpoints;
+
+  Weapon({
+    this.id,
+    this.name,
+    this.hitpoints,
+  });
+
+  factory Weapon.fromFirestore(DocumentSnapshot doc) {
+    Map data = doc.data;
+
+    return Weapon(
+      id: doc.documentID,
+      name: data['name'] ?? 'kein grund',
+      hitpoints: data['hitpoints'] ?? 'kein raum',
+    );
+  }
 }

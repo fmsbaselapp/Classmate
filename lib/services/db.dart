@@ -85,18 +85,14 @@ class UserData<T> {
   }
 }
 
-class Ausfaelle {
+class DatabaseService {
   final Firestore _db = Firestore.instance;
 
-  Future<Ausfall> getAusfall(Map tag)async{
-    var snap = await _db.collection('Ausfälle').document('FMS Basel').get();
+  Stream<List<Weapon>> streamWeapons(FirebaseUser user) {
+    var ref = _db.collection('weapons');
 
-    return Ausfall.fromMap(snap.data);
-    
-    
-  }
-  Stream<Ausfall> streamAusfall(Map tag){
-
-    return _db.collection('Ausfälle').document('FMS Basel').snapshots().map((snap) => Ausfall.fromMap(snap.data));
+    return ref
+        .snapshots()
+        .map((list) => list.documents.map((doc) => Weapon.fromFirestore(doc)).toList());
   }
 }
