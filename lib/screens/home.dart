@@ -68,8 +68,12 @@ class HomeScreen extends StatelessWidget {
               }
             },
           ),
-          StreamProvider<List<Weapon>>.value(
-            stream: db,
+          SmallButton(
+            child: Text('Map Test'),
+            onPressed: () {
+
+          
+            },
           )
         ],
       ),

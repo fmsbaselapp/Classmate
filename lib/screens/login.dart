@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:Classmate/services/auth.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
 class LoginScreen extends StatefulWidget {
   @override

@@ -155,24 +155,19 @@ class Ausfall {
   }
 }
 
+
+class SuperHero {
+  final String name;
+  final int strength;
+
+  SuperHero({this.name, this.strength});
+}
+
 class Weapon {
   final String id;
   final String name;
   final int hitpoints;
 
-  Weapon({
-    this.id,
-    this.name,
-    this.hitpoints,
-  });
+  Weapon({this.id, this.name, this.hitpoints});
 
-  factory Weapon.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data;
-
-    return Weapon(
-      id: doc.documentID,
-      name: data['name'] ?? 'kein grund',
-      hitpoints: data['hitpoints'] ?? 'kein raum',
-    );
-  }
 }
