@@ -18,22 +18,28 @@ class HomeScreen extends StatelessWidget {
 
             //if snapshot has data:
           } else {
+            //listview builder
             return ListView.builder(
+              //document counter
               itemCount: snapshot.data.documents.length,
-              itemBuilder: (context, index) {
-                List<int> doc = snapshot.data.documents[0];
-                //Map<String, dynamic> ausfallCounter1 = snapshot.data.data;
-                return Text(doc.toString());
-                /*Column(
+              itemBuilder: (context, indexDocument) {
+                
+                //array counter
+               Map<String, dynamic> ausfallCounter =
+                   snapshot.data.documents[indexDocument].data;
+                return Column(
+                  
                   children: <Widget>[
+                    ListTile(title: Text(snapshot.data.documents[indexDocument].documentID),),
                     ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: ausfallCounter1.length,
+                      itemCount: ausfallCounter.length,
                       itemBuilder: (context, index) {
                         List<String> ausfall =
-                            List.from(snapshot.data[index.toString()]);
+                            List.from(snapshot.data.documents[indexDocument].data[index.toString()]);
+
                         return Card(
                           child: Column(
                             children: <Widget>[
@@ -54,38 +60,8 @@ class HomeScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: ausfallCounter.length,
-                      itemBuilder: (context, index) {
-                        List<String> ausfall =
-                            List.from(snapshot.data[index.toString()]);
-                        return Card(
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                ausfall[0], //first element from array
-                                style: Theme.of(context).textTheme.subtitle,
-                              ),
-                              Text(
-                                ausfall[1], //second element from array
-                                style: Theme.of(context).textTheme.subtitle,
-                              ),
-                              Text(
-                                ausfall[2], //third element from array
-                                style: Theme.of(context).textTheme.subtitle,
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    )
                   ],
-                  
                 );
-                */
               },
             );
           }
