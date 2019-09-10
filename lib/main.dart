@@ -35,11 +35,12 @@ class Classmate extends StatelessWidget {
           // Named Routes
           onUnknownRoute: null,//TODO
           routes: {
-            '/': (context) => LandingScreen(),
+            //'/': (context) => LandingScreen(),
+            '/': (context) => HomeScreen(),
             '/login': (context) => LoginScreen(),
             '/home': (context) => HomeScreen(),
             '/profile': (context) => ProfileScreen(),
-            '/about': (context) => AboutScreen(),
+            '/settings': (context) => SettingsScreen(),
           },
           // Firebase Analytics
           navigatorObservers: [

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import './globals.dart';
@@ -85,14 +86,11 @@ class UserData<T> {
   }
 }
 
-class DatabaseService {
+class Ausfaelle<T> {
   final Firestore _db = Firestore.instance;
-
-  Stream<List<Weapon>> streamWeapons(FirebaseUser user) {
-    var ref = _db.collection('weapons');
-
-    return ref
-        .snapshots()
-        .map((list) => list.documents.map((doc) => Weapon.fromFirestore(doc)).toList());
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Stream<T> get documentStream {
+    Document<T> doc = Document<T>(path: 'FMS Basel/Dienstag');
+    return doc.streamData();
   }
 }

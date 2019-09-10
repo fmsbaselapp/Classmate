@@ -15,11 +15,12 @@ class Global {
     Topic: (data) => Topic.fromMap(data),
     Quiz: (data) => Quiz.fromMap(data),
     Report: (data) => Report.fromMap(data),
+    Ausfall: (data) => Ausfall.fromMap(data),
   };
 
   // Firestore References for Writes
   //static final Collection<Topic> topicsRef = Collection<Topic>(path: 'topics');
   static final UserData<Report> reportRef = UserData<Report>(collection: 'Nutzer'); 
-
+ static final Collection<Ausfall> ausfallRef = Collection<Ausfall>(path: 'FMS Basel');
   
 }

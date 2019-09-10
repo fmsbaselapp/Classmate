@@ -80,21 +80,6 @@ class Topic {
   }
 }
 
-class Report {
-  String uid;
-  int total;
-  dynamic topics;
-
-  Report({this.uid, this.topics, this.total});
-
-  factory Report.fromMap(Map data) {
-    return Report(
-      uid: data['uid'],
-      total: data['total'] ?? 0,
-      topics: data['topics'] ?? {},
-    );
-  }
-}
 
 class Name {
   nameAusEmail(userEmail) async {
@@ -135,39 +120,51 @@ class Name {
   }
 }
 
+
+
+class Report {
+  String uid;
+  int total;
+  dynamic topics;
+
+  Report({ this.uid, this.topics, this.total });
+
+  factory Report.fromMap(Map data) {
+    return Report(
+      uid: data['uid'],
+      total: data['total'] ?? 0,
+      topics: data ?? {},
+    );
+  }
+
+}
+
+
+//Works!
 class Ausfall {
-  final String zeit;
-  final String grund;
-  final String raum;
+  dynamic ausfall;
 
   Ausfall({
-    this.zeit,
-    this.grund,
-    this.raum,
+    this.ausfall,
   });
 
   factory Ausfall.fromMap(Map data) {
     return Ausfall(
-      zeit: data['zeit'] ?? 'keine zeit',
-      grund: data['grund'] ?? 'kein grund',
-      raum: data['raum'] ?? 'kein raum',
+      ausfall: data ?? {},
     );
   }
 }
 
+class AusfallCounter {
+  dynamic ausfallCounter;
 
-class SuperHero {
-  final String name;
-  final int strength;
+  AusfallCounter({
+    this.ausfallCounter,
+  });
 
-  SuperHero({this.name, this.strength});
-}
-
-class Weapon {
-  final String id;
-  final String name;
-  final int hitpoints;
-
-  Weapon({this.id, this.name, this.hitpoints});
-
+  factory AusfallCounter.fromMap(Map data) {
+    return AusfallCounter(
+      ausfallCounter: data ?? {},
+    );
+  }
 }

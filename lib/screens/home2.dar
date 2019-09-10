@@ -1,0 +1,109 @@
+import 'package:Classmate/services/db.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import '../shared/shared.dart';
+import 'package:Classmate/services/services.dart';
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100.0),
+        child: PlatformAppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          android: (_) => MaterialAppBarData(),
+          ios: (_) => CupertinoNavigationBarData(),
+          title: new Text(
+            'Ausfälle',
+            style: Theme.of(context).textTheme.title,
+          ),
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 10, bottom: 20),
+            child: SmallButton(
+              onPressed: () => Navigator.pushNamed(context, '/settings'),
+              child: Text('Einstellungen'),
+            ),
+          ),
+          /*SmallButton(
+            child: Text('Datenbank'),
+            onPressed: () {
+              // This points to the collection called 'cities'
+              var query = Firestore.instance.collection('cities');
+              query.getDocuments().then(
+                (querySnapshot) {
+                  
+                  
+                  var data = querySnapshot.documents.map(
+                    (documentSnapshot) {
+                      
+                      
+                      print(documentSnapshot.data.map(f));
+                    },
+                  );
+                  // get the data of all the documents into an array
+                },
+              );
+            },
+          ),*/
+
+          StreamBuilder(
+            stream: Firestore.instance
+                .collection('FMS Basel')
+                .document('Dienstag')
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                //todo loadding
+
+                return Text("Loading..",
+                    style: Theme.of(context).textTheme.title);
+              } else {
+                List<Ausfall> ausfall = List.from(snapshot.data);
+                print(ausfall);
+                ausfall.forEach((f)=>
+                 ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: Column(
+                        children: <Widget>[
+                          /*
+                          Text(
+                            ausfall[0],
+                            style: Theme.of(context).textTheme.subtitle,
+                          ),
+                          Text(
+                            ausfall[1],
+                            style: Theme.of(context).textTheme.subtitle,
+                          ),
+                          Text(
+                            ausfall,
+                            style: Theme.of(context).textTheme.subtitle,
+                            
+                          ),
+                          */
+                        ],
+                      ),
+                    );
+                  },
+                )
+                );
+                
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
