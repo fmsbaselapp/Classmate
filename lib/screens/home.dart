@@ -71,17 +71,15 @@ class HomeScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 20),
                               child: StickyHeader(
                                 header: Stack(
-                                  
                                   children: <Widget>[
-                                    Positioned(
-                                      
-                                      bottom: 20,
-                                      child: Container(
-                                        height: 60,
+                                  
+                                   
+                                       Container(
+                                        height: 30,
                                         width: double.infinity,
-                                        color: Colors.lightBlue,
+                                        color: Colors.white,
                                       ),
-                                    ),
+                                    
                                     LableFettExtended(
                                       margin: paddingSite,
                                       text: snapshot.data
