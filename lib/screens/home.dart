@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
                 const EdgeInsets.only(left: paddingSite, right: paddingSite),
             child: Container(
               width: double.infinity,
-              height: 90,
+              height: 70,
               child: Padding(
                 padding: const EdgeInsets.only(
                   top: 30,
@@ -36,7 +36,9 @@ class HomeScreen extends StatelessWidget {
           //liste mit ausfällen und tagen
           Flexible(
             child: StreamBuilder(
-              stream: Firestore.instance.collection('FMS Basel').snapshots(),
+              stream: Firestore.instance
+                  .collection('FMS Basel')
+                  .snapshots(),
               builder: (context, snapshot) {
                 //check if snapshot has data
                 if (!snapshot.hasData) {
@@ -69,13 +71,15 @@ class HomeScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 20),
                               child: StickyHeader(
                                 header: Stack(
+                                  
                                   children: <Widget>[
                                     Positioned(
                                       
+                                      bottom: 20,
                                       child: Container(
-                                        height: double.infinity,
+                                        height: 60,
                                         width: double.infinity,
-                                        color: Colors.blue,
+                                        color: Colors.lightBlue,
                                       ),
                                     ),
                                     LableFettExtended(
@@ -104,31 +108,39 @@ class HomeScreen extends StatelessWidget {
                                       margin: EdgeInsets.only(
                                           left: (paddingSite + 10),
                                           right: (paddingSite + 10),
-                                          top: paddingSite),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Text(
-                                            ausfall[
-                                                0], //first element from array
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subhead,
-                                          ),
-                                          Text(
-                                            ausfall[
-                                                1], //second element from array
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subhead,
-                                          ),
-                                          Text(
-                                            ausfall[
-                                                2], //third element from array
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subhead,
-                                          ),
-                                        ],
+                                          top: (paddingSite + 5)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Column(
+                                          
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: <Widget>[
+                                            
+                                            Text(
+                                              ausfall[
+                                                  0], //first element from array
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .button,
+                                            ),
+                                            Text(
+                                              ausfall[
+                                                  1], //second element from array
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subhead,
+                                            ),
+                                            Text(
+                                              ausfall[
+                                                  2], //third element from array
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subhead,
+                                            ),
+                                            
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },
