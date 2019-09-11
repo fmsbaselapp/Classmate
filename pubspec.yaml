@@ -38,6 +38,8 @@ dependencies:
   firebase_auth: ^0.11.1+10
 
   url_launcher: ^5.1.2
+  sticky_headers: "^0.1.8"
+
   rxdart: ^0.21.0
   provider: 2.0.0+1
 
