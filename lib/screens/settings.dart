@@ -44,7 +44,8 @@ class SettingsScreen extends StatelessWidget {
                 LableButtonExtended(
                   paddingTop: 40,
                   child: Text('Teamwork öffnen'),
-                  onPressed: () {},
+                  onPressed: () {
+                    _launchURL();},
                 ),
                 LableButtonExtended(
                   paddingTop: 10,

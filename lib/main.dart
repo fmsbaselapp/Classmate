@@ -18,6 +18,8 @@ class Classmate extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
+        
+
       ],
       child: Theme(
         data: ThemeData(
@@ -34,10 +36,9 @@ class Classmate extends StatelessWidget {
         ),
         child: PlatformApp(
           // Named Routes
-          onUnknownRoute: null,//TODO
+          onUnknownRoute: null, //TODO
           routes: {
-            //'/': (context) => LandingScreen(),
-            '/': (context) => HomeScreen(),
+            '/': (context) => LandingScreen(),
             '/login': (context) => LoginScreen(),
             '/home': (context) => HomeScreen(),
             '/profile': (context) => ProfileScreen(),
