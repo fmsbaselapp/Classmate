@@ -28,40 +28,49 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            
-            children: <Widget>[
-              LableButtonExtended(
-                child: Text('Teamwork öffnen'),
-                onPressed: _launchURL,
-              ),
-              LableButtonExtended(
-                child: Text('Gratis Office, Word, Powerpoint'),
-                onPressed: () {},
-              ),
-              LableButtonExtended(
-                child: Text('Abmelden'),
-                onPressed: () {
-                  auth.signOut();
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-              ),
-              LableButtonExtended(
-                child: Text('Nutzungsbedingungen'),
-                onPressed: () {
-                  auth.signOut();
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-              ),
-              LableButtonExtended(
-                child: Text('Datenschutzerklärung'),
-                onPressed: () {
-                  auth.signOut();
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Column(
+              
+              crossAxisAlignment: CrossAxisAlignment.start,
+              
+              children: <Widget>[
+                LableButtonExtended(
+                  paddingTop: 20,
+                  child: Text('Teamwork öffnen'),
+                  onPressed: _launchURL,
+                ),
+                LableButtonExtended(
+                   paddingTop: 10,
+                  child: Text('Gratis Office, Word, Powerpoint'),
+                  onPressed: () {},
+                ),
+                LableButtonExtended(
+                   paddingTop: 10,
+                  child: Text('Abmelden'),
+                  onPressed: () {
+                    auth.signOut();
+                    Navigator.pushReplacementNamed(context, '/');
+                  },
+                ),
+                LableButtonExtended(
+                   paddingTop: 10,
+                  child: Text('Nutzungsbedingungen'),
+                  onPressed: () {
+                    auth.signOut();
+                    Navigator.pushReplacementNamed(context, '/');
+                  },
+                ),
+                LableButtonExtended(
+                   paddingTop: 10,
+                  child: Text('Datenschutzerklärung'),
+                  onPressed: () {
+                    auth.signOut();
+                    Navigator.pushReplacementNamed(context, '/');
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -79,16 +79,19 @@ class RoundButton extends StatelessWidget {
 }
 
 class LableButtonExtended extends StatelessWidget {
-  LableButtonExtended({@required this.onPressed, this.child, this.color});
+  LableButtonExtended({@required this.onPressed, this.child, this.color, this.paddingTop, this.paddingBottom, this.paddingLeft, this.paddingRight});
   GestureTapCallback onPressed;
   var child;
   var color;
-  
+  double paddingTop;
+  double paddingBottom;
+  double paddingLeft;
+  double paddingRight;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(top: paddingTop ?? 0, bottom: paddingBottom ?? 0, left: paddingLeft ?? 0, right: paddingRight ?? 0),
       child: SizedBox(
         width: double.infinity,
         child: RawMaterialButton(

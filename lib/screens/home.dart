@@ -151,6 +151,13 @@ class HomeScreen extends StatelessWidget {
                                                   .textTheme
                                                   .subhead,
                                             ),
+                                            Text(
+                                              ausfall[
+                                                  3], //third element from array
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subhead,
+                                            ),
                                           ],
                                         ),
                                       ),
