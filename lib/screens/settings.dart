@@ -5,20 +5,16 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatelessWidget {
-
-
-  
   @override
   Widget build(BuildContext context) {
-  bool toBeMergedWithAncestors = false;
-  bool allowDescendantsToAddSemantics = false;
+    bool toBeMergedWithAncestors = false;
+    bool allowDescendantsToAddSemantics = false;
 
     AuthService auth = AuthService();
     return Semantics(
-
       container: toBeMergedWithAncestors,
-    explicitChildNodes: allowDescendantsToAddSemantics,
-          child: Scaffold(
+      explicitChildNodes: allowDescendantsToAddSemantics,
+      child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(100.0),
           child: PlatformAppBar(
@@ -33,32 +29,32 @@ class SettingsScreen extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            
             children: <Widget>[
-              LableButton(
+              LableButtonExtended(
                 child: Text('Teamwork öffnen'),
                 onPressed: _launchURL,
               ),
-              LableButton(
+              LableButtonExtended(
                 child: Text('Gratis Office, Word, Powerpoint'),
                 onPressed: () {},
               ),
-              LableButton(
+              LableButtonExtended(
                 child: Text('Abmelden'),
                 onPressed: () {
                   auth.signOut();
                   Navigator.pushReplacementNamed(context, '/');
                 },
               ),
-                  LableButton(
+              LableButtonExtended(
                 child: Text('Nutzungsbedingungen'),
                 onPressed: () {
                   auth.signOut();
                   Navigator.pushReplacementNamed(context, '/');
                 },
               ),
-                  LableButton(
+              LableButtonExtended(
                 child: Text('Datenschutzerklärung'),
                 onPressed: () {
                   auth.signOut();

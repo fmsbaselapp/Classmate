@@ -2,6 +2,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Classmate/shared/shared.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 const double paddingSite = 10;
 
@@ -25,9 +26,23 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   top: 30,
                 ),
-                child: Text(
-                  'Stundenausfälle',
-                  style: Theme.of(context).textTheme.title,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Ausfälle',
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                    RoundButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/settings');
+                      },
+                      child: Icon(
+                        OMIcons.settings,
+                        size: 30,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -37,22 +52,23 @@ class HomeScreen extends StatelessWidget {
           Flexible(
             child: StreamBuilder(
               stream: Firestore.instance
-                  .collection('FMS Basel')
+                  .collection('Gymnasium Leonhard')
                   .snapshots(),
               builder: (context, snapshot) {
                 //check if snapshot has data
                 if (!snapshot.hasData) {
-                  return Text("Loading..",
+                  return Text("Lädt..",
                       style: Theme.of(context).textTheme.title); //TODO loading
 
                   //if snapshot has data:
                 } else {
                   if (snapshot.data.documents.length == 0) {
                     print('keine Dokumente');
-                    return Center(
-                      child: Text(
-                        'keine Ausfälle',
-                        style: Theme.of(context).textTheme.title,
+
+                    return Padding(
+                      padding: const EdgeInsets.only(top: paddingSite),
+                      child: LableFettExtended(
+                        text: 'Keine Ausfälle',
                       ),
                     );
                   } else {
@@ -72,18 +88,17 @@ class HomeScreen extends StatelessWidget {
                               child: StickyHeader(
                                 header: Stack(
                                   children: <Widget>[
-                                  
-                                   
-                                       Container(
-                                        height: 30,
-                                        width: double.infinity,
-                                        color: Colors.white,
-                                      ),
-                                    
+                                    Container(
+                                      height: 30,
+                                      width: double.infinity,
+                                      color: Colors.white,
+                                    ),
                                     LableFettExtended(
                                       margin: paddingSite,
                                       text: snapshot.data
-                                          .documents[indexDocument].documentID,
+                                          .documents[indexDocument].documentID
+                                          .toString()
+                                          .substring(1),
                                     ),
                                   ],
                                   overflow: Overflow.visible,
@@ -103,18 +118,18 @@ class HomeScreen extends StatelessWidget {
 
                                     //Ausfall Karten
                                     return Card(
+                                      elevation: 5,
                                       margin: EdgeInsets.only(
                                           left: (paddingSite + 10),
                                           right: (paddingSite + 10),
                                           top: (paddingSite + 5)),
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 10),
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
                                         child: Column(
-                                          
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: <Widget>[
-                                            
                                             Text(
                                               ausfall[
                                                   0], //first element from array
@@ -136,7 +151,6 @@ class HomeScreen extends StatelessWidget {
                                                   .textTheme
                                                   .subhead,
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
