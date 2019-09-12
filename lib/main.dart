@@ -1,3 +1,4 @@
+import 'package:Classmate/screens/schoolSelect.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -41,6 +42,7 @@ class Classmate extends StatelessWidget {
             '/home': (context) => HomeScreen(),
             '/profile': (context) => ProfileScreen(),
             '/settings': (context) => SettingsScreen(),
+            '/schoolSelect': (context) => SchoolSelectScreen(),
           },
           // Firebase Analytics
           navigatorObservers: [

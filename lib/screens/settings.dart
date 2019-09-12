@@ -31,22 +31,28 @@ class SettingsScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Column(
-              
               crossAxisAlignment: CrossAxisAlignment.start,
-              
               children: <Widget>[
                 LableButtonExtended(
                   paddingTop: 20,
-                  child: Text('Teamwork öffnen'),
-                  onPressed: _launchURL,
+                  child: Text('Meine Schule'),
+                  onPressed: (){
+                     Navigator.pushNamed(context, '/schoolSelect');
+                  }
+                  
                 ),
                 LableButtonExtended(
-                   paddingTop: 10,
+                  paddingTop: 40,
+                  child: Text('Teamwork öffnen'),
+                  onPressed: () {},
+                ),
+                LableButtonExtended(
+                  paddingTop: 10,
                   child: Text('Gratis Office, Word, Powerpoint'),
                   onPressed: () {},
                 ),
                 LableButtonExtended(
-                   paddingTop: 10,
+                  paddingTop: 40,
                   child: Text('Abmelden'),
                   onPressed: () {
                     auth.signOut();
@@ -54,7 +60,7 @@ class SettingsScreen extends StatelessWidget {
                   },
                 ),
                 LableButtonExtended(
-                   paddingTop: 10,
+                  paddingTop: 40,
                   child: Text('Nutzungsbedingungen'),
                   onPressed: () {
                     auth.signOut();
@@ -62,7 +68,7 @@ class SettingsScreen extends StatelessWidget {
                   },
                 ),
                 LableButtonExtended(
-                   paddingTop: 10,
+                  paddingTop: 10,
                   child: Text('Datenschutzerklärung'),
                   onPressed: () {
                     auth.signOut();

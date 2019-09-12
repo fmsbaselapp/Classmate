@@ -27,14 +27,5 @@ class LableFettExtended extends StatelessWidget {
       ),
     );
   }
-/*
-  //button color
-  double getMargin() {
-    if (margin != null) {
-      return margin;
-    } else {
-      return 0;
-    }
-  }
-  */
 }
+
