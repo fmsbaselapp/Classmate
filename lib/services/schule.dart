@@ -1,30 +1,37 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:async';
+
 
 import 'package:provider/provider.dart';
 
-class SchuleService {
-  Future<String> get getSchule => schule();
-
-  Future<void> schule() {
-    Widget build(BuildContext context) {
-      FirebaseUser user = Provider.of<FirebaseUser>(context);
-
-      Firestore.instance
+class SchuleService extends StatelessWidget {
+  String schule;
+  @override
+  Widget build(BuildContext context) {
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
+    return StreamBuilder(
+      stream: Firestore.instance
           .collection('Nutzer')
           .document(user.uid)
-          .get()
-          .then((asyncSnapshot) {
-        if (asyncSnapshot.exists) {
-          return asyncSnapshot.data['Schule'].toString();
+          .snapshots(),
+      builder: (context, snapshot) {
+        //check if snapshot has data
+        if (!snapshot.hasData) {
+          return Text("Lädt..",
+              style: Theme.of(context).textTheme.title); //TODO loading
+
+          //if snapshot has data:
         } else {
-          print('nicht angemeldet');
-          Navigator.pushReplacementNamed(context, '/login');
+          print('Schule');
+          String schule = snapshot.data['Schule'];
+          return null;
         }
-      });
-    }
+      },
+    );
+    
   }
-  // (DocumentSnapshot) => print(DocumentSnapshot.data['Schule'].toString()));
+
 }

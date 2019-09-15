@@ -138,7 +138,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
 
                     final Firestore _db = Firestore.instance;
                     FirebaseUser user = Provider.of<FirebaseUser>(context);
-                    if (user = null) {
+                    if (user != null) {
                       Future<void> loadSchool(FirebaseUser user) {
                         DocumentReference reportRef =
                             _db.collection('Nutzer').document(user.uid);

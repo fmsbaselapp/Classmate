@@ -31,7 +31,10 @@ class Classmate extends StatelessWidget {
               title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
               headline: TextStyle(fontSize: 16, fontFamily: 'MaaxMedium'),
               subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
-              button: TextStyle(fontSize: 16, fontFamily: 'MaaxBold')),
+              button: TextStyle(fontSize: 16, fontFamily: 'MaaxBold'),
+              body2: TextStyle(fontSize: 16, fontFamily: 'MaaxBold', color: Colors.white),
+              ),
+             
           buttonTheme: ButtonThemeData(),
         ),
         child: PlatformApp(
