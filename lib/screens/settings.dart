@@ -77,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
               child: Text('Abmelden'),
               onPressed: () {
                 auth.signOut();
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushNamed(context, '/');
               },
             ),
             LableButtonExtended(

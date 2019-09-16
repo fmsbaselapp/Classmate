@@ -41,7 +41,8 @@ class AuthService {
     return reportRef.setData({
       'Vorname': personalData[0],
       'Nachname': personalData[1],
-      'Email': personalData[2]
+      'Email': personalData[2],
+      'Schule': '0',
     }, merge: true);
   }
 

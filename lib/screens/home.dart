@@ -1,10 +1,38 @@
 import 'package:Classmate/screens/schoolSelect.dart';
+import 'package:Classmate/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Classmate/shared/shared.dart';
+
+class HomeScreenChecker extends StatelessWidget {
+  const HomeScreenChecker({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
+    return Container(
+      child: StreamBuilder(
+        stream: Firestore.instance
+            .collection('Nutzer')
+            .document(user.uid)
+            .snapshots(),
+        builder: (context, snapshotSchule) {
+          String schule = snapshotSchule.data['Schule'];
+          if (schule == '0') {
+            return SchoolSelectScreenFirst(); // first time
+          } else  if(schule.isNotEmpty){
+            return HomeScreen();
+          }else {LandingScreen();}
+          
+        },
+        
+      ),
+    );
+  }
+}
 
 const double paddingSite = 10;
 

@@ -43,7 +43,7 @@ class Classmate extends StatelessWidget {
           routes: {
             '/': (context) => LandingScreen(),
             '/login': (context) => LoginScreen(),
-            '/home': (context) => HomeScreen(),
+            '/home': (context) => HomeScreenChecker(),
             '/profile': (context) => ProfileScreen(),
             '/settings': (context) => SettingsScreen(),
             '/schoolSelect': (context) => SchoolSelectScreen(),
