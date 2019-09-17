@@ -86,11 +86,16 @@ class UserData<T> {
   }
 }
 
+/*
 class Ausfaelle<T> {
-  final Firestore _db = Firestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  Stream<T> get documentStream {
-    Document<T> doc = Document<T>(path: 'FMS Basel/Dienstag');
-    return doc.streamData();
+  Stream<Ausfall> streamWeapons(FirebaseUser user) {
+    final Firestore _db = Firestore.instance;
+
+    return _db
+        .collection('heroes')
+        .document(user.uid)
+        .snapshots()
+        .map((snap) => Ausfall.fromMap(snap.data));
   }
 }
+*/

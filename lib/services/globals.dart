@@ -15,7 +15,9 @@ class Global {
     Topic: (data) => Topic.fromMap(data),
     Quiz: (data) => Quiz.fromMap(data),
     Report: (data) => Report.fromMap(data),
-    Ausfall: (data) => Ausfall.fromMap(data),
+    Ausfall: (data) => Ausfall.fromList(data),
+
+    Schule: (data) => Schule.fromMap(data),
   };
 
   // Firestore References for Writes

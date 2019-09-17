@@ -142,29 +142,41 @@ class Report {
 
 //Works!
 class Ausfall {
-  dynamic ausfall;
+  String klasse;
+  String zeit;
+  String grund;
+  String raum;
+  
 
   Ausfall({
-    this.ausfall,
+   this.klasse, this.zeit, this.grund, this.raum, 
   });
 
-  factory Ausfall.fromMap(Map data) {
+  factory Ausfall.fromList(List data) {
+     data = data ?? [ ];
     return Ausfall(
-      ausfall: data ?? {},
+      klasse: data[0] ?? '-',
+      zeit: data[1] ?? '-',
+      grund: data[2] ?? '-',
+      raum: data[3] ?? '-',
     );
   }
 }
 
-class AusfallCounter {
-  dynamic ausfallCounter;
 
-  AusfallCounter({
-    this.ausfallCounter,
-  });
 
-  factory AusfallCounter.fromMap(Map data) {
-    return AusfallCounter(
-      ausfallCounter: data ?? {},
+
+
+class Schule {
+  String schule;
+
+  Schule({this.schule});
+
+  factory Schule.fromMap(Map data){
+    return Schule(
+      schule: (data['Schule']) ?? 'Wähle deine Schule'
     );
   }
+
+
 }
