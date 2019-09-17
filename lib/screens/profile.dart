@@ -39,7 +39,7 @@ final AuthService auth = AuthService();
             Text(user.email ?? '', style: Theme.of(context).textTheme.headline),
             Spacer(),
             
-              Text('${report.total ?? 0}',
+              Text('${report.schule ?? 0}',
                   style: Theme.of(context).textTheme.display3),
             Text('Quizzes Completed',
                 style: Theme.of(context).textTheme.subhead),

@@ -1,3 +1,4 @@
+import 'package:Classmate/services/models.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,9 +8,11 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Report report = Provider.of<Report>(context);
     bool toBeMergedWithAncestors = false;
     bool allowDescendantsToAddSemantics = false;
 
@@ -48,7 +51,7 @@ class SettingsScreen extends StatelessWidget {
                     children: <Widget>[
                       Text('Meine Schule:'),
                       Text(
-                        snapshotSchule.data['Schule'],
+                       report.schule, //Todo
                         style: Theme.of(context).textTheme.subhead,
                         overflow: TextOverflow.ellipsis,
                       ),

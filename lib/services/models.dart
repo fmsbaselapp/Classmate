@@ -80,7 +80,6 @@ class Topic {
   }
 }
 
-
 class Name {
   nameAusEmail(userEmail) async {
     String emailInput = userEmail;
@@ -120,25 +119,19 @@ class Name {
   }
 }
 
-
-
 class Report {
   String uid;
-  int total;
-  dynamic topics;
+  String schule;
 
-  Report({ this.uid, this.topics, this.total });
+  Report({this.uid, this.schule});
 
   factory Report.fromMap(Map data) {
     return Report(
       uid: data['uid'],
-      total: data['total'] ?? 0,
-      topics: data ?? {},
+      schule: data['Schule'] ?? '123',
     );
   }
-
 }
-
 
 //Works!
 class Ausfall {
@@ -146,14 +139,16 @@ class Ausfall {
   String zeit;
   String grund;
   String raum;
-  
 
   Ausfall({
-   this.klasse, this.zeit, this.grund, this.raum, 
+    this.klasse,
+    this.zeit,
+    this.grund,
+    this.raum,
   });
 
   factory Ausfall.fromList(List data) {
-     data = data ?? [ ];
+    data = data ?? [];
     return Ausfall(
       klasse: data[0] ?? '-',
       zeit: data[1] ?? '-',
@@ -163,20 +158,13 @@ class Ausfall {
   }
 }
 
-
-
-
-
 class Schule {
   String schule;
-
+  
   Schule({this.schule});
 
-  factory Schule.fromMap(Map data){
-    return Schule(
-      schule: (data['Schule']) ?? 'Wähle deine Schule'
-    );
+  factory Schule.fromMap(Map data) {
+    data = data ?? { };
+    return Schule(schule: (data['Schule']) ?? 'Wähle deine Schule');
   }
-
-
 }

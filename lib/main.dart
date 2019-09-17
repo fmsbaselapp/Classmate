@@ -18,8 +18,7 @@ class Classmate extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
-        
-
+        StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
       ],
       child: Theme(
         data: ThemeData(
