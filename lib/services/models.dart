@@ -120,15 +120,29 @@ class Name {
 }
 
 class Report {
-  String uid;
+  String email;
+  String vorname;
+  String nachname;
   String schule;
+  String uid;
+  Timestamp lastActivity;
 
-  Report({this.uid, this.schule});
+  Report(
+      {this.uid,
+      this.schule,
+      this.email,
+      this.lastActivity,
+      this.nachname,
+      this.vorname});
 
   factory Report.fromMap(Map data) {
     return Report(
-      uid: data['uid'],
-      schule: data['Schule'] ?? '123',
+      email: data['Email'] ?? ' ',
+      vorname: data['Vorname'] ?? ' ',
+      nachname: data['Nachname'] ?? ' ',
+      schule: data['Schule'] ?? ' ',
+      uid: data['uid'] ?? ' ',
+      lastActivity: data['lastActivity']
     );
   }
 }
@@ -160,11 +174,11 @@ class Ausfall {
 
 class Schule {
   String schule;
-  
+
   Schule({this.schule});
 
   factory Schule.fromMap(Map data) {
-    data = data ?? { };
+    data = data ?? {};
     return Schule(schule: (data['Schule']) ?? 'Wähle deine Schule');
   }
 }

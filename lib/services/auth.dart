@@ -42,7 +42,7 @@ class AuthService {
       'Vorname': personalData[0],
       'Nachname': personalData[1],
       'Email': personalData[2],
-      'Schule': '0',
+      'Schule': '',
     }, merge: true);
   }
 

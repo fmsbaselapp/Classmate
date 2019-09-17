@@ -1,23 +1,28 @@
 import 'package:Classmate/services/models.dart';
 import 'package:Classmate/shared/button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:Classmate/services/auth.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:Classmate/services/services.dart';
+import 'package:Classmate/shared/shared.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
+    AuthService auth = AuthService();
+
     bool toBeMergedWithAncestors = false;
     bool allowDescendantsToAddSemantics = false;
+    String email = report.email;
+    print(email);
 
-    AuthService auth = AuthService();
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
+
+
+    
+
     return Semantics(
       container: toBeMergedWithAncestors,
       explicitChildNodes: allowDescendantsToAddSemantics,
@@ -37,30 +42,21 @@ class SettingsScreen extends StatelessWidget {
         body: ListView(
           padding: const EdgeInsets.only(left: 10, right: 10),
           children: <Widget>[
-            StreamBuilder(
-              //TODOD wrap whole screen in streambuilder
-              stream: Firestore.instance
-                  .collection('Nutzer')
-                  .document(user.uid)
-                  .snapshots(),
-              builder: (context, snapshotSchule) {
-                return LableButtonExtended(
-                  paddingTop: 20,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Meine Schule:'),
-                      Text(
-                       report.schule, //Todo
-                        style: Theme.of(context).textTheme.subhead,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+            LableButtonExtended(
+              paddingTop: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Meine Schule:'),
+                  Text(
+                    report.schule, //Todo
+                    style: Theme.of(context).textTheme.subhead,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/schoolSelect');
-                  },
-                );
+                ],
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/schoolSelect');
               },
             ),
             LableButtonExtended(
@@ -79,8 +75,8 @@ class SettingsScreen extends StatelessWidget {
               paddingTop: 40,
               child: Text('Abmelden'),
               onPressed: () {
-                auth.signOut();
-                Navigator.pushNamed(context, '/');
+               
+                Navigator.pushNamed(context, '/signOut');
               },
             ),
             LableButtonExtended(
