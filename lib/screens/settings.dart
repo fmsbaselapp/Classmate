@@ -14,12 +14,9 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-    AuthService auth = AuthService();
 
     bool toBeMergedWithAncestors = false;
     bool allowDescendantsToAddSemantics = false;
-    String email = report.email;
-    print(email);
 
     return Semantics(
       container: toBeMergedWithAncestors,
@@ -64,7 +61,9 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/schoolSelect');
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SchoolSelectScreen(),
+                ));
               },
             ),
             LableButtonExtended(
@@ -97,10 +96,10 @@ class SettingsScreen extends StatelessWidget {
               paddingTop: 10,
               child: Text('Datenschutzerklärung'),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/datenschutzerklärung');
+                Navigator.pushReplacementNamed(
+                    context, '/datenschutzerklärung');
               },
             ),
-           
           ],
         ),
       ),

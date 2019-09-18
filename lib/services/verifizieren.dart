@@ -50,7 +50,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
       print(deepLink);
       print('link empfangen');
       confirmSignIn(deepLink);
-      //Todo Loading spinner
+      //TODO Loading spinner
     }
 
     //DeepLink wenn app schon offen ist
@@ -62,7 +62,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         print(deepLink);
         print('link empfangen wenn app offen');
         confirmSignIn(deepLink);
-        //Todo Loading spinner
+        //TODO Loading spinner
       }
     }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
@@ -151,7 +151,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                 ),
               ),
               Spacer(flex: 1,),
-              Loader(),
+              Loader(), //TODO only when link empfangen
               Spacer(flex: 1,),
               //text über Teamwork öffnen
               Expanded(

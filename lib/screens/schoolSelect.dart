@@ -8,15 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SchoolSelectScreen extends StatefulWidget {
-  const SchoolSelectScreen({Key key}) : super(key: key);
-
+   SchoolSelectScreen({Key key, }) : super(key: key);
+    int schoolindex = 1;
   @override
   _SchoolSelectScreenState createState() => _SchoolSelectScreenState();
 }
 
 class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
+  
+int schoolIndex = 1; //TODO get schoolindex
+  
   int _value1 = 0;
-  int _value2 = 0;
+  int _value2;
+
+
+  
+
 
   void _setvalue1(int value) => setState(() => _value1 = value);
   void _setvalue2(int value) => setState(() => _value2 = value);
@@ -59,10 +66,14 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
     List<Widget> list = List<Widget>();
 
     for (int i = 0; i < schulenlist.length; i++) {
+        if (_value2 == null) {
+    _value2 = schoolIndex;
+  }
+      schoolIndex = _value2;
       list.add(
         RadioListTile(
           value: i,
-          groupValue: _value2,
+          groupValue: schoolIndex,
           onChanged: _setvalue2,
           activeColor: Colors.black,
           controlAffinity: ListTileControlAffinity.platform,
@@ -175,7 +186,7 @@ class SchoolSelectScreenFirst extends StatefulWidget {
 
 class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
   int _value1 = 0;
-  int _value2 = 0;
+  int _value2;
 
   void _setvalue1(int value) => setState(() => _value1 = value);
   void _setvalue2(int value) => setState(() => _value2 = value);
