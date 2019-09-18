@@ -1,6 +1,7 @@
 import 'package:Classmate/screens/schoolSelect.dart';
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
+import 'package:Classmate/shared/appBar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -37,53 +38,36 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-
+      appBar: ClassmateAppBar(
+        children: <Widget>[
+          Text(
+            'Ausfälle',
+            style: Theme.of(context).textTheme.title,
+          ),
+          RoundButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/settings');
+              },
+              child: Icon(
+                Icons.settings,
+                size: 30,
+              ))
+        ],
+        height: 80,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      ),
       //Titel
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          //TODO
-          Padding(
-            padding:
-                const EdgeInsets.only(left: paddingSite, right: paddingSite),
-            child: Container(
-              width: double.infinity,
-              height: 70,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 30,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Ausfälle',
-                      style: Theme.of(context).textTheme.title,
-                    ),
-                    RoundButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/settings');
-                      },
-                      child: Icon(
-                        Icons.settings,
-                        size: 30,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
           //Streambuilder für Ausfälle und Tage
-          Flexible(
+          Expanded(
             child: StreamBuilder(
               stream: Firestore.instance.collection(report.schule).snapshots(),
               builder: (context, snapshot) {
                 //check if snapshot has data
                 if (!snapshot.hasData) {
-                  return Text("Lädt..",
-                      style: Theme.of(context).textTheme.title); //TODO loading
+                  return Center(child: Loader());
 
                   //if snapshot has data:
                 } else {
@@ -138,10 +122,12 @@ class DocumentList extends StatelessWidget {
               child: StickyHeader(
                 header: Stack(
                   children: <Widget>[
-                    Container(
-                      height: 30,
+                    SizedBox(
+                      height: 40,
                       width: double.infinity,
-                      color: Colors.white,
+                      child: Container(
+                        color: Colors.white,
+                      ),
                     ),
                     LableFettExtended(
                       margin: paddingSite,

@@ -1,4 +1,6 @@
+import 'package:Classmate/screens/schoolSelect.dart';
 import 'package:Classmate/services/models.dart';
+import 'package:Classmate/shared/appBar.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:flutter/material.dart';
 import 'package:Classmate/services/auth.dart';
@@ -19,28 +21,34 @@ class SettingsScreen extends StatelessWidget {
     String email = report.email;
     print(email);
 
-
-
-    
-
     return Semantics(
       container: toBeMergedWithAncestors,
       explicitChildNodes: allowDescendantsToAddSemantics,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100.0),
-          child: PlatformAppBar(
-            backgroundColor: Colors.transparent,
-            android: (_) => MaterialAppBarData(),
-            ios: (_) => CupertinoNavigationBarData(),
-            title: new Text(
-              'Einstellungen',
-              style: Theme.of(context).textTheme.title,
+        appBar: ClassmateAppBar(
+          children: <Widget>[
+            RoundButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back,
+                size: 30,
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Text(
+                'Einstellungen',
+                style: Theme.of(context).textTheme.title,
+              ),
+            )
+          ],
+          height: 80,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         body: ListView(
-          padding: const EdgeInsets.only(left: 10, right: 10),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           children: <Widget>[
             LableButtonExtended(
               paddingTop: 20,
@@ -75,7 +83,6 @@ class SettingsScreen extends StatelessWidget {
               paddingTop: 40,
               child: Text('Abmelden'),
               onPressed: () {
-               
                 Navigator.pushNamed(context, '/signOut');
               },
             ),
@@ -83,18 +90,17 @@ class SettingsScreen extends StatelessWidget {
               paddingTop: 40,
               child: Text('Nutzungsbedingungen'),
               onPressed: () {
-                auth.signOut();
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushReplacementNamed(context, '/nutzungsbedingungen');
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
               child: Text('Datenschutzerklärung'),
               onPressed: () {
-                auth.signOut();
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushReplacementNamed(context, '/datenschutzerklärung');
               },
             ),
+           
           ],
         ),
       ),

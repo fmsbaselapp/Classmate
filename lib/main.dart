@@ -1,3 +1,4 @@
+import 'package:Classmate/screens/datenschutzerkl%C3%A4rung.dart';
 import 'package:Classmate/screens/schoolSelect.dart';
 import 'package:Classmate/services/signOutWidget.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +24,9 @@ class Classmate extends StatelessWidget {
       ],
       child: Theme(
         data: ThemeData(
+          primaryColor: Colors.black,
+    accentColor: Colors.black,
+    hintColor: Colors.grey,
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,
           ),
@@ -47,7 +51,9 @@ class Classmate extends StatelessWidget {
             '/profile': (context) => ProfileScreen(),
             '/settings': (context) => SettingsScreen(),
             '/schoolSelect': (context) => SchoolSelectScreen(),
-             '/signOut': (context) => SignOut(),
+            '/signOut': (context) => SignOut(),
+            '/datenschutzerklärung': (context) => Datenschutzerklaerung(),
+            '/nutzungsbedingungen': (context) => Nutzungsbedingungen(),
           },
           // Firebase Analytics
           navigatorObservers: [

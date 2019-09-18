@@ -1,14 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 
 class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 250,
-      height: 250,
-      child: CircularProgressIndicator(),
-    );
+    return SizedBox(
+        height: 20,
+        width: 20,
+        child: PlatformCircularProgressIndicator(
+            android: (_) => MaterialProgressIndicatorData(
+                valueColor: AlwaysStoppedAnimation(Colors.black)),
+            ios: (_) => CupertinoProgressIndicatorData(radius: 20)));
   }
 }
 
@@ -23,3 +27,12 @@ class LoadingScreen extends StatelessWidget {
     );
   }
 }
+
+/*
+SizedBox(
+          child: PlatformCircularProgressIndicator(
+ android: (_) => MaterialProgressIndicatorData(valueColor: AlwaysStoppedAnimation(Colors.black),),
+  ios: (_)=> CupertinoProgressIndicatorData(),
+),
+    );
+    */

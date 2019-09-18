@@ -1,3 +1,4 @@
+import 'package:Classmate/shared/appBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Classmate/shared/Elements.dart';
@@ -82,85 +83,76 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
     BuildContext context,
   ) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0),
-        child: SizedBox(
-          width: double.infinity,
-          height: 60,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Schule',
-                  style: Theme.of(context).textTheme.title,
-                ),
-                SmallButton(
-                  onPressed: () async {
-                    List<String> schulenlist = List<String>();
-
-                    schulenlist = [
-                      'BFS Gebäude A',
-                      'BFS Gebäude B',
-                      'BFS Gebäude C',
-                      'BFS Gebäude D',
-                      'Dreirosen',
-                      'Fachzentrum Gestalten',
-                      'FMS',
-                      'Gymnasium am Münsterplatz',
-                      'Gymnasium Bäumlihof',
-                      'Gymnasium Kirschgarten',
-                      'Gymnasium Leonhard',
-                      'Isaak Iselin',
-                      'Kleinhüningen',
-                      'PZ.BS Bibliothek',
-                      'PZ.BS medialab',
-                      'Sekundar Bäumlihof',
-                      'Sekundar De Wette',
-                      'Sekundar Drei Linden',
-                      'Sekundar Holbein',
-                      'Sekundar Leonhard',
-                      'Sekundar Sandgruben',
-                      'Sekundar St. Alban',
-                      'Sekundar Theobald Baerwart',
-                      'Sekundar Vogesen',
-                      'Sekundar Wasgenring',
-                      'St. Johann',
-                      'Tagesstrukturen Drei Linden',
-                      'Thierstein',
-                      'WG und WMS',
-                      'ZBA Gundeldingen',
-                      'ZBA Letzi'
-                    ];
-
-                    final Firestore _db = Firestore.instance;
-                    FirebaseUser user = Provider.of<FirebaseUser>(context);
-                    if (user != null) {
-                      Future<void> loadSchool(FirebaseUser user) {
-                        DocumentReference reportRef =
-                            _db.collection('Nutzer').document(user.uid);
-
-                        return reportRef.setData(
-                            {'uid': user.uid, 'Schule': schulenlist[_value2]},
-                            merge: true);
-                      }
-
-                      loadSchool(user);
-                      print(schulenlist[_value2]);
-
-                      Navigator.pop(context);
-                    } else {
-                      print('nicht angemeldet');
-                      Navigator.pushReplacementNamed(context, '/login');
-                    }
-                  },
-                  child: Text('Fertig'),
-                )
-              ],
-            ),
+      appBar: ClassmateAppBar(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        height: 90,
+        children: <Widget>[
+          Text(
+            'Schule',
+            style: Theme.of(context).textTheme.title,
           ),
-        ),
+          SmallButton(
+            onPressed: () async {
+              List<String> schulenlist = List<String>();
+
+              schulenlist = [
+                'BFS Gebäude A',
+                'BFS Gebäude B',
+                'BFS Gebäude C',
+                'BFS Gebäude D',
+                'Dreirosen',
+                'Fachzentrum Gestalten',
+                'FMS',
+                'Gymnasium am Münsterplatz',
+                'Gymnasium Bäumlihof',
+                'Gymnasium Kirschgarten',
+                'Gymnasium Leonhard',
+                'Isaak Iselin',
+                'Kleinhüningen',
+                'PZ.BS Bibliothek',
+                'PZ.BS medialab',
+                'Sekundar Bäumlihof',
+                'Sekundar De Wette',
+                'Sekundar Drei Linden',
+                'Sekundar Holbein',
+                'Sekundar Leonhard',
+                'Sekundar Sandgruben',
+                'Sekundar St. Alban',
+                'Sekundar Theobald Baerwart',
+                'Sekundar Vogesen',
+                'Sekundar Wasgenring',
+                'St. Johann',
+                'Tagesstrukturen Drei Linden',
+                'Thierstein',
+                'WG und WMS',
+                'ZBA Gundeldingen',
+                'ZBA Letzi'
+              ];
+
+              final Firestore _db = Firestore.instance;
+              FirebaseUser user = Provider.of<FirebaseUser>(context);
+              if (user != null) {
+                Future<void> loadSchool(FirebaseUser user) {
+                  DocumentReference reportRef =
+                      _db.collection('Nutzer').document(user.uid);
+
+                  return reportRef.setData(
+                      {'uid': user.uid, 'Schule': schulenlist[_value2]},
+                      merge: true);
+                }
+
+                loadSchool(user);
+                print(schulenlist[_value2]);
+
+                Navigator.pop(context);
+              } else {
+                print('nicht angemeldet');
+                Navigator.pushReplacementNamed(context, '/login');
+              }
+            },
+            child: Text('Fertig'),
+          )
+        ],
       ),
       body: Center(
         child: CupertinoScrollbar(
@@ -254,85 +246,76 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
         return Future.value(false);
       },
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100.0),
-          child: SizedBox(
-            width: double.infinity,
-            height: 60,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Schule',
-                    style: Theme.of(context).textTheme.title,
-                  ),
-                  SmallButton(
-                    onPressed: () async {
-                      List<String> schulenlist = List<String>();
-
-                      schulenlist = [
-                        'BFS Gebäude A',
-                        'BFS Gebäude B',
-                        'BFS Gebäude C',
-                        'BFS Gebäude D',
-                        'Dreirosen',
-                        'Fachzentrum Gestalten',
-                        'FMS',
-                        'Gymnasium am Münsterplatz',
-                        'Gymnasium Bäumlihof',
-                        'Gymnasium Kirschgarten',
-                        'Gymnasium Leonhard',
-                        'Isaak Iselin',
-                        'Kleinhüningen',
-                        'PZ.BS Bibliothek',
-                        'PZ.BS medialab',
-                        'Sekundar Bäumlihof',
-                        'Sekundar De Wette',
-                        'Sekundar Drei Linden',
-                        'Sekundar Holbein',
-                        'Sekundar Leonhard',
-                        'Sekundar Sandgruben',
-                        'Sekundar St. Alban',
-                        'Sekundar Theobald Baerwart',
-                        'Sekundar Vogesen',
-                        'Sekundar Wasgenring',
-                        'St. Johann',
-                        'Tagesstrukturen Drei Linden',
-                        'Thierstein',
-                        'WG und WMS',
-                        'ZBA Gundeldingen',
-                        'ZBA Letzi'
-                      ];
-
-                      final Firestore _db = Firestore.instance;
-                      FirebaseUser user = Provider.of<FirebaseUser>(context);
-                      if (user != null) {
-                        Future<void> loadSchool(FirebaseUser user) {
-                          DocumentReference reportRef =
-                              _db.collection('Nutzer').document(user.uid);
-
-                          return reportRef.updateData(
-                            {'uid': user.uid, 'Schule': schulenlist[_value2]},
-                          );
-                        }
-
-                        loadSchool(user);
-                        print(schulenlist[_value2]);
-
-                        // Navigator.pushReplacementNamed(context, '/home');
-                      } else {
-                        print('nicht angemeldet');
-                        Navigator.pushReplacementNamed(context, '/login');
-                      }
-                    },
-                    child: Text('Weiter'),
-                  )
-                ],
-              ),
+        appBar: ClassmateAppBar(
+          height: 130,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              'Wähle deine\nSchule',
+              style: Theme.of(context).textTheme.title,
             ),
-          ),
+            SmallButton(
+              onPressed: () async {
+                List<String> schulenlist = List<String>();
+
+                schulenlist = [
+                  'BFS Gebäude A',
+                  'BFS Gebäude B',
+                  'BFS Gebäude C',
+                  'BFS Gebäude D',
+                  'Dreirosen',
+                  'Fachzentrum Gestalten',
+                  'FMS',
+                  'Gymnasium am Münsterplatz',
+                  'Gymnasium Bäumlihof',
+                  'Gymnasium Kirschgarten',
+                  'Gymnasium Leonhard',
+                  'Isaak Iselin',
+                  'Kleinhüningen',
+                  'PZ.BS Bibliothek',
+                  'PZ.BS medialab',
+                  'Sekundar Bäumlihof',
+                  'Sekundar De Wette',
+                  'Sekundar Drei Linden',
+                  'Sekundar Holbein',
+                  'Sekundar Leonhard',
+                  'Sekundar Sandgruben',
+                  'Sekundar St. Alban',
+                  'Sekundar Theobald Baerwart',
+                  'Sekundar Vogesen',
+                  'Sekundar Wasgenring',
+                  'St. Johann',
+                  'Tagesstrukturen Drei Linden',
+                  'Thierstein',
+                  'WG und WMS',
+                  'ZBA Gundeldingen',
+                  'ZBA Letzi'
+                ];
+
+                final Firestore _db = Firestore.instance;
+                FirebaseUser user = Provider.of<FirebaseUser>(context);
+                if (user != null) {
+                  Future<void> loadSchool(FirebaseUser user) {
+                    DocumentReference reportRef =
+                        _db.collection('Nutzer').document(user.uid);
+
+                    return reportRef.updateData(
+                      {'uid': user.uid, 'Schule': schulenlist[_value2]},
+                    );
+                  }
+
+                  loadSchool(user);
+                  print(schulenlist[_value2]);
+
+                  // Navigator.pushReplacementNamed(context, '/home');
+                } else {
+                  print('nicht angemeldet');
+                  Navigator.pushReplacementNamed(context, '/login');
+                }
+              },
+              child: Text('Weiter'),
+            )
+          ],
         ),
         body: Center(
           child: CupertinoScrollbar(

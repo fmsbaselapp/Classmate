@@ -103,7 +103,8 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                         },
                       
                         autocorrect: false,
-                        cursorColor: Colors.red,
+                        cursorColor: Colors.black,
+                        
                        cursorWidth: 2,
                     expands: false,
                     enableInteractiveSelection: true,

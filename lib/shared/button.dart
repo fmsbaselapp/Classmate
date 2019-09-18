@@ -62,7 +62,7 @@ class RoundButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 40,
       width: 40,
       child: RawMaterialButton(
         splashColor: Colors.grey,

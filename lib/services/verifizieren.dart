@@ -1,5 +1,6 @@
 import 'package:Classmate/shared/actionSheet.dart';
 import 'package:Classmate/shared/button.dart';
+import 'package:Classmate/shared/shared.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +150,9 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                   style: Theme.of(context).textTheme.headline,
                 ),
               ),
-
+              Spacer(flex: 1,),
+              Loader(),
+              Spacer(flex: 1,),
               //text über Teamwork öffnen
               Expanded(
                 child: Align(
