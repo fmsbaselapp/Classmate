@@ -1,3 +1,4 @@
+import 'package:Classmate/enums/connectivity_status.dart';
 import 'package:Classmate/screens/schoolSelect.dart';
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
@@ -8,6 +9,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Classmate/shared/shared.dart';
+import 'package:conditional_builder/conditional_builder.dart';
 
 const double paddingSite = 10;
 
@@ -35,6 +37,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
+    var connectionStatus = Provider.of<ConnectivityStatus>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -61,36 +64,80 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           //Streambuilder für Ausfälle und Tage
-          Expanded(
-            child: StreamBuilder(
-              stream: Firestore.instance.collection(report.schule).snapshots(),
-              builder: (context, snapshot) {
-                //check if snapshot has data
-                if (!snapshot.hasData) {
-                  return Center(child: Loader());
+          ConditionalBuilder(
+            condition: connectionStatus == ConnectivityStatus.Cellular,
+            builder: (context) {
+              return Center(
+                child: Text('cellular'),
+              );
+            },
+          ),
 
-                  //if snapshot has data:
-                } else {
-                  if (snapshot.data.documents.length == 0) {
-                    print('keine Dokumente');
+          ConditionalBuilder(
+            condition: connectionStatus == ConnectivityStatus.WiFi,
+            builder: (context) {
+              return Center(
+                child: Text('wifi'),
+              );
+            },
+          ),
 
-                    return Padding(
-                      padding: const EdgeInsets.only(top: paddingSite),
-                      child: LableFettExtended(
-                        text: 'Keine Ausfälle',
-                      ),
-                    );
-                  } else {
-                    //Tage.builder
-                    return new DocumentList(
-                      snapshot: snapshot,
-                    );
-                  }
-                }
-              },
-            ),
-          )
+          ConditionalBuilder(
+            condition: connectionStatus == ConnectivityStatus.Offline,
+            builder: (context) {
+              return Center(
+                child: Text('offline'),
+              );
+            },
+            fallback: (context) {
+              return Center(
+                child: Text('fallback'),
+              );
+            },
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class CheckBuilder extends StatelessWidget {
+  const CheckBuilder({
+    Key key,
+    @required this.report,
+  }) : super(key: key);
+
+  final Report report;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: StreamBuilder(
+        stream: Firestore.instance.collection(report.schule).snapshots(),
+        builder: (context, snapshot) {
+          //check if snapshot has data
+          if (!snapshot.hasData) {
+            return Center(child: Text('keine Daten'));
+
+            //if snapshot has data:
+          } else {
+            if (snapshot.data.documents.length == 0) {
+              print('keine Dokumente');
+
+              return Padding(
+                padding: const EdgeInsets.only(top: paddingSite),
+                child: LableFettExtended(
+                  text: 'Keine Ausfälle',
+                ),
+              );
+            } else {
+              //Tage.builder
+              return new DocumentList(
+                snapshot: snapshot,
+              );
+            }
+          }
+        },
       ),
     );
   }
@@ -217,7 +264,10 @@ class AusfallKarten extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10),
               child: Text(
                 ausfall[0], //first element from array
-                style: Theme.of(context).textTheme.body2,
+                style: Theme.of(context)
+                    .textTheme
+                    .body2
+                    .copyWith(color: Colors.white),
               ),
             ),
           ),

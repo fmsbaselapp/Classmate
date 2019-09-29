@@ -25,6 +25,8 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
   //Values
   bool _success;
+  bool _link = false;
+  Widget child;
 
 //Check ob Nutzer angemeldet + Dynamic Links
   @override
@@ -77,6 +79,9 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
     try {
       if (link != null) {
+        setState(() {
+          _link = true;
+        });
         if (_linkvalidation) {
           print(_linkvalidation);
           print('link isch guet');
@@ -150,9 +155,14 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                   style: Theme.of(context).textTheme.headline,
                 ),
               ),
-              Spacer(flex: 1,),
-              Loader(), //TODO only when link empfangen
-              Spacer(flex: 1,),
+              Spacer(
+                flex: 1,
+              ),
+              _link ? Loader() : Container(),
+              Spacer(
+                flex: 1,
+              ),
+
               //text über Teamwork öffnen
               Expanded(
                 child: Align(

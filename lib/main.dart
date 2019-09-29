@@ -1,5 +1,6 @@
 import 'package:Classmate/screens/datenschutzerkl%C3%A4rung.dart';
 import 'package:Classmate/screens/schoolSelect.dart';
+import 'package:Classmate/services/connection.dart';
 import 'package:Classmate/services/signOutWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import 'enums/connectivity_status.dart';
 import 'services/services.dart';
 import 'screens/screens.dart';
 import 'package:provider/provider.dart';
@@ -21,24 +23,30 @@ class Classmate extends StatelessWidget {
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
         StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
+        StreamProvider<ConnectivityStatus>(
+          builder: (context) =>
+              ConnectivityService().connectionStatusController,
+        )
       ],
       child: Theme(
         data: ThemeData(
           primaryColor: Colors.black,
-    accentColor: Colors.black,
-    hintColor: Colors.grey,
+          accentColor: Colors.black,
+          hintColor: Colors.grey,
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,
           ),
           brightness: Brightness.light,
           textTheme: TextTheme(
-              title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
-              headline: TextStyle(fontSize: 16, fontFamily: 'MaaxMedium'),
-              subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
-              button: TextStyle(fontSize: 16, fontFamily: 'MaaxBold'),
-              body2: TextStyle(fontSize: 16, fontFamily: 'MaaxBold', color: Colors.white),
-              ),
-             
+            title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
+            headline: TextStyle(fontSize: 16, fontFamily: 'MaaxMedium'),
+            subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
+            button: TextStyle(fontSize: 16, fontFamily: 'MaaxBold'),
+            body2: TextStyle(
+              fontSize: 16,
+              fontFamily: 'MaaxBold',
+            ),
+          ),
           buttonTheme: ButtonThemeData(),
         ),
         child: PlatformApp(
