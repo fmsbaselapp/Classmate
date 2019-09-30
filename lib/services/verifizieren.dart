@@ -113,107 +113,109 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              //hey name
-              Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: Text(
-                  "Hey " + widget.personalData[0].toString(),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.title,
+          child: SafeArea(
+                      child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                //hey name
+                Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: Text(
+                    "Hey " + widget.personalData[0].toString(),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.title,
+                  ),
                 ),
-              ),
 
-              //text über email button
-              Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 10),
-                child: Text(
-                  "Wir haben eine Email an",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline,
+                //text über email button
+                Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  child: Text(
+                    "Wir haben eine Email an",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline,
+                  ),
                 ),
-              ),
 
-              //email button
-              LableButton(
-                onPressed: () => emailAction(context, widget.userEmail),
-                child: Text(
-                  widget.userEmail,
-                  overflow: TextOverflow.ellipsis,
+                //email button
+                LableButton(
+                  onPressed: () => emailAction(context, widget.userEmail),
+                  child: Text(
+                    widget.userEmail,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
 
-              //text unter email
-              Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 20),
-                child: Text(
-                  "gesendet, mit der du dich\nanmelden kannst.",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline,
+                //text unter email
+                Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 20),
+                  child: Text(
+                    "gesendet, mit der du dich\nanmelden kannst.",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline,
+                  ),
                 ),
-              ),
-              Spacer(
-                flex: 1,
-              ),
-              _link ? Loader() : Container(),
-              Spacer(
-                flex: 1,
-              ),
+                Spacer(
+                  flex: 1,
+                ),
+                _link ? Loader() : Container(),
+                Spacer(
+                  flex: 1,
+                ),
 
-              //text über Teamwork öffnen
-              Expanded(
-                child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      "Sieh in deinen Mails, oder öffne:",
-                      style: Theme.of(context).textTheme.headline,
+                //text über Teamwork öffnen
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        "Sieh in deinen Mails, oder öffne:",
+                        style: Theme.of(context).textTheme.headline,
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              //Teamwork öffnen
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ButtonTheme(
-                      child: LableButton(
-                        color: Colors.lightBlue[800],
-                        onPressed: _launchURL,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Icon(
-                              OMIcons.email,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              'Edubs Teamwork',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Icon(
-                              Icons.open_in_new,
-                              color: Colors.white,
-                            )
+                //Teamwork öffnen
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ButtonTheme(
+                        child: LableButton(
+                          color: Colors.lightBlue[800],
+                          onPressed: _launchURL,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Icon(
+                                OMIcons.email,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                'Edubs Teamwork',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Icon(
+                                Icons.open_in_new,
+                                color: Colors.white,
+                              )
 
-                            //todo same height
-                          ],
+                              //todo same height
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

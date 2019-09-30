@@ -7,8 +7,8 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 20,
-        width: 20,
+        height: 15,
+        width: 15,
         child: PlatformCircularProgressIndicator(
             android: (_) => MaterialProgressIndicatorData(
                 valueColor: AlwaysStoppedAnimation(Colors.black)),

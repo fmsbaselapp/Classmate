@@ -12,8 +12,7 @@ class LandingScreen extends StatelessWidget {
     if (user != null) {
       return HomeScreenChecker();
     } else {
-      return LoginScreen();
+      return WelcomeScreen();
     }
   }
 }
-

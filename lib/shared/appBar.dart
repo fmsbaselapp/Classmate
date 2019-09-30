@@ -10,19 +10,22 @@ class ClassmateAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: Container(
-        width: double.infinity,
-        height: height,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 30,
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: mainAxisAlignment,
-            children: children,
+    return SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Container(
+          width: double.infinity,
+          height: height,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
+              
+              children: children,
+            ),
           ),
         ),
       ),

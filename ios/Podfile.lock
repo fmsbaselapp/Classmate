@@ -194,7 +194,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
-  cloud_firestore: 51fb4d22b59e6f59b3931a10c5d1df64bd8c373f
+  cloud_firestore: 0ac494d23db743f104b95d3291946afec187b74c
   connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
   Firebase: fa80b9d987ca014a1ba9357496ef2a0178b28b12
   firebase_analytics: 5afaaf8f43ae6a640f200d98f3ecff32e9873538
@@ -209,7 +209,7 @@ SPEC CHECKSUMS:
   FirebaseDynamicLinks: 25fc45fdf2557ee2ee630999c301245d8911792e
   FirebaseFirestore: 0537b2a960a4819fae2834e688e5daeb571c81d6
   FirebaseInstanceID: 0e0348a3c00a734fa376a070f5ad4533ad975cb5
-  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   GoogleAppMeasurement: 7f028ea162b72c8f326daec74afc95d94f7a47d6
   GoogleUtilities: f1faafc033ea203adf1783ce00af455bb99d0e5b
   "gRPC-C++": 98be881723177d8c4faf5fdffacb582c7b4971a2

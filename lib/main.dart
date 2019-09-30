@@ -54,9 +54,9 @@ class Classmate extends StatelessWidget {
           onUnknownRoute: null, //TODO
           routes: {
             '/': (context) => LandingScreen(),
+            '/welcome': (context) => WelcomeScreen(),
             '/login': (context) => LoginScreen(),
             '/home': (context) => HomeScreenChecker(),
-            '/profile': (context) => ProfileScreen(),
             '/settings': (context) => SettingsScreen(),
             '/schoolSelect': (context) => SchoolSelectScreen(),
             '/signOut': (context) => SignOut(),

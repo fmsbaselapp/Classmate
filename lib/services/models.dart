@@ -140,7 +140,7 @@ class Report {
       email: data['Email'] ?? ' ',
       vorname: data['Vorname'] ?? ' ',
       nachname: data['Nachname'] ?? ' ',
-      schule: data['Schule'] ?? ' ',
+      schule: data['Schule'] ?? 'keine Schule',
       uid: data['uid'] ?? ' ',
       lastActivity: data['lastActivity']
     );

@@ -63,12 +63,12 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          //Streambuilder für Ausfälle und Tage
+
           ConditionalBuilder(
             condition: connectionStatus == ConnectivityStatus.Cellular,
             builder: (context) {
-              return Center(
-                child: Text('cellular'),
+              return CheckBuilder(
+                report: report,
               );
             },
           ),
@@ -76,8 +76,8 @@ class HomeScreen extends StatelessWidget {
           ConditionalBuilder(
             condition: connectionStatus == ConnectivityStatus.WiFi,
             builder: (context) {
-              return Center(
-                child: Text('wifi'),
+              return CheckBuilder(
+                report: report,
               );
             },
           ),
@@ -86,12 +86,7 @@ class HomeScreen extends StatelessWidget {
             condition: connectionStatus == ConnectivityStatus.Offline,
             builder: (context) {
               return Center(
-                child: Text('offline'),
-              );
-            },
-            fallback: (context) {
-              return Center(
-                child: Text('fallback'),
+                child: Loader(),
               );
             },
           ),
@@ -100,6 +95,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
 
 class CheckBuilder extends StatelessWidget {
   const CheckBuilder({

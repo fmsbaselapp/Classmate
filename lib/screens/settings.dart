@@ -33,16 +33,20 @@ class SettingsScreen extends StatelessWidget {
                 size: 30,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Text(
-                'Einstellungen',
-                style: Theme.of(context).textTheme.title,
+            Expanded(
+              child: Container(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Text(
+                    'Einstellungen',
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                ),
               ),
             )
           ],
           height: 80,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         body: ListView(
           padding: const EdgeInsets.only(left: 20, right: 20),
