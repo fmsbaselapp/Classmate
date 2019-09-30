@@ -63,51 +63,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-
-          ConditionalBuilder(
-            condition: connectionStatus == ConnectivityStatus.Cellular,
-            builder: (context) {
-              return CheckBuilder(
-                report: report,
-              );
-            },
-          ),
-
-          ConditionalBuilder(
-            condition: connectionStatus == ConnectivityStatus.WiFi,
-            builder: (context) {
-              return CheckBuilder(
-                report: report,
-              );
-            },
-          ),
-
-          ConditionalBuilder(
-            condition: connectionStatus == ConnectivityStatus.Offline,
-            builder: (context) {
-              return Center(
-                child: Loader(),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-class CheckBuilder extends StatelessWidget {
-  const CheckBuilder({
-    Key key,
-    @required this.report,
-  }) : super(key: key);
-
-  final Report report;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
+               Expanded(
       child: StreamBuilder(
         stream: Firestore.instance.collection(report.schule).snapshots(),
         builder: (context, snapshot) {
@@ -135,9 +91,43 @@ class CheckBuilder extends StatelessWidget {
           }
         },
       ),
+    ),
+/*
+          ConditionalBuilder(
+            condition: connectionStatus == ConnectivityStatus.Cellular,
+            builder: (context) {
+              return CheckBuilder(
+                report: report,
+              );
+            },
+          ),
+
+          ConditionalBuilder(
+            condition: connectionStatus == ConnectivityStatus.WiFi,
+            builder: (context) {
+              return CheckBuilder(
+                report: report,
+              );
+            },
+          ),
+
+          ConditionalBuilder(
+            condition: connectionStatus == ConnectivityStatus.Offline,
+            builder: (context) {
+              return Center(
+                child: Loader(),
+              );
+            },
+          ),
+          */
+        ],
+      ),
     );
   }
 }
+
+
+
 
 //DOKUMENTE
 class DocumentList extends StatelessWidget {
