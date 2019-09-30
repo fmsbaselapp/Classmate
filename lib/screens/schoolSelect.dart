@@ -8,15 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SchoolSelectScreen extends StatefulWidget {
-   SchoolSelectScreen({Key key, }) : super(key: key);
-    int schoolindex = 1;
+   SchoolSelectScreen({Key key, this.schoolindex}) : super(key: key);
+   String schoolindex;//TODO get schoolindex
   @override
   _SchoolSelectScreenState createState() => _SchoolSelectScreenState();
 }
 
 class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
-  
-int schoolIndex = 1; //TODO get schoolindex
+
+
+
+
+
+int schoolIndex; 
   
   int _value1 = 0;
   int _value2;

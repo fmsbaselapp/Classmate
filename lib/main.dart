@@ -59,6 +59,7 @@ class Classmate extends StatelessWidget {
             '/home': (context) => HomeScreenChecker(),
             '/settings': (context) => SettingsScreen(),
             '/schoolSelect': (context) => SchoolSelectScreen(),
+            '/edubsAngebote': (context) => EdubsAngebote(),
             '/signOut': (context) => SignOut(),
             '/datenschutzerklärung': (context) => Datenschutzerklaerung(),
             '/nutzungsbedingungen': (context) => Nutzungsbedingungen(),

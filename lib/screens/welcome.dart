@@ -42,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                    mainAxisSize: MainAxisSize.min,
                   children:<Widget>[ 
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 50),
                       child: SmallButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/login');

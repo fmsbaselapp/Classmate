@@ -66,7 +66,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SchoolSelectScreen(),
+                  builder: (context) => SchoolSelectScreen(schoolindex: report.schule,),
                 ));
               },
             ),
@@ -79,8 +79,8 @@ class SettingsScreen extends StatelessWidget {
             ),
             LableButtonExtended(
               paddingTop: 10,
-              child: Text('Gratis Office, Word, Powerpoint'),
-              onPressed: () {},
+              child: Text('Edubs Angebote'),
+              onPressed: () { Navigator.pushNamed(context, '/edubsAngebote');},
             ),
             LableButtonExtended(
               paddingTop: 40,
@@ -93,14 +93,14 @@ class SettingsScreen extends StatelessWidget {
               paddingTop: 40,
               child: Text('Nutzungsbedingungen'),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/nutzungsbedingungen');
+                Navigator.pushNamed(context, '/nutzungsbedingungen');
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
               child: Text('Datenschutzerklärung'),
               onPressed: () {
-                Navigator.pushReplacementNamed(
+                Navigator.pushNamed(
                     context, '/datenschutzerklärung');
               },
             ),
