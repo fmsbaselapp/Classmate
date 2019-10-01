@@ -10,26 +10,33 @@ class EdubsAngebote extends StatelessWidget {
     
             return Scaffold(
               appBar: ClassmateAppBar(
-                height: 130,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  RoundButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      size: 30,
-                    ),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 40),
-                    child: Text(
-                      'Edubs Angebote',
-                      style: Theme.of(context).textTheme.title,
+                    padding: const EdgeInsets.only(right: 10),
+                    child: RoundButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: 30,
+                      ),
                     ),
                   ),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Text(
+                          'Angebote',overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.title,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
+                height: 80,
               ),
               body: ListView(
                 children: <Widget>[

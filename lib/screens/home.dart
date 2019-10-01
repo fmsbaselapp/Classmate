@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-    var connectionStatus = Provider.of<ConnectivityStatus>(context);
+    //var connectionStatus = Provider.of<ConnectivityStatus>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -63,35 +63,42 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-               Expanded(
-      child: StreamBuilder(
-        stream: Firestore.instance.collection(report.schule).snapshots(),
-        builder: (context, snapshot) {
-          //check if snapshot has data
-          if (!snapshot.hasData) {
-            return Center(child: Text('keine Daten'));
+          Expanded(
+            child: StreamBuilder(
+              stream: Firestore.instance.collection(report.schule).snapshots(),
+              builder: (context, snapshot) {
+                //check if snapshot has data
+                if (!snapshot.hasData) {
+                  return Center(child: Loader());
 
-            //if snapshot has data:
-          } else {
-            if (snapshot.data.documents.length == 0) {
-              print('keine Dokumente');
+                  //if snapshot has data:
+                } else {
+                  if (snapshot.data.documents.length == 0) {
+                    print('keine Dokumente');
 
-              return Padding(
-                padding: const EdgeInsets.only(top: paddingSite),
-                child: LableFettExtended(
-                  text: 'Keine Ausfälle',
-                ),
-              );
-            } else {
-              //Tage.builder
-              return new DocumentList(
-                snapshot: snapshot,
-              );
-            }
-          }
-        },
-      ),
-    ),
+                    return Padding(
+                      padding: const EdgeInsets.only(top: paddingSite),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: 60,
+                            child: LableFettExtended(
+                              text: 'Keine Ausfälle',
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    //Tage.builder
+                    return new DocumentList(
+                      snapshot: snapshot,
+                    );
+                  }
+                }
+              },
+            ),
+          ),
 /*
           ConditionalBuilder(
             condition: connectionStatus == ConnectivityStatus.Cellular,
@@ -125,9 +132,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
 
 //DOKUMENTE
 class DocumentList extends StatelessWidget {

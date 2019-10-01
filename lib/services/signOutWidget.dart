@@ -11,7 +11,7 @@ class SignOut extends StatelessWidget {
     sleep(const Duration(seconds: 1));
     auth.signOut();
 
-    return WelcomeScreen();
+    return LoginScreen();
     
   }
 }
