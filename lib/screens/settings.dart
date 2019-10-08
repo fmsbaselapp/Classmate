@@ -3,8 +3,6 @@ import 'package:Classmate/services/models.dart';
 import 'package:Classmate/shared/appBar.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:flutter/material.dart';
-import 'package:Classmate/services/auth.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:Classmate/services/services.dart';

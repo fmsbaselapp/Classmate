@@ -1,4 +1,3 @@
-import 'package:Classmate/enums/connectivity_status.dart';
 import 'package:Classmate/screens/schoolSelect.dart';
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
@@ -9,7 +8,6 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Classmate/shared/shared.dart';
-import 'package:conditional_builder/conditional_builder.dart';
 
 const double paddingSite = 10;
 
@@ -65,6 +63,7 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: StreamBuilder(
+              //TODO initialData: report.schule = 'keine Schule',
               stream: Firestore.instance.collection(report.schule).snapshots(),
               builder: (context, snapshot) {
                 //check if snapshot has data
