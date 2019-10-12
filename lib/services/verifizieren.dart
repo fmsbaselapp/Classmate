@@ -52,7 +52,6 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
       print(deepLink);
       print('link empfangen');
       confirmSignIn(deepLink);
-      //TODO Loading spinner
     }
 
     //DeepLink wenn app schon offen ist
@@ -64,7 +63,6 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         print(deepLink);
         print('link empfangen wenn app offen');
         confirmSignIn(deepLink);
-        //TODO Loading spinner
       }
     }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
