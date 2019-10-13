@@ -62,17 +62,13 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
-
-          Expanded(
-            child: StreamBuilder(
-              //TODO initialData: report.schule = 'keine Schule',
-              stream: Firestore.instance.collection(report.schule).snapshots(),
-              builder: (context, snapshot) {
-                //check if snapshot has data
-                if (!snapshot.hasData) {
-                  return Center(child: Loader());
-
-            
+               Expanded(
+      child: StreamBuilder(
+        stream: Firestore.instance.collection(report.schule).snapshots(),
+        builder: (context, snapshot) {
+          //check if snapshot has data
+          if (!snapshot.hasData) {
+            return Center(child: Text('keine Daten'));
 
             //if snapshot has data:
           } else {
