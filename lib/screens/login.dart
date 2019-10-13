@@ -113,9 +113,12 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           if (RegExp(
                                   "^([a-zA-Z]{2,15})+\.+([a-zA-Z]{2,15})+@(stud\.edubs\.ch)\$")
                               .hasMatch(value)) {
-                            return null;
                           } else if (value.isEmpty) {
-                            return 'Bitte gib deine Edubs Email Adresse ein.';
+                            return 'Bitte gib deine stud.edubs Email Adresse ein.';
+                          } else if (RegExp("^(daniel.roth@edubs.ch)")
+                              .hasMatch(value)) {
+                          } else if (RegExp("^(daniela.truetsch@edubs.ch)")
+                              .hasMatch(value)) {
                           } else if (RegExp("^([a-zA-Z.])+@(edubs\.ch)\$")
                               .hasMatch(value)) {
                             return 'Lehrpersonen können sich leider nicht anmelden.';
