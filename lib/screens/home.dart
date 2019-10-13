@@ -1,13 +1,11 @@
-import 'package:Classmate/screens/schoolSelect.dart';
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
-import 'package:Classmate/shared/appBar.dart';
+import 'package:Classmate/shared/shared.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Classmate/shared/shared.dart';
 
 const double paddingSite = 10;
 
@@ -16,17 +14,16 @@ class HomeScreenChecker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
     Report report = Provider.of<Report>(context);
 
-    if (user != null) {
+    if (report.schule.isNotEmpty) {
       if (report.schule == '') {
         return SchoolSelectScreenFirst();
       } else {
         return HomeScreen();
       }
     } else {
-      return LoginScreen();
+      return LoadingScreen();
     }
   }
 }
@@ -35,7 +32,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-   
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -61,36 +57,38 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Flexible(
+            child: StreamBuilder(
+              stream: Firestore.instance.collection(report.schule).snapshots(),
+              builder: (context, snapshot) {
+                //check if snapshot has data
+                if (!snapshot.hasData) {
+                  return Center(child: Loader());
 
-               Expanded(
-      child: StreamBuilder(
-        stream: Firestore.instance.collection(report.schule).snapshots(),
-        builder: (context, snapshot) {
-          //check if snapshot has data
-          if (!snapshot.hasData) {
-            return Center(child: Text('lädt'));
+                  //if snapshot has data:
+                } else {
+                  if (snapshot.data.documents.length == 0) {
+                    print('keine Dokumente');
 
-            //if snapshot has data:
-          } else {
-            if (snapshot.data.documents.length == 0) {
-              print('keine Dokumente');
-
-              return Padding(
-                padding: const EdgeInsets.only(top: paddingSite),
-                child: LableFettExtended(
-                  text: 'Keine Ausfälle',
-                ),
-              );
-            } else {
-              //Tage.builder
-              return new DocumentList(
-                snapshot: snapshot,
-              );
-            }
-          }
-        },
-      ),
-    ),
+                    return Padding(
+                      padding: const EdgeInsets.only(top: paddingSite),
+                      child: Container(
+                        height: 60,
+                        child: LableFettExtended(
+                          text: 'Keine Ausfälle',
+                        ),
+                      ),
+                    );
+                  } else {
+                    //Tage.builder
+                    return new DocumentList(
+                      snapshot: snapshot,
+                    );
+                  }
+                }
+              },
+            ),
+          ),
 /*
           ConditionalBuilder(
             condition: connectionStatus == ConnectivityStatus.Cellular,
@@ -124,9 +122,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
 
 //DOKUMENTE
 class DocumentList extends StatelessWidget {
