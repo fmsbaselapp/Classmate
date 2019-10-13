@@ -112,7 +112,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: SafeArea(
-            child: Column(
+                      child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
@@ -153,10 +153,6 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline,
                   ),
-                ),
-                FlatButton(
-                  onPressed: () => emailAction(context, widget.userEmail),
-                  child: Text('Email bearbeiten', style: Theme.of(context).textTheme.headline.copyWith(color: Colors.lightBlue[800]),),
                 ),
                 Spacer(
                   flex: 1,
