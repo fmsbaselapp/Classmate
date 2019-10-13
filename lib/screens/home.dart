@@ -1,7 +1,6 @@
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
@@ -9,26 +8,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 const double paddingSite = 10;
 
-class HomeScreenChecker extends StatelessWidget {
-  const HomeScreenChecker({Key key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Report report = Provider.of<Report>(context);
-
-    if (report.schule.isNotEmpty) {
+    return StreamBuilder(
+        stream: Global.reportRef.documentStream,
+        builder: (context, snapshot) {
+    if (snapshot.hasError) {
+      print(snapshot.error);
+      return LoadingScreen();
+    }
+    if (snapshot.hasData) {
+      print('hasdata');
+      print(snapshot.data);
+      Report report = snapshot.data;
       if (report.schule == '') {
         return SchoolSelectScreenFirst();
       } else {
-        return HomeScreen();
+        return Home();
       }
     } else {
       return LoadingScreen();
     }
+        },
+      );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
@@ -54,70 +63,81 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
       ),
       //Titel
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Flexible(
-            child: StreamBuilder(
-              stream: Firestore.instance.collection(report.schule).snapshots(),
-              builder: (context, snapshot) {
-                //check if snapshot has data
-                if (!snapshot.hasData) {
-                  return Center(child: Loader());
-
-                  //if snapshot has data:
-                } else {
-                  if (snapshot.data.documents.length == 0) {
-                    print('keine Dokumente');
-
-                    return Padding(
-                      padding: const EdgeInsets.only(top: paddingSite),
-                      child: Container(
-                        height: 60,
-                        child: LableFettExtended(
-                          text: 'Keine Ausfälle',
-                        ),
-                      ),
-                    );
-                  } else {
-                    //Tage.builder
-                    return new DocumentList(
-                      snapshot: snapshot,
-                    );
+      body: Network(
+              child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Flexible(
+              child: StreamBuilder(
+                stream: Firestore.instance.collection(report.schule).snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    print(snapshot.error);
+                    return Center(child: Loader());
                   }
-                }
-              },
+                  //check if snapshot has data
+                  if (!snapshot.hasData) {
+                    print(snapshot.data);
+                    return Center(child: Loader());
+
+                    //if snapshot has data:
+                  } else {
+                    if (snapshot.data.documents.length == 0) {
+                      print('keine Dokumente');
+
+                      return FadeIn(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: paddingSite),
+                          child: Container(
+                            height: 60,
+                            child: LableFettExtended(
+                              text: 'Keine Ausfälle',
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      //Tage.builder
+                      return FadeIn(
+                        child: new DocumentList(
+                          snapshot: snapshot,
+                        ),
+                      );
+                    }
+                  }
+                },
+              ),
             ),
-          ),
 /*
-          ConditionalBuilder(
-            condition: connectionStatus == ConnectivityStatus.Cellular,
-            builder: (context) {
-              return CheckBuilder(
-                report: report,
-              );
-            },
-          ),
+              ConditionalBuilder(
+                condition: connectionStatus == ConnectivityStatus.Cellular,
+                builder: (context) {
+                  return CheckBuilder(
+                    report: report,
+                  );
+                },
+              ),
 
-          ConditionalBuilder(
-            condition: connectionStatus == ConnectivityStatus.WiFi,
-            builder: (context) {
-              return CheckBuilder(
-                report: report,
-              );
-            },
-          ),
+              ConditionalBuilder(
+                condition: connectionStatus == ConnectivityStatus.WiFi,
+                builder: (context) {
+                  return CheckBuilder(
+                    report: report,
+                  );
+                },
+              ),
 
-          ConditionalBuilder(
-            condition: connectionStatus == ConnectivityStatus.Offline,
-            builder: (context) {
-              return Center(
-                child: Loader(),
-              );
-            },
-          ),
-          */
-        ],
+              ConditionalBuilder(
+                condition: connectionStatus == ConnectivityStatus.Offline,
+                builder: (context) {
+                  return Center(
+                    child: Loader(),
+                  );
+                },
+              ),
+              */
+          ],
+        ),
       ),
     );
   }

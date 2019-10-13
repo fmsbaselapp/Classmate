@@ -114,15 +114,15 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: SafeArea(
-                      child: Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 //hey name
                 Padding(
-                  padding: EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.only(top: 30),
                   child: Text(
-                    "Hey " + widget.personalData[0].toString(),
+                    'Email Verifizieren',maxLines: 2,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -131,31 +131,40 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                 //text über email button
                 Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(
-                    "Wir haben eine Email an",
+                  child: RichText(
+                    textScaleFactor: 1.2,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline,
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.headline,
+                      children: <TextSpan>[
+                        
+                        TextSpan(
+                          text: 'Hey ${widget.personalData[0]}.\n\nWir haben eine Email an ',
+                        ),
+                        TextSpan(
+                            text: widget.userEmail,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline
+                                .copyWith(color: Colors.black45)),
+                        TextSpan(
+                          text: ' gesendet, mit der du dich anmelden kannst.',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
                 //email button
-                LableButton(
+                SmallButton(
                   onPressed: () => emailAction(context, widget.userEmail),
                   child: Text(
-                    widget.userEmail,
-                    overflow: TextOverflow.ellipsis,
+                    'Email bearbeiten',
                   ),
                 ),
 
                 //text unter email
-                Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 20),
-                  child: Text(
-                    "gesendet, mit der du dich\nanmelden kannst.",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline,
-                  ),
-                ),
+
                 Spacer(
                   flex: 1,
                 ),

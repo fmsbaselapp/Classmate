@@ -11,7 +11,6 @@ class LableFettExtended extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        
         margin: EdgeInsets.only(left: 10, right: 10, top: 10),
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -40,8 +39,6 @@ class LableFettExtendedSansPadding extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        
-       
         color: Colors.white,
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0)),
@@ -57,5 +54,3 @@ class LableFettExtendedSansPadding extends StatelessWidget {
     );
   }
 }
-
-

@@ -99,7 +99,7 @@ class SettingsScreen extends StatelessWidget {
               child: Text('Datenschutzerklärung'),
               onPressed: () {
                 Navigator.pushNamed(
-                    context, '/datenschutzerklärung');
+                    context, '/datenschutzerklaerung');
               },
             ),
           ],
