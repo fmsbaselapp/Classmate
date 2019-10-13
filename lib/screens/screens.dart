@@ -4,6 +4,6 @@ export 'settings.dart';
 export 'login.dart';
 export 'edubsAngebote.dart';
 export 'landing.dart';
-export 'datenschutzerklärung.dart';
+export 'datenschutzerklaerung.dart';
 export 'nutzungbedingungen.dart';
-
+export 'schoolSelect.dart';
