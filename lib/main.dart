@@ -1,14 +1,12 @@
-import 'package:Classmate/screens/datenschutzerkl%C3%A4rung.dart';
-import 'package:Classmate/screens/schoolSelect.dart';
-import 'package:Classmate/services/connection.dart';
-import 'package:Classmate/services/signOutWidget.dart';
+
+import 'package:Classmate/screens/screens.dart';
+import 'package:Classmate/services/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-
 import 'enums/connectivity_status.dart';
 import 'services/services.dart';
 import 'screens/screens.dart';
@@ -51,7 +49,7 @@ class Classmate extends StatelessWidget {
         ),
         child: PlatformApp(
           // Named Routes
-          onUnknownRoute: null, //TODO
+          //onUnknownRoute: null, //TODO
           routes: {
             '/': (context) => LandingScreen(),
             '/welcome': (context) => WelcomeScreen(),
@@ -61,7 +59,7 @@ class Classmate extends StatelessWidget {
             '/schoolSelect': (context) => SchoolSelectScreen(),
             '/edubsAngebote': (context) => EdubsAngebote(),
             '/signOut': (context) => SignOut(),
-            '/datenschutzerklärung': (context) => Datenschutzerklaerung(),
+            '/datenschutzerklaerung': (context) => Datenschutzerklaerung(),
             '/nutzungsbedingungen': (context) => Nutzungsbedingungen(),
           },
           // Firebase Analytics
