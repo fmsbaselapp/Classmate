@@ -1,4 +1,3 @@
-import 'package:Classmate/enums/connectivity_status.dart';
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
@@ -24,9 +23,7 @@ class Classmate extends StatelessWidget {
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
         StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
-        /*StreamProvider<ConnectivityStatus>(
-            builder: (context) =>
-                ConnectivityService().connectionStatusController),*/
+        
       ],
       child: Theme(
         data: ThemeData(
