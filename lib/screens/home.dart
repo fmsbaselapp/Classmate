@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-    var connectionStatus = Provider.of<ConnectivityStatus>(context);
+   
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
           //check if snapshot has data
           if (!snapshot.hasData) {
-            return Center(child: Text('keine Daten'));
+            return Center(child: Text('lädt'));
 
             //if snapshot has data:
           } else {
