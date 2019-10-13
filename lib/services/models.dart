@@ -172,3 +172,13 @@ class Ausfall {
   }
 }
 
+class Schule {
+  String schule;
+
+  Schule({this.schule});
+
+  factory Schule.fromMap(Map data) {
+    data = data ?? {};
+    return Schule(schule: (data['Schule']) ?? 'Wähle deine Schule');
+  }
+}

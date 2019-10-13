@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import './globals.dart';
-
+import 'models.dart';
 
 class Document<T> {
   final Firestore _db = Firestore.instance;
@@ -99,5 +101,16 @@ class Ausfaelle<T> {
 }
 */
 
+class SchuleDB<T> {
 
+  Stream<Schule> schuleStream(FirebaseUser user){
+    final Firestore _db = Firestore.instance;
+
+return _db
+        .collection('Nutzer')
+        .document(user.uid)
+        .snapshots()
+        .map((snap) => Schule.fromMap(snap.data));
+  }
+}
 
