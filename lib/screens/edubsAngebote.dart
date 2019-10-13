@@ -28,7 +28,7 @@ class EdubsAngebote extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(right: 20),
                 child: Text(
-                  'Datenschutz',
+                  'Angebote',
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.title,
                 ),
@@ -42,7 +42,7 @@ class EdubsAngebote extends StatelessWidget {
         children: <Widget>[
           LableFettExtended(
             text:
-                'Du kannst dir Produkte von Office kostenfrei auf deinen Computer laden.',
+                'Du kannst dir Produkte von Office365 kostenfrei auf deinen Computer laden. \n\nDazu zählen: Word, Powerpoint und Exel.',
           )
         ],
       ),
