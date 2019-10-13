@@ -1,4 +1,3 @@
-
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,10 +20,10 @@ class Classmate extends StatelessWidget {
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
         StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
-        StreamProvider<ConnectivityStatus>(
+     /*   StreamProvider<ConnectivityStatus>(
           builder: (context) =>
               ConnectivityService().connectionStatusController,
-        )
+        )*/
       ],
       child: Theme(
         data: ThemeData(
