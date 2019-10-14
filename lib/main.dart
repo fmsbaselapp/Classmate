@@ -50,6 +50,7 @@ class Classmate extends StatelessWidget {
           //onUnknownRoute: null, //TODO
           routes: {
             '/': (context) => WelcomeScreen(),
+           
             '/login': (context) => LoginScreen(),
             '/home': (context) => HomeScreen(),
             '/settings': (context) => SettingsScreen(),
