@@ -17,12 +17,14 @@ class Datenschutzerklaerung extends StatelessWidget {
         builder: (context, snapshot) {
           //check if snapshot has data
           if (!snapshot.hasData) {
-            return LoadingScreen();
+            return Icon(Icons.ac_unit);
 
             //if snapshot has data:
           } else {
             return Scaffold(
+              
               appBar: ClassmateAppBar(
+                
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(right: 10),
@@ -50,6 +52,7 @@ class Datenschutzerklaerung extends StatelessWidget {
                   )
                 ],
                 height: 80,
+              
               ),
               body: ListView(
                 children: <Widget>[

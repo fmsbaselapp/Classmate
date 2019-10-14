@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
     if (snapshot.hasError) {
       print(snapshot.error);
-      return LoadingScreen();
+      return Icon(Icons.ac_unit);
     }
     if (snapshot.hasData) {
       print('hasdata');
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         return Home();
       }
     } else {
-      return LoadingScreen();
+      return Icon(Icons.ac_unit);
     }
         },
       );
@@ -73,12 +73,12 @@ class Home extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);
-                    return Center(child: Loader());
+                    return Center(child: Icon(Icons.ac_unit));
                   }
                   //check if snapshot has data
                   if (!snapshot.hasData) {
                     print(snapshot.data);
-                    return Center(child: Loader());
+                    return Center(child: Icon(Icons.ac_unit));
 
                     //if snapshot has data:
                   } else {
@@ -297,4 +297,3 @@ class AusfallKarten extends StatelessWidget {
     );
   }
 }
-
