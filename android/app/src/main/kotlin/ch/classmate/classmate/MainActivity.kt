@@ -1,4 +1,4 @@
-package ch.classmate.classmate
+package ch.classmate.app
 
 import android.os.Bundle
 
