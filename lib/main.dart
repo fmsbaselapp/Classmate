@@ -23,7 +23,6 @@ class Classmate extends StatelessWidget {
       providers: [
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
         StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
-        
       ],
       child: Theme(
         data: ThemeData(
@@ -51,7 +50,6 @@ class Classmate extends StatelessWidget {
           //onUnknownRoute: null, //TODO
           routes: {
             '/': (context) => WelcomeScreen(),
-            '/welcome': (context) => WelcomeScreen(),
             '/login': (context) => LoginScreen(),
             '/home': (context) => HomeScreen(),
             '/settings': (context) => SettingsScreen(),

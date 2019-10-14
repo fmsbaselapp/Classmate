@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
     if (snapshot.hasError) {
       print(snapshot.error);
-      return Icon(Icons.ac_unit);
+      return LoadingScreen();
     }
     if (snapshot.hasData) {
       print('hasdata');
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         return Home();
       }
     } else {
-      return Icon(Icons.ac_unit);
+      return LoadingScreen();
     }
         },
       );
@@ -73,12 +73,12 @@ class Home extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);
-                    return Center(child: Icon(Icons.ac_unit));
+                    return Center(child: Loader());
                   }
                   //check if snapshot has data
                   if (!snapshot.hasData) {
                     print(snapshot.data);
-                    return Center(child: Icon(Icons.ac_unit));
+                    return Center(child: Loader());
 
                     //if snapshot has data:
                   } else {

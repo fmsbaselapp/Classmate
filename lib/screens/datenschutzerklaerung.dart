@@ -17,7 +17,7 @@ class Datenschutzerklaerung extends StatelessWidget {
         builder: (context, snapshot) {
           //check if snapshot has data
           if (!snapshot.hasData) {
-            return Icon(Icons.ac_unit);
+            return LoadingScreen();
 
             //if snapshot has data:
           } else {

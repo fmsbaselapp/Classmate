@@ -14,28 +14,28 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  firebase_core: ^0.4.0+9
+  firebase_core: ^0.4.0+6
 
-  cloud_firestore: ^0.12.9+5
+  cloud_firestore: ^0.12.7
 
   outline_material_icons: ^0.1.0
-
+ 
+  
+  firebase_dynamic_links: ^0.5.0
   shared_preferences:
 
+
   
-  flushbar: ^1.3.1
-  firebase_dynamic_links: ^0.5.0
-
-  conditional_builder: ^1.0.2
-
   connectivity: ^0.4.4
 
   flutter_platform_widgets: ^0.12.0
@@ -53,7 +53,7 @@ dev_dependencies:
   flutter_launcher_icons: "^0.7.3"
 
 flutter_icons:
-  android: "launcher_icon"
+  android: "launcher_icon" 
   ios: true
   image_path: "asset/icon/icon.png"
 
