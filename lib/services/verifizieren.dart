@@ -148,7 +148,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                                 .headline
                                 .copyWith(color: Colors.black45)),
                         TextSpan(
-                          text: ' gesendet, mit der du dich anmelden kannst.',
+                          text: '\ngesendet, mit der du dich anmelden kannst.',
                         ),
                       ],
                     ),

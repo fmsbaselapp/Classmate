@@ -3,8 +3,8 @@ import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/observer.dart';
+//import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
@@ -61,11 +61,12 @@ class Classmate extends StatelessWidget {
             '/datenschutzerklaerung': (context) => Datenschutzerklaerung(),
             '/nutzungsbedingungen': (context) => Nutzungsbedingungen(),
           },
+          /*
           // Firebase Analytics
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
           ],
-
+*/
           // Theme
           android: (_) => MaterialAppData(),
 
