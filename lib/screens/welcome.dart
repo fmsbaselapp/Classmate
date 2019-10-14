@@ -2,7 +2,6 @@ import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:Classmate/shared/button.dart';
 
 class WelcomeScreen extends StatefulWidget {
