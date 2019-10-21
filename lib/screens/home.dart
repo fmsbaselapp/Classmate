@@ -62,6 +62,7 @@ class Home extends StatelessWidget {
         height: 80,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
       ),
+
       //Titel
       body: Network(
               child: Column(
@@ -69,7 +70,7 @@ class Home extends StatelessWidget {
           children: <Widget>[
             Flexible(
               child: StreamBuilder(
-                stream: Firestore.instance.collection(report.schule).snapshots(),
+                stream: Firestore.instance.collection('Ausfaelle').document('Schulen').collection(report.schule).snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);
@@ -108,34 +109,6 @@ class Home extends StatelessWidget {
                 },
               ),
             ),
-/*
-              ConditionalBuilder(
-                condition: connectionStatus == ConnectivityStatus.Cellular,
-                builder: (context) {
-                  return CheckBuilder(
-                    report: report,
-                  );
-                },
-              ),
-
-              ConditionalBuilder(
-                condition: connectionStatus == ConnectivityStatus.WiFi,
-                builder: (context) {
-                  return CheckBuilder(
-                    report: report,
-                  );
-                },
-              ),
-
-              ConditionalBuilder(
-                condition: connectionStatus == ConnectivityStatus.Offline,
-                builder: (context) {
-                  return Center(
-                    child: Loader(),
-                  );
-                },
-              ),
-              */
           ],
         ),
       ),

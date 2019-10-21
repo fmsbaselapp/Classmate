@@ -56,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   Text('Meine Schule:'),
                   Text(
-                    report.schule, //Todo
+                    report.schule.toString() ?? '', //Todo
                     style: Theme.of(context).textTheme.subhead,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -64,7 +64,9 @@ class SettingsScreen extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SchoolSelectScreen(schoolindex: report.schule,),
+                  builder: (context) => SchoolSelectScreen(
+                    schoolindex: report.schule,
+                  ),
                 ));
               },
             ),
@@ -78,7 +80,9 @@ class SettingsScreen extends StatelessWidget {
             LableButtonExtended(
               paddingTop: 10,
               child: Text('Edubs Angebote'),
-              onPressed: () { Navigator.pushNamed(context, '/edubsAngebote');},
+              onPressed: () {
+               launch('https://classmateapp.ch/edubs/');
+              },
             ),
             LableButtonExtended(
               paddingTop: 40,
@@ -91,15 +95,14 @@ class SettingsScreen extends StatelessWidget {
               paddingTop: 40,
               child: Text('Nutzungsbedingungen'),
               onPressed: () {
-                Navigator.pushNamed(context, '/nutzungsbedingungen');
+                launch('https://classmateapp.ch/nutzungsbedingungen/');
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
               child: Text('Datenschutzerklärung'),
               onPressed: () {
-                Navigator.pushNamed(
-                    context, '/datenschutzerklaerung');
+                launch('https://classmateapp.ch/datenschutz/');
               },
             ),
           ],

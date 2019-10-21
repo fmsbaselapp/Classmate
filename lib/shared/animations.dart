@@ -8,19 +8,25 @@ class FadeIn extends StatefulWidget {
 }
 
 class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
-  AnimationController controller;
+  AnimationController _controller;
   Animation<double> animation;
 
   initState() {
     super.initState();
-    controller = AnimationController(
+    _controller = AnimationController(
         duration: const Duration(milliseconds: 200), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
 
-    controller.forward();
+    _controller.forward();
   }
 
   Widget build(BuildContext context) {
     return FadeTransition(opacity: animation, child: widget.child);
   }
+  
+  @override
+  void dispose() {
+  _controller.dispose();
+  super.dispose();
+}
 }

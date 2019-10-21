@@ -1,9 +1,11 @@
 import 'package:Classmate/services/services.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:Classmate/services/auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -155,6 +157,60 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           } //Todo else fail
                         },
                         child: const Text('Weiter'),
+                      ),
+                    ),
+                    RichText(
+                      
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: TextStyle(height: 1.2),
+                        children: [
+                          TextSpan(
+                            text:
+                                'Durch die Anmeldung stimmst du\nunseren ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subhead
+                                .copyWith(color: Colors.grey, fontSize: 13),
+                          ),
+                          TextSpan(
+                            text: 'Nutzungsbedingungen',
+                            style: Theme.of(context).textTheme.subhead.copyWith(
+                                color: Colors.grey,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch(
+                                    'https://classmateapp.ch/nutzungsbedingungen/');
+                              },
+                          ),
+                          TextSpan(
+                            text: '\nund ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subhead
+                                .copyWith(color: Colors.grey, fontSize: 13),
+                          ),
+                          TextSpan(
+                            text: 'Datenrichtlinien',
+                            style: Theme.of(context).textTheme.subhead.copyWith(
+                                color: Colors.grey,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launch('https://classmateapp.ch/datenschutz/');
+                              },
+                          ),
+                          TextSpan(
+                            text: ' zu.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subhead
+                                .copyWith(color: Colors.grey, fontSize: 13),
+                          ),
+                        ],
                       ),
                     ),
                   ],

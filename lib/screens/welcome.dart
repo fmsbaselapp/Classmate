@@ -33,7 +33,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           return Future.value(false);
         },
         child: FadeIn(
-                  child: SafeArea(
+          child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,

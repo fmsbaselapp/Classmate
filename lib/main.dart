@@ -1,6 +1,5 @@
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
-import 'package:Classmate/shared/shared.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:firebase_analytics/observer.dart';
@@ -50,15 +49,11 @@ class Classmate extends StatelessWidget {
           //onUnknownRoute: null, //TODO
           routes: {
             '/': (context) => WelcomeScreen(),
-           
             '/login': (context) => LoginScreen(),
             '/home': (context) => HomeScreen(),
             '/settings': (context) => SettingsScreen(),
             '/schoolSelect': (context) => SchoolSelectScreen(),
-            '/edubsAngebote': (context) => EdubsAngebote(),
             '/signOut': (context) => SignOut(),
-            '/datenschutzerklaerung': (context) => Datenschutzerklaerung(),
-            '/nutzungsbedingungen': (context) => Nutzungsbedingungen(),
           },
           /*
           // Firebase Analytics
