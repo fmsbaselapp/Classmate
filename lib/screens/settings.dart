@@ -81,7 +81,7 @@ class SettingsScreen extends StatelessWidget {
               paddingTop: 10,
               child: Text('Edubs Angebote'),
               onPressed: () {
-               launch('https://classmateapp.ch/edubs/');
+               launch('https://classmateapp.ch/edubs-angebote/');
               },
             ),
             LableButtonExtended(
