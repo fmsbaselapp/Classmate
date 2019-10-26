@@ -1,117 +1,63 @@
-import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
-import 'package:provider/provider.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
-const double paddingSite = 10;
+class AusfaelleTab extends StatelessWidget {
+  AusfaelleTab({
+    Key key,
+    @required this.report,
+  }) : super(key: key);
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  final Report report;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: Global.reportRef.documentStream,
-        builder: (context, snapshot) {
-    if (snapshot.hasError) {
-      print(snapshot.error);
-      return LoadingScreen();
-    }
-    if (snapshot.hasData) {
-      print('hasdata');
-      print(snapshot.data);
-      Report report = snapshot.data;
-      if (report.schule == '') {
-        return SchoolSelectScreenFirst();
-      } else {
-        return Home();
-      }
-    } else {
-      return LoadingScreen();
-    }
-        },
-      );
-  }
-}
+    const double paddingSite = 10;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Flexible(
+          child: StreamBuilder(
+            stream: Firestore.instance
+                .collection('Ausfaelle')
+                .document('Schulen')
+                .collection(report.schule)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                print(snapshot.error);
+                return Center(child: Loader());
+              }
+              //check if snapshot has data
+              if (!snapshot.hasData) {
+                print(snapshot.data);
+                return Center(child: Loader());
 
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Report report = Provider.of<Report>(context);
+                //if snapshot has data:
+              } else {
+                if (snapshot.data.documents.length == 0) {
+                  print('keine Dokumente');
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: ClassmateAppBar(
-        children: <Widget>[
-          Text(
-            'Ausfälle',
-            style: Theme.of(context).textTheme.title,
+                  return FadeIn(
+                    child: LableFettExtended(
+                      text: 'Keine Ausfälle',
+                    ),
+                  );
+                } else {
+                  //Tage.builder
+                  return FadeIn(
+                    child: new DocumentList(
+                      snapshot: snapshot,
+                    ),
+                  );
+                }
+              }
+            },
           ),
-          RoundButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/settings');
-              },
-              child: Icon(
-                Icons.settings,
-                size: 30,
-              ))
-        ],
-        height: 80,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      ),
-
-      //Titel
-      body: Network(
-              child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Flexible(
-              child: StreamBuilder(
-                stream: Firestore.instance.collection('Ausfaelle').document('Schulen').collection(report.schule).snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    print(snapshot.error);
-                    return Center(child: Loader());
-                  }
-                  //check if snapshot has data
-                  if (!snapshot.hasData) {
-                    print(snapshot.data);
-                    return Center(child: Loader());
-
-                    //if snapshot has data:
-                  } else {
-                    if (snapshot.data.documents.length == 0) {
-                      print('keine Dokumente');
-
-                      return FadeIn(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: paddingSite),
-                          child: Container(
-                            height: 60,
-                            child: LableFettExtended(
-                              text: 'Keine Ausfälle',
-                            ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      //Tage.builder
-                      return FadeIn(
-                        child: new DocumentList(
-                          snapshot: snapshot,
-                        ),
-                      );
-                    }
-                  }
-                },
-              ),
-            ),
-          ],
         ),
-      ),
+      ],
     );
   }
 }
@@ -126,6 +72,7 @@ class DocumentList extends StatelessWidget {
   final snapshot;
   @override
   Widget build(BuildContext context) {
+    const double paddingSite = 10;
     return ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
       //document counter
@@ -197,8 +144,9 @@ class AusfallList extends StatelessWidget {
       itemBuilder: (context, index) {
         List<String> ausfall = List.from(
             snapshot.data.documents[indexDocument].data[index.toString()]);
-
-        return new AusfallKarten(ausfall: ausfall);
+        if (ausfall.length == 4) {
+          return new AusfallKarten(ausfall: ausfall);
+        }
       },
     );
   }
@@ -215,6 +163,7 @@ class AusfallKarten extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double paddingSite = 10;
     return Card(
       shape:
           RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),

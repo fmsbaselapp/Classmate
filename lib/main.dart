@@ -23,8 +23,8 @@ class Classmate extends StatelessWidget {
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
         StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
       ],
-      child: Theme(
-        data: ThemeData(
+      child: MaterialApp(
+        theme: ThemeData(
           primaryColor: Colors.black,
           accentColor: Colors.black,
           hintColor: Colors.grey,
@@ -44,7 +44,7 @@ class Classmate extends StatelessWidget {
           ),
           buttonTheme: ButtonThemeData(),
         ),
-        child: PlatformApp(
+       
           // Named Routes
           //onUnknownRoute: null, //TODO
           routes: {
@@ -62,10 +62,8 @@ class Classmate extends StatelessWidget {
           ],
 */
           // Theme
-          android: (_) => MaterialAppData(),
-
-          ios: (_) => CupertinoAppData(),
-        ),
+         
+        
       ),
     );
   }

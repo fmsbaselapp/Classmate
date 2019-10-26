@@ -47,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
           height: 80,
         ),
         body: ListView(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
           children: <Widget>[
             LableButtonExtended(
               paddingTop: 20,
@@ -84,8 +84,15 @@ class SettingsScreen extends StatelessWidget {
                launch('https://classmateapp.ch/edubs-angebote/');
               },
             ),
-            LableButtonExtended(
+             LableButtonExtended(
               paddingTop: 40,
+              child: Text('Kontakt'),
+              onPressed: () {
+                launch('https://classmateapp.ch/ueber-uns/');
+              },
+            ),
+            LableButtonExtended(
+              paddingTop: 10,
               child: Text('Abmelden'),
               onPressed: () {
                 Navigator.pushNamed(context, '/signOut');
