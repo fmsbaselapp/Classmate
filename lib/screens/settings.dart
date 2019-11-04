@@ -31,20 +31,22 @@ class SettingsScreen extends StatelessWidget {
                 size: 30,
               ),
             ),
-            Expanded(
+            
+               Expanded(
               child: Container(
-                alignment: Alignment.topCenter,
-                child: Padding(
+                alignment: Alignment.center,
+                child:
+               Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Text(
                     'Einstellungen',
                     style: Theme.of(context).textTheme.title,
                   ),
-                ),
-              ),
-            )
+                ),),),
+              
+            
           ],
-          height: 80,
+          height: 60,
         ),
         body: ListView(
           padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
@@ -56,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   Text('Meine Schule:'),
                   Text(
-                    report.schule.toString() ?? '', //Todo
+                    report.schule.toString() ?? 'Wähle deine Schule', //Todo
                     style: Theme.of(context).textTheme.subhead,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -65,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SchoolSelectScreen(
-                    schoolindex: report.schule,
+                    report: report,
                   ),
                 ));
               },

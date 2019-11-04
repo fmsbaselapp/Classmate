@@ -1,3 +1,4 @@
+import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/appBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,26 +9,63 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SchoolSelectScreen extends StatefulWidget {
-   SchoolSelectScreen({Key key, this.schoolindex}) : super(key: key);
-   String schoolindex;//TODO get schoolindex
+  SchoolSelectScreen({Key key, this.report}) : super(key: key);
+  Report report;
+
   @override
-  _SchoolSelectScreenState createState() => _SchoolSelectScreenState();
+  _SchoolSelectScreenState createState() =>
+      _SchoolSelectScreenState(report: report);
 }
 
 class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
+  _SchoolSelectScreenState({@required this.report});
 
+  Report report;
+  List<String> schulenlist = List<String>();
+  final schulenL = [
+    'FMS Basel',
+    'Gymnasium am Münsterplatz',
+    'Gymnasium Bäumlihof',
+    'Gymnasium Kirschgarten',
+    'Gymnasium Leonhard',
+    'WG und WMS',
+    'Sekundar Bäumlihof',
+    'Sekundar De Wette',
+    'Sekundar Drei Linden',
+    'Sekundar Holbein',
+    'Sekundar Leonhard',
+    'Sekundar Sandgruben',
+    'Sekundar St. Alban',
+    'Sekundar Theobald Baerwart',
+    'Sekundar Vogesen',
+    'Sekundar Wasgenring',
+    'St. Johann',
+    'Thierstein',
+    'Dreirosen',
+    'Isaak Iselin',
+    'Kleinhüningen',
+    'Fachzentrum Gestalten',
+    'Tagesstrukturen Drei Linden',
+    'ZBA Gundeldingen',
+    'ZBA Letzi'
+        'BFS Gebäude A',
+    'BFS Gebäude B',
+    'BFS Gebäude C',
+    'BFS Gebäude D',
+    'PZ.BS Bibliothek',
+    'PZ.BS medialab',
+  ];
+  int schule;
+  @override
+  void initState() {
+    String schoolindex = report.schule;
+    _value2 = wichSchoolIndex(schoolindex);
 
+    super.initState();
+  }
 
-
-
-int schoolIndex; 
-  
   int _value1 = 0;
-  int _value2;
-
-
-  
-
+  int _value2; //Todo
 
   void _setvalue1(int value) => setState(() => _value1 = value);
   void _setvalue2(int value) => setState(() => _value2 = value);
@@ -35,21 +73,12 @@ int schoolIndex;
   Widget schulen() {
     List<String> schulenlist = List<String>();
     schulenlist = [
-      'BFS Gebäude A',
-      'BFS Gebäude B',
-      'BFS Gebäude C',
-      'BFS Gebäude D',
-      'Dreirosen',
-      'Fachzentrum Gestalten',
       'FMS Basel',
       'Gymnasium am Münsterplatz',
       'Gymnasium Bäumlihof',
       'Gymnasium Kirschgarten',
       'Gymnasium Leonhard',
-      'Isaak Iselin',
-      'Kleinhüningen',
-      'PZ.BS Bibliothek',
-      'PZ.BS medialab',
+      'WG und WMS',
       'Sekundar Bäumlihof',
       'Sekundar De Wette',
       'Sekundar Drei Linden',
@@ -61,23 +90,32 @@ int schoolIndex;
       'Sekundar Vogesen',
       'Sekundar Wasgenring',
       'St. Johann',
-      'Tagesstrukturen Drei Linden',
       'Thierstein',
-      'WG und WMS',
+      'Dreirosen',
+      'Isaak Iselin',
+      'Kleinhüningen',
+      'Fachzentrum Gestalten',
+      'Tagesstrukturen Drei Linden',
       'ZBA Gundeldingen',
       'ZBA Letzi'
+          'BFS Gebäude A',
+      'BFS Gebäude B',
+      'BFS Gebäude C',
+      'BFS Gebäude D',
+      'PZ.BS Bibliothek',
+      'PZ.BS medialab',
     ];
     List<Widget> list = List<Widget>();
 
     for (int i = 0; i < schulenlist.length; i++) {
-        if (_value2 == null) {
-    _value2 = schoolIndex;
-  }
-      schoolIndex = _value2;
+      if (_value2 == null) {
+        _value2 = schule;
+      }
+      schule = _value2;
       list.add(
         RadioListTile(
           value: i,
-          groupValue: schoolIndex,
+          groupValue: schule,
           onChanged: _setvalue2,
           activeColor: Colors.black,
           controlAffinity: ListTileControlAffinity.platform,
@@ -100,32 +138,25 @@ int schoolIndex;
     return Scaffold(
       appBar: ClassmateAppBar(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        height: 90,
+        height: 60,
         children: <Widget>[
           Text(
             'Schule',
             style: Theme.of(context).textTheme.title,
           ),
           SmallButton(
+            
             onPressed: () async {
+            
               List<String> schulenlist = List<String>();
 
               schulenlist = [
-                'BFS Gebäude A',
-                'BFS Gebäude B',
-                'BFS Gebäude C',
-                'BFS Gebäude D',
-                'Dreirosen',
-                'Fachzentrum Gestalten',
                 'FMS',
                 'Gymnasium am Münsterplatz',
                 'Gymnasium Bäumlihof',
                 'Gymnasium Kirschgarten',
                 'Gymnasium Leonhard',
-                'Isaak Iselin',
-                'Kleinhüningen',
-                'PZ.BS Bibliothek',
-                'PZ.BS medialab',
+                'WG und WMS',
                 'Sekundar Bäumlihof',
                 'Sekundar De Wette',
                 'Sekundar Drei Linden',
@@ -137,11 +168,20 @@ int schoolIndex;
                 'Sekundar Vogesen',
                 'Sekundar Wasgenring',
                 'St. Johann',
-                'Tagesstrukturen Drei Linden',
                 'Thierstein',
-                'WG und WMS',
+                'Dreirosen',
+                'Isaak Iselin',
+                'Kleinhüningen',
+                'Fachzentrum Gestalten',
+                'Tagesstrukturen Drei Linden',
                 'ZBA Gundeldingen',
                 'ZBA Letzi'
+                    'BFS Gebäude A',
+                'BFS Gebäude B',
+                'BFS Gebäude C',
+                'BFS Gebäude D',
+                'PZ.BS Bibliothek',
+                'PZ.BS medialab',
               ];
 
               final Firestore _db = Firestore.instance;
@@ -170,9 +210,12 @@ int schoolIndex;
         ],
       ),
       body: Center(
-        child: CupertinoScrollbar(
-          child: ListView(
-            children: <Widget>[schulen()],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10, bottom: 10),
+          child: CupertinoScrollbar(
+            child: ListView(
+              children: <Widget>[schulen()],
+            ),
           ),
         ),
       ),
@@ -180,6 +223,73 @@ int schoolIndex;
   }
 }
 
+wichSchoolIndex(schoolindex) {
+  if (schoolindex == 'FMS') {
+    return 0;
+  } else if (schoolindex == 'Gymnasium am Münsterplatz') {
+    return 1;
+  } else if (schoolindex == 'Gymnasium Bäumlihof') {
+    return 2;
+  } else if (schoolindex == 'Gymnasium Kirschgarten') {
+    return 3;
+  } else if (schoolindex == 'Gymnasium Leonhard') {
+    return 4;
+  } else if (schoolindex == 'WG und WMS') {
+    return 5;
+  } else if (schoolindex == 'Sekundar Bäumlihof') {
+    return 6;
+  } else if (schoolindex == 'Sekundar De Wette') {
+    return 7;
+  } else if (schoolindex == 'Sekundar Drei Linden') {
+    return 8;
+  } else if (schoolindex == 'Sekundar Holbein') {
+    return 9;
+  } else if (schoolindex == 'Sekundar Leonhard') {
+    return 10;
+  } else if (schoolindex == 'Sekundar Sandgruben') {
+    return 11;
+  } else if (schoolindex == 'Sekundar St. Alban') {
+    return 12;
+  } else if (schoolindex == 'Sekundar Theobald Baerwart') {
+    return 13;
+  } else if (schoolindex == 'Sekundar Vogesen') {
+    return 14;
+  } else if (schoolindex == 'Sekundar Wasgenring') {
+    return 15;
+  } else if (schoolindex == 'St. Johann') {
+    return 16;
+  } else if (schoolindex == 'Thierstein') {
+    return 17;
+  } else if (schoolindex == 'Dreirosen') {
+    return 18;
+  } else if (schoolindex == 'Isaak Iselin') {
+    return 19;
+  } else if (schoolindex == 'Kleinhüningen') {
+    return 20;
+  } else if (schoolindex == 'Fachzentrum Gestalten') {
+    return 21;
+  } else if (schoolindex == 'Tagesstrukturen Drei Linden') {
+    return 22;
+  } else if (schoolindex == 'ZBA Gundeldingen') {
+    return 23;
+  } else if (schoolindex == 'ZBA Letzi') {
+    return 24;
+  } else if (schoolindex == 'BFS Gebäude A') {
+    return 25;
+  } else if (schoolindex == 'BFS Gebäude B') {
+    return 26;
+  } else if (schoolindex == 'BFS Gebäude C') {
+    return 27;
+  } else if (schoolindex == 'BFS Gebäude D') {
+    return 28;
+  } else if (schoolindex == 'PZ.BS Bibliothek') {
+    return 29;
+  } else if (schoolindex == 'PZ.BS medialab') {
+    return 30;
+  }
+}
+
+//First open
 class SchoolSelectScreenFirst extends StatefulWidget {
   const SchoolSelectScreenFirst({Key key}) : super(key: key);
 
@@ -198,21 +308,12 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
   Widget schulen() {
     List<String> schulenlist = List<String>();
     schulenlist = [
-      'BFS Gebäude A',
-      'BFS Gebäude B',
-      'BFS Gebäude C',
-      'BFS Gebäude D',
-      'Dreirosen',
-      'Fachzentrum Gestalten',
       'FMS Basel',
       'Gymnasium am Münsterplatz',
       'Gymnasium Bäumlihof',
       'Gymnasium Kirschgarten',
       'Gymnasium Leonhard',
-      'Isaak Iselin',
-      'Kleinhüningen',
-      'PZ.BS Bibliothek',
-      'PZ.BS medialab',
+      'WG und WMS',
       'Sekundar Bäumlihof',
       'Sekundar De Wette',
       'Sekundar Drei Linden',
@@ -224,11 +325,20 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
       'Sekundar Vogesen',
       'Sekundar Wasgenring',
       'St. Johann',
-      'Tagesstrukturen Drei Linden',
       'Thierstein',
-      'WG und WMS',
+      'Dreirosen',
+      'Isaak Iselin',
+      'Kleinhüningen',
+      'Fachzentrum Gestalten',
+      'Tagesstrukturen Drei Linden',
       'ZBA Gundeldingen',
       'ZBA Letzi'
+          'BFS Gebäude A',
+      'BFS Gebäude B',
+      'BFS Gebäude C',
+      'BFS Gebäude D',
+      'PZ.BS Bibliothek',
+      'PZ.BS medialab',
     ];
     List<Widget> list = List<Widget>();
 
@@ -262,11 +372,11 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
       },
       child: Scaffold(
         appBar: ClassmateAppBar(
-          height: 130,
+          height: 100,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Wähle deine\nSchule',
+              'Deine\nSchule:',
               style: Theme.of(context).textTheme.title,
             ),
             SmallButton(
@@ -274,21 +384,12 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
                 List<String> schulenlist = List<String>();
 
                 schulenlist = [
-                  'BFS Gebäude A',
-                  'BFS Gebäude B',
-                  'BFS Gebäude C',
-                  'BFS Gebäude D',
-                  'Dreirosen',
-                  'Fachzentrum Gestalten',
                   'FMS',
                   'Gymnasium am Münsterplatz',
                   'Gymnasium Bäumlihof',
                   'Gymnasium Kirschgarten',
                   'Gymnasium Leonhard',
-                  'Isaak Iselin',
-                  'Kleinhüningen',
-                  'PZ.BS Bibliothek',
-                  'PZ.BS medialab',
+                  'WG und WMS',
                   'Sekundar Bäumlihof',
                   'Sekundar De Wette',
                   'Sekundar Drei Linden',
@@ -300,11 +401,20 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
                   'Sekundar Vogesen',
                   'Sekundar Wasgenring',
                   'St. Johann',
-                  'Tagesstrukturen Drei Linden',
                   'Thierstein',
-                  'WG und WMS',
+                  'Dreirosen',
+                  'Isaak Iselin',
+                  'Kleinhüningen',
+                  'Fachzentrum Gestalten',
+                  'Tagesstrukturen Drei Linden',
                   'ZBA Gundeldingen',
                   'ZBA Letzi'
+                      'BFS Gebäude A',
+                  'BFS Gebäude B',
+                  'BFS Gebäude C',
+                  'BFS Gebäude D',
+                  'PZ.BS Bibliothek',
+                  'PZ.BS medialab',
                 ];
 
                 final Firestore _db = Firestore.instance;
@@ -333,9 +443,12 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
           ],
         ),
         body: Center(
-          child: CupertinoScrollbar(
-            child: ListView(
-              children: <Widget>[schulen()],
+          child: Padding(
+             padding: const EdgeInsets.only(top: 20, bottom: 10),
+            child: CupertinoScrollbar(
+              child: ListView(
+                children: <Widget>[schulen()],
+              ),
             ),
           ),
         ),

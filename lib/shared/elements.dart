@@ -84,7 +84,7 @@ class LableHome extends StatelessWidget {
 }
 
 class Lable extends StatelessWidget {
-  Lable({@required this.child,});
+ Lable({@required this.child,});
 
  
   Widget child;
