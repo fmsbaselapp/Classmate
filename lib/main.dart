@@ -1,5 +1,7 @@
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:firebase_analytics/observer.dart';
@@ -55,13 +57,13 @@ class Classmate extends StatelessWidget {
             '/schoolSelect': (context) => SchoolSelectScreen(),
             '/signOut': (context) => SignOut(),
           },
-          /*
+          
           // Firebase Analytics
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
           ],
-*/
-          // Theme
+
+     
          
         
       ),

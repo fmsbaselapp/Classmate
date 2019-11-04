@@ -21,7 +21,7 @@ class ClassmateAppBar extends StatelessWidget implements PreferredSizeWidget {
               top: 10,
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
               
               children: children,

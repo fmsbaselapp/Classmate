@@ -82,3 +82,27 @@ class LableHome extends StatelessWidget {
     );
   }
 }
+
+class Lable extends StatelessWidget {
+  Lable({@required this.child,});
+
+ 
+  Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(15.0)),
+        elevation: 10,
+        child: Padding(
+          padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
+          child: child
+        ),
+      ),
+    );
+  }
+}

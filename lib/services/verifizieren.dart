@@ -122,7 +122,8 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                   child: Text(
-                    'Email Verifizieren',maxLines: 2,
+                    'Email Verifizieren',
+                    maxLines: 2,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.title,
                   ),
@@ -131,26 +132,32 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                 //text über email button
                 Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: RichText(
-                    textScaleFactor: 1.2,
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      style: Theme.of(context).textTheme.headline,
-                      children: <TextSpan>[
-                        
-                        TextSpan(
-                          text: 'Hey ${widget.personalData[0]}.\n\nWir haben eine Email an ',
+                  child: Lable(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5, ),
+                      child: RichText(
+                        textScaleFactor: 1.2,
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                          style: Theme.of(context).textTheme.headline,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text:
+                                  'Hey ${widget.personalData[0]}.\n\nWir haben eine Email an ',
+                            ),
+                            TextSpan(
+                                text: widget.userEmail,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline
+                                    .copyWith(color: Colors.black45)),
+                            TextSpan(
+                              text:
+                                  '\ngesendet, mit der du dich anmelden kannst.',
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                            text: widget.userEmail,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline
-                                .copyWith(color: Colors.black45)),
-                        TextSpan(
-                          text: '\ngesendet, mit der du dich anmelden kannst.',
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

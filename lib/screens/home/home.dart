@@ -1,6 +1,7 @@
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
+import 'package:flutter/gestures.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
@@ -48,13 +49,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  final List<String> _tabs = [
-    'Ausfälle',
-    'Neuigkeiten',
-    'Anlässe'
-  ];
+  final List<String> _tabs = ['Ausfälle', 'Anlässe', 'Neuigkeiten'];
   String _homeTitle;
   TabController _controller;
+
   void initState() {
     super.initState();
     _controller = new TabController(length: 3, vsync: this);
@@ -66,6 +64,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     setState(() {
       _homeTitle = _tabs[_controller.index];
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -98,39 +102,91 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         body: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: TabBar(
-                indicatorSize: TabBarIndicatorSize.tab,
-                controller: _controller,
-                indicator: new BubbleTabIndicator(
-                  indicatorHeight: 10.0,
-                  indicatorColor: Colors.black,
-                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
+              padding: const EdgeInsets.only(
+                  top: 10, bottom: 10, left: 10, right: 10),
+
+              //Tabbar Container
+              child: Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                  border: Border.all(color: Colors.white, width: 3),
                 ),
-                tabs: <Widget>[
-                  Tab(
-                    child: Container(),
+
+                //Tabbar
+                child: TabBar(
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  controller: _controller,
+                  indicator: new BubbleTabIndicator(
+                    insets: EdgeInsets.only(left: 0, right: 0, top: 0),
+                    indicatorHeight: 24,
+                    indicatorColor: Colors.black,
+                    tabBarIndicatorSize: TabBarIndicatorSize.tab,
                   ),
-                  Tab(
-                    child: Container(),
-                  ),
-                  Tab(
-                    child: Container(),
-                  ),
-                ],
+                  tabs: <Widget>[
+                    Tab(
+                      child: Container(
+
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 3),
+                          child: Text(
+                            'Ausfälle',
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.subhead.copyWith(
+                                color: _controller.index == 0
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Text(
+                          'Anlässe',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.subhead.copyWith(
+                              color: _controller.index == 1
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Text(
+                          'Neuigkeiten',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.subhead.copyWith(
+                              color: _controller.index == 2
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+
+            //Tabbarview
             Flexible(
               child: TabBarView(
+          
+                dragStartBehavior: DragStartBehavior.down,
                 controller: _controller,
                 children: <Widget>[
                   AusfaelleTab(
                     report: report,
                   ),
-                  NeuigkeitenTab(report: report),
                   AnlaesseTab(
                     report: report,
-                  )
+                  ),
+                  NeuigkeitenTab(report: report),
                 ],
               ),
             )
