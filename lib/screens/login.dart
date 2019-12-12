@@ -20,6 +20,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 //Check ob Nutzer angemeldet + Dynamic Links
   @override
   void initState() {
+    _sentEmail = true;
     super.initState();
     auth.getUser.then(
       (user) {
@@ -31,7 +32,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   }
 
   //Values
-  bool _sentEmail = false;
+  bool _sentEmail = true;
   String userEmail;
 
   //DISPOSE FROM EmailController
@@ -51,173 +52,225 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         },
         child: SafeArea(
           child: Column(
-           
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: Text(
-                  'Anmelden',
-                  style: Theme.of(context).textTheme.title,
-                ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-                child: Text(
-                  'Melde dich mit deiner\nEdubs Email Adresse an.',
-                  style: Theme.of(context).textTheme.headline,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: TextFormField(
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.send,
-                        onFieldSubmitted: (_) async {
-                          if (_formKey.currentState.validate()) {
-                            userEmail = _emailController.text;
-                            final personalData =
-                                await Name().nameAusEmail(userEmail);
-                            await auth
-                                .signInWithEmailAndLink(userEmail)
-                                .catchError((onError) => _sentEmail = false);
-                            _sentEmail = true;
-
-                            if (_sentEmail == true) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => VerifizierenScreen(
-                                    userEmail: userEmail,
-                                    personalData: personalData,
-                                  ),
-                                ),
-                              );
-                            }
-                          } //Todo else fail},
-                        },
-                        autocorrect: false,
-                        cursorColor: Colors.black,
-                        cursorWidth: 2,
-                        expands: false,
-                        enableInteractiveSelection: true,
-                        decoration: InputDecoration(
-                          labelText: 'Edubs Email',
-                          hintText: 'vorname.nachname@stud.edubs.ch',
-                        ),
-                        validator: (String value) {
-                          if (RegExp(
-                                  "^([0-9]?)+([a-zA-Z]{2,15})+([0-9]?)+\.+([0-9]?)+([a-zA-Z]{2,20})+([0-9]?)+@(stud\.edubs\.ch)\$")
-                              .hasMatch(value)) {
-                          } else if (value.isEmpty) {
-                            return 'Bitte gib deine stud.edubs Email Adresse ein.';
-                          } else if (RegExp("^(daniel.roth@edubs.ch)")
-                              .hasMatch(value)) {
-                          } else if (RegExp("^(daniela.truetsch@edubs.ch)")
-                              .hasMatch(value)) {
-                          } else if (RegExp("^(testuserclassmate@gmail.com)")
-                              .hasMatch(value)) {
-                          } else if (RegExp("^([a-zA-Z.])+@(edubs\.ch)\$")
-                              .hasMatch(value)) {
-                            return 'Lehrpersonen können sich leider nicht anmelden.';
-                          } else {
-                            return 'Bitte verwende deine Edubs Email Adresse.';
-                          }
-                        },
-                      ),
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: Text(
+                      'Anmelden',
+                      style: Theme.of(context).textTheme.title,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      alignment: Alignment.center,
-                      child: SmallButton(
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            userEmail = _emailController.text;
-                            final personalData =
-                                await Name().nameAusEmail(userEmail);
-                            await auth
-                                .signInWithEmailAndLink(userEmail)
-                                .catchError((onError) => _sentEmail = false);
-                            _sentEmail = true;
-
-                            if (_sentEmail == true) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => VerifizierenScreen(
-                                    userEmail: userEmail,
-                                    personalData: personalData,
-                                  ),
-                                ),
-                              );
-                            }
-                          } //Todo else fail
-                        },
-                        child: const Text('Weiter'),
-                      ),
-                    ),
-                    RichText(
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 10, left: 10, right: 10, bottom: 10),
+                    child: Text(
+                      'Melde dich mit deiner\nEdubs Email Adresse an.',
+                      style: Theme.of(context).textTheme.headline,
                       textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: TextStyle(height: 1.2),
-                        children: [
-                          TextSpan(
-                            text: 'Durch die Anmeldung stimmst du\nunseren ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subhead
-                                .copyWith(color: Colors.grey, fontSize: 13),
-                          ),
-                          TextSpan(
-                            text: 'Nutzungsbedingungen',
-                            style: Theme.of(context).textTheme.subhead.copyWith(
-                                color: Colors.grey,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch(
-                                    'https://classmateapp.ch/nutzungsbedingungen/');
-                              },
-                          ),
-                          TextSpan(
-                            text: '\nund ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subhead
-                                .copyWith(color: Colors.grey, fontSize: 13),
-                          ),
-                          TextSpan(
-                            text: 'Datenrichtlinien',
-                            style: Theme.of(context).textTheme.subhead.copyWith(
-                                color: Colors.grey,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launch('https://classmateapp.ch/datenschutz/');
-                              },
-                          ),
-                          TextSpan(
-                            text: ' zu.',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subhead
-                                .copyWith(color: Colors.grey, fontSize: 13),
-                          ),
-                        ],
-                      ),
                     ),
-                  ],
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: TextFormField(
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.send,
+                            onFieldSubmitted: (_) async {
+                              if (_formKey.currentState.validate()) {
+                                userEmail = _emailController.text;
+                                final personalData =
+                                    await Name().nameAusEmail(userEmail);
+                                await auth
+                                    .signInWithEmailAndLink(userEmail)
+                                    .catchError(
+                                        (onError) => _sentEmail = false);
+                              } //Todo else fail},
+                            },
+                            autocorrect: false,
+                            cursorColor: Colors.black,
+                            cursorWidth: 2,
+                            expands: false,
+                            enableInteractiveSelection: true,
+                            decoration: InputDecoration(
+                              labelText: 'Edubs Email',
+                              hintText: 'vorname.nachname@stud.edubs.ch',
+                            ),
+                            validator: (String value) {
+                              if (RegExp(
+                                      "^([0-9]?)+([a-zA-Z]{2,15})+([0-9]?)+\.+([0-9]?)+([a-zA-Z]{2,20})+([0-9]?)+@(stud\.edubs\.ch)\$")
+                                  .hasMatch(value)) {
+                              } else if (value.isEmpty) {
+                                return 'Bitte gib deine stud.edubs Email-Adresse ein.';
+                              } else if (RegExp("^(daniel.roth@edubs.ch)")
+                                  .hasMatch(value)) {
+                              } else if (RegExp("^(daniela.truetsch@edubs.ch)")
+                                  .hasMatch(value)) {
+                              } else if (RegExp(
+                                      "^(testuserclassmate@gmail.com)")
+                                  .hasMatch(value)) {
+                              } else if (RegExp("^([a-zA-Z.])+@(edubs\.ch)\$")
+                                  .hasMatch(value)) {
+                                return 'Lehrpersonen können sich leider nicht anmelden.';
+                              } else {
+                                return 'Bitte verwende deine stud.edubs Email-Adresse.\n';
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          alignment: Alignment.center,
+                          child: SmallButton(
+                            child: const Text('Weiter'),
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                userEmail = _emailController.text;
+                                final personalData =
+                                    await Name().nameAusEmail(userEmail);
+
+                                if (await auth
+                                    .signInWithEmailAndLink(userEmail)) {
+                                  print('duregloh');
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => VerifizierenScreen(
+                                        userEmail: userEmail,
+                                        personalData: personalData,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  print('EMAIL SENDEN ERROR');
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              "Ein Fehler ist aufgetreten."),
+                                          content: Text(
+                                              "Deine Email konnte nicht versendet werden.\n \nÜberprüfe deine Internetverbindung und Email Adresse."),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text('Okay!'),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      });
+                                }
+                              }
+                            },
+                          ),
+                        ),
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: TextStyle(height: 1.2),
+                            children: [
+                              TextSpan(
+                                text:
+                                    'Durch die Anmeldung stimmst du\nunseren ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subhead
+                                    .copyWith(color: Colors.grey, fontSize: 13),
+                              ),
+                              TextSpan(
+                                text: 'Nutzungsbedingungen',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subhead
+                                    .copyWith(
+                                        color: Colors.grey,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launch(
+                                        'https://classmateapp.ch/nutzungsbedingungen/');
+                                  },
+                              ),
+                              TextSpan(
+                                text: '\nund ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subhead
+                                    .copyWith(color: Colors.grey, fontSize: 13),
+                              ),
+                              TextSpan(
+                                text: 'Datenrichtlinien',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subhead
+                                    .copyWith(
+                                        color: Colors.grey,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launch(
+                                        'https://classmateapp.ch/datenschutz/');
+                                  },
+                              ),
+                              TextSpan(
+                                text: ' zu.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subhead
+                                    .copyWith(color: Colors.grey, fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 20),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextStyle(height: 1.2),
+                    children: [
+                      TextSpan(
+                        text: 'Probleme bei der Anmeldung? ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subhead
+                            .copyWith(color: Colors.grey, fontSize: 13),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            launch('https://classmateapp.ch/hilfe/');
+                          },
+                      ),
+                      TextSpan(
+                        text: 'Hilfe ->',
+                        style: Theme.of(context).textTheme.subhead.copyWith(
+                            color: Colors.grey,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            launch('https://classmateapp.ch/hilfe/');
+                          },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            
             ],
           ),
         ),

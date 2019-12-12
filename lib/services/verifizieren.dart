@@ -3,6 +3,7 @@ import 'package:Classmate/shared/button.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:Classmate/services/auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -134,7 +135,9 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                   padding: EdgeInsets.only(top: 10, bottom: 10),
                   child: Lable(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 5, ),
+                      padding: const EdgeInsets.only(
+                        left: 5,
+                      ),
                       child: RichText(
                         textScaleFactor: 1.2,
                         textAlign: TextAlign.left,
@@ -170,6 +173,39 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                   ),
                 ),
 
+                Container(
+                  padding: EdgeInsets.only(top: 15),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(height: 1.2),
+                      children: [
+                        TextSpan(
+                          text: 'Probleme bei der Anmeldung? ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .subhead
+                              .copyWith(color: Colors.grey, fontSize: 15),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launch('https://classmateapp.ch/hilfe/');
+                            },
+                        ),
+                        TextSpan(
+                          text: 'Hilfe ->',
+                          style: Theme.of(context).textTheme.subhead.copyWith(
+                              color: Colors.grey,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launch('https://classmateapp.ch/hilfe/');
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 //text unter email
 
                 Spacer(

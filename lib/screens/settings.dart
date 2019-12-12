@@ -73,7 +73,7 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             LableButtonExtended(
-              paddingTop: 40,
+              paddingTop: 30,
               child: Text('Teamwork öffnen'),
               onPressed: () {
                 _launchURL();
@@ -87,10 +87,17 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
              LableButtonExtended(
-              paddingTop: 40,
+              paddingTop: 30,
               child: Text('Kontakt'),
               onPressed: () {
-                launch('https://classmateapp.ch/ueber-uns/');
+                launch('https://classmateapp.ch/kontakt/');
+              },
+            ),
+            LableButtonExtended(
+              paddingTop: 40,
+              child: Text('Hilfe'),
+              onPressed: () {
+                launch('https://classmateapp.ch/hilfe/');
               },
             ),
             LableButtonExtended(
@@ -101,7 +108,7 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             LableButtonExtended(
-              paddingTop: 40,
+              paddingTop: 30,
               child: Text('Nutzungsbedingungen'),
               onPressed: () {
                 launch('https://classmateapp.ch/nutzungsbedingungen/');

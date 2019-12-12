@@ -51,17 +51,25 @@ class AuthService {
   }
 
   //Email Link senden
-  Future<void> signInWithEmailAndLink(userEmail) async {
+  Future<bool> signInWithEmailAndLink(userEmail) async {
     print(userEmail);
-    return await _auth.sendSignInWithEmailLink(
-      email: userEmail,
-      url: 'https://appclassmate.page.link/verification',
-      handleCodeInApp: true,
-      iOSBundleID: 'ch.classmate.app',
-      androidPackageName: 'ch.classmate.app',
-      androidInstallIfNotAvailable: true,
-      androidMinimumVersion: "1",
-    );
+    try {
+     return await _auth
+          .sendSignInWithEmailLink(
+        email: userEmail,
+        url: 'https://appclassmate.page.link/verification',
+        handleCodeInApp: true,
+        iOSBundleID: 'ch.classmate.app',
+        androidPackageName: 'ch.classmate.app',
+        androidInstallIfNotAvailable: true,
+        androidMinimumVersion: "1",
+      )
+          .then((onValue) {
+        return true;
+      });
+    } catch (e) {
+      print('error AUTH');
+      return false;
+    }
   }
 }
-
