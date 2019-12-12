@@ -39,7 +39,7 @@ dependencies:
 
   connectivity: ^0.4.5+2
 
-  flutter_platform_widgets: ^0.20.2
+  flutter_platform_widgets: ^0.30.1
   firebase_auth: ^0.11.1+10
 
   url_launcher: ^5.2.5
@@ -54,7 +54,7 @@ dev_dependencies:
   flutter_launcher_icons: "^0.7.3"
 
 flutter_icons:
-  android: "launcher_icon"
+  android: "launcher_icon" 
   ios: true
   image_path: "asset/icon/icon.png"
 

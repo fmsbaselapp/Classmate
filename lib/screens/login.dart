@@ -51,6 +51,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         },
         child: SafeArea(
           child: Column(
+           
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 40),
@@ -113,13 +114,15 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                         ),
                         validator: (String value) {
                           if (RegExp(
-                                  "^([a-zA-Z]{2,15})+\.+([a-zA-Z]{2,15})+@(stud\.edubs\.ch)\$")
+                                  "^([0-9]?)+([a-zA-Z]{2,15})+([0-9]?)+\.+([0-9]?)+([a-zA-Z]{2,20})+([0-9]?)+@(stud\.edubs\.ch)\$")
                               .hasMatch(value)) {
                           } else if (value.isEmpty) {
                             return 'Bitte gib deine stud.edubs Email Adresse ein.';
                           } else if (RegExp("^(daniel.roth@edubs.ch)")
                               .hasMatch(value)) {
                           } else if (RegExp("^(daniela.truetsch@edubs.ch)")
+                              .hasMatch(value)) {
+                          } else if (RegExp("^(testuserclassmate@gmail.com)")
                               .hasMatch(value)) {
                           } else if (RegExp("^([a-zA-Z.])+@(edubs\.ch)\$")
                               .hasMatch(value)) {
@@ -160,14 +163,12 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                       ),
                     ),
                     RichText(
-                      
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: TextStyle(height: 1.2),
                         children: [
                           TextSpan(
-                            text:
-                                'Durch die Anmeldung stimmst du\nunseren ',
+                            text: 'Durch die Anmeldung stimmst du\nunseren ',
                             style: Theme.of(context)
                                 .textTheme
                                 .subhead
@@ -216,6 +217,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                   ],
                 ),
               ),
+            
             ],
           ),
         ),

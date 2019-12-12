@@ -159,7 +159,7 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
-  - Flutter (from `.symlinks/flutter/ios-release`)
+  - Flutter (from `Flutter`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
@@ -203,7 +203,7 @@ EXTERNAL SOURCES:
   firebase_dynamic_links:
     :path: ".symlinks/plugins/firebase_dynamic_links/ios"
   Flutter:
-    :path: ".symlinks/flutter/ios-release"
+    :path: Flutter
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   url_launcher:
@@ -243,6 +243,6 @@ SPEC CHECKSUMS:
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
 
-PODFILE CHECKSUM: 2ef0a40072d836b2e62fb7fcb125a5e514afe953
+PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4
