@@ -79,7 +79,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: Colors.white,
+       
         appBar: ClassmateAppBar(
           children: <Widget>[
             Text(
@@ -112,7 +112,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.all(
                     Radius.circular(15),
                   ),
-                  border: Border.all(color: Colors.white, width: 3),
+                  border: Border.all(color: Theme.of(context).accentColor, width: 3),
                 ),
 
                 //Tabbar
@@ -137,7 +137,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             style: Theme.of(context).textTheme.subhead.copyWith(
                                 color: _controller.index == 0
                                     ? Colors.white
-                                    : Colors.black),
+                                    : Theme.of(context).indicatorColor),
                           ),
                         ),
                       ),
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           style: Theme.of(context).textTheme.subhead.copyWith(
                               color: _controller.index == 1
                                   ? Colors.white
-                                  : Colors.black),
+                                  : Theme.of(context).indicatorColor),
                         ),
                       ),
                     ),
@@ -164,7 +164,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           style: Theme.of(context).textTheme.subhead.copyWith(
                               color: _controller.index == 2
                                   ? Colors.white
-                                  : Colors.black),
+                                  : Theme.of(context).indicatorColor),
                         ),
                       ),
                     ),

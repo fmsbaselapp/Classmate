@@ -26,9 +26,11 @@ class Classmate extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.black,
-          accentColor: Colors.black,
+          primaryColor: Colors.white,
+          accentColor: Colors.white10,
           hintColor: Colors.grey,
+          cardColor: Colors.white,
+          indicatorColor: Colors.black,
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,
           ),
@@ -45,26 +47,46 @@ class Classmate extends StatelessWidget {
           ),
           buttonTheme: ButtonThemeData(),
         ),
-       
-          // Named Routes
-          //onUnknownRoute: null, //TODO
-          routes: {
-            '/': (context) => WelcomeScreen(),
-            '/login': (context) => LoginScreen(),
-            '/home': (context) => HomeScreen(),
-            '/settings': (context) => SettingsScreen(),
-            '/schoolSelect': (context) => SchoolSelectScreen(),
-            '/signOut': (context) => SignOut(),
-          },
-            /*
+
+        darkTheme: ThemeData(
+          primaryColor: Colors.grey[800],
+          accentColor: Colors.grey[850],
+          hintColor: Colors.grey,
+          cardColor: Colors.grey[800],
+          indicatorColor: Colors.white,
+          bottomAppBarTheme: BottomAppBarTheme(
+            color: Colors.black,
+          ),
+          brightness: Brightness.dark,
+          textTheme: TextTheme(
+            title: TextStyle(fontSize: 35, fontFamily: 'MaaxBold'),
+            headline: TextStyle(fontSize: 16, fontFamily: 'MaaxMedium'),
+            subhead: TextStyle(fontSize: 15, fontFamily: 'MaaxMedium'),
+            button: TextStyle(fontSize: 16, fontFamily: 'MaaxBold'),
+            body2: TextStyle(
+              fontSize: 16,
+              fontFamily: 'MaaxBold',
+            ),
+          ),
+          buttonTheme: ButtonThemeData(),
+        ),
+
+        // Named Routes
+        //onUnknownRoute: null, //TODO
+        routes: {
+          '/': (context) => WelcomeScreen(),
+          '/login': (context) => LoginScreen(),
+          '/home': (context) => HomeScreen(),
+          '/settings': (context) => SettingsScreen(),
+          '/schoolSelect': (context) => SchoolSelectScreen(),
+          '/signOut': (context) => SignOut(),
+        },
+        /*
           // Firebase Analytics
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
           ],
 */
-     
-         
-        
       ),
     );
   }

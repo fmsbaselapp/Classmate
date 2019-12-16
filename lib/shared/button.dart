@@ -13,7 +13,7 @@ class SmallButton extends StatelessWidget {
       
       
       splashColor: Colors.grey,
-      fillColor: Colors.white,
+      fillColor: Theme.of(context).primaryColor,
       shape: const StadiumBorder(),
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       elevation: elevation ?? 10,
@@ -69,7 +69,7 @@ class RoundButton extends StatelessWidget {
       width: 40,
       child: RawMaterialButton(
         splashColor: Colors.grey,
-        fillColor: Colors.white,
+        fillColor: Theme.of(context).primaryColor,
         shape: const StadiumBorder(),
         elevation: 10,
         highlightElevation: 0,
@@ -110,11 +110,11 @@ class LableButtonExtended extends StatelessWidget {
         width: double.infinity,
         child: RawMaterialButton(
           splashColor: Colors.grey,
-          fillColor: Colors.white,
+          fillColor: Theme.of(context).primaryColor,
           shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(15.0)),
           padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
-          elevation: 10,
+          elevation: 5,
           highlightElevation: 0,
           child: SizedBox(
             width: double.infinity,

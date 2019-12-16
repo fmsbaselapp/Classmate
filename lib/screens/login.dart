@@ -103,6 +103,8 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             decoration: InputDecoration(
                               labelText: 'Edubs Email',
                               hintText: 'vorname.nachname@stud.edubs.ch',
+                              labelStyle: TextStyle(color: Colors.grey),
+                             
                             ),
                             validator: (String value) {
                               if (RegExp(

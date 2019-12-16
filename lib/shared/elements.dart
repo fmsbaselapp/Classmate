@@ -12,7 +12,7 @@ class LableFettExtended extends StatelessWidget {
       width: double.infinity,
       child: Card(
         margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0)),
         elevation: 10,
@@ -39,7 +39,7 @@ class LableFettExtendedSansPadding extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0)),
         elevation: 10,
@@ -67,7 +67,7 @@ class LableHome extends StatelessWidget {
       width: double.infinity,
       child: Card(
         margin: EdgeInsets.only(left: 10, right: 10, top: 0),
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0)),
         elevation: 10,
@@ -94,7 +94,7 @@ class Lable extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0)),
         elevation: 10,

@@ -86,18 +86,18 @@ class SettingsScreen extends StatelessWidget {
                launch('https://classmateapp.ch/edubs-angebote/');
               },
             ),
-             LableButtonExtended(
-              paddingTop: 30,
-              child: Text('Kontakt'),
-              onPressed: () {
-                launch('https://classmateapp.ch/kontakt/');
-              },
-            ),
             LableButtonExtended(
-              paddingTop: 40,
+              paddingTop: 30,
               child: Text('Hilfe'),
               onPressed: () {
                 launch('https://classmateapp.ch/hilfe/');
+              },
+            ),
+            LableButtonExtended(
+              paddingTop: 10,
+              child: Text('Kontakt'),
+              onPressed: () {
+                launch('https://classmateapp.ch/kontakt/');
               },
             ),
             LableButtonExtended(

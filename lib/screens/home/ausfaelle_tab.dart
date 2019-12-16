@@ -93,7 +93,7 @@ class DocumentList extends StatelessWidget {
                       height: 40,
                       width: double.infinity,
                       child: Container(
-                        color: Colors.white,
+                        color: Theme.of(context).accentColor,
                       ),
                     ),
                     LableFettExtended(

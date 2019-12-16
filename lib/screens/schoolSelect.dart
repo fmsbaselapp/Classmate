@@ -117,7 +117,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
           value: i,
           groupValue: schule,
           onChanged: _setvalue2,
-          activeColor: Colors.black,
+          activeColor: Theme.of(context).indicatorColor,
           controlAffinity: ListTileControlAffinity.platform,
           title: LableFettExtendedSansPadding(
             text: schulenlist[i],
@@ -348,7 +348,7 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
           value: i,
           groupValue: _value2,
           onChanged: _setvalue2,
-          activeColor: Colors.black,
+          activeColor: Theme.of(context).indicatorColor,
           controlAffinity: ListTileControlAffinity.platform,
           title: LableFettExtendedSansPadding(
             text: schulenlist[i],
