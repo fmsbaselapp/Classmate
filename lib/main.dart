@@ -27,10 +27,12 @@ class Classmate extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           primaryColor: Colors.white,
+          
           accentColor: Colors.white10,
           hintColor: Colors.grey,
           cardColor: Colors.white,
           indicatorColor: Colors.black,
+          toggleableActiveColor: Colors.black,
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,
           ),
@@ -54,6 +56,7 @@ class Classmate extends StatelessWidget {
           hintColor: Colors.grey,
           cardColor: Colors.grey[800],
           indicatorColor: Colors.white,
+          toggleableActiveColor: Colors.grey[500],
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,
           ),

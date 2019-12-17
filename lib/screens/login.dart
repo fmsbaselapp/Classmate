@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:Classmate/services/auth.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -84,6 +85,21 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.send,
+                            autocorrect: false,
+                            cursorColor: Colors.black,
+                            cursorWidth: 2,
+                            expands: false,
+                            enableInteractiveSelection: true,
+                            decoration: InputDecoration(
+                              labelText: 'Edubs Email',
+                              hintText: 'vorname.nachname@stud.edubs.ch',
+                              labelStyle: TextStyle(color: Colors.grey),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
                             onFieldSubmitted: (_) async {
                               if (_formKey.currentState.validate()) {
                                 userEmail = _emailController.text;
@@ -95,17 +111,6 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                         (onError) => _sentEmail = false);
                               } //Todo else fail},
                             },
-                            autocorrect: false,
-                            cursorColor: Colors.black,
-                            cursorWidth: 2,
-                            expands: false,
-                            enableInteractiveSelection: true,
-                            decoration: InputDecoration(
-                              labelText: 'Edubs Email',
-                              hintText: 'vorname.nachname@stud.edubs.ch',
-                              labelStyle: TextStyle(color: Colors.grey),
-                             
-                            ),
                             validator: (String value) {
                               if (RegExp(
                                       "^([0-9]?)+([a-zA-Z]{2,15})+([0-9]?)+\.+([0-9]?)+([a-zA-Z]{2,20})+([0-9]?)+@(stud\.edubs\.ch)\$")
@@ -152,24 +157,22 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                   );
                                 } else {
                                   print('EMAIL SENDEN ERROR');
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              "Ein Fehler ist aufgetreten."),
-                                          content: Text(
-                                              "Deine Email konnte nicht versendet werden.\n \nÜberprüfe deine Internetverbindung und Email Adresse."),
-                                          actions: <Widget>[
-                                            FlatButton(
-                                              child: Text('Okay!'),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            )
-                                          ],
-                                        );
-                                      });
+                                  return showPlatformDialog(
+                                    context: context,
+                                    builder: (_) => PlatformAlertDialog(
+                                      title:
+                                          Text('Ein Fehler ist aufgetreten.'),
+                                      content: Text(
+                                          'Deine Email konnte nicht versendet werden.\n \nÜberprüfe deine Internetverbindung und E-Mail-Adresse.'),
+                                      actions: <Widget>[
+                                        PlatformDialogAction(
+                                          child: PlatformText('Okay!'),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 }
                               }
                             },

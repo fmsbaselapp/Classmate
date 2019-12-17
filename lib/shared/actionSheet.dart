@@ -33,3 +33,26 @@ Future<void> emailAction(context, userEmail) async {
     },
   );
 }
+
+Future<void> abmelden(context) async {
+  return showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoActionSheet(
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            child: Text('Abmelden :('),
+            onPressed: () {
+              int _count = 0;
+              Navigator.of(context).popUntil((_) => _count++ >= 2);
+            },
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          child: Text('Doch nit :)'),
+          onPressed: () => Navigator.pop(context, 'Abbrechen'),
+        ),
+      );
+    },
+  );
+}
