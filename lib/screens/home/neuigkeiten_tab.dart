@@ -2,6 +2,7 @@ import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class NeuigkeitenTab extends StatelessWidget {
@@ -136,24 +137,34 @@ class _AusfallList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: ausfallCounter.length,
-      itemBuilder: (context, index) {
-        List<String> ausfall = List.from(
-            snapshot.data.documents[indexDocument].data[index.toString()]);
-        String ausfallTitel = ausfall[0].toString();
+    return AnimationLimiter(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: ausfallCounter.length,
+        itemBuilder: (BuildContext context, int index) {
+          List<String> ausfall = List.from(
+              snapshot.data.documents[indexDocument].data[index.toString()]);
+          String ausfallTitel = ausfall[0].toString();
 
-        ausfall.removeAt(0);
-        List<String> ausfallContent = ausfall;
-
-        return new _AusfallKarten(
-          ausfallTitel: ausfallTitel,
-          ausfallContent: ausfallContent,
-        );
-      },
+          ausfall.removeAt(0);
+          List<String> ausfallContent = ausfall;
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 375),
+            child: SlideAnimation(
+              verticalOffset: 30.0,
+              child: FadeInAnimation(
+                child: _AusfallKarten(
+                  ausfallTitel: ausfallTitel,
+                  ausfallContent: ausfallContent,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -210,14 +221,12 @@ class _AusfallKarten extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 for (var text in ausfallContent)
-                Padding(
-                  padding: EdgeInsets.only(top: 5),
-                  child:
-                  Text(
-                    text,
-                    style: Theme.of(context).textTheme.subhead,
-                  )
-                )
+                  Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Text(
+                        text,
+                        style: Theme.of(context).textTheme.subhead,
+                      ))
               ],
             ),
           ),

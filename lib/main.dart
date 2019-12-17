@@ -52,6 +52,7 @@ class Classmate extends StatelessWidget {
 
         darkTheme: ThemeData(
           primaryColor: Colors.grey[800],
+          primaryColorDark: Colors.black,
           accentColor: Colors.grey[850],
           hintColor: Colors.grey,
           cardColor: Colors.grey[800],

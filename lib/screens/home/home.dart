@@ -79,7 +79,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-       
+       //backgroundColor: Theme.of(context).primaryColorDark,
         appBar: ClassmateAppBar(
           children: <Widget>[
             Text(
