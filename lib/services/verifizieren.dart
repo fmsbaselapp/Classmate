@@ -7,6 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:Classmate/services/auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
@@ -98,19 +99,36 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
           );
           setState(() {});
         } else {
-          print('link leer');
+          print('link leer 1');
           _success = false;
+          
         }
       } else {
         print('leer');
       }
       setState(() {});
-    } catch (e) {}
+    } catch (e) {
+      return showPlatformDialog(
+        context: context,
+        builder: (_) => PlatformAlertDialog(
+          title: Text('Ein Fehler ist aufgetreten.'),
+          content: Text(
+              '\nDein Link ist abgelaufen.\n \nBearbeite deine Email und lasse dir einen neuen Link zusenden.'),
+          actions: <Widget>[
+            PlatformDialogAction(
+              child: PlatformText('Okay!'),
+              onPressed: () => Navigator.popAndPushNamed(context, '/login'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColorDark,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),

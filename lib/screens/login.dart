@@ -47,6 +47,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColorDark,
       body: WillPopScope(
         onWillPop: () async {
           return Future.value(false);
@@ -86,7 +87,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.send,
                             autocorrect: false,
-                            cursorColor: Colors.black,
+                            cursorColor: Theme.of(context).accentColor,
                             cursorWidth: 2,
                             expands: false,
                             enableInteractiveSelection: true,
@@ -163,7 +164,7 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                       title:
                                           Text('Ein Fehler ist aufgetreten.'),
                                       content: Text(
-                                          'Deine Email konnte nicht versendet werden.\n \nÜberprüfe deine Internetverbindung und E-Mail-Adresse.'),
+                                          '\nDeine Email konnte nicht versendet werden.\n \nÜberprüfe deine Internetverbindung und E-Mail-Adresse.'),
                                       actions: <Widget>[
                                         PlatformDialogAction(
                                           child: PlatformText('Okay!'),

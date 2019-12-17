@@ -136,6 +136,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
     BuildContext context,
   ) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColorDark,
       appBar: ClassmateAppBar(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         height: 60,
@@ -371,6 +372,7 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
         return Future.value(false);
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColorDark,
         appBar: ClassmateAppBar(
           height: 100,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

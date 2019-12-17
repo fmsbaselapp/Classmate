@@ -21,6 +21,7 @@ class SettingsScreen extends StatelessWidget {
       container: toBeMergedWithAncestors,
       explicitChildNodes: allowDescendantsToAddSemantics,
       child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColorDark,
         appBar: ClassmateAppBar(
           children: <Widget>[
             RoundButton(

@@ -94,7 +94,7 @@ class _DocumentList extends StatelessWidget {
                       height: 40,
                       width: double.infinity,
                       child: Container(
-                        color: Colors.white,
+                        color: Theme.of(context).primaryColorDark,
                       ),
                     ),
                     LableFettExtended(
@@ -196,7 +196,7 @@ class _AusfallKarten extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Theme.of(context).accentColor,
               borderRadius: new BorderRadius.only(
                   topLeft: const Radius.circular(15.0),
                   topRight: const Radius.circular(15.0)),

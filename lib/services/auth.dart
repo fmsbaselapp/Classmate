@@ -10,14 +10,19 @@ class AuthService {
 
   Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
 
-  Future<void> signIn(userEmail, link, personalData) async {
+  Future<bool> signIn(userEmail, link, personalData) async {
     //TODO Error try catch
     final FirebaseUser user = await _auth
         .signInWithEmailAndLink(
-          email: userEmail,
-          link: link.toString(),
-        )
-        .catchError((onError) => print(onError));
+      email: userEmail,
+      link: link.toString(),
+    )
+        .catchError(
+      (onError) {
+        print(onError);
+        return false;
+      },
+    );
 
     if (user != null) {
       await updateUserData(user);
@@ -25,6 +30,7 @@ class AuthService {
       return true;
     } else {
       print('link leer');
+      return false;
     }
   }
 
@@ -54,7 +60,7 @@ class AuthService {
   Future<bool> signInWithEmailAndLink(userEmail) async {
     print(userEmail);
     try {
-     return await _auth
+      return await _auth
           .sendSignInWithEmailLink(
         email: userEmail,
         url: 'https://appclassmate.page.link/verification',

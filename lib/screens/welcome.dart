@@ -28,6 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColorDark,
       body: WillPopScope(
         onWillPop: () async {
           return Future.value(false);

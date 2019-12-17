@@ -27,11 +27,12 @@ class Classmate extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           primaryColor: Colors.white,
-          
-          accentColor: Colors.white10,
+          primaryColorDark: Colors.white,
+          accentColor: Colors.black,
           hintColor: Colors.grey,
           cardColor: Colors.white,
           indicatorColor: Colors.black,
+          tabBarTheme: TabBarTheme(labelColor: Colors.black),
           toggleableActiveColor: Colors.black,
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,
@@ -51,12 +52,13 @@ class Classmate extends StatelessWidget {
         ),
 
         darkTheme: ThemeData(
-          primaryColor: Colors.grey[800],
+          primaryColor: Color(0xff454545),
           primaryColorDark: Colors.black,
-          accentColor: Colors.grey[850],
-          hintColor: Colors.grey,
-          cardColor: Colors.grey[800],
+          accentColor: Color(0xff868686),
+          hintColor: Color(0xff868686),
+          cardColor: Color(0xff454545),
           indicatorColor: Colors.white,
+          tabBarTheme: TabBarTheme(labelColor: Color(0xff454545)),
           toggleableActiveColor: Colors.grey[500],
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.black,

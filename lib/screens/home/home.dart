@@ -79,7 +79,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-       //backgroundColor: Theme.of(context).primaryColorDark,
+       backgroundColor: Theme.of(context).primaryColorDark,
         appBar: ClassmateAppBar(
           children: <Widget>[
             Text(
@@ -112,7 +112,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.all(
                     Radius.circular(15),
                   ),
-                  border: Border.all(color: Theme.of(context).accentColor, width: 3),
+                  border: Border.all(color: Theme.of(context).primaryColorDark, width: 3),
                 ),
 
                 //Tabbar
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   indicator: new BubbleTabIndicator(
                     insets: EdgeInsets.only(left: 0, right: 0, top: 0),
                     indicatorHeight: 24,
-                    indicatorColor: Colors.black,
+                    indicatorColor: Theme.of(context).tabBarTheme.labelColor,
                     tabBarIndicatorSize: TabBarIndicatorSize.tab,
                   ),
                   tabs: <Widget>[
