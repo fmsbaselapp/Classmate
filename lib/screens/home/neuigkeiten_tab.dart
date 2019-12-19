@@ -3,6 +3,7 @@ import 'package:Classmate/shared/shared.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:share/share.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class NeuigkeitenTab extends StatelessWidget {
@@ -191,46 +192,51 @@ class _AusfallKarten extends StatelessWidget {
           left: (paddingSite + 10),
           right: (paddingSite + 10),
           top: (paddingSite + 5)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).accentColor,
-              borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(15.0),
-                  topRight: const Radius.circular(15.0)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10),
-              child: Text(
-                ausfallTitel, //first element from array
-                style: Theme.of(context)
-                    .textTheme
-                    .body2
-                    .copyWith(color: Colors.white),
+      child: InkWell(
+        onTap: () => Share.share(
+            '\nNeuigkeit:\n$ausfallTitel\n${ausfallContent[0]}\n\nAusfälle in der App:\nhttps://appclassmate.page.link/classmate'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: new BorderRadius.only(
+                    topLeft: const Radius.circular(15.0),
+                    topRight: const Radius.circular(15.0)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 5, left: 10, right: 10),
+                child: Text(
+                  ausfallTitel, //first element from array
+                  style: Theme.of(context)
+                      .textTheme
+                      .body2
+                      .copyWith(color: Colors.white),
+                ),
               ),
             ),
-          ),
 
-          //Titel
+            //Titel
 
-          Padding(
-            padding: EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                for (var text in ausfallContent)
-                  Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Text(
-                        text,
-                        style: Theme.of(context).textTheme.subhead,
-                      ))
-              ],
+            Padding(
+              padding: EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  for (var text in ausfallContent)
+                    Padding(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Text(
+                          text,
+                          style: Theme.of(context).textTheme.subhead,
+                        ))
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:Classmate/shared/shared.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:share/share.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class AusfaelleTab extends StatelessWidget {
@@ -153,7 +154,6 @@ class AusfallList extends StatelessWidget {
               child: SlideAnimation(
                 verticalOffset: 30.0,
                 child: FadeInAnimation(
-                 
                   child: AusfallKarten(ausfall: ausfall),
                 ),
               ),
@@ -164,7 +164,6 @@ class AusfallList extends StatelessWidget {
     );
   }
 }
-
 
 //Ausfall Karten
 class AusfallKarten extends StatelessWidget {
@@ -186,49 +185,53 @@ class AusfallKarten extends StatelessWidget {
           left: (paddingSite + 10),
           right: (paddingSite + 10),
           top: (paddingSite + 5)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).accentColor,
-              borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(15.0),
-                  topRight: const Radius.circular(15.0)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10),
-              child: Text(
-                ausfall[0], //first element from array
-                style: Theme.of(context)
-                    .textTheme
-                    .body2
-                    .copyWith(color: Colors.white),
+      child: InkWell(
+        onTap: () => Share.share('\nAusfall:\n${ausfall[0]} ${ausfall[1]}\n${ausfall[2]}\n${ausfall[3]}\n\nAusfälle in der App:\nhttps://appclassmate.page.link/classmate'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: new BorderRadius.only(
+                    topLeft: const Radius.circular(15.0),
+                    topRight: const Radius.circular(15.0)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                child: Text(
+                  ausfall[0], //first element from array
+                  style: Theme.of(context)
+                      .textTheme
+                      .body2
+                      .copyWith(color: Colors.white),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 10),
-            child: Text(
-              ausfall[1], //second element from array
-              style: Theme.of(context).textTheme.subhead,
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+              child: Text(
+                ausfall[1], //second element from array
+                style: Theme.of(context).textTheme.subhead,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 5),
-            child: Text(
-              ausfall[2], //third element from array
-              style: Theme.of(context).textTheme.subhead,
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 5, right: 10),
+              child: Text(
+                ausfall[2], //third element from array
+                style: Theme.of(context).textTheme.subhead,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 5, bottom: 10),
-            child: Text(
-              ausfall[3], //third element from array
-              style: Theme.of(context).textTheme.subhead,
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 10, top: 5, bottom: 10, right: 10),
+              child: Text(
+                ausfall[3], //third element from array
+                style: Theme.of(context).textTheme.subhead,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

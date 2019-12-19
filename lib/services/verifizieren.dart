@@ -113,11 +113,11 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         builder: (_) => PlatformAlertDialog(
           title: Text('Ein Fehler ist aufgetreten.'),
           content: Text(
-              '\nDein Link ist abgelaufen.\n \nBearbeite deine Email und lasse dir einen neuen Link zusenden.'),
+              '\nDein Link ist abgelaufen.\n \nLass dir einen neuen Link zusenden.'),
           actions: <Widget>[
             PlatformDialogAction(
               child: PlatformText('Okay!'),
-              onPressed: () => Navigator.popAndPushNamed(context, '/login'),
+              onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/login')),
             ),
           ],
         ),

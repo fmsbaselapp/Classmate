@@ -29,6 +29,7 @@ dependencies:
 
   #logic
   shared_preferences:
+  share: ^0.6.3+5
   conditional_builder: ^1.0.2
   url_launcher: ^5.2.5
 

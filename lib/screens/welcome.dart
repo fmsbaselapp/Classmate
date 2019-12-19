@@ -1,3 +1,4 @@
+import 'package:Classmate/screens/home/home.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,12 +20,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     auth.getUser.then(
       (user) {
         if (user != null) {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (c, a1, a2) => HomeScreen(),
+              transitionsBuilder: (c, anim, a2, child) =>
+                  FadeTransition(opacity: anim, child: child),
+              transitionDuration: Duration(milliseconds: 100),
+            ),
+          );
         }
       },
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
