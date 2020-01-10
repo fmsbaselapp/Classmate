@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:Classmate/shared/button.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override

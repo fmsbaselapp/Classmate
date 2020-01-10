@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ClassmateAppBar extends StatelessWidget implements PreferredSizeWidget {
   ClassmateAppBar({this.children, this.height, this.mainAxisAlignment});
@@ -10,10 +11,9 @@ class ClassmateAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Padding(
+      child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Container(
-          
           width: double.infinity,
           height: height,
           child: Padding(
@@ -22,8 +22,8 @@ class ClassmateAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
-              
+              mainAxisAlignment:
+                  mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
               children: children,
             ),
           ),
@@ -46,10 +46,9 @@ class ClassmateTabBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Padding(
+      child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Container(
-          
           width: double.infinity,
           height: height,
           child: Padding(
@@ -58,8 +57,8 @@ class ClassmateTabBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
-              
+              mainAxisAlignment:
+                  mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
               children: children,
             ),
           ),

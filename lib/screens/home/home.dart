@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 const double paddingSite = 10;
 
@@ -53,8 +54,54 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   String _homeTitle;
   TabController _controller;
 
+  /// Main Rate my app instance.
+  RateMyApp _rateMyApp = RateMyApp(
+    preferencesPrefix: 'rateMyApp_',
+    minDays: 7,
+    minLaunches: 7,
+    remindDays: 10,
+    remindLaunches: 10,
+    appStoreIdentifier: '1483540166',
+    googlePlayIdentifier: 'ch.classmate.app',
+  );
+
   void initState() {
     super.initState();
+    _rateMyApp.init().then(
+      (_) {
+        if (_rateMyApp.shouldOpenDialog) {
+        _rateMyApp.showStarRateDialog(
+          context,
+          title: 'Gefällt dir Classmate?',
+          message:
+              'Tippe einen Stern um im PlayStore eine Bewertung abzugeben. :)',
+          onRatingChanged: (stars) {
+            return [
+              FlatButton(
+                child: Text('Bewerten!'),
+                onPressed: () async {
+                  print('Thanks for the ' +
+                      (stars == null ? '0' : stars.round().toString()) +
+                      ' star(s) !');
+                  // You can handle the result as you want (for instance if the user puts 1 star then open your contact page, if he puts more then open the store page, etc...).
+                  await _rateMyApp.callEvent(RateMyAppEventType
+                      .rateButtonPressed); // This allows to mimic the behavior of the default "Rate" button. See "Advanced > Broadcasting events" for more information.
+
+                  Navigator.pop(context);
+                },
+              ),
+            ];
+          },
+          ignoreIOS: false,
+          dialogStyle: DialogStyle(
+            titleAlign: TextAlign.center,
+            messageAlign: TextAlign.center,
+            messagePadding: EdgeInsets.only(bottom: 20),
+          ),
+        );
+        }
+      },
+    );
     _controller = new TabController(length: 3, vsync: this);
     _homeTitle = _tabs[0];
     _controller.addListener(_handleSelected);
@@ -79,7 +126,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-       backgroundColor: Theme.of(context).primaryColorDark,
+        backgroundColor: Theme.of(context).primaryColorDark,
         appBar: ClassmateAppBar(
           children: <Widget>[
             Text(
@@ -112,7 +159,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.all(
                     Radius.circular(15),
                   ),
-                  border: Border.all(color: Theme.of(context).primaryColorDark, width: 3),
+                  border: Border.all(
+                      color: Theme.of(context).primaryColorDark, width: 3),
                 ),
 
                 //Tabbar
@@ -128,7 +176,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   tabs: <Widget>[
                     Tab(
                       child: Container(
-
                         child: Padding(
                           padding: const EdgeInsets.only(top: 3),
                           child: Text(
@@ -176,7 +223,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             //Tabbarview
             Flexible(
               child: TabBarView(
-          
                 dragStartBehavior: DragStartBehavior.down,
                 controller: _controller,
                 children: <Widget>[

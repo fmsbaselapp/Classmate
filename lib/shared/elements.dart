@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:Classmate/services/services.dart';
 
 class LableFettExtended extends StatelessWidget {
   LableFettExtended({@required this.text, this.margin});
@@ -57,7 +59,6 @@ class LableFettExtendedSansPadding extends StatelessWidget {
   }
 }
 
-/*
 class LableDarkMode extends StatefulWidget {
   LableDarkMode({@required this.text, this.margin});
 
@@ -68,12 +69,13 @@ class LableDarkMode extends StatefulWidget {
   _LableDarkModeState createState() => _LableDarkModeState();
 }
 
-
 class _LableDarkModeState extends State<LableDarkMode> {
-  bool isSwitched = true;
+  bool _darkTheme;
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    _darkTheme = (themeNotifier.getTheme() == darkTheme);
     return SizedBox(
       width: double.infinity,
       child: Card(
@@ -81,41 +83,50 @@ class _LableDarkModeState extends State<LableDarkMode> {
         color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0)),
-        elevation: 10,
-        child: Padding(
-          padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                widget.text,
-                style: Theme.of(context).textTheme.button,
-              ),
-              Transform.scale(
-                scale: 1.0,
-                child: PlatformSwitch(
-                  onChanged: (value) {
-                    setState(() {
-                      isSwitched = value;
-                    });
-                  },
-                  value: isSwitched,
-                  android: (_) => MaterialSwitchData(
-                    activeTrackColor: Colors.lightGreenAccent,
-                    activeColor: Colors.green,
-                  ),
-                  ios: (_) => CupertinoSwitchData(
-                    activeColor: Theme.of(context).toggleableActiveColor,
+        elevation: 5,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(15.0),
+          onTap: () {
+            setState(() {
+              _darkTheme = _darkTheme;
+            });
+            onThemeChanged(!_darkTheme, themeNotifier);
+          },
+          child: Padding(
+            padding:
+                EdgeInsets.only(top: 2, bottom: 2, left: 10, right: 10), //TODO
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                AnimatedDefaultTextStyle(
+                  style: Theme.of(context).textTheme.button,
+                  duration: Duration(milliseconds: 200),
+                  child: Text(
+                    widget.text,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              )
-            ],
+                Transform.scale(
+                  scale: 1.0,
+                  child: Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
+                    value: _darkTheme,
+                    onChanged: (val) {
+                      setState(() {
+                        _darkTheme = val;
+                      });
+                      onThemeChanged(val, themeNotifier);
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-} */
+}
 
 class LableHome extends StatelessWidget {
   LableHome({@required this.text, this.margin});

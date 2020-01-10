@@ -1,13 +1,11 @@
-import 'package:Classmate/screens/schoolSelect.dart';
-import 'package:Classmate/services/models.dart';
-import 'package:Classmate/shared/appBar.dart';
-import 'package:Classmate/shared/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
+import 'package:Classmate/screens/screens.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -57,10 +55,13 @@ class SettingsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Meine Schule:'),
-                  Text(
-                    report.schule.toString() ?? 'Wähle deine Schule', //Todo
-                    style: Theme.of(context).textTheme.subhead,
-                    overflow: TextOverflow.ellipsis,
+                  AnimatedDefaultTextStyle(
+                    style: Theme.of(context).textTheme.subhead, duration: Duration(milliseconds: 200),
+                                      child: Text(
+                      report.schule.toString() ?? 'Wähle deine Schule', //Todo
+                      
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
@@ -72,44 +73,42 @@ class SettingsScreen extends StatelessWidget {
                 ));
               },
             ),
-
-            /*LableDarkMode(
-              text: 'Dark Mode',
+            LableDarkMode(
+              text: 'Dunkles Design',
               margin: EdgeInsetsDirectional.only(top: 30),
-              
             ),
-            */
             LableButtonExtended(
               paddingTop: 30,
-              child: Text('Teamwork öffnen'),
+              text: 'Teamwork öffnen',
+              
               onPressed: () {
                 _launchURL();
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
-              child: Text('Edubs Angebote'),
+             text: 'Edubs Angebote',
               onPressed: () {
                 launch('https://classmateapp.ch/edubs-angebote/');
               },
             ),
             LableButtonExtended(
               paddingTop: 30,
-              child: Text('Hilfe'),
+              text: 'Hilfe',
               onPressed: () {
                 launch('https://classmateapp.ch/hilfe/');
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
-              child: Text('Kontakt'),
+              text: 'Kontakt',
               onPressed: () {
                 launch('https://classmateapp.ch/kontakt/');
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
-              child: Text('Abmelden'),
+              text: 'Abmelden',
               onPressed: () => showPlatformDialog(
                 context: context,
                 builder: (_) => PlatformAlertDialog(
@@ -127,18 +126,17 @@ class SettingsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              
             ),
             LableButtonExtended(
               paddingTop: 30,
-              child: Text('Nutzungsbedingungen'),
+              text: 'Nutzungsbedingungen',
               onPressed: () {
                 launch('https://classmateapp.ch/nutzungsbedingungen/');
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
-              child: Text('Datenschutzerklärung'),
+             text: 'Datenschutzerklärung',
               onPressed: () {
                 launch('https://classmateapp.ch/datenschutz/');
               },

@@ -212,7 +212,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: CupertinoScrollbar(
             child: ListView(
               children: <Widget>[schulen()],
@@ -446,7 +446,7 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
         ),
         body: Center(
           child: Padding(
-             padding: const EdgeInsets.only(top: 20, bottom: 10),
+             padding: const EdgeInsets.only(top: 20),
             child: CupertinoScrollbar(
               child: ListView(
                 children: <Widget>[schulen()],

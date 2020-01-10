@@ -84,6 +84,7 @@ class RoundButton extends StatelessWidget {
 class LableButtonExtended extends StatelessWidget {
   LableButtonExtended(
       {@required this.onPressed,
+      this.text,
       this.child,
       this.color,
       this.paddingTop,
@@ -91,6 +92,7 @@ class LableButtonExtended extends StatelessWidget {
       this.paddingLeft,
       this.paddingRight});
   GestureTapCallback onPressed;
+  String text;
   var child;
   var color;
   double paddingTop;
@@ -118,7 +120,14 @@ class LableButtonExtended extends StatelessWidget {
           highlightElevation: 0,
           child: SizedBox(
             width: double.infinity,
-            child: child,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+              if (text != null)
+               Text(text)
+              else
+              child
+            ],)
           ),
           textStyle: Theme.of(context).textTheme.button,
           onPressed: onPressed,
