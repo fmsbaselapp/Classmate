@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +24,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);
+
           return LoadingScreen();
         }
         if (snapshot.hasData) {
@@ -70,35 +75,36 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _rateMyApp.init().then(
       (_) {
         if (_rateMyApp.shouldOpenDialog) {
-        _rateMyApp.showStarRateDialog(
-          context,
-          title: 'Gefällt dir Classmate?',
-          message:
-              'Tippe einen Stern um im PlayStore eine Bewertung abzugeben. :)',
-          onRatingChanged: (stars) {
-            return [
-              FlatButton(
-                child: Text('Bewerten!'),
-                onPressed: () async {
-                  print('Thanks for the ' +
-                      (stars == null ? '0' : stars.round().toString()) +
-                      ' star(s) !');
-                  // You can handle the result as you want (for instance if the user puts 1 star then open your contact page, if he puts more then open the store page, etc...).
-                  await _rateMyApp.callEvent(RateMyAppEventType
-                      .rateButtonPressed); // This allows to mimic the behavior of the default "Rate" button. See "Advanced > Broadcasting events" for more information.
+          _rateMyApp.showStarRateDialog(
+            context,
+            title: 'Gefällt dir Classmate?',
+            message:
+                'Tippe einen Stern um im PlayStore eine Bewertung abzugeben. :)',
+            onRatingChanged: (stars) {
+              return [
+                FlatButton(
+                  child: Text('Bewerten!'),
+                  onPressed: () async {
+                    print('Thanks for the ' +
+                        (stars == null ? '0' : stars.round().toString()) +
+                        ' star(s) !');
+                    //TODO
+                    // You can handle the result as you want (for instance if the user puts 1 star then open your contact page, if he puts more then open the store page, etc...).
+                    await _rateMyApp.callEvent(RateMyAppEventType
+                        .rateButtonPressed); // This allows to mimic the behavior of the default "Rate" button. See "Advanced > Broadcasting events" for more information.
 
-                  Navigator.pop(context);
-                },
-              ),
-            ];
-          },
-          ignoreIOS: false,
-          dialogStyle: DialogStyle(
-            titleAlign: TextAlign.center,
-            messageAlign: TextAlign.center,
-            messagePadding: EdgeInsets.only(bottom: 20),
-          ),
-        );
+                    Navigator.pop(context);
+                  },
+                ),
+              ];
+            },
+            ignoreIOS: false,
+            dialogStyle: DialogStyle(
+              titleAlign: TextAlign.center,
+              messageAlign: TextAlign.center,
+              messagePadding: EdgeInsets.only(bottom: 20),
+            ),
+          );
         }
       },
     );
@@ -122,6 +128,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
+    FirebaseAnalytics().setUserProperty(name: "Schule", value: report.schule);
 
     return DefaultTabController(
       length: 3,

@@ -19,6 +19,12 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		AFD28C23DC6C01C78D7AAEEF /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1880959222A561A7D7E5CD5A /* Pods_Runner.framework */; };
 		F5072B1A23A249AB0067AB19 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5072B1923A249AB0067AB19 /* GoogleService-Info.plist */; };
+		F58815C823CE39E800945697 /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = F58815C223CE39E800945697 /* light.png */; };
+		F58815C923CE39E800945697 /* dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F58815C323CE39E800945697 /* dark@3x.png */; };
+		F58815CA23CE39E800945697 /* dark.png in Resources */ = {isa = PBXBuildFile; fileRef = F58815C423CE39E800945697 /* dark.png */; };
+		F58815CB23CE39E800945697 /* light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F58815C523CE39E800945697 /* light@2x.png */; };
+		F58815CC23CE39E800945697 /* light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F58815C623CE39E800945697 /* light@3x.png */; };
+		F58815CD23CE39E800945697 /* dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F58815C723CE39E800945697 /* dark@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +64,12 @@
 		B02903EC787E0B599DBF4D21 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		F34E4E8F23552F0C002BACA9 /* Classmate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Classmate.entitlements; sourceTree = "<group>"; };
 		F5072B1923A249AB0067AB19 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F58815C223CE39E800945697 /* light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light.png; sourceTree = "<group>"; };
+		F58815C323CE39E800945697 /* dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark@3x.png"; sourceTree = "<group>"; };
+		F58815C423CE39E800945697 /* dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark.png; sourceTree = "<group>"; };
+		F58815C523CE39E800945697 /* light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light@2x.png"; sourceTree = "<group>"; };
+		F58815C623CE39E800945697 /* light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light@3x.png"; sourceTree = "<group>"; };
+		F58815C723CE39E800945697 /* dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +131,7 @@
 			children = (
 				F5072B1923A249AB0067AB19 /* GoogleService-Info.plist */,
 				F34E4E8F23552F0C002BACA9 /* Classmate.entitlements */,
+				F58815C123CE398B00945697 /* App Icons */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -147,6 +160,19 @@
 				1A1ABBC7D8C2AC102AB87D57 /* Pods-Runner.profile.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F58815C123CE398B00945697 /* App Icons */ = {
+			isa = PBXGroup;
+			children = (
+				F58815C423CE39E800945697 /* dark.png */,
+				F58815C723CE39E800945697 /* dark@2x.png */,
+				F58815C323CE39E800945697 /* dark@3x.png */,
+				F58815C223CE39E800945697 /* light.png */,
+				F58815C523CE39E800945697 /* light@2x.png */,
+				F58815C623CE39E800945697 /* light@3x.png */,
+			);
+			path = "App Icons";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,8 +241,14 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
+				F58815CA23CE39E800945697 /* dark.png in Resources */,
 				F5072B1A23A249AB0067AB19 /* GoogleService-Info.plist in Resources */,
+				F58815C923CE39E800945697 /* dark@3x.png in Resources */,
+				F58815CD23CE39E800945697 /* dark@2x.png in Resources */,
+				F58815CC23CE39E800945697 /* light@3x.png in Resources */,
+				F58815C823CE39E800945697 /* light.png in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
+				F58815CB23CE39E800945697 /* light@2x.png in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

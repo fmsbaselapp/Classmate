@@ -1,12 +1,15 @@
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/appBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Classmate/shared/Elements.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+FirebaseAnalytics analytics = FirebaseAnalytics();
 
 class SchoolSelectScreen extends StatefulWidget {
   SchoolSelectScreen({Key key, this.report}) : super(key: key);
@@ -177,7 +180,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
                 'Tagesstrukturen Drei Linden',
                 'ZBA Gundeldingen',
                 'ZBA Letzi'
-                    'BFS Gebäude A',
+                'BFS Gebäude A',
                 'BFS Gebäude B',
                 'BFS Gebäude C',
                 'BFS Gebäude D',
@@ -195,8 +198,9 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
                   return reportRef.setData(
                       {'uid': user.uid, 'Schule': schulenlist[_value2]},
                       merge: true);
+                     
                 }
-
+                FirebaseAnalytics().setUserProperty(name: "Schule", value: schulenlist[_value2]);
                 loadSchool(user);
                 print(schulenlist[_value2]);
 
@@ -289,6 +293,14 @@ wichSchoolIndex(schoolindex) {
     return 30;
   }
 }
+
+
+
+
+
+//=========================================================================================================================
+
+
 
 //First open
 class SchoolSelectScreenFirst extends StatefulWidget {
@@ -433,7 +445,7 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
 
                   loadSchool(user);
                   print(schulenlist[_value2]);
-
+                  FirebaseAnalytics().setUserProperty(name: "Schule", value: schulenlist[_value2]);
                   // Navigator.pushReplacementNamed(context, '/home');
                 } else {
                   print('nicht angemeldet');

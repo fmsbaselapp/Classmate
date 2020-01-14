@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
+
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:Classmate/services/services.dart';
 
@@ -86,11 +88,26 @@ class _LableDarkModeState extends State<LableDarkMode> {
         elevation: 5,
         child: InkWell(
           borderRadius: BorderRadius.circular(15.0),
-          onTap: () {
+          onTap: () async {
             setState(() {
               _darkTheme = _darkTheme;
             });
+
             onThemeChanged(!_darkTheme, themeNotifier);
+            try {
+              if (await FlutterDynamicIcon.supportsAlternateIcons) {
+                if (_darkTheme) {
+                  await FlutterDynamicIcon.setAlternateIconName("dark");
+                  print("App icon change successful");
+                  return;
+                } else {
+                  await FlutterDynamicIcon.setAlternateIconName("light");
+                  print("App icon change successful");
+                  return;
+                }
+              }
+            } on PlatformException {} catch (e) {}
+            print("Failed to change app icon");
           },
           child: Padding(
             padding:
@@ -111,11 +128,27 @@ class _LableDarkModeState extends State<LableDarkMode> {
                   child: Switch.adaptive(
                     activeColor: Theme.of(context).accentColor,
                     value: _darkTheme,
-                    onChanged: (val) {
+                    onChanged: (val) async {
                       setState(() {
                         _darkTheme = val;
                       });
                       onThemeChanged(val, themeNotifier);
+                      try {
+                        if (await FlutterDynamicIcon.supportsAlternateIcons) {
+                          if (_darkTheme) {
+                            await FlutterDynamicIcon.setAlternateIconName(
+                                "dark");
+                            print("App icon change successful");
+                            return;
+                          } else {
+                            await FlutterDynamicIcon.setAlternateIconName(
+                                "light");
+                            print("App icon change successful");
+                            return;
+                          }
+                        }
+                      } on PlatformException {} catch (e) {}
+                      print("Failed to change app icon");
                     },
                   ),
                 ),
