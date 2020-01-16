@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:Classmate/services/services.dart';
 
@@ -94,20 +93,6 @@ class _LableDarkModeState extends State<LableDarkMode> {
             });
 
             onThemeChanged(!_darkTheme, themeNotifier);
-            try {
-              if (await FlutterDynamicIcon.supportsAlternateIcons) {
-                if (_darkTheme) {
-                  await FlutterDynamicIcon.setAlternateIconName("dark");
-                  print("App icon change successful");
-                  return;
-                } else {
-                  await FlutterDynamicIcon.setAlternateIconName("light");
-                  print("App icon change successful");
-                  return;
-                }
-              }
-            } on PlatformException {} catch (e) {}
-            print("Failed to change app icon");
           },
           child: Padding(
             padding:
@@ -133,22 +118,6 @@ class _LableDarkModeState extends State<LableDarkMode> {
                         _darkTheme = val;
                       });
                       onThemeChanged(val, themeNotifier);
-                      try {
-                        if (await FlutterDynamicIcon.supportsAlternateIcons) {
-                          if (_darkTheme) {
-                            await FlutterDynamicIcon.setAlternateIconName(
-                                "dark");
-                            print("App icon change successful");
-                            return;
-                          } else {
-                            await FlutterDynamicIcon.setAlternateIconName(
-                                "light");
-                            print("App icon change successful");
-                            return;
-                          }
-                        }
-                      } on PlatformException {} catch (e) {}
-                      print("Failed to change app icon");
                     },
                   ),
                 ),

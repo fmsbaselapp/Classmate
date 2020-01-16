@@ -100,8 +100,8 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
       'Fachzentrum Gestalten',
       'Tagesstrukturen Drei Linden',
       'ZBA Gundeldingen',
-      'ZBA Letzi'
-          'BFS Gebäude A',
+      'ZBA Letzi',
+      'BFS Gebäude A',
       'BFS Gebäude B',
       'BFS Gebäude C',
       'BFS Gebäude D',
@@ -132,7 +132,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
     Column column = Column(
       children: list,
     );
-    return column;
+    return Padding(padding: EdgeInsets.only(bottom: 10), child: column);
   }
 
   Widget build(
@@ -149,9 +149,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
             style: Theme.of(context).textTheme.title,
           ),
           SmallButton(
-            
             onPressed: () async {
-            
               List<String> schulenlist = List<String>();
 
               schulenlist = [
@@ -179,7 +177,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
                 'Fachzentrum Gestalten',
                 'Tagesstrukturen Drei Linden',
                 'ZBA Gundeldingen',
-                'ZBA Letzi'
+                'ZBA Letzi',
                 'BFS Gebäude A',
                 'BFS Gebäude B',
                 'BFS Gebäude C',
@@ -191,16 +189,17 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
               final Firestore _db = Firestore.instance;
               FirebaseUser user = Provider.of<FirebaseUser>(context);
               if (user != null) {
-                Future<void> loadSchool(FirebaseUser user) {
+                Future<void> loadSchool(FirebaseUser user) async {
                   DocumentReference reportRef =
                       _db.collection('Nutzer').document(user.uid);
 
                   return reportRef.setData(
                       {'uid': user.uid, 'Schule': schulenlist[_value2]},
                       merge: true);
-                     
                 }
-                FirebaseAnalytics().setUserProperty(name: "Schule", value: schulenlist[_value2]);
+
+                FirebaseAnalytics().setUserProperty(
+                    name: "Schule", value: schulenlist[_value2]);
                 loadSchool(user);
                 print(schulenlist[_value2]);
 
@@ -294,13 +293,7 @@ wichSchoolIndex(schoolindex) {
   }
 }
 
-
-
-
-
 //=========================================================================================================================
-
-
 
 //First open
 class SchoolSelectScreenFirst extends StatefulWidget {
@@ -345,8 +338,8 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
       'Fachzentrum Gestalten',
       'Tagesstrukturen Drei Linden',
       'ZBA Gundeldingen',
-      'ZBA Letzi'
-          'BFS Gebäude A',
+      'ZBA Letzi',
+      'BFS Gebäude A',
       'BFS Gebäude B',
       'BFS Gebäude C',
       'BFS Gebäude D',
@@ -373,7 +366,7 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
     Column column = Column(
       children: list,
     );
-    return column;
+    return Padding(padding: EdgeInsets.only(bottom: 10), child: column);
   }
 
   Widget build(
@@ -422,8 +415,8 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
                   'Fachzentrum Gestalten',
                   'Tagesstrukturen Drei Linden',
                   'ZBA Gundeldingen',
-                  'ZBA Letzi'
-                      'BFS Gebäude A',
+                  'ZBA Letzi',
+                  'BFS Gebäude A',
                   'BFS Gebäude B',
                   'BFS Gebäude C',
                   'BFS Gebäude D',
@@ -445,7 +438,8 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
 
                   loadSchool(user);
                   print(schulenlist[_value2]);
-                  FirebaseAnalytics().setUserProperty(name: "Schule", value: schulenlist[_value2]);
+                  FirebaseAnalytics().setUserProperty(
+                      name: "Schule", value: schulenlist[_value2]);
                   // Navigator.pushReplacementNamed(context, '/home');
                 } else {
                   print('nicht angemeldet');
@@ -458,7 +452,7 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
         ),
         body: Center(
           child: Padding(
-             padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             child: CupertinoScrollbar(
               child: ListView(
                 children: <Widget>[schulen()],

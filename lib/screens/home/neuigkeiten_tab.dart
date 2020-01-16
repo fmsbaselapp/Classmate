@@ -17,49 +17,42 @@ class NeuigkeitenTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double paddingSite = 10;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Flexible(
-          child: StreamBuilder(
-            stream: Firestore.instance
-                .collection('Neuigkeiten')
-                .document('Schulen')
-                .collection(report.schule)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                print(snapshot.error);
-                return Center(child: Loader());
-              }
-              //check if snapshot has data
-              if (!snapshot.hasData) {
-                print(snapshot.data);
-                return Center(child: Loader());
+    return StreamBuilder(
+      stream: Firestore.instance
+          .collection('Neuigkeiten')
+          .document('Schulen')
+          .collection(report.schule)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print(snapshot.error);
+          return Center(child: Loader());
+        }
+        //check if snapshot has data
+        if (!snapshot.hasData) {
+          print(snapshot.data);
+          return Center(child: Loader());
 
-                //if snapshot has data:
-              } else {
-                if (snapshot.data.documents.length == 0) {
-                  print('keine Dokumente');
+          //if snapshot has data:
+        } else {
+          if (snapshot.data.documents.length == 0) {
+            print('keine Dokumente');
 
-                  return FadeIn(
-                    child: LableFettExtended(
-                      text: 'Keine Neuigkeiten',
-                    ),
-                  );
-                } else {
-                  //Tage.builder
-                  return FadeIn(
-                    child: new _DocumentList(
-                      snapshot: snapshot,
-                    ),
-                  );
-                }
-              }
-            },
-          ),
-        ),
-      ],
+            return FadeIn(
+              child: LableFettExtended(
+                text: 'Keine Neuigkeiten',
+              ),
+            );
+          } else {
+            //Tage.builder
+            return FadeIn(
+              child: new _DocumentList(
+                snapshot: snapshot,
+              ),
+            );
+          }
+        }
+      },
     );
   }
 }
@@ -76,6 +69,7 @@ class _DocumentList extends StatelessWidget {
   Widget build(BuildContext context) {
     const double paddingSite = 10;
     return ListView.builder(
+      shrinkWrap: true,
       physics: AlwaysScrollableScrollPhysics(),
       //document counter
       itemCount: snapshot.data.documents.length,

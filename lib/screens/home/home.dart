@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         if (snapshot.hasError) {
           print(snapshot.error);
 
-          return LoadingScreen();
+          return LoadingScreenWait();
         }
         if (snapshot.hasData) {
           print('hasdata');
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
             return Home();
           }
         } else {
-          return LoadingScreen();
+          return LoadingScreenWait();
         }
       },
     );
@@ -55,7 +55,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  final List<String> _tabs = ['Ausfälle', 'Anlässe', 'Neuigkeiten'];
+  final List<String> _tabs = ['Ausfälle', 'Mitteilungen'];
   String _homeTitle;
   TabController _controller;
 
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         }
       },
     );
-    _controller = new TabController(length: 3, vsync: this);
+    _controller = new TabController(length: 2, vsync: this);
     _homeTitle = _tabs[0];
     _controller.addListener(_handleSelected);
   }
@@ -200,7 +200,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 3),
                         child: Text(
-                          'Anlässe',
+                          'Mitteilungen',
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.subhead.copyWith(
                               color: _controller.index == 1
@@ -209,19 +209,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    Tab(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 3),
-                        child: Text(
-                          'Neuigkeiten',
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.subhead.copyWith(
-                              color: _controller.index == 2
-                                  ? Colors.white
-                                  : Theme.of(context).indicatorColor),
-                        ),
-                      ),
-                    ),
+                    
                   ],
                 ),
               ),
@@ -236,10 +224,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   AusfaelleTab(
                     report: report,
                   ),
-                  AnlaesseTab(
+                  MitteilungenTab(
                     report: report,
                   ),
-                  NeuigkeitenTab(report: report),
+                
                 ],
               ),
             )

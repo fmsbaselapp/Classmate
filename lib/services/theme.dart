@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 
-import 'package:Classmate/services/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_statusbar_text_color/flutter_statusbar_text_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,9 +23,11 @@ void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
   if (value) {
     themeNotifier.setTheme(darkTheme);
     setStatusBarTextColor(value);
+    await setAppIcon(value);
   } else {
     themeNotifier.setTheme(lightTheme);
     setStatusBarTextColor(value);
+    await setAppIcon(value);
   }
 
   var prefs = await SharedPreferences.getInstance();
@@ -32,6 +35,8 @@ void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
 }
 
 
+
+//Status BAR
 Timer _timer;
 
 void setStatusBarTextColor(value) {
@@ -42,7 +47,6 @@ void setStatusBarTextColor(value) {
       if (value) {
         await FlutterStatusbarTextColor.setTextColor(
             FlutterStatusbarTextColor.light);
-            
       } else {
         await FlutterStatusbarTextColor.setTextColor(
             FlutterStatusbarTextColor.dark);
@@ -53,6 +57,28 @@ void setStatusBarTextColor(value) {
   });
 }
 
+
+//APP ICON
+Future<void> setAppIcon(value) async {
+  try {
+    if (await FlutterDynamicIcon.supportsAlternateIcons) {
+      if (value) {
+        await FlutterDynamicIcon.setAlternateIconName("dark");
+        print("App icon change successful: DARK");
+        return;
+      } else {
+        await FlutterDynamicIcon.setAlternateIconName("light");
+        print("App icon change successful: LIGHT");
+        return;
+      }
+    }
+  } on PlatformException {} catch (e) {}
+  print("Failed to change app icon");
+}
+
+
+
+//THEME
 final lightTheme = ThemeData(
   primaryColorBrightness: Brightness.dark,
   primaryColor: Colors.white,

@@ -6,8 +6,8 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:share/share.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-class AnlaesseTab extends StatelessWidget {
-  AnlaesseTab({
+class MitteilungenTab extends StatelessWidget {
+  MitteilungenTab({
     Key key,
     @required this.report,
   }) : super(key: key);
@@ -75,50 +75,57 @@ class _DocumentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double paddingSite = 10;
-    return ListView.builder(
-      physics: AlwaysScrollableScrollPhysics(),
-      //document counter
-      itemCount: snapshot.data.documents.length,
-      itemBuilder: (context, indexDocument) {
-        //array counter
-        Map<String, dynamic> ausfallCounter =
-            snapshot.data.documents[indexDocument].data;
-        return Column(
-          children: <Widget>[
-            //WOCHENTAG
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: StickyHeader(
-                header: Stack(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 40,
-                      width: double.infinity,
-                      child: Container(
-                        color: Theme.of(context).primaryColorDark,
+    return RefreshIndicator(
+      color: Theme.of(context).indicatorColor,
+      backgroundColor: Theme.of(context).primaryColor,
+      onRefresh: () async {
+        await Future.delayed(Duration(milliseconds: 500));
+      },
+      child: ListView.builder(
+        physics: AlwaysScrollableScrollPhysics(),
+        //document counter
+        itemCount: snapshot.data.documents.length,
+        itemBuilder: (context, indexDocument) {
+          //array counter
+          Map<String, dynamic> ausfallCounter =
+              snapshot.data.documents[indexDocument].data;
+          return Column(
+            children: <Widget>[
+              //WOCHENTAG
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: StickyHeader(
+                  header: Stack(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 40,
+                        width: double.infinity,
+                        child: Container(
+                          color: Theme.of(context).primaryColorDark,
+                        ),
                       ),
-                    ),
-                    LableFettExtended(
-                      margin: paddingSite,
-                      text: snapshot.data.documents[indexDocument].documentID
-                          .toString()
-                          .substring(1),
-                    ),
-                  ],
-                  overflow: Overflow.visible,
-                ),
+                      LableFettExtended(
+                        margin: paddingSite,
+                        text: snapshot.data.documents[indexDocument].documentID
+                            .toString()
+                            .substring(1),
+                      ),
+                    ],
+                    overflow: Overflow.visible,
+                  ),
 
-                // Ausfälle.builder
-                content: new _AusfallList(
-                  ausfallCounter: ausfallCounter,
-                  snapshot: snapshot,
-                  indexDocument: indexDocument,
+                  // Ausfälle.builder
+                  content: new _AusfallList(
+                    ausfallCounter: ausfallCounter,
+                    snapshot: snapshot,
+                    indexDocument: indexDocument,
+                  ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }
