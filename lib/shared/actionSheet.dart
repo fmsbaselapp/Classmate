@@ -13,17 +13,19 @@ Future<void> emailAction(context, userEmail) async {
             child: Text('Email bearbeiten'),
             onPressed: () {
               int _count = 0;
-              Navigator.of(context).popUntil((_) => _count++ >= 2);
+              Navigator.of(context).popUntil((_) => _count++ >= 3);
             },
           ),
           CupertinoActionSheetAction(
             child: Text('Email erneut senden'),
-            onPressed: () {
-              auth.signInWithEmailAndLink(userEmail);
+            onPressed: () async {
+              await auth.signInWithEmailAndLink(userEmail);
+
               Navigator.pop(context, 'Email erneut senden');
-              //TODO Feedback
             },
           ),
+
+          //TODO Feedback
         ],
         cancelButton: CupertinoActionSheetAction(
           child: Text('Abbrechen'),

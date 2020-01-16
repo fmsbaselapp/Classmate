@@ -16,7 +16,6 @@ class MitteilungenTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double paddingSite = 10;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

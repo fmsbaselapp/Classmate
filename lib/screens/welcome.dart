@@ -43,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         onWillPop: () async {
           return Future.value(false);
         },
-        child: FadeIn(
+        child: FadeInLong(
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

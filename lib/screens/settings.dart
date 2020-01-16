@@ -56,10 +56,11 @@ class SettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   Text('Meine Schule:'),
                   AnimatedDefaultTextStyle(
-                    style: Theme.of(context).textTheme.subhead, duration: Duration(milliseconds: 200),
-                                      child: Text(
+                    style: Theme.of(context).textTheme.subhead,
+                    duration: Duration(milliseconds: 200),
+                    child: Text(
                       report.schule.toString() ?? 'Wähle deine Schule', //Todo
-                      
+
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -80,14 +81,13 @@ class SettingsScreen extends StatelessWidget {
             LableButtonExtended(
               paddingTop: 30,
               text: 'Teamwork öffnen',
-              
               onPressed: () {
                 _launchURL();
               },
             ),
             LableButtonExtended(
               paddingTop: 10,
-             text: 'Edubs Angebote',
+              text: 'Edubs Angebote',
               onPressed: () {
                 launch('https://classmateapp.ch/edubs-angebote/');
               },
@@ -136,11 +136,12 @@ class SettingsScreen extends StatelessWidget {
             ),
             LableButtonExtended(
               paddingTop: 10,
-             text: 'Datenschutzerklärung',
+              text: 'Datenschutzerklärung',
               onPressed: () {
                 launch('https://classmateapp.ch/datenschutz/');
               },
             ),
+           
           ],
         ),
       ),

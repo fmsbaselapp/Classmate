@@ -22,6 +22,7 @@ class VerifizierenScreen extends StatefulWidget {
 }
 
 class _VerifizierenScreenState extends State<VerifizierenScreen> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AuthService auth = AuthService();
 
@@ -101,7 +102,6 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
         } else {
           print('link leer 1');
           _success = false;
-          
         }
       } else {
         print('leer');
@@ -117,7 +117,8 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
           actions: <Widget>[
             PlatformDialogAction(
               child: PlatformText('Okay!'),
-              onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/login')),
+              onPressed: () =>
+                  Navigator.popUntil(context, ModalRoute.withName('/login')),
             ),
           ],
         ),
@@ -128,6 +129,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Theme.of(context).primaryColorDark,
       body: Center(
         child: Padding(
@@ -185,7 +187,45 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
 
                 //email button
                 SmallButton(
-                  onPressed: () => emailAction(context, widget.userEmail),
+                  onPressed: () async {
+                    emailAction(context, widget.userEmail);
+                    if (emailAction != null) {
+                      scaffoldKey.currentState.showBottomSheet(
+                        (context) => SizedBox(
+                          height: 130,
+                          width: double.infinity,
+                          child: Card(
+                            margin: EdgeInsets.all(0),
+                            color: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                              ),
+                            ),
+                            elevation: 30,
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    'Neue E-Mail wurde gesendet',
+                                    style: Theme.of(context).textTheme.subhead,
+                                  ),
+                                ),
+                                SmallButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text('Ok',
+                                      style:
+                                          Theme.of(context).textTheme.button),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  },
                   child: Text(
                     'Email bearbeiten',
                   ),

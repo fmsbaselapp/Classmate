@@ -23,10 +23,43 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return FadeTransition(opacity: animation, child: widget.child);
   }
-  
+
   @override
   void dispose() {
-  _controller.dispose();
-  super.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
 }
+
+class FadeInLong extends StatefulWidget {
+  var child;
+
+  FadeInLong({@required this.child});
+
+  @override
+  _FadeInLongState createState() => _FadeInLongState();
+}
+
+class _FadeInLongState extends State<FadeInLong> with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> animation;
+
+  initState() {
+    super.initState();
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+
+    _controller.forward();
+  }
+
+  Widget build(BuildContext context) {
+    return FadeTransition(opacity: animation, child: widget.child);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }

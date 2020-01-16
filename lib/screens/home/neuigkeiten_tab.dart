@@ -16,7 +16,6 @@ class NeuigkeitenTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double paddingSite = 10;
     return StreamBuilder(
       stream: Firestore.instance
           .collection('Neuigkeiten')

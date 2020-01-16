@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
+import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'package:flutter/gestures.dart';
@@ -56,7 +55,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   final List<String> _tabs = ['Ausfälle', 'Mitteilungen'];
-  String _homeTitle;
   TabController _controller;
 
   /// Main Rate my app instance.
@@ -109,14 +107,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       },
     );
     _controller = new TabController(length: 2, vsync: this);
-    _homeTitle = _tabs[0];
     _controller.addListener(_handleSelected);
   }
 
   void _handleSelected() {
-    setState(() {
-      _homeTitle = _tabs[_controller.index];
-    });
+    setState(() {});
   }
 
   @override
@@ -128,6 +123,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
+
     FirebaseAnalytics().setUserProperty(name: "Schule", value: report.schule);
 
     return DefaultTabController(
@@ -209,7 +205,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    
                   ],
                 ),
               ),
@@ -221,16 +216,75 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 dragStartBehavior: DragStartBehavior.down,
                 controller: _controller,
                 children: <Widget>[
-                  AusfaelleTab(
-                    report: report,
+                  StreamBuilder(
+                    initialData: true,
+                    stream: ConnectivityUtils.instance.isPhoneConnectedStream,
+                    builder: (BuildContext context, AsyncSnapshot connection) {
+                      if (connection.data) {
+                        print('online');
+                        return AusfaelleTab(
+                          report: report,
+                        );
+                      } else {
+                        print('offline');
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.signal_wifi_off,
+                              color: Theme.of(context).indicatorColor,
+                              size: 30,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 80, top: 20),
+                              child: Text(
+                                'Kein Internet?',
+                                style: Theme.of(context).textTheme.subtitle,
+                              ),
+                            )
+                          ],
+                        );
+                      }
+                    },
                   ),
-                  MitteilungenTab(
-                    report: report,
+                  StreamBuilder(
+                    initialData: true,
+                    stream: ConnectivityUtils.instance.isPhoneConnectedStream,
+                    builder: (BuildContext context, AsyncSnapshot connection) {
+                      if (connection.data) {
+                        print('online');
+                        return MitteilungenTab(
+                          report: report,
+                        );
+                      } else {
+                        print('offline');
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.signal_wifi_off,
+                              color: Theme.of(context).indicatorColor,
+                              size: 30,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 80, top: 20),
+                              child: Text(
+                                'Kein Internet?',
+                                style: Theme.of(context).textTheme.subtitle,
+                              ),
+                            )
+                          ],
+                        );
+                      }
+                    },
                   ),
-                
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

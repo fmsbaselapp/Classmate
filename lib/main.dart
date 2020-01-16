@@ -1,6 +1,7 @@
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/services/theme.dart';
+import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';

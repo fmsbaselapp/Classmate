@@ -9,9 +9,6 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
-  - connectivity (0.0.1):
-    - Flutter
-    - Reachability
   - Firebase/Analytics (6.10.0):
     - Firebase/Core
   - Firebase/Auth (6.10.0):
@@ -152,7 +149,6 @@ PODS:
   - Protobuf (3.10.0)
   - rate_my_app (0.1):
     - Flutter
-  - Reachability (3.2)
   - share (0.5.2):
     - Flutter
   - shared_preferences (0.0.1):
@@ -166,7 +162,6 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
-  - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -205,13 +200,10 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
-    - Reachability
 
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
-  connectivity:
-    :path: ".symlinks/plugins/connectivity/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
@@ -242,7 +234,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   cloud_firestore: 2d82a8ddea1ac2f535ec891ed68b5975fe4f9509
-  connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
   Firebase: 5e6b7b12bf9adb90986688edc06b156c37e109cd
   firebase_analytics: d83001d25b9a58ca5eda8db0ef566c02d7af5258
   firebase_auth: 00d6e1ab6d890cd6d3c624df61702e3a7072d1e3
@@ -272,7 +263,6 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   rate_my_app: 45513a2f4d9a55b7b46d19b64fc13882fd101157
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   share: bae0a282aab4483288913fc4dc0b935d4b491f2e
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
