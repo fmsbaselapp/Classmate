@@ -7,13 +7,12 @@ import 'package:Classmate/shared/Elements.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 FirebaseAnalytics analytics = FirebaseAnalytics();
 
 class SchoolSelectScreen extends StatefulWidget {
   SchoolSelectScreen({Key key, this.report}) : super(key: key);
-  Report report;
+  final Report report;
 
   @override
   _SchoolSelectScreenState createState() =>

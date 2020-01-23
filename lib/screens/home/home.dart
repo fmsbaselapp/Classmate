@@ -199,8 +199,8 @@ class HomeBody extends StatelessWidget {
     _darkTheme = (themeNotifier.getTheme() == darkTheme);
     SharedPreferences.getInstance().then((prefs) {
       var darkModeOn = prefs.getBool('darkMode');
-      if (darkModeOn = null) {
-        //TODO: if prefs.getBool('darkMode') == null
+      if (prefs.getBool('darkMode') == null) {
+       
         _showBottomSheet(context);
       }
     });
