@@ -300,7 +300,9 @@ wichSchoolIndex(schoolindex) {
 
 //First open
 class SchoolSelectScreenFirst extends StatefulWidget {
-  const SchoolSelectScreenFirst({Key key}) : super(key: key);
+  final user;
+
+  SchoolSelectScreenFirst({Key key, this.user}) : super(key: key);
 
   @override
   _SchoolSelectScreenStateFirst createState() =>
@@ -428,32 +430,33 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
                 ];
 
                 final Firestore _db = Firestore.instance;
-            await AuthService().getUser.then(
-                (user) {
-                  if (user != null) {
-                    Future<void> loadSchool(FirebaseUser user) async {
-                      DocumentReference reportRef =
-                          _db.collection('Nutzer').document(user.uid);
+                await AuthService().getUser.then(
+                  (user) {
+                    if (widget.user != null) {
+                      Future<void> loadSchool(FirebaseUser user) async {
+                        DocumentReference reportRef =
+                            _db.collection('Nutzer').document(user.uid);
 
-                      return reportRef.setData(
-                          {'uid': user.uid, 'Schule': schulenlist[_value2]},
-                          merge: true);
+                        return reportRef.setData({
+                          'uid': widget.user.uid,
+                          'Schule': schulenlist[_value2]
+                        }, merge: true);
+                      }
+
+                      FirebaseAnalytics().setUserProperty(
+                          name: "Schule", value: schulenlist[_value2]);
+                      loadSchool(user);
+                      print(schulenlist[_value2]);
+
+                      Navigator.pushReplacementNamed(context, '/home');
+                    } else {
+                      print('nicht angemeldet');
+                      Navigator.pushReplacementNamed(context, '/login');
                     }
-
-                    FirebaseAnalytics().setUserProperty(
-                        name: "Schule", value: schulenlist[_value2]);
-                    loadSchool(user);
-                    print(schulenlist[_value2]);
-
-                    Navigator.pop(context);
-                  } else {
-                    print('nicht angemeldet');
-                    Navigator.pushReplacementNamed(context, '/login');
-                  }
-                },
-              );
-            },
-            child: Text('Weiter'),
+                  },
+                );
+              },
+              child: Text('Weiter'),
             )
           ],
         ),

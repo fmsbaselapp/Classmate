@@ -49,6 +49,7 @@ class Classmate extends StatelessWidget {
           value: Global.reportRef.documentStream,
           initialData: Report(schule: 'lädt...'),
         ),
+       
       ],
       child: MaterialApp(
         theme: themeNotifier.getTheme(),

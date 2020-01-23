@@ -39,8 +39,10 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
     super.initState();
     this.initDynamicLinks();
     auth.getUser.then(
-      (user) {
+      (getUser) async {
+        FirebaseUser user = await FirebaseAuth.instance.currentUser();
         if (user != null) {
+          print(user);
           print('ÖFFNEN VON VERIFIZIEREN');
 
           Navigator.pushReplacementNamed(context, '/home');
@@ -95,10 +97,25 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
           await auth.signIn(widget.userEmail, link, widget.personalData);
           print('successè!!!!!!!!!!!!!!');
           _success = true;
-          auth.getUser.then(
+          await auth.getUser.then(
             (user) {
               if (user != null && _success) {
-                Navigator.pushReplacementNamed(context, '/home');
+                print(user);
+                if (Platform.isAndroid) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(user: user,),
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => HomeScreen(user: user,),
+                    ),
+                  );
+                }
               }
             },
           );

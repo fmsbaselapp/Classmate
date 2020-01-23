@@ -11,7 +11,7 @@ class AuthService {
   Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
 
   Future<bool> signIn(userEmail, link, personalData) async {
-    //TODO Error try catch
+
     final FirebaseUser user = await _auth
         .signInWithEmailAndLink(
       email: userEmail,
@@ -48,7 +48,7 @@ class AuthService {
       'Vorname': personalData[0],
       'Nachname': personalData[1],
       'Email': personalData[2],
-      'Schule': '',
+      
     }, merge: true);
   }
 

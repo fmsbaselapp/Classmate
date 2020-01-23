@@ -3,7 +3,7 @@ import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -15,31 +15,44 @@ const double paddingSite = 10;
 
 //Checker
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  final FirebaseUser user;
+
+  HomeScreen({Key key, this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return 
-    WillPopScope(
+    return WillPopScope(
       onWillPop: () async {
         return Future.value(false);
       },
-          child: StreamBuilder(
+      child: StreamBuilder(
         stream: Global.reportRef.documentStream,
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            print(snapshot.error);
-
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return LoadingScreenWait();
-          }
-          if (snapshot.hasData) {
-            print('hasdata');
-            print(snapshot.data);
-            Report report = snapshot.data;
-            if (report.schule == '') {
-              return SchoolSelectScreenFirst();
+          } else if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasError) {
+              print(snapshot.error);
+              return LoadingScreenWait();
+            }
+            if (snapshot.hasData) {
+              print('hasdata');
+              print(snapshot.data.schule);
+
+              if (snapshot.data.schule == 'lädt...') {
+                return LoadingScreenWait();
+              } else if (snapshot.data.schule != 'keine Schule') {
+                return Home();
+              } else if (snapshot.data.schule == 'keine Schule') {
+                print('SchoolSelect initialized');
+                return SchoolSelectScreenFirst(user: user);
+              } else if (snapshot.data.schule == null) {
+                return SchoolSelectScreenFirst(user: user);
+              } else {
+                return LoadingScreenWait();
+              }
             } else {
-              return Home();
+              return LoadingScreenWait();
             }
           } else {
             return LoadingScreenWait();
@@ -187,7 +200,7 @@ class HomeBody extends StatelessWidget {
     SharedPreferences.getInstance().then((prefs) {
       var darkModeOn = prefs.getBool('darkMode');
       if (darkModeOn = null) {
-        
+        //TODO: if prefs.getBool('darkMode') == null
         _showBottomSheet(context);
       }
     });
