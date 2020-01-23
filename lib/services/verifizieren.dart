@@ -1,3 +1,4 @@
+import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/shared/actionSheet.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:Classmate/shared/shared.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'dart:io' show Platform;
 
 class VerifizierenScreen extends StatefulWidget {
   final userEmail;
@@ -22,7 +24,7 @@ class VerifizierenScreen extends StatefulWidget {
 }
 
 class _VerifizierenScreenState extends State<VerifizierenScreen> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AuthService auth = AuthService();
 
@@ -39,6 +41,8 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
     auth.getUser.then(
       (user) {
         if (user != null) {
+          print('ÖFFNEN VON VERIFIZIEREN');
+
           Navigator.pushReplacementNamed(context, '/home');
         }
       },
@@ -129,7 +133,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColorDark,
       body: Center(
         child: Padding(
@@ -190,7 +194,7 @@ class _VerifizierenScreenState extends State<VerifizierenScreen> {
                   onPressed: () async {
                     emailAction(context, widget.userEmail);
                     if (emailAction != null) {
-                      scaffoldKey.currentState.showBottomSheet(
+                      _scaffoldKey.currentState.showBottomSheet(
                         (context) => SizedBox(
                           height: 130,
                           width: double.infinity,

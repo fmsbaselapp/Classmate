@@ -34,8 +34,6 @@ void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
   prefs.setBool('darkMode', value);
 }
 
-
-
 //Status BAR
 Timer _timer;
 
@@ -57,7 +55,6 @@ void setStatusBarTextColor(value) {
   });
 }
 
-
 //APP ICON
 Future<void> setAppIcon(value) async {
   try {
@@ -75,8 +72,6 @@ Future<void> setAppIcon(value) async {
   } on PlatformException {} catch (e) {}
   print("Failed to change app icon");
 }
-
-
 
 //THEME
 final lightTheme = ThemeData(

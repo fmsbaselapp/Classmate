@@ -50,8 +50,8 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
     'Fachzentrum Gestalten',
     'Tagesstrukturen Drei Linden',
     'ZBA Gundeldingen',
-    'ZBA Letzi'
-        'BFS Gebäude A',
+    'ZBA Letzi',
+    'BFS Gebäude A',
     'BFS Gebäude B',
     'BFS Gebäude C',
     'BFS Gebäude D',
@@ -187,27 +187,30 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
               ];
 
               final Firestore _db = Firestore.instance;
-              FirebaseUser user = Provider.of<FirebaseUser>(context);
-              if (user != null) {
-                Future<void> loadSchool(FirebaseUser user) async {
-                  DocumentReference reportRef =
-                      _db.collection('Nutzer').document(user.uid);
+              await AuthService().getUser.then(
+                (user) {
+                  if (user != null) {
+                    Future<void> loadSchool(FirebaseUser user) async {
+                      DocumentReference reportRef =
+                          _db.collection('Nutzer').document(user.uid);
 
-                  return reportRef.setData(
-                      {'uid': user.uid, 'Schule': schulenlist[_value2]},
-                      merge: true);
-                }
+                      return reportRef.setData(
+                          {'uid': user.uid, 'Schule': schulenlist[_value2]},
+                          merge: true);
+                    }
 
-                FirebaseAnalytics().setUserProperty(
-                    name: "Schule", value: schulenlist[_value2]);
-                loadSchool(user);
-                print(schulenlist[_value2]);
+                    FirebaseAnalytics().setUserProperty(
+                        name: "Schule", value: schulenlist[_value2]);
+                    loadSchool(user);
+                    print(schulenlist[_value2]);
 
-                Navigator.pop(context);
-              } else {
-                print('nicht angemeldet');
-                Navigator.pushReplacementNamed(context, '/login');
-              }
+                    Navigator.pop(context);
+                  } else {
+                    print('nicht angemeldet');
+                    Navigator.pushReplacementNamed(context, '/login');
+                  }
+                },
+              );
             },
             child: Text('Fertig'),
           )
@@ -425,28 +428,32 @@ class _SchoolSelectScreenStateFirst extends State<SchoolSelectScreenFirst> {
                 ];
 
                 final Firestore _db = Firestore.instance;
-                FirebaseUser user = Provider.of<FirebaseUser>(context);
-                if (user != null) {
-                  Future<void> loadSchool(FirebaseUser user) {
-                    DocumentReference reportRef =
-                        _db.collection('Nutzer').document(user.uid);
+            await AuthService().getUser.then(
+                (user) {
+                  if (user != null) {
+                    Future<void> loadSchool(FirebaseUser user) async {
+                      DocumentReference reportRef =
+                          _db.collection('Nutzer').document(user.uid);
 
-                    return reportRef.updateData(
-                      {'uid': user.uid, 'Schule': schulenlist[_value2]},
-                    );
+                      return reportRef.setData(
+                          {'uid': user.uid, 'Schule': schulenlist[_value2]},
+                          merge: true);
+                    }
+
+                    FirebaseAnalytics().setUserProperty(
+                        name: "Schule", value: schulenlist[_value2]);
+                    loadSchool(user);
+                    print(schulenlist[_value2]);
+
+                    Navigator.pop(context);
+                  } else {
+                    print('nicht angemeldet');
+                    Navigator.pushReplacementNamed(context, '/login');
                   }
-
-                  loadSchool(user);
-                  print(schulenlist[_value2]);
-                  FirebaseAnalytics().setUserProperty(
-                      name: "Schule", value: schulenlist[_value2]);
-                  // Navigator.pushReplacementNamed(context, '/home');
-                } else {
-                  print('nicht angemeldet');
-                  Navigator.pushReplacementNamed(context, '/login');
-                }
-              },
-              child: Text('Weiter'),
+                },
+              );
+            },
+            child: Text('Weiter'),
             )
           ],
         ),

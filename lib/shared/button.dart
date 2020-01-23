@@ -10,8 +10,6 @@ class SmallButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      
-      
       splashColor: Colors.grey,
       fillColor: Theme.of(context).primaryColor,
       shape: const StadiumBorder(),
@@ -20,6 +18,52 @@ class SmallButton extends StatelessWidget {
       highlightElevation: 0,
       child: child,
       textStyle: Theme.of(context).textTheme.button,
+      onPressed: onPressed,
+    );
+  }
+}
+
+class SmallButtonDark extends StatelessWidget {
+  SmallButtonDark({@required this.onPressed, this.child, this.elevation});
+  GestureTapCallback onPressed;
+  var child;
+  var elevation;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      splashColor: Colors.grey,
+      fillColor: Color(0xff454545),
+      shape: const StadiumBorder(),
+      padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+      elevation: elevation ?? 10,
+      highlightElevation: 0,
+      child: child,
+      textStyle:
+          Theme.of(context).textTheme.button.copyWith(color: Colors.white),
+      onPressed: onPressed,
+    );
+  }
+}
+
+class SmallButtonLight extends StatelessWidget {
+  SmallButtonLight({@required this.onPressed, this.child, this.elevation});
+  GestureTapCallback onPressed;
+  var child;
+  var elevation;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      splashColor: Colors.grey,
+      fillColor: Colors.white,
+      shape: const StadiumBorder(),
+      padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+      elevation: elevation ?? 10,
+      highlightElevation: 0,
+      child: child,
+      textStyle:
+          Theme.of(context).textTheme.button.copyWith(color: Colors.black),
       onPressed: onPressed,
     );
   }
@@ -119,16 +163,11 @@ class LableButtonExtended extends StatelessWidget {
           elevation: 5,
           highlightElevation: 0,
           child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-              if (text != null)
-               Text(text)
-              else
-              child
-            ],)
-          ),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[if (text != null) Text(text) else child],
+              )),
           textStyle: Theme.of(context).textTheme.button,
           onPressed: onPressed,
         ),

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:rate_my_app/rate_my_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const double paddingSite = 10;
 
@@ -18,27 +19,33 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Global.reportRef.documentStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print(snapshot.error);
-
-          return LoadingScreenWait();
-        }
-        if (snapshot.hasData) {
-          print('hasdata');
-          print(snapshot.data);
-          Report report = snapshot.data;
-          if (report.schule == '') {
-            return SchoolSelectScreenFirst();
-          } else {
-            return Home();
-          }
-        } else {
-          return LoadingScreenWait();
-        }
+    return 
+    WillPopScope(
+      onWillPop: () async {
+        return Future.value(false);
       },
+          child: StreamBuilder(
+        stream: Global.reportRef.documentStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error);
+
+            return LoadingScreenWait();
+          }
+          if (snapshot.hasData) {
+            print('hasdata');
+            print(snapshot.data);
+            Report report = snapshot.data;
+            if (report.schule == '') {
+              return SchoolSelectScreenFirst();
+            } else {
+              return Home();
+            }
+          } else {
+            return LoadingScreenWait();
+          }
+        },
+      ),
     );
   }
 }
@@ -70,6 +77,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   void initState() {
     super.initState();
+
     _rateMyApp.init().then(
       (_) {
         if (_rateMyApp.shouldOpenDialog) {
@@ -120,12 +128,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  bool _darkTheme;
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-
-    FirebaseAnalytics().setUserProperty(name: "Schule", value: report.schule);
-
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    _darkTheme = (themeNotifier.getTheme() == darkTheme);
+    SharedPreferences.getInstance().then((prefs) {
+      var darkModeOn = prefs.getBool('darkMode');
+      FirebaseAnalytics().setUserProperty(name: "Schule", value: report.schule);
+    });
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -149,143 +161,238 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           height: 60,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 10, bottom: 10, left: 10, right: 10),
+        body: HomeBody(controller: _controller, report: report),
+      ),
+    );
+  }
+}
 
-              //Tabbar Container
-              child: Container(
-                height: 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
+class HomeBody extends StatelessWidget {
+  HomeBody({
+    Key key,
+    @required TabController controller,
+    @required this.report,
+  })  : _controller = controller,
+        super(key: key);
+
+  final TabController _controller;
+  final Report report;
+
+  bool _darkTheme;
+  @override
+  Widget build(BuildContext context) {
+    Report report = Provider.of<Report>(context);
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    _darkTheme = (themeNotifier.getTheme() == darkTheme);
+    SharedPreferences.getInstance().then((prefs) {
+      var darkModeOn = prefs.getBool('darkMode');
+      if (darkModeOn = null) {
+        
+        _showBottomSheet(context);
+      }
+    });
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding:
+              const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+
+          //Tabbar Container
+          child: Container(
+            height: 30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+              border: Border.all(
+                  color: Theme.of(context).primaryColorDark, width: 3),
+            ),
+
+            //Tabbar
+            child: TabBar(
+              indicatorSize: TabBarIndicatorSize.tab,
+              controller: _controller,
+              indicator: new BubbleTabIndicator(
+                insets: EdgeInsets.only(left: 0, right: 0, top: 0),
+                indicatorHeight: 24,
+                indicatorColor: Theme.of(context).tabBarTheme.labelColor,
+                tabBarIndicatorSize: TabBarIndicatorSize.tab,
+              ),
+              tabs: <Widget>[
+                Tab(
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 3),
+                      child: Text(
+                        'Ausfälle',
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.subhead.copyWith(
+                            color: _controller.index == 0
+                                ? Colors.white
+                                : Theme.of(context).indicatorColor),
+                      ),
+                    ),
                   ),
-                  border: Border.all(
-                      color: Theme.of(context).primaryColorDark, width: 3),
                 ),
-
-                //Tabbar
-                child: TabBar(
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  controller: _controller,
-                  indicator: new BubbleTabIndicator(
-                    insets: EdgeInsets.only(left: 0, right: 0, top: 0),
-                    indicatorHeight: 24,
-                    indicatorColor: Theme.of(context).tabBarTheme.labelColor,
-                    tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                Tab(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 3),
+                    child: Text(
+                      'Mitteilungen',
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.subhead.copyWith(
+                          color: _controller.index == 1
+                              ? Colors.white
+                              : Theme.of(context).indicatorColor),
+                    ),
                   ),
-                  tabs: <Widget>[
-                    Tab(
-                      child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 3),
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        //Tabbarview
+        Flexible(
+          child: TabBarView(
+            dragStartBehavior: DragStartBehavior.down,
+            controller: _controller,
+            children: <Widget>[
+              StreamBuilder(
+                initialData: true,
+                stream: ConnectivityUtils.instance.isPhoneConnectedStream,
+                builder: (BuildContext context, AsyncSnapshot connection) {
+                  if (connection.data) {
+                    print('online');
+                    return AusfaelleTab(
+                      report: report,
+                    );
+                  } else {
+                    print('offline');
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.signal_wifi_off,
+                          color: Theme.of(context).indicatorColor,
+                          size: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 80, top: 20),
                           child: Text(
-                            'Ausfälle',
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.subhead.copyWith(
-                                color: _controller.index == 0
-                                    ? Colors.white
-                                    : Theme.of(context).indicatorColor),
+                            'Kein Internet?',
+                            style: Theme.of(context).textTheme.subtitle,
                           ),
+                        )
+                      ],
+                    );
+                  }
+                },
+              ),
+              StreamBuilder(
+                initialData: true,
+                stream: ConnectivityUtils.instance.isPhoneConnectedStream,
+                builder: (BuildContext context, AsyncSnapshot connection) {
+                  if (connection.data) {
+                    print('online');
+                    return MitteilungenTab(
+                      report: report,
+                    );
+                  } else {
+                    print('offline');
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.signal_wifi_off,
+                          color: Theme.of(context).indicatorColor,
+                          size: 30,
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 80, top: 20),
+                          child: Text(
+                            'Kein Internet?',
+                            style: Theme.of(context).textTheme.subtitle,
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showBottomSheet(context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    _darkTheme = (themeNotifier.getTheme() == darkTheme);
+    var _theme = themeNotifier.getTheme();
+    Scaffold.of(context).showBottomSheet(
+      (context) => SizedBox(
+        height: 220,
+        width: double.infinity,
+        child: Card(
+          margin: EdgeInsets.all(0),
+          color: Theme.of(context).primaryColorDark,
+          elevation: 30,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                child: Text(
+                  'Hallo',
+                  style: Theme.of(context).textTheme.title,
+                ),
+              ),
+              Text(
+                'Wähle das Thema der App aus:',
+                style: Theme.of(context).textTheme.subtitle,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 5),
+                      child: SmallButtonLight(
+                        child: Text('Hell'),
+                        onPressed: () {
+                          if (_theme == darkTheme) {
+                            onThemeChanged(false, themeNotifier);
+
+                            Navigator.pop(context);
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        },
                       ),
                     ),
-                    Tab(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 3),
-                        child: Text(
-                          'Mitteilungen',
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.subhead.copyWith(
-                              color: _controller.index == 1
-                                  ? Colors.white
-                                  : Theme.of(context).indicatorColor),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10, left: 5),
+                      child: SmallButtonDark(
+                        child: Text('Dunkel'),
+                        onPressed: () {
+                          if (_theme == lightTheme) {
+                            onThemeChanged(true, themeNotifier);
+                            Navigator.pop(context);
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        },
                       ),
-                    ),
+                    )
                   ],
                 ),
-              ),
-            ),
-
-            //Tabbarview
-            Flexible(
-              child: TabBarView(
-                dragStartBehavior: DragStartBehavior.down,
-                controller: _controller,
-                children: <Widget>[
-                  StreamBuilder(
-                    initialData: true,
-                    stream: ConnectivityUtils.instance.isPhoneConnectedStream,
-                    builder: (BuildContext context, AsyncSnapshot connection) {
-                      if (connection.data) {
-                        print('online');
-                        return AusfaelleTab(
-                          report: report,
-                        );
-                      } else {
-                        print('offline');
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.signal_wifi_off,
-                              color: Theme.of(context).indicatorColor,
-                              size: 30,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 80, top: 20),
-                              child: Text(
-                                'Kein Internet?',
-                                style: Theme.of(context).textTheme.subtitle,
-                              ),
-                            )
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                  StreamBuilder(
-                    initialData: true,
-                    stream: ConnectivityUtils.instance.isPhoneConnectedStream,
-                    builder: (BuildContext context, AsyncSnapshot connection) {
-                      if (connection.data) {
-                        print('online');
-                        return MitteilungenTab(
-                          report: report,
-                        );
-                      } else {
-                        print('offline');
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.signal_wifi_off,
-                              color: Theme.of(context).indicatorColor,
-                              size: 30,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 80, top: 20),
-                              child: Text(
-                                'Kein Internet?',
-                                style: Theme.of(context).textTheme.subtitle,
-                              ),
-                            )
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
