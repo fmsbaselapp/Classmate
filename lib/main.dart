@@ -1,7 +1,6 @@
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/services/theme.dart';
-import 'package:connectivity_widget/connectivity_widget.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +15,7 @@ void main() {
 //DARK or LIGHT MODE
   SharedPreferences.getInstance().then(
     (prefs) {
-      var darkModeOn = prefs.getBool('darkMode') ?? true;
+      var darkModeOn = prefs.getBool('darkMode') ?? false;
       runApp(
         ChangeNotifierProvider<ThemeNotifier>(
           create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
@@ -49,7 +48,6 @@ class Classmate extends StatelessWidget {
           value: Global.reportRef.documentStream,
           initialData: Report(schule: 'lädt...'),
         ),
-       
       ],
       child: MaterialApp(
         theme: themeNotifier.getTheme(),

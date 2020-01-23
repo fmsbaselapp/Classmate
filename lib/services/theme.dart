@@ -21,17 +21,18 @@ class ThemeNotifier with ChangeNotifier {
 
 void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
   if (value) {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool('darkMode', value);
     themeNotifier.setTheme(darkTheme);
     setStatusBarTextColor(value);
     await setAppIcon(value);
   } else {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool('darkMode', value);
     themeNotifier.setTheme(lightTheme);
     setStatusBarTextColor(value);
     await setAppIcon(value);
   }
-
-  var prefs = await SharedPreferences.getInstance();
-  prefs.setBool('darkMode', value);
 }
 
 //Status BAR

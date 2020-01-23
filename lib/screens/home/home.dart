@@ -145,12 +145,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
-    _darkTheme = (themeNotifier.getTheme() == darkTheme);
-    SharedPreferences.getInstance().then((prefs) {
-      var darkModeOn = prefs.getBool('darkMode');
-      FirebaseAnalytics().setUserProperty(name: "Schule", value: report.schule);
-    });
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -180,7 +175,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 }
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   HomeBody({
     Key key,
     @required TabController controller,
@@ -191,16 +186,21 @@ class HomeBody extends StatelessWidget {
   final TabController _controller;
   final Report report;
 
+  @override
+  _HomeBodyState createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
   bool _darkTheme;
+
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    _darkTheme = (themeNotifier.getTheme() == darkTheme);
+    _darkTheme = (themeNotifier.getTheme() == lightTheme);
     SharedPreferences.getInstance().then((prefs) {
-      var darkModeOn = prefs.getBool('darkMode');
       if (prefs.getBool('darkMode') == null) {
-       
+
         _showBottomSheet(context);
       }
     });
@@ -224,7 +224,7 @@ class HomeBody extends StatelessWidget {
             //Tabbar
             child: TabBar(
               indicatorSize: TabBarIndicatorSize.tab,
-              controller: _controller,
+              controller: widget._controller,
               indicator: new BubbleTabIndicator(
                 insets: EdgeInsets.only(left: 0, right: 0, top: 0),
                 indicatorHeight: 24,
@@ -240,7 +240,7 @@ class HomeBody extends StatelessWidget {
                         'Ausfälle',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.subhead.copyWith(
-                            color: _controller.index == 0
+                            color: widget._controller.index == 0
                                 ? Colors.white
                                 : Theme.of(context).indicatorColor),
                       ),
@@ -254,7 +254,7 @@ class HomeBody extends StatelessWidget {
                       'Mitteilungen',
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subhead.copyWith(
-                          color: _controller.index == 1
+                          color: widget._controller.index == 1
                               ? Colors.white
                               : Theme.of(context).indicatorColor),
                     ),
@@ -269,7 +269,7 @@ class HomeBody extends StatelessWidget {
         Flexible(
           child: TabBarView(
             dragStartBehavior: DragStartBehavior.down,
-            controller: _controller,
+            controller: widget._controller,
             children: <Widget>[
               StreamBuilder(
                 initialData: true,
@@ -344,7 +344,7 @@ class HomeBody extends StatelessWidget {
 
   void _showBottomSheet(context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    _darkTheme = (themeNotifier.getTheme() == darkTheme);
+
     var _theme = themeNotifier.getTheme();
     Scaffold.of(context).showBottomSheet(
       (context) => SizedBox(
@@ -376,10 +376,10 @@ class HomeBody extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 10, right: 5),
                       child: SmallButtonLight(
                         child: Text('Hell'),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_theme == darkTheme) {
-                            onThemeChanged(false, themeNotifier);
-
+                             onThemeChanged(false, themeNotifier);
+                            
                             Navigator.pop(context);
                           } else {
                             Navigator.pop(context);
@@ -391,9 +391,9 @@ class HomeBody extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, left: 5),
                       child: SmallButtonDark(
                         child: Text('Dunkel'),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_theme == lightTheme) {
-                            onThemeChanged(true, themeNotifier);
+                             onThemeChanged(true, themeNotifier);
                             Navigator.pop(context);
                           } else {
                             Navigator.pop(context);
