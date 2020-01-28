@@ -1,15 +1,15 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
-import 'package:connectivity_widget/connectivity_widget.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:rate_my_app/rate_my_app.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 const double paddingSite = 10;
 
@@ -61,11 +61,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class MyTabs {
-  final String title;
-  MyTabs({this.title});
 }
 
 class Home extends StatefulWidget {
@@ -169,245 +164,95 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           height: 60,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
-        body: HomeBody(controller: _controller, report: report),
+        body: MessageHandler(controller: _controller, report: report),
       ),
     );
   }
 }
 
-class HomeBody extends StatefulWidget {
-  HomeBody({
+class MessageHandler extends StatefulWidget {
+  MessageHandler({
     Key key,
     @required TabController controller,
     @required this.report,
   })  : _controller = controller,
         super(key: key);
-
   final TabController _controller;
   final Report report;
-
   @override
-  _HomeBodyState createState() => _HomeBodyState();
+  _MessageHandlerState createState() => _MessageHandlerState();
 }
 
-class _HomeBodyState extends State<HomeBody> {
-  bool _darkTheme;
+class _MessageHandlerState extends State<MessageHandler> {
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _notification = FirebaseMessaging();
+  StreamSubscription iosSubscription;
+  @override
+  void initState() {
+    super.initState();
+
+    if (Platform.isIOS) {
+      iosSubscription = _notification.onIosSettingsRegistered.listen((data) {
+        _safeDeviceToken();
+      });
+      _notification.requestNotificationPermissions(
+        IosNotificationSettings(),
+      );
+    } else {
+      _safeDeviceToken();
+    }
+
+    _notification.subscribeToTopic('3C');
+
+    _notification.configure(onMessage: (Map<String, dynamic> message) async {
+      print("onMessage: $message");
+      final snackbar = SnackBar(
+        content: Text(
+          message['notification']['title'],
+        ),
+        action: SnackBarAction(
+          label: 'Go',
+          onPressed: () => null,
+        ),
+      );
+
+      Scaffold.of(context).showSnackBar(snackbar);
+    }, onResume: (Map<String, dynamic> message) async {
+      print("onResume: $message");
+    }, onLaunch: (Map<String, dynamic> message) async {
+      print("onLaunch: $message");
+    });
+  }
+
+  @override
+  void dispose() {
+    iosSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Report report = Provider.of<Report>(context);
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
-    _darkTheme = (themeNotifier.getTheme() == lightTheme);
-    SharedPreferences.getInstance().then((prefs) {
-      if (prefs.getBool('darkMode') == null) {
-
-        _showBottomSheet(context);
-      }
-    });
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding:
-              const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-
-          //Tabbar Container
-          child: Container(
-            height: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
-              border: Border.all(
-                  color: Theme.of(context).primaryColorDark, width: 3),
-            ),
-
-            //Tabbar
-            child: TabBar(
-              indicatorSize: TabBarIndicatorSize.tab,
-              controller: widget._controller,
-              indicator: new BubbleTabIndicator(
-                insets: EdgeInsets.only(left: 0, right: 0, top: 0),
-                indicatorHeight: 24,
-                indicatorColor: Theme.of(context).tabBarTheme.labelColor,
-                tabBarIndicatorSize: TabBarIndicatorSize.tab,
-              ),
-              tabs: <Widget>[
-                Tab(
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 3),
-                      child: Text(
-                        'Ausfälle',
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.subhead.copyWith(
-                            color: widget._controller.index == 0
-                                ? Colors.white
-                                : Theme.of(context).indicatorColor),
-                      ),
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 3),
-                    child: Text(
-                      'Mitteilungen',
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.subhead.copyWith(
-                          color: widget._controller.index == 1
-                              ? Colors.white
-                              : Theme.of(context).indicatorColor),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        //Tabbarview
-        Flexible(
-          child: TabBarView(
-            dragStartBehavior: DragStartBehavior.down,
-            controller: widget._controller,
-            children: <Widget>[
-              StreamBuilder(
-                initialData: true,
-                stream: ConnectivityUtils.instance.isPhoneConnectedStream,
-                builder: (BuildContext context, AsyncSnapshot connection) {
-                  if (connection.data) {
-                    print('online');
-                    return AusfaelleTab(
-                      report: report,
-                    );
-                  } else {
-                    print('offline');
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.signal_wifi_off,
-                          color: Theme.of(context).indicatorColor,
-                          size: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 80, top: 20),
-                          child: Text(
-                            'Kein Internet?',
-                            style: Theme.of(context).textTheme.subtitle,
-                          ),
-                        )
-                      ],
-                    );
-                  }
-                },
-              ),
-              StreamBuilder(
-                initialData: true,
-                stream: ConnectivityUtils.instance.isPhoneConnectedStream,
-                builder: (BuildContext context, AsyncSnapshot connection) {
-                  if (connection.data) {
-                    print('online');
-                    return MitteilungenTab(
-                      report: report,
-                    );
-                  } else {
-                    print('offline');
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.signal_wifi_off,
-                          color: Theme.of(context).indicatorColor,
-                          size: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 80, top: 20),
-                          child: Text(
-                            'Kein Internet?',
-                            style: Theme.of(context).textTheme.subtitle,
-                          ),
-                        )
-                      ],
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
+    return Container(
+      child: HomeBody(controller: widget._controller, report: widget.report),
     );
   }
 
-  void _showBottomSheet(context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
+  _safeDeviceToken() async {
+    FirebaseUser user = await AuthService().getUser;
+    String fmcToken = await _notification.getToken();
 
-    var _theme = themeNotifier.getTheme();
-    Scaffold.of(context).showBottomSheet(
-      (context) => SizedBox(
-        height: 220,
-        width: double.infinity,
-        child: Card(
-          margin: EdgeInsets.all(0),
-          color: Theme.of(context).primaryColorDark,
-          elevation: 30,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 30, bottom: 10),
-                child: Text(
-                  'Hallo',
-                  style: Theme.of(context).textTheme.title,
-                ),
-              ),
-              Text(
-                'Wähle das Thema der App aus:',
-                style: Theme.of(context).textTheme.subtitle,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10, top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 5),
-                      child: SmallButtonLight(
-                        child: Text('Hell'),
-                        onPressed: () async {
-                          if (_theme == darkTheme) {
-                             onThemeChanged(false, themeNotifier);
-                            
-                            Navigator.pop(context);
-                          } else {
-                            Navigator.pop(context);
-                          }
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 5),
-                      child: SmallButtonDark(
-                        child: Text('Dunkel'),
-                        onPressed: () async {
-                          if (_theme == lightTheme) {
-                             onThemeChanged(true, themeNotifier);
-                            Navigator.pop(context);
-                          } else {
-                            Navigator.pop(context);
-                          }
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+    if (fmcToken != null) {
+      DocumentReference tokenRef = _db.collection('Nutzer').document(user.uid);
+      print('habe Token');
+      await tokenRef.updateData(
+        {
+          'fmcToken': {
+            'token': fmcToken,
+            'erstelltAm': FieldValue.serverTimestamp(),
+            'platform': Platform.operatingSystem,
+          }
+        },
+      );
+    }
   }
 }
