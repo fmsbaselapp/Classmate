@@ -83,9 +83,10 @@ class LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                         Padding(
                           padding: EdgeInsets.all(10),
                           child: TextFormField(
+                            
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
-                            textInputAction: TextInputAction.send,
+                            textInputAction: TextInputAction.next,
                             autocorrect: false,
                             cursorColor: Theme.of(context).accentColor,
                             cursorWidth: 2,

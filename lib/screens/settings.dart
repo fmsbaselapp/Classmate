@@ -49,30 +49,82 @@ class SettingsScreen extends StatelessWidget {
         body: ListView(
           padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
           children: <Widget>[
-            LableButtonExtended(
-              paddingTop: 20,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
                 children: <Widget>[
-                  Text('Meine Schule:'),
-                  AnimatedDefaultTextStyle(
-                    style: Theme.of(context).textTheme.subhead,
-                    duration: Duration(milliseconds: 200),
-                    child: Text(
-                      report.schule.toString() ?? 'Wähle deine Schule', //Todo
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: LableButtonExtended(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text('Schule:'),
+                            AnimatedDefaultTextStyle(
+                              style: Theme.of(context).textTheme.subhead,
+                              duration: Duration(milliseconds: 200),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  report.schule.toString() ??
+                                      'Wähle deine Schule', //Todo
 
-                      overflow: TextOverflow.ellipsis,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => SchoolSelectScreen(
+                                report: report,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: LableButtonExtended(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text('Klasse:'),
+                            AnimatedDefaultTextStyle(
+                              style: Theme.of(context).textTheme.subhead,
+                              duration: Duration(milliseconds: 200),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 1),
+                                child: Text(
+                                  report.klasse.toString() ??
+                                      'Wähle deine Klasse', //Todo
+
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ClassSelectScreen(report: report,),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  )
                 ],
               ),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SchoolSelectScreen(
-                    report: report,
-                  ),
-                ));
-              },
             ),
             LableDarkMode(
               text: 'Dunkles Design',
@@ -141,7 +193,6 @@ class SettingsScreen extends StatelessWidget {
                 launch('https://classmateapp.ch/datenschutz/');
               },
             ),
-           
           ],
         ),
       ),

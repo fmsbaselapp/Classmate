@@ -1,19 +1,17 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
 const double paddingSite = 10;
 
-//Checker
+//Checks if User has School
 class HomeScreen extends StatelessWidget {
   final FirebaseUser user;
 
@@ -42,7 +40,28 @@ class HomeScreen extends StatelessWidget {
               if (snapshot.data.schule == 'lädt...') {
                 return LoadingScreenWait();
               } else if (snapshot.data.schule != 'keine Schule') {
-                return Home();
+                  /* if (Platform.isIOS) {
+                  Navigator.pushReplacement(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) =>
+                          ClassSelectChecker(user: user, snapshot: snapshot),
+                    ),
+                  );
+                } else {
+
+               
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ClassSelectChecker(user: user, snapshot: snapshot),
+                    ),
+                  );
+                }*/
+
+                return ClassSelectChecker(user: user, snapshot: snapshot);
+                //Home();
               } else if (snapshot.data.schule == 'keine Schule') {
                 print('SchoolSelect initialized');
                 return SchoolSelectScreenFirst(user: user);
@@ -63,6 +82,35 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+//Checks if User has Class
+class ClassSelectChecker extends StatelessWidget {
+  final FirebaseUser user;
+  final AsyncSnapshot snapshot;
+  const ClassSelectChecker({
+    Key key,
+    @required this.user,
+    @required this.snapshot,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (snapshot.data.klasse == 'lädt...') {
+      return LoadingScreenWait();
+    } else if (snapshot.data.klasse != 'keine Klasse') {
+      return Home();
+    } else if (snapshot.data.klasse == 'keine Klasse') {
+      print('ClassSelect initialized');
+
+      return ClassSelectScreenFirst();
+    } else if (snapshot.data.klasse == null) {
+      return ClassSelectScreenFirst();
+    } else {
+      return LoadingScreenWait();
+    }
+  }
+}
+
+//HOME
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -167,92 +215,5 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         body: MessageHandler(controller: _controller, report: report),
       ),
     );
-  }
-}
-
-class MessageHandler extends StatefulWidget {
-  MessageHandler({
-    Key key,
-    @required TabController controller,
-    @required this.report,
-  })  : _controller = controller,
-        super(key: key);
-  final TabController _controller;
-  final Report report;
-  @override
-  _MessageHandlerState createState() => _MessageHandlerState();
-}
-
-class _MessageHandlerState extends State<MessageHandler> {
-  final Firestore _db = Firestore.instance;
-  final FirebaseMessaging _notification = FirebaseMessaging();
-  StreamSubscription iosSubscription;
-  @override
-  void initState() {
-    super.initState();
-
-    if (Platform.isIOS) {
-      iosSubscription = _notification.onIosSettingsRegistered.listen((data) {
-        _safeDeviceToken();
-      });
-      _notification.requestNotificationPermissions(
-        IosNotificationSettings(),
-      );
-    } else {
-      _safeDeviceToken();
-    }
-
-    _notification.subscribeToTopic('3C');
-
-    _notification.configure(onMessage: (Map<String, dynamic> message) async {
-      print("onMessage: $message");
-      final snackbar = SnackBar(
-        content: Text(
-          message['notification']['title'],
-        ),
-        action: SnackBarAction(
-          label: 'Go',
-          onPressed: () => null,
-        ),
-      );
-
-      Scaffold.of(context).showSnackBar(snackbar);
-    }, onResume: (Map<String, dynamic> message) async {
-      print("onResume: $message");
-    }, onLaunch: (Map<String, dynamic> message) async {
-      print("onLaunch: $message");
-    });
-  }
-
-  @override
-  void dispose() {
-    iosSubscription.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: HomeBody(controller: widget._controller, report: widget.report),
-    );
-  }
-
-  _safeDeviceToken() async {
-    FirebaseUser user = await AuthService().getUser;
-    String fmcToken = await _notification.getToken();
-
-    if (fmcToken != null) {
-      DocumentReference tokenRef = _db.collection('Nutzer').document(user.uid);
-      print('habe Token');
-      await tokenRef.updateData(
-        {
-          'fmcToken': {
-            'token': fmcToken,
-            'erstelltAm': FieldValue.serverTimestamp(),
-            'platform': Platform.operatingSystem,
-          }
-        },
-      );
-    }
   }
 }

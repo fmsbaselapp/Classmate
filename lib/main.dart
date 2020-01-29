@@ -9,9 +9,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  
+  
 //DARK or LIGHT MODE
   SharedPreferences.getInstance().then(
     (prefs) {
@@ -46,7 +47,7 @@ class Classmate extends StatelessWidget {
         StreamProvider<FirebaseUser>.value(value: AuthService().user),
         StreamProvider<Report>.value(
           value: Global.reportRef.documentStream,
-          initialData: Report(schule: 'lädt...'),
+          initialData: Report(schule: 'lädt...', klasse: 'lädt...'),
         ),
       ],
       child: MaterialApp(

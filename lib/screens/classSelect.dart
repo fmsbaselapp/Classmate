@@ -1,0 +1,344 @@
+import 'package:Classmate/screens/screens.dart';
+import 'package:Classmate/services/services.dart';
+import 'package:Classmate/shared/shared.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+
+class ClassSelectScreenFirst extends StatefulWidget {
+  ClassSelectScreenFirst({
+    Key key,
+  }) : super(key: key);
+  // final FirebaseUser user;
+//@required this.user,
+  @override
+  _ClassSelectScreenFirstState createState() => _ClassSelectScreenFirstState();
+}
+
+class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _stufeController = TextEditingController();
+  final TextEditingController _klasseController = TextEditingController();
+  final Firestore _db = Firestore.instance;
+  final focus = FocusNode();
+  final FirebaseMessaging _notification = FirebaseMessaging();
+
+  @override
+  void dispose() {
+    _stufeController.dispose();
+    _klasseController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColorDark,
+      appBar: ClassmateAppBar(
+        height: 100,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            'Deine\nKlasse:',
+            style: Theme.of(context).textTheme.title,
+          ),
+          SmallButton(
+            child: Text('Fertig'),
+            onPressed: () async {
+              AuthService().getUser.then(
+                (user) async {
+                  if (_formKey.currentState.validate()) {
+                    String stufe = _stufeController.text;
+                    String klasse = _klasseController.text;
+                    final userKlasse =
+                        await Klasse().formatKlasse(klasse, stufe);
+                    print(userKlasse);
+
+                    if (user != null) {
+                      Future<void> loadClass(FirebaseUser user) async {
+                        DocumentReference reportRef =
+                            _db.collection('Nutzer').document(user.uid);
+                        return reportRef
+                            .setData({'Klasse': userKlasse}, merge: true);
+                      }
+
+                      await loadClass(user);
+                      _notification.subscribeToTopic(userKlasse);
+                      Navigator.of(context).pushReplacement(
+                        (MaterialPageRoute(
+                          builder: (context) => Home(),
+                        )),
+                      );
+                    } else {
+                      print('nicht angemeldet');
+                      Navigator.pushReplacementNamed(context, '/login');
+                    }
+                  }
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.only(top: 90),
+        child: Form(
+          key: _formKey,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(right: 5),
+                width: 100,
+                height: 90,
+                child: Lable(
+                  child: TextFormField(
+                    style: Theme.of(context).textTheme.title,
+                    textAlign: TextAlign.center,
+                    maxLength: 1,
+                    controller: _stufeController,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      // hintText: "1",
+                      counterText: "",
+                    ),
+                    onChanged: (String value) {
+                      if (value != null && value != '') {
+                        FocusScope.of(context).requestFocus(focus);
+                      }
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Leer';
+                      } else if (RegExp("^[1-9]{1}\$").hasMatch(value)) {}
+                    },
+                    onFieldSubmitted: (stufe) {
+                      print(stufe);
+                      FocusScope.of(context).requestFocus(focus);
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 5),
+                width: 100,
+                height: 90,
+                child: Lable(
+                  child: TextFormField(
+                    controller: _klasseController,
+                    style: Theme.of(context).textTheme.title,
+                    textAlign: TextAlign.center,
+                    maxLength: 1,
+                    focusNode: focus,
+                    textCapitalization: TextCapitalization.characters,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        print('klasse = empty');
+                        return 'Leer';
+                      } else if (value == '0') {
+                        return 'Nicht 0';
+                      } else if (RegExp(" ^[A-Z,a-z]{1}\$").hasMatch(value)) {}
+
+                      //return null;
+                    },
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      // hintText: "B",
+                      counterText: "",
+                    ),
+                    onChanged: (String value) {
+                      if (value != null && value != '') {
+                        FocusScope.of(context).requestFocus(
+                          new FocusNode(),
+                        ); //remove focus
+                      }
+                    },
+                    onFieldSubmitted: (klasse) {
+                      print(klasse);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ClassSelectScreen extends StatefulWidget {
+  ClassSelectScreen({Key key, @required this.report}) : super(key: key);
+
+  Report report;
+  @override
+  _ClassSelectScreenState createState() => _ClassSelectScreenState();
+}
+
+class _ClassSelectScreenState extends State<ClassSelectScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _stufeController = TextEditingController();
+  final TextEditingController _klasseController = TextEditingController();
+  final Firestore _db = Firestore.instance;
+  final focus = FocusNode();
+  final FirebaseMessaging _notification = FirebaseMessaging();
+
+  @override
+  void initState() {
+    _stufeController.text = widget.report.klasse.substring(0, 1);
+    _klasseController.text = widget.report.klasse.substring(1);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _stufeController.dispose();
+    _klasseController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColorDark,
+      appBar: ClassmateAppBar(
+        height: 100,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            'Deine\nKlasse:',
+            style: Theme.of(context).textTheme.title,
+          ),
+          SmallButton(
+            child: Text('Fertig'),
+            onPressed: () async {
+              AuthService().getUser.then(
+                (user) async {
+                  if (_formKey.currentState.validate()) {
+                    String stufe = _stufeController.text;
+                    String klasse = _klasseController.text;
+                    final userKlasse =
+                        await Klasse().formatKlasse(klasse, stufe);
+                    print(userKlasse);
+
+                    if (user != null) {
+                      Future<void> loadClass(FirebaseUser user) async {
+                        DocumentReference reportRef =
+                            _db.collection('Nutzer').document(user.uid);
+                        return reportRef
+                            .setData({'Klasse': userKlasse}, merge: true);
+                      }
+
+                      await loadClass(user);
+                      _notification.subscribeToTopic(userKlasse);
+                      Navigator.of(context).pop();
+                    } else {
+                      print('nicht angemeldet');
+                      Navigator.pushReplacementNamed(context, '/login');
+                    }
+                  }
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.only(top: 90),
+        child: Form(
+          key: _formKey,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(right: 5),
+                width: 100,
+                height: 90,
+                child: Lable(
+                  child: TextFormField(
+                    style: Theme.of(context).textTheme.title,
+                    textAlign: TextAlign.center,
+                    maxLength: 1,
+                    controller: _stufeController,
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      // hintText: "1",
+                      counterText: "",
+                    ),
+                    onChanged: (String value) {
+                      if (value != null && value != '') {
+                        FocusScope.of(context).requestFocus(focus);
+                      }
+                    },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Leer';
+                      } else if (RegExp("^[1-9]{1}\$").hasMatch(value)) {}
+                    },
+                    onFieldSubmitted: (stufe) {
+                      print(stufe);
+                      FocusScope.of(context).requestFocus(focus);
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 5),
+                width: 100,
+                height: 90,
+                child: Lable(
+                  child: TextFormField(
+                    controller: _klasseController,
+                    style: Theme.of(context).textTheme.title,
+                    textAlign: TextAlign.center,
+                    maxLength: 1,
+                    focusNode: focus,
+                    textCapitalization: TextCapitalization.characters,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        print('klasse = empty');
+                        return 'Leer';
+                      } else if (value == '0') {
+                        return 'Nicht 0';
+                      } else if (RegExp(" ^[A-Z,a-z]{1}\$").hasMatch(value)) {}
+
+                      //return null;
+                    },
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      // hintText: "B",
+                      counterText: "",
+                    ),
+                    onChanged: (String value) {
+                      if (value != null && value != '') {
+                        FocusScope.of(context).requestFocus(
+                          new FocusNode(),
+                        ); //remove focus
+                      }
+                    },
+                    onFieldSubmitted: (klasse) {
+                      print(klasse);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

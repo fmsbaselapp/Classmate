@@ -119,16 +119,27 @@ class Name {
   }
 }
 
+class Klasse {
+  formatKlasse(klasse, stufe) {
+    
+    String klasse1 = klasse.toUpperCase();
+    String userKlasse = stufe + klasse1; //[]
+    return userKlasse;
+  }
+}
+
 class Report {
   String email;
   String vorname;
   String nachname;
   String schule;
+  String klasse;
   String uid;
   Timestamp lastActivity;
 
   Report(
       {this.uid,
+      this.klasse,
       this.schule,
       this.email,
       this.lastActivity,
@@ -137,13 +148,13 @@ class Report {
 
   factory Report.fromMap(Map data) {
     return Report(
-      email: data['Email'] ?? ' ',
-      vorname: data['Vorname'] ?? ' ',
-      nachname: data['Nachname'] ?? ' ',
-      schule: data['Schule'] ?? 'keine Schule',
-      uid: data['uid'] ?? ' ',
-      lastActivity: data['lastActivity']
-    );
+        email: data['Email'] ?? ' ',
+        vorname: data['Vorname'] ?? ' ',
+        nachname: data['Nachname'] ?? ' ',
+        schule: data['Schule'] ?? 'keine Schule',
+        klasse: data['Klasse'] ?? 'keine Klasse',
+        uid: data['uid'] ?? ' ',
+        lastActivity: data['lastActivity']);
   }
 }
 
