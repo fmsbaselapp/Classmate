@@ -12,7 +12,7 @@ class AuthService {
 
   Future<bool> signIn(userEmail, link, personalData) async {
 
-    final FirebaseUser user = await _auth
+    final AuthResult userResult = await _auth
         .signInWithEmailAndLink(
       email: userEmail,
       link: link.toString(),
@@ -25,8 +25,8 @@ class AuthService {
     );
 
     if (user != null) {
-      await updateUserData(user);
-      await updateName(personalData, user);
+      await updateUserData(userResult.user);
+      await updateName(personalData, userResult.user);
       return true;
     } else {
       print('link leer');
@@ -74,6 +74,7 @@ class AuthService {
         return true;
       });
     } catch (e) {
+      print(e);
       print('error AUTH');
       return false;
     }

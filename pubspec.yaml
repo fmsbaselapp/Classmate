@@ -21,12 +21,14 @@ dependencies:
     sdk: flutter
 
   #firebase
-  firebase_core: ^0.4.0+9
-  firebase_auth: ^0.11.1+10
+  firebase_core: ^0.4.3
+  firebase_auth: ^0.15.2
   firebase_dynamic_links: ^0.5.0+9
-  cloud_firestore: ^0.12.9+6
-  firebase_analytics: ^5.0.9
+  cloud_firestore: ^0.13.0
+  firebase_analytics: ^5.0.10
   firebase_messaging: ^6.0.9
+
+ 
 
   #logic
   rate_my_app: ^0.5.0+3
@@ -35,6 +37,7 @@ dependencies:
   conditional_builder: ^1.0.2
   url_launcher: ^5.2.5
   masked_text: ^0.0.6
+
   
 
   #visual
@@ -49,8 +52,10 @@ dependencies:
   sticky_headers: ^0.1.8+1
 
   #state management
-  rxdart: ^0.22.3
   provider: ^4.0.0
+  rxdart: ^0.22.3
+
+
 
 dev_dependencies:
   flutter_test:

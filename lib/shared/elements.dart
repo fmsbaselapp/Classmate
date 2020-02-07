@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 
 import 'package:provider/provider.dart';
 import 'package:Classmate/services/services.dart';
@@ -55,6 +54,58 @@ class LableFettExtendedSansPadding extends StatelessWidget {
             style: Theme.of(context).textTheme.button,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LableHome extends StatelessWidget {
+  LableHome({@required this.text, this.margin});
+
+  String text;
+  var margin;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        margin: EdgeInsets.only(left: 10, right: 10, top: 0),
+        color: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(15.0)),
+        elevation: 10,
+        child: Padding(
+          padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.button,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Lable extends StatelessWidget {
+  Lable({
+    @required this.child,
+  });
+
+  Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        color: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(15.0)),
+        elevation: 10,
+        child: Padding(
+            padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
+            child: child),
       ),
     );
   }
@@ -130,53 +181,72 @@ class _LableDarkModeState extends State<LableDarkMode> {
   }
 }
 
-class LableHome extends StatelessWidget {
-  LableHome({@required this.text, this.margin});
+class LableSwitch extends StatefulWidget {
+  LableSwitch(
+      {Key key,
+      @required this.textEin,
+      @required this.textAus,
+      @required this.margin})
+      : super(key: key);
 
-  String text;
-  var margin;
+  String textEin;
+  String textAus;
+  EdgeInsetsGeometry margin;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Card(
-        margin: EdgeInsets.only(left: 10, right: 10, top: 0),
-        color: Theme.of(context).primaryColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(15.0)),
-        elevation: 10,
-        child: Padding(
-          padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.button,
-          ),
-        ),
-      ),
-    );
-  }
+  _LableSwitchState createState() => _LableSwitchState();
 }
 
-class Lable extends StatelessWidget {
-  Lable({
-    @required this.child,
-  });
-
-  Widget child;
+class _LableSwitchState extends State<LableSwitch> {
+  bool Bool = false;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: Card(
+        margin: widget.margin,
         color: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(15.0)),
-        elevation: 10,
-        child: Padding(
-            padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),
-            child: child),
+        elevation: 5,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(15.0),
+          onTap: () async {
+            setState(() {
+              Bool = !Bool;
+            });
+          },
+          child: Padding(
+            padding:
+                EdgeInsets.only(top: 2, bottom: 2, left: 10, right: 10), //TODO
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                AnimatedDefaultTextStyle(
+                  style: Theme.of(context).textTheme.button,
+                  duration: Duration(milliseconds: 200),
+                  child: Text(
+                    Bool ? widget.textEin : widget.textAus,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Transform.scale(
+                  scale: 1.0,
+                  child: Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
+                    value: Bool,
+                    onChanged: (val) async {
+                      setState(() {
+                        Bool = val;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

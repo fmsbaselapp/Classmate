@@ -192,8 +192,10 @@ PODS:
     - Firebase/Core
     - Flutter
   - firebase_auth (0.0.1):
-    - Firebase/Auth (~> 6.0)
+    - Firebase/Auth (~> 6.3)
     - Firebase/Core
+    - Flutter
+  - firebase_auth_web (0.1.0):
     - Flutter
   - firebase_core (0.0.1):
     - Firebase/Core
@@ -353,6 +355,7 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
+  - firebase_auth_web (from `.symlinks/plugins/firebase_auth_web/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_core_web (from `.symlinks/plugins/firebase_core_web/ios`)
   - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
@@ -407,6 +410,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
+  firebase_auth_web:
+    :path: ".symlinks/plugins/firebase_auth_web/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_core_web:
@@ -443,11 +448,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
-  cloud_firestore: 10fd4a09ebffc33efd64708106e2e7de701fe9ae
+  cloud_firestore: b5f108f6c57f1ad913b9388b1dc60f925ada9066
   Firebase: 5d77105d9740a07ca6b16927ca971db7e860faaf
-  firebase_analytics: d83001d25b9a58ca5eda8db0ef566c02d7af5258
-  firebase_auth: 00d6e1ab6d890cd6d3c624df61702e3a7072d1e3
-  firebase_core: 9bd2e66a276153e219a87ff39dfecb6b671f524a
+  firebase_analytics: dacdcfc524d722fff13dcff942f0dfa47e6be567
+  firebase_auth: 1f46484071219159ad6c64d304af425ad7373052
+  firebase_auth_web: 0955c07bcc06e84af76b9d4e32e6f31518f2d7de
+  firebase_core: 0c84455537bed6d6b5b8c2dd611ff1fbb1ea5cbd
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
   firebase_dynamic_links: cbb9595bfa14fa51daa01fe2ccb071fbb759ad5b
   firebase_messaging: 73b3e7dd7b3b6a7e4bdac10d5295211ca4f87f90
@@ -488,6 +494,6 @@ SPEC CHECKSUMS:
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: 083258d7f5e80b42ea9bfee905fe93049bc04c64
 
 COCOAPODS: 1.8.4

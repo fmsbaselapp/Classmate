@@ -1,9 +1,10 @@
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/appBar.dart';
+import 'package:Classmate/shared/elements.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:Classmate/shared/Elements.dart';
+
 import 'package:Classmate/shared/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -35,6 +35,7 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
 
   @override
   Widget build(BuildContext context) {
+    double _center = MediaQuery.of(context).size.height / 2;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: ClassmateAppBar(
@@ -67,7 +68,7 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
 
                       await loadClass(user);
                       _notification.subscribeToTopic(userKlasse);
-                      Navigator.of(context).pushReplacement(
+                      Navigator.of(context).pushReplacement(//TODO: CONTEXT ERROR 
                         (MaterialPageRoute(
                           builder: (context) => Home(),
                         )),
@@ -84,97 +85,159 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.only(top: 90),
-        child: Form(
-          key: _formKey,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(right: 5),
-                width: 100,
-                height: 90,
-                child: Lable(
-                  child: TextFormField(
-                    style: Theme.of(context).textTheme.title,
-                    textAlign: TextAlign.center,
-                    maxLength: 1,
-                    controller: _stufeController,
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      // hintText: "1",
-                      counterText: "",
-                    ),
-                    onChanged: (String value) {
-                      if (value != null && value != '') {
-                        FocusScope.of(context).requestFocus(focus);
-                      }
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Leer';
-                      } else if (RegExp("^[1-9]{1}\$").hasMatch(value)) {}
-                    },
-                    onFieldSubmitted: (stufe) {
-                      print(stufe);
-                      FocusScope.of(context).requestFocus(focus);
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 5),
-                width: 100,
-                height: 90,
-                child: Lable(
-                  child: TextFormField(
-                    controller: _klasseController,
-                    style: Theme.of(context).textTheme.title,
-                    textAlign: TextAlign.center,
-                    maxLength: 1,
-                    focusNode: focus,
-                    textCapitalization: TextCapitalization.characters,
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        print('klasse = empty');
-                        return 'Leer';
-                      } else if (value == '0') {
-                        return 'Nicht 0';
-                      } else if (RegExp(" ^[A-Z,a-z]{1}\$").hasMatch(value)) {}
+        padding: const EdgeInsets.only(top: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Spacer(
+              flex: 1,
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.only(right: 5),
+                            width: 100,
+                            height: 90,
+                            child: Lable(
+                              child: TextFormField(
+                                style: Theme.of(context).textTheme.title,
+                                textAlign: TextAlign.center,
+                                maxLength: 1,
+                                controller: _stufeController,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.next,
+                                autofocus: true,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  // hintText: "1",
+                                  counterText: "",
+                                ),
+                                onChanged: (String value) {
+                                  if (value != null && value != '') {
+                                    FocusScope.of(context).requestFocus(focus);
+                                  }
+                                },
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Leer';
+                                  } else if (RegExp("^[1-9]{1}\$")
+                                      .hasMatch(value)) {}
+                                },
+                                onFieldSubmitted: (stufe) {
+                                  print(stufe);
+                                  FocusScope.of(context).requestFocus(focus);
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              'Stufe',
+                              style: Theme.of(context).textTheme.subhead,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.only(left: 5),
+                            width: 100,
+                            height: 90,
+                            child: Lable(
+                              child: TextFormField(
+                                controller: _klasseController,
+                                style: Theme.of(context).textTheme.title,
+                                textAlign: TextAlign.center,
+                                maxLength: 1,
+                                focusNode: focus,
+                                textCapitalization:
+                                    TextCapitalization.characters,
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    print('klasse = empty');
+                                    return 'Leer';
+                                  } else if (value == '0') {
+                                    return 'Nicht 0';
+                                  } else if (RegExp(" ^[A-Z,a-z]{1}\$")
+                                      .hasMatch(value)) {}
 
-                      //return null;
-                    },
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      // hintText: "B",
-                      counterText: "",
-                    ),
-                    onChanged: (String value) {
-                      if (value != null && value != '') {
-                        FocusScope.of(context).requestFocus(
-                          new FocusNode(),
-                        ); //remove focus
-                      }
-                    },
-                    onFieldSubmitted: (klasse) {
-                      print(klasse);
-                    },
+                                  //return null;
+                                },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  // hintText: "B",
+                                  counterText: "",
+                                ),
+                                onChanged: (String value) {
+                                  if (value != null && value != '') {
+                                    FocusScope.of(context).requestFocus(
+                                      new FocusNode(),
+                                    ); //remove focus
+                                  }
+                                },
+                                onFieldSubmitted: (klasse) {
+                                  print(klasse);
+                                },
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              'Klasse',
+                              style: Theme.of(context).textTheme.subhead,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: LableSwitch(
+                      textAus: 'Nachrichten Aus',
+                      textEin: 'Nachrichten Ein',
+                      margin: EdgeInsets.all(10),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      top: 10,
+                    ),
+                    child: Text(
+                      'Bei einem Ausfall deiner Klasse benachrichtigt werden?',
+                      style: Theme.of(context).textTheme.subhead,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            Spacer(
+              flex: 300,
+            )
+          ],
         ),
       ),
     );
   }
 }
 
+//===============================================================================================================
 class ClassSelectScreen extends StatefulWidget {
   ClassSelectScreen({Key key, @required this.report}) : super(key: key);
 
@@ -193,8 +256,8 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
 
   @override
   void initState() {
-    _stufeController.text = widget.report.klasse.substring(0, 1);
-    _klasseController.text = widget.report.klasse.substring(1);
+    _stufeController.text = widget.report.klasse.substring(0, 1) ?? "";
+    _klasseController.text = widget.report.klasse.substring(1) ?? "";
     super.initState();
   }
 
@@ -214,7 +277,7 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            'Deine\nKlasse:',
+            'Klasse:',
             style: Theme.of(context).textTheme.title,
           ),
           SmallButton(
