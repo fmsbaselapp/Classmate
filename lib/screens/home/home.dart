@@ -122,7 +122,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   /// Main Rate my app instance.
   RateMyApp _rateMyApp = RateMyApp(
-    preferencesPrefix: 'rateMyApp_',
+    preferencesPrefix: 'rateClassmate_',
     minDays: 7,
     minLaunches: 7,
     remindDays: 10,

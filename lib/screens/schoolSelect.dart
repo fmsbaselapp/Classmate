@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Classmate/shared/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 FirebaseAnalytics analytics = FirebaseAnalytics();
 
@@ -138,6 +139,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
   Widget build(
     BuildContext context,
   ) {
+    Report _report = Provider.of<Report>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: ClassmateAppBar(
@@ -190,6 +192,12 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
               await AuthService().getUser.then(
                 (user) {
                   if (user != null) {
+                    NotificationTagert(
+                            report: _report,
+                            userSchule: schulenlist[_value2],
+                            user: user)
+                        .update();
+
                     Future<void> loadSchool(FirebaseUser user) async {
                       DocumentReference reportRef =
                           _db.collection('Nutzer').document(user.uid);

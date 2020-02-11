@@ -134,11 +134,13 @@ class Report {
   String nachname;
   String schule;
   String klasse;
+  String target;
   String uid;
   Timestamp lastActivity;
 
   Report(
       {this.uid,
+      this.target,
       this.klasse,
       this.schule,
       this.email,
@@ -154,6 +156,7 @@ class Report {
         schule: data['Schule'] ?? 'keine Schule',
         klasse: data['Klasse'] ?? 'keine Klasse',
         uid: data['uid'] ?? ' ',
+        target: data['Target'] ?? '',
         lastActivity: data['lastActivity']);
   }
 }

@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class ClassSelectScreenFirst extends StatefulWidget {
   ClassSelectScreenFirst({
@@ -24,7 +25,6 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
   final TextEditingController _klasseController = TextEditingController();
   final Firestore _db = Firestore.instance;
   final focus = FocusNode();
-  final FirebaseMessaging _notification = FirebaseMessaging();
 
   @override
   void dispose() {
@@ -35,7 +35,8 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
 
   @override
   Widget build(BuildContext context) {
-    double _center = MediaQuery.of(context).size.height / 2;
+    Report _report = Provider.of<Report>(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: ClassmateAppBar(
@@ -67,8 +68,13 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
                       }
 
                       await loadClass(user);
-                      _notification.subscribeToTopic(userKlasse);
-                      Navigator.of(context).pushReplacement(//TODO: CONTEXT ERROR 
+                      await NotificationTagert(
+                              report: _report,
+                              userKlasse: userKlasse,
+                              user: user)
+                          .update();
+                      Navigator.of(context).pushReplacement(
+                        //TODO: CONTEXT ERROR
                         (MaterialPageRoute(
                           builder: (context) => Home(),
                         )),
@@ -270,6 +276,7 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Report _report = Provider.of<Report>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: ClassmateAppBar(
@@ -293,6 +300,11 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
                     print(userKlasse);
 
                     if (user != null) {
+                      await NotificationTagert(
+                              report: _report,
+                              userKlasse: userKlasse,
+                              user: user)
+                          .update();
                       Future<void> loadClass(FirebaseUser user) async {
                         DocumentReference reportRef =
                             _db.collection('Nutzer').document(user.uid);
@@ -301,7 +313,7 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
                       }
 
                       await loadClass(user);
-                      _notification.subscribeToTopic(userKlasse);
+
                       Navigator.of(context).pop();
                     } else {
                       print('nicht angemeldet');

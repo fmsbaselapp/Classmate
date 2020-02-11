@@ -6,3 +6,4 @@ export 'verifizieren.dart';
 export 'signOutWidget.dart';
 export 'theme.dart';
 export 'messageHandler.dart';
+export 'notifTargetHandler.dart';
