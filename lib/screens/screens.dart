@@ -8,3 +8,4 @@ export 'home/ausfaelle_tab.dart';
 export 'home/mitteilungen_tab.dart';
 export 'home/neuigkeiten_tab.dart';
 export 'home/homeBody.dart';
+export 'updateScreen.dart';

@@ -78,8 +78,9 @@ class LableButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
+      
       splashColor: Colors.grey,
-      fillColor:  Theme.of(context).primaryColor,
+      fillColor: color ?? Theme.of(context).primaryColor,
       shape:
           RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
       padding: EdgeInsets.only(top: 15, bottom: 15, left: 10, right: 10),

@@ -187,6 +187,9 @@ PODS:
   - Firebase/Messaging (6.15.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 4.2.0)
+  - Firebase/RemoteConfig (6.15.0):
+    - Firebase/CoreOnly
+    - FirebaseRemoteConfig (~> 4.4.6)
   - firebase_analytics (0.0.1):
     - Firebase/Analytics (~> 6.0)
     - Firebase/Core
@@ -209,6 +212,13 @@ PODS:
     - Firebase/Core
     - Firebase/Messaging
     - Flutter
+  - firebase_remote_config (0.0.1):
+    - Firebase/RemoteConfig
+    - Flutter
+  - FirebaseABTesting (3.1.2):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.1)
+    - Protobuf (>= 3.9.2, ~> 3.9)
   - FirebaseAnalytics (6.2.1):
     - FirebaseCore (~> 6.6)
     - FirebaseInstanceID (~> 4.3)
@@ -271,6 +281,14 @@ PODS:
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Reachability (~> 6.5)
     - GoogleUtilities/UserDefaults (~> 6.5)
+    - Protobuf (>= 3.9.2, ~> 3.9)
+  - FirebaseRemoteConfig (4.4.7):
+    - FirebaseABTesting (~> 3.1)
+    - FirebaseAnalyticsInterop (~> 1.4)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
   - Flutter (1.0.0)
   - flutter_dynamic_icon (0.0.1):
@@ -360,6 +378,7 @@ DEPENDENCIES:
   - firebase_core_web (from `.symlinks/plugins/firebase_core_web/ios`)
   - firebase_dynamic_links (from `.symlinks/plugins/firebase_dynamic_links/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
+  - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
   - flutter_dynamic_icon (from `.symlinks/plugins/flutter_dynamic_icon/ios`)
   - flutter_statusbar_text_color (from `.symlinks/plugins/flutter_statusbar_text_color/ios`)
@@ -378,6 +397,7 @@ SPEC REPOS:
     - abseil
     - BoringSSL-GRPC
     - Firebase
+    - FirebaseABTesting
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
     - FirebaseAuth
@@ -390,6 +410,7 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
+    - FirebaseRemoteConfig
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -420,6 +441,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_dynamic_links/ios"
   firebase_messaging:
     :path: ".symlinks/plugins/firebase_messaging/ios"
+  firebase_remote_config:
+    :path: ".symlinks/plugins/firebase_remote_config/ios"
   Flutter:
     :path: Flutter
   flutter_dynamic_icon:
@@ -457,6 +480,8 @@ SPEC CHECKSUMS:
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
   firebase_dynamic_links: cbb9595bfa14fa51daa01fe2ccb071fbb759ad5b
   firebase_messaging: 73b3e7dd7b3b6a7e4bdac10d5295211ca4f87f90
+  firebase_remote_config: b909942ae016c4b1dc115bc3846ae6181808a98d
+  FirebaseABTesting: 0d10f3cdc3fa00f3f175b5b56c1003c8e888299f
   FirebaseAnalytics: e83e64b1231dedcd9ddd4bdecd9bcfd6ba341679
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseAuth: ce45d7c5d46bed90159f3a73b6efbe8976ed3573
@@ -469,6 +494,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
   FirebaseInstanceID: 6668efc1655a4052c083f287a7141f1ead12f9c2
   FirebaseMessaging: 448cf4c727f3c95f4f90816907d67306ba785cfe
+  FirebaseRemoteConfig: 4890e58b0e33c8328b8c5e8b7a5a237b9d851d8e
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_dynamic_icon: fb0cd2f84c817c1a0ddbbc383fbebec3cd5e88d8
   flutter_statusbar_text_color: bfeb27e69d90920ed6ebe0cbe83466011c75c4f4
