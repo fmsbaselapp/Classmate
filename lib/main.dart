@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -17,9 +16,17 @@ Future<void> main() async {
   SharedPreferences.getInstance().then(
     (prefs) {
       var darkModeOn = prefs.getBool('darkMode') ?? false;
+      var notifState = prefs.getBool('notifState') ?? false;
       runApp(
-        ChangeNotifierProvider<ThemeNotifier>(
-          create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<ThemeNotifier>(
+              create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
+            ),
+            ChangeNotifierProvider<NotifStateNotifier>(
+              create: (_) => NotifStateNotifier(notifState),
+            )
+          ],
           child: Classmate(),
         ),
       );
@@ -54,7 +61,7 @@ class Classmate extends StatelessWidget {
         theme: themeNotifier.getTheme(),
 
         // Named Routes
-        //onUnknownRoute: null, //TODO
+        //TODO onUnknownRoute: null, 
         routes: {
           '/': (context) => WelcomeScreen(),
           '/login': (context) => LoginScreen(),

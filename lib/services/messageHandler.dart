@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,17 +7,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-
-
 class MessageHandler extends StatefulWidget {
   MessageHandler({
     Key key,
-    @required TabController controller,
-    @required this.report,
-  })  : _controller = controller,
-        super(key: key);
-  final TabController _controller;
-  final Report report;
+  }) : super(key: key);
+
   @override
   _MessageHandlerState createState() => _MessageHandlerState();
 }
@@ -42,7 +35,7 @@ class _MessageHandlerState extends State<MessageHandler> {
       _safeDeviceToken();
     }
 
-   // _notification.subscribeToTopic('3C');
+    // _notification.subscribeToTopic('3C');
 
     _notification.configure(onMessage: (Map<String, dynamic> message) async {
       print("onMessage: $message");
@@ -51,7 +44,7 @@ class _MessageHandlerState extends State<MessageHandler> {
           message['notification']['title'],
         ),
         action: SnackBarAction(
-          label: 'Go',
+          label: 'Okay',
           onPressed: () => null,
         ),
       );
@@ -73,7 +66,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: HomeBody(controller: widget._controller, report: widget.report),
+      child: Home(),
     );
   }
 

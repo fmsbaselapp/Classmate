@@ -33,6 +33,8 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
     super.dispose();
   }
 
+  bool _notifState = false;
+
   @override
   Widget build(BuildContext context) {
     Report _report = Provider.of<Report>(context);
@@ -68,11 +70,14 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
                       }
 
                       await loadClass(user);
-                      await NotificationTagert(
-                              report: _report,
-                              userKlasse: userKlasse,
-                              user: user)
-                          .update();
+                      if (_notifState) {
+                        await NotificationTagert(
+                                report: _report,
+                                userKlasse: userKlasse,
+                                user: user)
+                            .update();
+                      }
+
                       Navigator.of(context).pushReplacement(
                         //TODO: CONTEXT ERROR
                         (MaterialPageRoute(
@@ -135,6 +140,8 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Leer';
+                                  } else if (value == '0') {
+                                    return 'Nicht 0';
                                   } else if (RegExp("^[1-9]{1}\$")
                                       .hasMatch(value)) {}
                                 },
@@ -174,10 +181,13 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
                                   if (value.isEmpty) {
                                     print('klasse = empty');
                                     return 'Leer';
-                                  } else if (value == '0') {
-                                    return 'Nicht 0';
-                                  } else if (RegExp(" ^[A-Z,a-z]{1}\$")
-                                      .hasMatch(value)) {}
+                                  } else if (RegExp(
+                                          "^[A-Z]|[a-z]|[äöüÄÖÜ]{1}\$")
+                                      .hasMatch(value)) {
+                                    print('validated');
+                                  } else {
+                                    return 'Stufe';
+                                  }
 
                                   //return null;
                                 },
@@ -211,11 +221,55 @@ class _ClassSelectScreenFirstState extends State<ClassSelectScreenFirst> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: LableSwitch(
-                      textAus: 'Nachrichten Aus',
-                      textEin: 'Nachrichten Ein',
-                      margin: EdgeInsets.all(10),
+                    padding:
+                        const EdgeInsets.only(top: 15, left: 10, right: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Card(
+                        color: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(15.0)),
+                        elevation: 5,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(15.0),
+                          onTap: () async {
+                            setState(() {
+                              _notifState = !_notifState;
+                            });
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: 2, bottom: 2, left: 10, right: 10), //TODO
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                AnimatedDefaultTextStyle(
+                                  style: Theme.of(context).textTheme.button,
+                                  duration: Duration(milliseconds: 200),
+                                  child: Text(
+                                    _notifState
+                                        ? 'Nachrichten Ein'
+                                        : 'Nachrichten Aus',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Transform.scale(
+                                  scale: 1.0,
+                                  child: Switch.adaptive(
+                                    activeColor: Theme.of(context).accentColor,
+                                    value: _notifState,
+                                    onChanged: (val) async {
+                                      setState(() {
+                                        _notifState = val;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
@@ -274,9 +328,13 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
     super.dispose();
   }
 
+  bool _notifState;
+
   @override
   Widget build(BuildContext context) {
     Report _report = Provider.of<Report>(context);
+    final notifStateNotifier = Provider.of<NotifStateNotifier>(context);
+    _notifState = notifStateNotifier.getNotif();
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: ClassmateAppBar(
@@ -300,11 +358,16 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
                     print(userKlasse);
 
                     if (user != null) {
-                      await NotificationTagert(
-                              report: _report,
-                              userKlasse: userKlasse,
-                              user: user)
-                          .update();
+                      //Wenn Nachrichten Ein
+                      if (_notifState) {
+                        print(_notifState);
+                        await NotificationTagert(
+                                report: _report,
+                                userKlasse: userKlasse,
+                                user: user)
+                            .update();
+                      }
+
                       Future<void> loadClass(FirebaseUser user) async {
                         DocumentReference reportRef =
                             _db.collection('Nutzer').document(user.uid);
@@ -360,6 +423,8 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Leer';
+                      } else if (value == '0') {
+                        return 'Nicht 0';
                       } else if (RegExp("^[1-9]{1}\$").hasMatch(value)) {}
                     },
                     onFieldSubmitted: (stufe) {
@@ -386,9 +451,12 @@ class _ClassSelectScreenState extends State<ClassSelectScreen> {
                       if (value.isEmpty) {
                         print('klasse = empty');
                         return 'Leer';
-                      } else if (value == '0') {
-                        return 'Nicht 0';
-                      } else if (RegExp(" ^[A-Z,a-z]{1}\$").hasMatch(value)) {}
+                      } else if (RegExp("^[A-Z]|[a-z]|[äöüÄÖÜ]{1}\$")
+                          .hasMatch(value)) {
+                        print('validated');
+                      } else {
+                        return 'Stufe';
+                      }
 
                       //return null;
                     },

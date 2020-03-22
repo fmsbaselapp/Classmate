@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:rate_my_app/rate_my_app.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 //Checks if User has School
 class HomeScreen extends StatelessWidget {
@@ -51,8 +48,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-
-
+//Checkt Schule
 class CheckerModule extends StatelessWidget {
   const CheckerModule({
     Key key,
@@ -136,7 +132,7 @@ class ClassSelectChecker extends StatelessWidget {
     if (snapshot.data.klasse == 'lädt...') {
       return LoadingScreenWait();
     } else if (snapshot.data.klasse != 'keine Klasse') {
-      return Home();
+      return MessageHandler();
     } else if (snapshot.data.klasse == 'keine Klasse') {
       print('ClassSelect initialized');
 
@@ -201,10 +197,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 FlatButton(
                   child: Text('Bewerten!'),
                   onPressed: () async {
-                    print('Thanks for the ' +
+                    print('Danke für die ' +
                         (stars == null ? '0' : stars.round().toString()) +
-                        ' star(s) !');
-                    //TODO
+                        ' Sterne!');
+                   
                     // You can handle the result as you want (for instance if the user puts 1 star then open your contact page, if he puts more then open the store page, etc...).
                     await _rateMyApp.callEvent(RateMyAppEventType
                         .rateButtonPressed); // This allows to mimic the behavior of the default "Rate" button. See "Advanced > Broadcasting events" for more information.
@@ -269,7 +265,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             height: 60,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
-          body: MessageHandler(controller: _controller, report: report),
+          body: HomeBody(controller: _controller, report: report),
         ),
       ),
     );

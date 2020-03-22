@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:Classmate/services/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationTagert {
   NotificationTagert(
@@ -44,13 +42,62 @@ class NotificationTagert {
         await _notification.subscribeToTopic(_target).then(
             (value) => print('---SUBSCRIBED to Topic ' + _target + '---'));
       });
-    } else { //bei erstem mal
+    } else {
+      //bei erstem mal
       DocumentReference reportRef = _db.collection('Nutzer').document(user.uid);
       return await reportRef
           .setData({'Target': _target.toString()}, merge: true).then(
         (value) async => await _notification.subscribeToTopic(_target),
       );
     }
+  }
+
+  unsubscribe() async {
+    //UNSUBSCRIBE FROM OLD CLASS TAREGT
+    print('UNSUBSCRIBE FROM TARGET:' + report.target);
+    await _notification.unsubscribeFromTopic(report.target).then(
+          (value) =>
+              print('---UNSUBSCRIBED from Topic ' + report.target + '---'),
+        );
+
+    //SET NACHRICHTEN AUS
+
+    DocumentReference reportRef = _db.collection('Nutzer').document(user.uid);
+    await reportRef.setData({'Target': 'NachrichtenAus'}, merge: true).then(
+        (value) async {
+      await _notification.subscribeToTopic('NachrichtenAus').then((value) =>
+          print('---SUBSCRIBED to Topic ' + 'NachrichtenAus' + '---'));
+    });
+  }
+}
+
+class NotifStateNotifier with ChangeNotifier {
+  bool _notifData;
+
+  NotifStateNotifier(this._notifData);
+
+  getNotif() => _notifData;
+
+  setNotif(bool notifData) async {
+    _notifData = notifData;
+    notifyListeners();
+  }
+}
+
+void onNotifChanged(bool value, NotifStateNotifier notifStateNotifier,
+    FirebaseUser user, Report report) async {
+  if (value) {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool('notifState', value);
+    notifStateNotifier.setNotif(value);
+    //Subscribe to Topic
+    NotificationTagert(user: user, report: report).update();
+  } else {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool('notifState', value);
+    notifStateNotifier.setNotif(value);
+    //Unsubscribe from Topic
+    NotificationTagert(user: user, report: report).unsubscribe();
   }
 }
 

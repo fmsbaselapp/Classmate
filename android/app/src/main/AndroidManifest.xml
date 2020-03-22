@@ -7,10 +7,9 @@
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name=".Application"
         android:label="Classmate"
-        android:icon="@mipmap/launcher_icon"
-        android:name=".Application">
+        android:icon="@mipmap/launcher_icon">
         
         <activity
             android:name=".MainActivity"
@@ -32,7 +31,7 @@
                 
             </intent-filter>
 
-           <intent-filter>
+            <intent-filter>
             <action android:name="FLUTTER_NOTIFICATION_CLICK" />
             <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

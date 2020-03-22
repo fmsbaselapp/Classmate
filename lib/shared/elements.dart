@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:Classmate/services/services.dart';
 
@@ -147,7 +146,7 @@ class _LableDarkModeState extends State<LableDarkMode> {
           },
           child: Padding(
             padding:
-                EdgeInsets.only(top: 2, bottom: 2, left: 10, right: 10), //TODO
+                EdgeInsets.only(top: 2, bottom: 2, left: 10, right: 10), 
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -181,8 +180,8 @@ class _LableDarkModeState extends State<LableDarkMode> {
   }
 }
 
-class LableSwitch extends StatefulWidget {
-  LableSwitch(
+class LableNotif extends StatefulWidget {
+  LableNotif(
       {Key key,
       @required this.textEin,
       @required this.textAus,
@@ -194,14 +193,18 @@ class LableSwitch extends StatefulWidget {
   EdgeInsetsGeometry margin;
 
   @override
-  _LableSwitchState createState() => _LableSwitchState();
+  _LableNotifState createState() => _LableNotifState();
 }
 
-class _LableSwitchState extends State<LableSwitch> {
-  bool Bool = false;
+class _LableNotifState extends State<LableNotif> {
+  bool _notifState;
 
   @override
   Widget build(BuildContext context) {
+    Report _report = Provider.of<Report>(context);
+    final notifStateNotifier = Provider.of<NotifStateNotifier>(context);
+    _notifState = notifStateNotifier.getNotif();
+
     return SizedBox(
       width: double.infinity,
       child: Card(
@@ -213,13 +216,19 @@ class _LableSwitchState extends State<LableSwitch> {
         child: InkWell(
           borderRadius: BorderRadius.circular(15.0),
           onTap: () async {
-            setState(() {
-              Bool = !Bool;
-            });
+            AuthService().getUser.then(
+              (user) async {
+                setState(() {
+                  _notifState = _notifState;
+                });
+
+                onNotifChanged(!_notifState, notifStateNotifier, user, _report);
+              },
+            );
           },
           child: Padding(
             padding:
-                EdgeInsets.only(top: 2, bottom: 2, left: 10, right: 10), //TODO
+                EdgeInsets.only(top: 2, bottom: 2, left: 10, right: 10), 
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -227,7 +236,7 @@ class _LableSwitchState extends State<LableSwitch> {
                   style: Theme.of(context).textTheme.button,
                   duration: Duration(milliseconds: 200),
                   child: Text(
-                    Bool ? widget.textEin : widget.textAus,
+                    _notifState ? widget.textEin : widget.textAus,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -235,11 +244,17 @@ class _LableSwitchState extends State<LableSwitch> {
                   scale: 1.0,
                   child: Switch.adaptive(
                     activeColor: Theme.of(context).accentColor,
-                    value: Bool,
+                    value: _notifState,
                     onChanged: (val) async {
-                      setState(() {
-                        Bool = val;
-                      });
+                      AuthService().getUser.then(
+                        (user) async {
+                          setState(() {
+                            _notifState = val;
+                          });
+                          onNotifChanged(
+                              val, notifStateNotifier, user, _report);
+                        },
+                      );
                     },
                   ),
                 ),

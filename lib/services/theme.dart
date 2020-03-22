@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:flutter_statusbar_text_color/flutter_statusbar_text_color.dart';

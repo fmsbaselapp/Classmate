@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ClassmateAppBar extends StatelessWidget implements PreferredSizeWidget {
   ClassmateAppBar({this.children, this.height, this.mainAxisAlignment});

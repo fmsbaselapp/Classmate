@@ -136,10 +136,14 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
     return Padding(padding: EdgeInsets.only(bottom: 10), child: column);
   }
 
+  bool _notifState;
+
   Widget build(
     BuildContext context,
   ) {
     Report _report = Provider.of<Report>(context);
+    final notifStateNotifier = Provider.of<NotifStateNotifier>(context);
+    _notifState = notifStateNotifier.getNotif();
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: ClassmateAppBar(
@@ -192,11 +196,14 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
               await AuthService().getUser.then(
                 (user) {
                   if (user != null) {
-                    NotificationTagert(
-                            report: _report,
-                            userSchule: schulenlist[_value2],
-                            user: user)
-                        .update();
+                    //Wenn Nachrichten Ein
+                    if (_notifState) {
+                      NotificationTagert(
+                              report: _report,
+                              userSchule: schulenlist[_value2],
+                              user: user)
+                          .update();
+                    }
 
                     Future<void> loadSchool(FirebaseUser user) async {
                       DocumentReference reportRef =

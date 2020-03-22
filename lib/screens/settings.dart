@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:Classmate/screens/screens.dart';
@@ -116,7 +115,9 @@ class SettingsScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ClassSelectScreen(report: report,),
+                              builder: (context) => ClassSelectScreen(
+                                report: report,
+                              ),
                             ),
                           );
                         },
@@ -129,6 +130,11 @@ class SettingsScreen extends StatelessWidget {
             LableDarkMode(
               text: 'Dunkles Design',
               margin: EdgeInsetsDirectional.only(top: 30),
+            ),
+            LableNotif(
+              margin: EdgeInsetsDirectional.only(top: 10),
+              textEin: 'Nachrichten Ein',
+              textAus: 'Nachrichten Aus',
             ),
             LableButtonExtended(
               paddingTop: 30,

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:Classmate/screens/screens.dart';
 import 'package:Classmate/shared/shared.dart';
 import 'package:firebase_auth/firebase_auth.dart';
