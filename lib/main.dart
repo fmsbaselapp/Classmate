@@ -1,80 +1,25 @@
-import 'package:Classmate/screens/screens.dart';
-import 'package:Classmate/services/services.dart';
-import 'package:Classmate/services/theme.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:Classmate/Home/home_view.dart';
+import 'package:Classmate/ui/theme_setup.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-//DARK or LIGHT MODE
-  SharedPreferences.getInstance().then(
-    (prefs) {
-      var darkModeOn = prefs.getBool('darkMode') ?? false;
-      var notifState = prefs.getBool('notifState') ?? false;
-      runApp(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<ThemeNotifier>(
-              create: (_) => ThemeNotifier(darkModeOn ? darkTheme : lightTheme),
-            ),
-            ChangeNotifierProvider<NotifStateNotifier>(
-              create: (_) => NotifStateNotifier(notifState),
-            )
-          ],
-          child: Classmate(),
-        ),
-      );
-      if (darkModeOn) {
-        bool value = true;
-        setStatusBarTextColor(value);
-        //setAppIcon(value);
-      } else {
-        bool value = false;
-        setStatusBarTextColor(value);
-        //setAppIcon(value);
-      }
-    },
-  );
+Future main() async {
+  await ThemeManager.initialise();
+  runApp(MyApp());
 }
 
-FirebaseAnalytics analytics = FirebaseAnalytics();
-
-class Classmate extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
-    return MultiProvider(
-      providers: [
-        StreamProvider<FirebaseUser>.value(value: AuthService().user),
-        StreamProvider<Report>.value(
-          value: Global.reportRef.documentStream,
-          initialData: Report(schule: 'lädt...', klasse: 'lädt...'),
-        ),
-      ],
-      child: MaterialApp(
-        theme: themeNotifier.getTheme(),
-
-        // Named Routes
-        //TODO onUnknownRoute: null, 
-        routes: {
-          '/': (context) => WelcomeScreen(),
-          '/login': (context) => LoginScreen(),
-          '/home': (context) => HomeScreen(),
-          '/settings': (context) => SettingsScreen(),
-          '/schoolSelect': (context) => SchoolSelectScreen(),
-          '/signOut': (context) => SignOut(),
-        },
-
-        // Firebase Analytics
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
-        ],
+    return ThemeBuilder(
+      themes: getThemes(),
+      //statusBarColorBuilder: (theme) => theme.accentColor,
+      builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
+        title: 'Classmate',
+        theme: regularTheme,
+        darkTheme: darkTheme,
+        themeMode: themeMode,
+        home: Home_view(),
       ),
     );
   }

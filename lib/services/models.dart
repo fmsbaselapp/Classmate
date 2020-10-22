@@ -1,198 +1,157 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
-//// Embedded Maps
+class AlleFaecher {
+  final List<Fach> faecher;
 
-class Option {
-  String value;
-  String detail;
-  bool correct;
+  AlleFaecher({this.faecher});
 
-  Option({this.correct, this.value, this.detail});
-  Option.fromMap(Map data) {
-    value = data['value'];
-    detail = data['detail'] ?? '';
-    correct = data['correct'];
-  }
-}
-
-class Question {
-  String text;
-  List<Option> options;
-  Question({this.options, this.text});
-
-  Question.fromMap(Map data) {
-    text = data['text'] ?? '';
-    options =
-        (data['options'] as List ?? []).map((v) => Option.fromMap(v)).toList();
-  }
-}
-
-///// Database Collections
-
-class Quiz {
-  String id;
-  String title;
-  String description;
-  String video;
-  String topic;
-  List<Question> questions;
-
-  Quiz(
-      {this.title,
-      this.questions,
-      this.video,
-      this.description,
-      this.id,
-      this.topic});
-
-  factory Quiz.fromMap(Map data) {
-    return Quiz(
-        id: data['id'] ?? '',
-        title: data['title'] ?? '',
-        topic: data['topic'] ?? '',
-        description: data['description'] ?? '',
-        video: data['video'] ?? '',
-        questions: (data['questions'] as List ?? [])
-            .map((v) => Question.fromMap(v))
-            .toList());
-  }
-}
-
-class Topic {
-  final String id;
-  final String title;
-  final String description;
-  final String img;
-  final List<Quiz> quizzes;
-
-  Topic({this.id, this.title, this.description, this.img, this.quizzes});
-
-  factory Topic.fromMap(Map data) {
-    return Topic(
-      id: data['id'] ?? '',
-      title: data['title'] ?? '',
-      description: data['description'] ?? '',
-      img: data['img'] ?? 'default.png',
-      quizzes: (data['quizzes'] as List ?? [])
-          .map((v) => Quiz.fromMap(v))
-          .toList(), //data['quizzes'],
+  factory AlleFaecher.fromMap(Map data) {
+    return AlleFaecher(
+      faecher: (data['allefaecher'] as List ?? [])
+          .map((v) => Fach.fromMap(v))
+          .toList(),
     );
   }
 }
 
-class Name {
-  nameAusEmail(userEmail) async {
-    String emailInput = userEmail;
-    String vorname;
-    String nachname;
-    String email;
+class Fach {
+  final String name;
+  final Color farbe;
+  final String icon;
+  final String zeit;
+  final String raum;
+  final int teilnehmer;
 
-    //leerzeichen wegmachen
-    var email1 = emailInput.trim();
+  Fach(
+      {this.name,
+      this.farbe,
+      this.icon,
+      this.zeit,
+      this.raum,
+      this.teilnehmer});
 
-    //email kleingeschrieben
-    email = email1.toLowerCase();
-
-    //@stud.edubs.ch wegmachen
-    var email2 = email.replaceAll(RegExp('@stud.edubs.ch'), '');
-
-    //vor,nachname splitten
-    var email4 = email2.split('.');
-
-    //kleingeschribener vorname
-    var vornameKlein = email4.first;
-    vorname = vornameKlein[0].toUpperCase() +
-        vornameKlein.substring(1); //grossschreiben
-
-    //kleingeschribener nachname
-    var nachnameKlein = email4.last;
-    nachname = nachnameKlein[0].toUpperCase() +
-        nachnameKlein.substring(1); //grossschreiben
-
-    print('Vorname: ' + vorname);
-    print('Nachname: ' + nachname);
-    print('Email: ' + email);
-
-    var personalData = [vorname, nachname, email];
-    return personalData;
-    //return [vorname, nachname, email];
+  factory Fach.fromMap(Map data) {
+    return Fach(
+        name: data['name'] ?? '',
+        farbe: data['farbe'] ?? '',
+        icon: data['icon'] ?? '',
+        zeit: data['zeit'] ?? '',
+        raum: (data['raum']) ?? '',
+        teilnehmer: (data['teilnehmer']) ?? '');
   }
 }
 
-class Klasse {
-  formatKlasse(klasse, stufe) {
-    
-    String klasse1 = klasse.toUpperCase();
-    String userKlasse = stufe + klasse1; //[]
-    return userKlasse;
-  }
-}
+class AlleInfos {
+  final List<Info> infos;
 
-class Report {
-  String email;
-  String vorname;
-  String nachname;
-  String schule;
-  String klasse;
-  String target;
-  String uid;
-  Timestamp lastActivity;
+  AlleInfos({this.infos});
 
-  Report(
-      {this.uid,
-      this.target,
-      this.klasse,
-      this.schule,
-      this.email,
-      this.lastActivity,
-      this.nachname,
-      this.vorname});
-
-  factory Report.fromMap(Map data) {
-    return Report(
-        email: data['Email'] ?? ' ',
-        vorname: data['Vorname'] ?? ' ',
-        nachname: data['Nachname'] ?? ' ',
-        schule: data['Schule'] ?? 'keine Schule',
-        klasse: data['Klasse'] ?? 'keine Klasse',
-        uid: data['uid'] ?? ' ',
-        target: data['Target'] ?? '',
-        lastActivity: data['lastActivity']);
-  }
-}
-
-//Works!
-class Ausfall {
-  String klasse;
-  String zeit;
-  String grund;
-  String raum;
-
-  Ausfall({
-    this.klasse,
-    this.zeit,
-    this.grund,
-    this.raum,
-  });
-
-  factory Ausfall.fromList(List data) {
-    data = data ?? [];
-    return Ausfall(
-      klasse: data[0] ?? '-',
-      zeit: data[1] ?? '-',
-      grund: data[2] ?? '-',
-      raum: data[3] ?? '-',
+  factory AlleInfos.fromMap(Map data) {
+    return AlleInfos(
+      infos: (data['alleinfos'] as List ?? [])
+          .map((v) => Info.fromMap(v))
+          .toList(),
     );
   }
 }
 
-class Schule {
-  String schule;
+class Info {
+  final String titel;
+  final String notiz;
+  final String datum;
+  final bool privat;
+  final Fach fach;
 
-  Schule({this.schule});
+  Info({this.titel, this.notiz, this.datum, this.privat, this.fach});
 
-  factory Schule.fromMap(Map data) {
-    data = data ?? {};
-    return Schule(schule: (data['Schule']) ?? 'Wähle deine Schule');
+  factory Info.fromMap(Map data) {
+    return Info(
+        titel: data['titel'] ?? '',
+        notiz: data['notiz'] ?? '',
+        datum: data['datum'] ?? '',
+        privat: data['privat'] ?? '',
+        fach: (data['fach']) ?? '');
+  }
+}
+
+class AlleAufgaben {
+  final List<Aufgabe> aufgaben;
+
+  AlleAufgaben({this.aufgaben});
+
+  factory AlleAufgaben.fromMap(Map data) {
+    return AlleAufgaben(
+      aufgaben: (data['alleAufgaben'] as List ?? [])
+          .map((v) => Aufgabe.fromMap(v))
+          .toList(),
+    );
+  }
+}
+
+class Aufgabe {
+  final String titel;
+  final String datum;
+  final String notiz;
+  final bool fertig;
+  final bool privat;
+  final Fach fach;
+
+  Aufgabe(
+      {this.titel,
+      this.datum,
+      this.notiz,
+      this.fertig,
+      this.privat,
+      this.fach});
+
+  factory Aufgabe.fromMap(Map data) {
+    return Aufgabe(
+        titel: data['titel'] ?? '',
+        datum: data['datum'] ?? '',
+        notiz: data['notiz'] ?? '',
+        fertig: data['fertig'] ?? '',
+        privat: data['privat'] ?? '',
+        fach: (data['fach']) ?? '');
+  }
+}
+
+class AlleTests {
+  final List<Test> tests;
+
+  AlleTests({this.tests});
+
+  factory AlleTests.fromMap(Map data) {
+    return AlleTests(
+      tests: (data['alleTests'] as List ?? [])
+          .map((v) => Test.fromMap(v))
+          .toList(),
+    );
+  }
+}
+
+class Test {
+  final String titel;
+  final String datum;
+  final double gewichtung;
+  final String notiz;
+  final bool privat;
+  final Fach fach;
+
+  Test(
+      {this.titel,
+      this.datum,
+      this.gewichtung,
+      this.notiz,
+      this.privat,
+      this.fach});
+
+  factory Test.fromMap(Map data) {
+    return Test(
+        titel: data['titel'] ?? '',
+        datum: data['datum'] ?? '',
+        gewichtung: data['gewichtug'] ?? '',
+        notiz: data['notiz'] ?? '',
+        privat: data['privat'] ?? '',
+        fach: (data['fach']) ?? '');
   }
 }
