@@ -1,10 +1,12 @@
-import 'package:Classmate/Home/home_view.dart';
+import 'package:Classmate/core/app/locator.dart';
+import 'package:Classmate/core/app/router.gr.dart' as auto_router;
 import 'package:Classmate/ui/theme_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
 Future main() async {
   await ThemeManager.initialise();
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -19,7 +21,9 @@ class MyApp extends StatelessWidget {
         theme: regularTheme,
         darkTheme: darkTheme,
         themeMode: themeMode,
-        home: Home_view(),
+        //Todo: initial
+        initialRoute: auto_router.Routes.homeView,
+        onGenerateRoute: auto_router.Router().onGenerateRoute,
       ),
     );
   }

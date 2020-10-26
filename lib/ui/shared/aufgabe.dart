@@ -1,6 +1,8 @@
-import 'package:Classmate/Services/models.dart';
-import 'package:Classmate/ui/widgets/widgets.dart';
+import 'package:Classmate/core/models/models.dart';
+
 import 'package:flutter/material.dart';
+
+import 'export.dart';
 
 class Aufgabe_Big extends StatelessWidget {
   Aufgabe_Big({

@@ -1,4 +1,4 @@
-import 'package:Classmate/ui/widgets/widgets.dart';
+import 'package:Classmate/ui/shared/export.dart';
 import 'package:flutter/material.dart';
 
 class Home_Container extends StatelessWidget {

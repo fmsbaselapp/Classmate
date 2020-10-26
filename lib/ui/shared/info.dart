@@ -1,5 +1,4 @@
-import 'package:Classmate/Home/home_view.dart';
-import 'package:Classmate/ui/widgets/Shared/export.dart';
+import 'export.dart';
 import 'package:flutter/material.dart';
 
 class Info_Big extends StatelessWidget {

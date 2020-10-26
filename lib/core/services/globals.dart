@@ -1,6 +1,6 @@
 //import 'package:firebase_analytics/firebase_analytics.dart';
 
-import 'package:Classmate/Services/services.dart';
+import 'package:Classmate/core/models/models.dart';
 import 'package:flutter/material.dart';
 
 /// Static global state. Immutable services that do not care about build context.
