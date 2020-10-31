@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Icon_Fach extends StatelessWidget {
-  Icon_Fach({
+class IconFach extends StatelessWidget {
+  IconFach({
     this.size,
     Key key,
   }) : super(key: key);
 
-  double size;
+  final double size;
 
   @override
   Widget build(BuildContext context) {

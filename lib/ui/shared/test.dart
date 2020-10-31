@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Test_Big extends StatelessWidget {
-  const Test_Big({
+class TestBig extends StatelessWidget {
+  const TestBig({
     Key key,
   }) : super(key: key);
 
@@ -42,8 +42,8 @@ class Test_Big extends StatelessWidget {
   }
 }
 
-class Test_Small extends StatelessWidget {
-  const Test_Small({
+class TestSmall extends StatelessWidget {
+  const TestSmall({
     Key key,
   }) : super(key: key);
 

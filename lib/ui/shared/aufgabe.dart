@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 
 import 'export.dart';
 
-class Aufgabe_Big extends StatelessWidget {
-  Aufgabe_Big({
+class AufgabeBig extends StatelessWidget {
+  AufgabeBig({
     @required this.aufgabe,
     Key key,
   }) : super(key: key);
 
-  Aufgabe aufgabe;
+  final Aufgabe aufgabe;
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +43,15 @@ class Aufgabe_Big extends StatelessWidget {
               ),
             ],
           ),
-          Round_Button(icon: CustomIcons.add, iconSize: 15, onPressed: () {}),
+          RoundButton(icon: CustomIcons.add, iconSize: 15, onPressed: () {}),
         ],
       ),
     );
   }
 }
 
-class Aufgabe_Small extends StatelessWidget {
-  const Aufgabe_Small({
+class AufgabeSmall extends StatelessWidget {
+  const AufgabeSmall({
     Key key,
   }) : super(key: key);
 

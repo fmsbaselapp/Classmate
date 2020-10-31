@@ -1,8 +1,8 @@
 import 'export.dart';
 import 'package:flutter/material.dart';
 
-class Info_Big extends StatelessWidget {
-  const Info_Big({
+class InfoBig extends StatelessWidget {
+  const InfoBig({
     Key key,
   }) : super(key: key);
 
@@ -28,7 +28,7 @@ class Info_Big extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon_Fach(
+                  IconFach(
                     size: 10,
                   ),
                   Text(
@@ -50,8 +50,8 @@ class Info_Big extends StatelessWidget {
   }
 }
 
-class Info_Small extends StatelessWidget {
-  const Info_Small({
+class InfoSmall extends StatelessWidget {
+  const InfoSmall({
     Key key,
   }) : super(key: key);
 
@@ -77,7 +77,7 @@ class Info_Small extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon_Fach(
+                  IconFach(
                     size: 10,
                   ),
                   Text(

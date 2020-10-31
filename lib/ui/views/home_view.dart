@@ -34,32 +34,14 @@ class HomeView extends StatelessWidget {
           },
           child: getViewForIndex(model.currentIndex),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromRGBO(16, 16, 16, 1),
-          currentIndex: model.currentIndex,
-          onTap: model.setIndex,
-          items: [
-            BottomNavigationBarItem(
-              title: Text('Übersicht'),
-              icon: Icon(Icons.home_rounded),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Calendar'),
-              icon: Icon(Icons.today_rounded),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Noten'),
-              icon: Icon(Icons.timeline_rounded),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Fächer'),
-              icon: Icon(Icons.table_rows_rounded),
-            ),
-            BottomNavigationBarItem(
-              title: Text('Einstellungen'),
-              icon: Icon(Icons.settings_rounded),
-            ),
+        bottomNavigationBar: CustomBottomNavBar(
+          model: model,
+          children: [
+            Icon(Icons.home_rounded),
+            Icon(Icons.today_rounded),
+            Icon(Icons.timeline_rounded),
+            Icon(Icons.table_rows_rounded),
+            Icon(Icons.settings_rounded),
           ],
         ),
       ),
@@ -82,5 +64,62 @@ class HomeView extends StatelessWidget {
       default:
         return UebersichtView();
     }
+  }
+}
+
+class CustomBottomNavBar extends StatelessWidget {
+  final List<Widget> children;
+  final Function(int) onChange;
+
+  final HomeViewModel model;
+
+  CustomBottomNavBar({
+    @required this.children,
+    this.onChange,
+    this.model,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color.fromRGBO(16, 16, 16, 1),
+      child: SafeArea(
+        child: Container(
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: children.map((item) {
+              int _index = children.indexOf(item);
+              return GestureDetector(
+                onTap: () {
+                  model.setIndex(_index);
+                  print(model.currentIndex);
+                },
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 200),
+                  width: model.currentIndex == _index
+                      ? MediaQuery.of(context).size.width / children.length + 20
+                      : 50,
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: model.currentIndex == _index
+                          ? Colors.white.withOpacity(0.3)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      item,
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+    );
   }
 }

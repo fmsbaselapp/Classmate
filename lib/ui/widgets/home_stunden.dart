@@ -1,17 +1,17 @@
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:flutter/material.dart';
 
-class Home_Stunden extends StatelessWidget {
-  Home_Stunden({
+class HomeStunden extends StatelessWidget {
+  HomeStunden({
     Key key,
     this.fach,
     this.zeit,
     this.raum,
   }) : super(key: key);
 
-  String fach;
-  String raum;
-  String zeit;
+  final String fach;
+  final String raum;
+  final String zeit;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class Home_Stunden extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Icon_Fach(),
+              child: IconFach(),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),

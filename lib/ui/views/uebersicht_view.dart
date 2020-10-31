@@ -51,7 +51,7 @@ class UebersichtView extends StatelessWidget {
                             if (index == 0) {
                               return Wrap();
                             }
-                            return Home_Stunden(
+                            return HomeStunden(
                               fach: model.title,
                               zeit: model.zeit,
                               raum: model.raum,
@@ -66,18 +66,18 @@ class UebersichtView extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            Home_Container(
+                            HomeContainer(
                               title: 'Info',
                               //Listview
-                              widgets: Info_Big(),
+                              widgets: InfoBig(),
                             ),
                             const SizedBox(
                               height: 30,
                             ),
-                            Home_Container(
+                            HomeContainer(
                               title: 'Aufgaben',
                               //Listview
-                              widgets: Aufgabe_Big(
+                              widgets: AufgabeBig(
                                 aufgabe: Aufgabe(
                                   datum: 'Freitag, 31 Januar',
                                   titel: 'Hallo',
@@ -88,10 +88,10 @@ class UebersichtView extends StatelessWidget {
                             const SizedBox(
                               height: 30,
                             ),
-                            Home_Container(
+                            HomeContainer(
                               //Listview
                               title: 'Tests',
-                              widgets: Test_Big(),
+                              widgets: TestBig(),
                             ),
                           ],
                         ),
