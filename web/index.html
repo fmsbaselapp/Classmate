@@ -18,6 +18,25 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyBWLpCgm5Y2Cf0VcxSt82MjE3TwVaYLchU",
+        authDomain: "classmate-new.firebaseapp.com",
+        databaseURL: "https://classmate-new.firebaseio.com",
+        projectId: "classmate-new",
+        storageBucket: "classmate-new.appspot.com",
+        messagingSenderId: "74873536730",
+        appId: "1:74873536730:web:ab446ef4d7eaf2776c25e3",
+        measurementId: "G-F29525P9KN"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->

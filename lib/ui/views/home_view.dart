@@ -1,4 +1,5 @@
-import 'package:Classmate/core/viewmodels/viewmodels.dart';
+import 'package:Classmate/app/locator.dart';
+import 'package:Classmate/viewmodels/viewmodels.dart';
 import 'package:Classmate/ui/views/calendar_view.dart';
 import 'package:Classmate/ui/views/faecher_view.dart';
 import 'package:Classmate/ui/views/noten_view.dart';
@@ -24,6 +25,7 @@ class HomeView extends StatelessWidget {
             Animation<double> secondaryAnimation,
           ) {
             return SharedAxisTransition(
+              fillColor: Theme.of(context).scaffoldBackgroundColor,
               child: child,
               animation: animation,
               secondaryAnimation: secondaryAnimation,
@@ -34,34 +36,34 @@ class HomeView extends StatelessWidget {
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Color.fromRGBO(16, 16, 16, 1),
           currentIndex: model.currentIndex,
           onTap: model.setIndex,
           items: [
             BottomNavigationBarItem(
               title: Text('Übersicht'),
-              icon: Icon(Icons.art_track),
+              icon: Icon(Icons.home_rounded),
             ),
             BottomNavigationBarItem(
               title: Text('Calendar'),
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.today_rounded),
             ),
             BottomNavigationBarItem(
               title: Text('Noten'),
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.timeline_rounded),
             ),
             BottomNavigationBarItem(
               title: Text('Fächer'),
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.table_rows_rounded),
             ),
             BottomNavigationBarItem(
               title: Text('Einstellungen'),
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.settings_rounded),
             ),
           ],
         ),
       ),
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => locator<HomeViewModel>(),
     );
   }
 

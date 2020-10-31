@@ -9,8 +9,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../ui/views/calendar_view.dart';
-import '../../ui/views/views.dart';
+import '../ui/views/calendar_view.dart';
+import '../ui/views/views.dart';
 
 class Routes {
   static const String startupView = '/';
@@ -19,6 +19,8 @@ class Routes {
   static const String notenView = '/noten-view';
   static const String faecherView = '/faecher-view';
   static const String settingsView = '/settings-view';
+  static const String loginView = '/login-view';
+  static const String signUpView = '/sign-up-view';
   static const all = <String>{
     startupView,
     homeView,
@@ -26,6 +28,8 @@ class Routes {
     notenView,
     faecherView,
     settingsView,
+    loginView,
+    signUpView,
   };
 }
 
@@ -39,6 +43,8 @@ class Router extends RouterBase {
     RouteDef(Routes.notenView, page: NotenView),
     RouteDef(Routes.faecherView, page: FaecherView),
     RouteDef(Routes.settingsView, page: SettingsView),
+    RouteDef(Routes.loginView, page: LoginView),
+    RouteDef(Routes.signUpView, page: SignUpView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -76,6 +82,18 @@ class Router extends RouterBase {
     SettingsView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const SettingsView(),
+        settings: data,
+      );
+    },
+    LoginView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => LoginView(),
+        settings: data,
+      );
+    },
+    SignUpView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => SignUpView(),
         settings: data,
       );
     },

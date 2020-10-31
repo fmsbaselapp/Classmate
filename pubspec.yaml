@@ -26,6 +26,11 @@ dependencies:
   
   #theme
   stacked_themes: ^0.2.2+1
+  #firebase
+  firebase_core: "^0.5.0+1"
+  firebase_auth: ^0.18.2
+  firebase_analytics: "^6.0.2"
+  apple_sign_in: ^0.1.0
   #state Management
   stacked: ^1.7.6
   #navigation
@@ -35,6 +40,7 @@ dependencies:
   get_it: ^5.0.1
   injectable: ^1.0.5
   animations: ^1.1.2
+
 
 dev_dependencies:
   flutter_test:
@@ -59,3 +65,6 @@ flutter:
     #- family: MaaxRegular
     #  fonts:
     #    - asset: asset/fonts/Maax-Regular.otf
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf

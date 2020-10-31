@@ -1,3 +1,4 @@
+import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:flutter/material.dart';
 
@@ -51,9 +52,10 @@ class Home_Container extends StatelessWidget {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.only(right: 5),
-                  child:
-                      Round_Button(icon: Icons.add_rounded, onPressed: () {})),
+                padding: EdgeInsets.only(right: 5),
+                child: Round_Button(
+                    icon: CustomIcons.add, iconSize: 15, onPressed: () {}),
+              ),
             ],
           ),
           widgets ?? Wrap(),

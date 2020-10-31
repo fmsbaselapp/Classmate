@@ -10,5 +10,7 @@ import 'package:auto_route/auto_route_annotations.dart';
   MaterialRoute(page: NotenView),
   MaterialRoute(page: FaecherView),
   MaterialRoute(page: SettingsView),
+  MaterialRoute(page: LoginView),
+  MaterialRoute(page: SignUpView),
 ])
 class $Router {}

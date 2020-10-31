@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/services.dart';
 import '../viewmodels/calendar_viewmodel.dart';
 import '../viewmodels/faecher_viewmodel.dart';
 import '../viewmodels/home_viewmodel.dart';
@@ -27,6 +28,9 @@ GetIt $initGetIt(
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
   final thirdPartyServicesModule = _$ThirdPartyServicesModule();
+  gh.lazySingleton<AuthenticationService>(
+      () => thirdPartyServicesModule.authenticationService);
+  gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
   gh.lazySingleton<NavigationService>(
       () => thirdPartyServicesModule.navigationService);
 
@@ -36,12 +40,16 @@ GetIt $initGetIt(
   gh.singleton<HomeViewModel>(HomeViewModel());
   gh.singleton<NotenViewModel>(NotenViewModel());
   gh.singleton<SettingsViewModel>(SettingsViewModel());
-  gh.singleton<StaerupViewModel>(StaerupViewModel());
+  gh.singleton<StartupViewModel>(StartupViewModel());
   gh.singleton<UebersichtViewModel>(UebersichtViewModel());
   return get;
 }
 
 class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
+  @override
+  AuthenticationService get authenticationService => AuthenticationService();
+  @override
+  DialogService get dialogService => DialogService();
   @override
   NavigationService get navigationService => NavigationService();
 }

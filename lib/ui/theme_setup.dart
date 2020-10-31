@@ -8,9 +8,9 @@ List<ThemeData> getThemes() {
       backgroundColor: Colors.black,
       scaffoldBackgroundColor: Colors.black,
       primaryColorLight: Colors.white,
-      accentColor: Color(0xff171717),
-      highlightColor: Color(0xff2a2a2a),
-      indicatorColor: Color(0xff404040),
+      accentColor: Color.fromRGBO(23, 23, 23, 1),
+      highlightColor: Color.fromRGBO(42, 42, 42, 1),
+      indicatorColor: Color.fromRGBO(64, 64, 64, 1),
 
       textTheme: TextTheme(
         //Titel
@@ -39,7 +39,7 @@ List<ThemeData> getThemes() {
           fontFamily: "Maax",
           fontWeight: FontWeight.w500,
           fontSize: 15,
-          color: Color(0xff999999),
+          color: Color.fromRGBO(153, 153, 153, 1),
         ),
       ),
 

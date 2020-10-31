@@ -1,4 +1,5 @@
-import 'package:Classmate/core/viewmodels/home_viewmodel.dart';
+import 'package:Classmate/app/locator.dart';
+import 'package:Classmate/viewmodels/home_viewmodel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -18,6 +19,6 @@ class FaecherView extends StatelessWidget {
                 child: Text('Fächer'),
               ),
             ),
-        viewModelBuilder: () => HomeViewModel());
+        viewModelBuilder: () => locator<HomeViewModel>());
   }
 }

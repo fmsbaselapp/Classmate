@@ -12,7 +12,7 @@ class Test_Big extends StatelessWidget {
       margin: EdgeInsets.only(top: 15),
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
       decoration: BoxDecoration(
-        color: Color(0xffc23f38),
+        color: Color.fromRGBO(210, 48, 47, 1),
         borderRadius: BorderRadius.circular(15.00),
       ),
       child: Row(

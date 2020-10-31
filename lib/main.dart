@@ -1,8 +1,9 @@
-import 'package:Classmate/core/app/locator.dart';
-import 'package:Classmate/core/app/router.gr.dart' as auto_router;
+import 'package:Classmate/app/locator.dart';
+import 'package:Classmate/app/router.gr.dart' as auto_router;
 import 'package:Classmate/ui/theme_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_themes/stacked_themes.dart';
+import 'package:get/get.dart';
 
 Future main() async {
   await ThemeManager.initialise();
@@ -16,13 +17,13 @@ class MyApp extends StatelessWidget {
     return ThemeBuilder(
       themes: getThemes(),
       //statusBarColorBuilder: (theme) => theme.accentColor,
-      builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
+      builder: (context, regularTheme, darkTheme, themeMode) => GetMaterialApp(
         title: 'Classmate',
-        theme: regularTheme,
-        darkTheme: darkTheme,
+        theme: getThemes().first,
+        darkTheme: getThemes().last,
         themeMode: themeMode,
         //Todo: initial
-        initialRoute: auto_router.Routes.homeView,
+        initialRoute: auto_router.Routes.startupView,
         onGenerateRoute: auto_router.Router().onGenerateRoute,
       ),
     );

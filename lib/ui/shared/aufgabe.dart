@@ -1,4 +1,5 @@
-import 'package:Classmate/core/models/models.dart';
+import 'package:Classmate/models/models.dart';
+import 'package:Classmate/ui/custom_icons_icons.dart';
 
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class Aufgabe_Big extends StatelessWidget {
       margin: EdgeInsets.only(top: 15),
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
       decoration: BoxDecoration(
-        color: Color(0xff3576cb),
+        color: Color.fromRGBO(24, 118, 210, 1),
         borderRadius: BorderRadius.circular(15.00),
       ),
       child: Row(
@@ -42,7 +43,7 @@ class Aufgabe_Big extends StatelessWidget {
               ),
             ],
           ),
-          Round_Button(icon: Icons.add_rounded, onPressed: () {}),
+          Round_Button(icon: CustomIcons.add, iconSize: 15, onPressed: () {}),
         ],
       ),
     );

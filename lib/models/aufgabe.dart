@@ -1,4 +1,4 @@
-import 'package:Classmate/core/models/models.dart';
+import 'package:Classmate/models/models.dart';
 
 class AlleAufgaben {
   final List<Aufgabe> aufgaben;

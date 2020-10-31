@@ -13,7 +13,7 @@ class Info_Big extends StatelessWidget {
       margin: EdgeInsets.only(top: 15),
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
       decoration: BoxDecoration(
-        color: Colors.yellow[900],
+        color: Color.fromRGBO(252, 192, 45, 1),
         borderRadius: BorderRadius.circular(15.00),
       ),
       child: Row(
