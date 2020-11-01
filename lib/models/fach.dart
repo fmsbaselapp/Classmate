@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AlleFaecher {
   final List<Fach> faecher;
 
@@ -7,16 +5,15 @@ class AlleFaecher {
 
   factory AlleFaecher.fromMap(Map data) {
     return AlleFaecher(
-      faecher: (data['allefaecher'] as List ?? [])
-          .map((v) => Fach.fromMap(v))
-          .toList(),
+      faecher:
+          (data['Faecher'] as List ?? []).map((v) => Fach.fromMap(v)).toList(),
     );
   }
 }
 
 class Fach {
   final String name;
-  final Color farbe;
+  final int farbe;
   final String icon;
   final String zeit;
   final String raum;
@@ -33,10 +30,10 @@ class Fach {
   factory Fach.fromMap(Map data) {
     return Fach(
         name: data['name'] ?? '',
-        farbe: data['farbe'] ?? Colors.white,
-        icon: data['icon'] ?? '',
         zeit: data['zeit'] ?? '',
-        raum: (data['raum']) ?? '',
-        teilnehmer: (data['teilnehmer']) ?? 000);
+        icon: data['icon'] ?? '❔',
+        farbe: data['farbe'] ?? 0,
+        raum: data['raum'] ?? '',
+        teilnehmer: data['teilnehmer'] ?? 000);
   }
 }

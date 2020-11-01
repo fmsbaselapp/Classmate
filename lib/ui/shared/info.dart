@@ -28,9 +28,6 @@ class InfoBig extends StatelessWidget {
               ),
               Row(
                 children: [
-                  IconFach(
-                    size: 10,
-                  ),
                   Text(
                     'Biologie | Freitag, 31 Januar',
                     style: Theme.of(context).textTheme.bodyText1,
@@ -77,9 +74,6 @@ class InfoSmall extends StatelessWidget {
               ),
               Row(
                 children: [
-                  IconFach(
-                    size: 10,
-                  ),
                   Text(
                     'Biologie | Freitag, 31 Januar',
                     style: Theme.of(context).textTheme.bodyText1,

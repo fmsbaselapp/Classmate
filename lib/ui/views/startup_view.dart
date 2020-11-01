@@ -11,14 +11,7 @@ class StartupView extends StatelessWidget {
     return ViewModelBuilder<StartupViewModel>.reactive(
       viewModelBuilder: () => StartupViewModel(),
       builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: FlatButton(
-            onPressed: () {},
-            child: Text(
-              model.isBusy.toString(),
-            ),
-          ),
-        ),
+        body: Center(),
       ),
     );
   }

@@ -37,16 +37,20 @@ class UebersichtView extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 145.0,
-                        child: ListView.separated(
-                          key: PageStorageKey('Home_Faecher_Key'),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: model.length + 2,
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(
-                              width: 15,
-                            );
-                          },
-                          itemBuilder: (BuildContext context, int index) {
+                        /*child: 
+                        ListView.separated(
+                            key: PageStorageKey('Home_Faecher_Key'),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: model.length + 2,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const SizedBox(
+                                width: 15,
+                              );
+                            },
+                            itemBuilder: (BuildContext context, int index) {
+                             
+                         
                             //if (index == 0 || index == items.length + 1) {
                             if (index == 0) {
                               return Wrap();
@@ -57,7 +61,8 @@ class UebersichtView extends StatelessWidget {
                               raum: model.raum,
                             );
                           },
-                        ),
+                            ),
+                            */
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),

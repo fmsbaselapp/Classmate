@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class IconFach extends StatelessWidget {
   IconFach({
     this.size,
+    @required this.farbe,
+    @required this.icon,
     Key key,
   }) : super(key: key);
 
+  final String icon;
+  final int farbe;
   final double size;
 
   @override
@@ -17,7 +21,7 @@ class IconFach extends StatelessWidget {
           width: size ?? 40,
           height: size ?? 40,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(170, 255, 180, 0.3),
+            color: Color(farbe).withOpacity(0.3),
             shape: BoxShape.circle,
           ),
         ),
@@ -25,10 +29,10 @@ class IconFach extends StatelessWidget {
           width: 30,
           height: 30,
           decoration: BoxDecoration(
-              color: Color.fromRGBO(170, 255, 180, 1), shape: BoxShape.circle),
+              color: Color(farbe).withOpacity(1), shape: BoxShape.circle),
         ),
         Text(
-          '🌱',
+          icon ?? '',
           style: TextStyle(fontSize: 20),
         ),
       ],

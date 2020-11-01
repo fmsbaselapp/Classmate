@@ -7,11 +7,15 @@ class HomeStunden extends StatelessWidget {
     this.fach,
     this.zeit,
     this.raum,
+    this.icon,
+    this.farbe,
   }) : super(key: key);
 
   final String fach;
   final String raum;
   final String zeit;
+  final String icon;
+  final int farbe;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class HomeStunden extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: IconFach(),
+              child: IconFach(icon: icon, farbe: farbe),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),

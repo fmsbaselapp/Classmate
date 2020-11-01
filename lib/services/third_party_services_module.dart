@@ -13,7 +13,7 @@ abstract class ThirdPartyServicesModule {
   @lazySingleton
   AuthenticationService get authenticationService;
 
-  @singleton
+  @lazySingleton
   FaecherService get faecherService;
 
   @lazySingleton

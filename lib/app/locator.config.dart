@@ -31,6 +31,8 @@ GetIt $initGetIt(
   gh.lazySingleton<AuthenticationService>(
       () => thirdPartyServicesModule.authenticationService);
   gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
+  gh.lazySingleton<FaecherService<dynamic>>(
+      () => thirdPartyServicesModule.faecherService);
   gh.lazySingleton<NavigationService>(
       () => thirdPartyServicesModule.navigationService);
   gh.lazySingleton<UserData<dynamic>>(
@@ -38,8 +40,6 @@ GetIt $initGetIt(
 
   // Eager singletons must be registered in the right order
   gh.singleton<CalendarViewModel>(CalendarViewModel());
-  gh.singleton<FaecherService<dynamic>>(
-      thirdPartyServicesModule.faecherService);
   gh.singleton<FaecherViewModel>(FaecherViewModel());
   gh.singleton<HomeViewModel>(HomeViewModel());
   gh.singleton<NotenViewModel>(NotenViewModel());
