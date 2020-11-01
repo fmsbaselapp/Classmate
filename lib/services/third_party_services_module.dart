@@ -8,8 +8,16 @@ abstract class ThirdPartyServicesModule {
   NavigationService get navigationService;
 
   @lazySingleton
-  AuthenticationService get authenticationService;
+  DialogService get dialogService;
 
   @lazySingleton
-  DialogService get dialogService;
+  AuthenticationService get authenticationService;
+
+  @singleton
+  FaecherService get faecherService;
+
+  @lazySingleton
+  UserData get userService;
 }
+
+//     flutter pub run build_runner build --delete-conflicting-outputs

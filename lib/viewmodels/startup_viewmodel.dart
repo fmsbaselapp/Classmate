@@ -15,7 +15,7 @@ class StartupViewModel extends FutureViewModel<dynamic> {
     Firebase.initializeApp().then((value) async {
       setBusy(false);
 
-      await _navigationService.navigateTo(Routes.signUpView);
+      await _navigationService.navigateTo(Routes.faecherView);
       print('Connected to Firebase');
     }).catchError((error) {
       print('error');

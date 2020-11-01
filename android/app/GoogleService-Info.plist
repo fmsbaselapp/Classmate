@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>74873536730-h1gmmom51dtph83p7qe60c7sh0klt88e.apps.googleusercontent.com</string>
+	<string>823291981547-md5e8lakkk2b20vgbrri897amnicp1ur.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.74873536730-h1gmmom51dtph83p7qe60c7sh0klt88e</string>
+	<string>com.googleusercontent.apps.823291981547-md5e8lakkk2b20vgbrri897amnicp1ur</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA3WrJJAa4T6dZd8Mhr1xBz7gatriTZW9c</string>
+	<string>AIzaSyCSWTGYIIoilzNz2bvHuUusQfGQD8JqnUw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>74873536730</string>
+	<string>823291981547</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>ch.classmate.app</string>
 	<key>PROJECT_ID</key>
-	<string>classmate-new</string>
+	<string>classmate-b5345</string>
 	<key>STORAGE_BUCKET</key>
-	<string>classmate-new.appspot.com</string>
+	<string>classmate-b5345.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:74873536730:ios:3bc5092d75900a8a6c25e3</string>
+	<string>1:823291981547:ios:4c2148fb6f67aae9e718ae</string>
 	<key>DATABASE_URL</key>
-	<string>https://classmate-new.firebaseio.com</string>
+	<string>https://classmate-b5345.firebaseio.com</string>
 </dict>
 </plist>

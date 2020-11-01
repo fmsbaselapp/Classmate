@@ -101,13 +101,13 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? MediaQuery.of(context).size.width / children.length + 20
                       : 50,
                   padding: EdgeInsets.only(left: 10, right: 10),
-                  margin: EdgeInsets.only(top: 10, bottom: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 5),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: model.currentIndex == _index
                           ? Colors.white.withOpacity(0.3)
                           : Colors.transparent,
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(15)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[

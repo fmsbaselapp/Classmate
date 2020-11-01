@@ -28,6 +28,7 @@ dependencies:
   stacked_themes: ^0.2.2+1
   #firebase
   firebase_core: "^0.5.0+1"
+  cloud_firestore: ^0.14.2
   firebase_auth: ^0.18.2
   firebase_analytics: "^6.0.2"
   apple_sign_in: ^0.1.0

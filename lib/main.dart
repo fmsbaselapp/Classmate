@@ -4,10 +4,14 @@ import 'package:Classmate/ui/theme_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'package:get/get.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+FirebaseAnalytics analytics;
 
 Future main() async {
   await ThemeManager.initialise();
   setupLocator();
+  analytics = FirebaseAnalytics();
   runApp(MyApp());
 }
 

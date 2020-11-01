@@ -33,10 +33,10 @@ class Fach {
   factory Fach.fromMap(Map data) {
     return Fach(
         name: data['name'] ?? '',
-        farbe: data['farbe'] ?? '',
+        farbe: data['farbe'] ?? Colors.white,
         icon: data['icon'] ?? '',
         zeit: data['zeit'] ?? '',
         raum: (data['raum']) ?? '',
-        teilnehmer: (data['teilnehmer']) ?? '');
+        teilnehmer: (data['teilnehmer']) ?? 000);
   }
 }

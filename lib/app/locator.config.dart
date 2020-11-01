@@ -27,15 +27,19 @@ GetIt $initGetIt(
   EnvironmentFilter environmentFilter,
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
-  final thirdPartyServicesModule = _$ThirdPartyServicesModule();
+  final thirdPartyServicesModule = _$ThirdPartyServicesModule(get);
   gh.lazySingleton<AuthenticationService>(
       () => thirdPartyServicesModule.authenticationService);
   gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
   gh.lazySingleton<NavigationService>(
       () => thirdPartyServicesModule.navigationService);
+  gh.lazySingleton<UserData<dynamic>>(
+      () => thirdPartyServicesModule.userService);
 
   // Eager singletons must be registered in the right order
   gh.singleton<CalendarViewModel>(CalendarViewModel());
+  gh.singleton<FaecherService<dynamic>>(
+      thirdPartyServicesModule.faecherService);
   gh.singleton<FaecherViewModel>(FaecherViewModel());
   gh.singleton<HomeViewModel>(HomeViewModel());
   gh.singleton<NotenViewModel>(NotenViewModel());
@@ -46,10 +50,16 @@ GetIt $initGetIt(
 }
 
 class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
+  final GetIt _get;
+  _$ThirdPartyServicesModule(this._get);
   @override
   AuthenticationService get authenticationService => AuthenticationService();
   @override
   DialogService get dialogService => DialogService();
   @override
+  FaecherService<dynamic> get faecherService => FaecherService();
+  @override
   NavigationService get navigationService => NavigationService();
+  @override
+  UserData<dynamic> get userService => UserData(collection: _get<String>());
 }
