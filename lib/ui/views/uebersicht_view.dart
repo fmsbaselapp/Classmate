@@ -1,5 +1,7 @@
 import 'package:Classmate/app/locator.dart';
 import 'package:Classmate/models/models.dart';
+import 'package:Classmate/ui/views/aufgabenHome_view.dart';
+import 'package:Classmate/ui/views/views.dart';
 import 'package:Classmate/viewmodels/uebersicht_viewmodel.dart';
 
 import 'package:Classmate/ui/shared/export.dart';
@@ -13,7 +15,7 @@ class UebersichtView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<UebersichtViewModel>.reactive(
+    return ViewModelBuilder<UebersichtViewModel>.nonReactive(
         // 1 dispose viewmodel
         disposeViewModel: false,
         // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
@@ -37,32 +39,7 @@ class UebersichtView extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 145.0,
-                        /*child: 
-                        ListView.separated(
-                            key: PageStorageKey('Home_Faecher_Key'),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: model.length + 2,
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(
-                                width: 15,
-                              );
-                            },
-                            itemBuilder: (BuildContext context, int index) {
-                             
-                         
-                            //if (index == 0 || index == items.length + 1) {
-                            if (index == 0) {
-                              return Wrap();
-                            }
-                            return HomeStunden(
-                              fach: model.title,
-                              zeit: model.zeit,
-                              raum: model.raum,
-                            );
-                          },
-                            ),
-                            */
+                        child: FaecherHomeView(),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -71,33 +48,30 @@ class UebersichtView extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            HomeContainer(
+
+                            /*                 HomeContainer(
+                              type: '',
                               title: 'Info',
+                              list: [],
+                              // onPressed:
                               //Listview
-                              widgets: InfoBig(),
+                              // widgets: InfoBig(),
                             ),
                             const SizedBox(
                               height: 30,
                             ),
-                            HomeContainer(
-                              title: 'Aufgaben',
-                              //Listview
-                              widgets: AufgabeBig(
-                                aufgabe: Aufgabe(
-                                  datum: 'Freitag, 31 Januar',
-                                  titel: 'Hallo',
-                                  fach: Fach(name: 'Biologie'),
-                                ),
-                              ),
-                            ),
+                            AufgabenHomeView(),
                             const SizedBox(
                               height: 30,
                             ),
                             HomeContainer(
+                              type: '',
+                              list: [],
+                              // onPressed:
                               //Listview
                               title: 'Tests',
-                              widgets: TestBig(),
-                            ),
+                              //  widgets: TestBig(),
+                            ),*/
                           ],
                         ),
                       ),

@@ -7,11 +7,10 @@ import 'package:injectable/injectable.dart';
 @singleton
 class FaecherViewModel extends StreamViewModel<AlleFaecher> {
   final FaecherService _faecherService = locator<FaecherService>();
-  AlleFaecher faecherData = AlleFaecher(faecher: []);
   bool _hasData = false;
 
   bool get hasData => _hasData;
-  List<Fach> get faecher => faecherData.faecher;
+  List<Fach> get faecher => data.faecher;
 
   @override
   Stream<AlleFaecher> get stream => faecherStream;
@@ -20,7 +19,6 @@ class FaecherViewModel extends StreamViewModel<AlleFaecher> {
   @override
   void onData(AlleFaecher data) {
     _hasData = true;
-    faecherData = data;
     super.onData(data);
   }
 }

@@ -14,12 +14,6 @@ class FaecherService<T> {
 }
 
 /*
-auth.currentUser.uid
- .collection('Faecher')
-        .doc('EgQbk1PEcxWkBxnqAw8l')
-*/
-
-/*
 class FaecherService<T> {
   Stream<Fach> streamFach() {
     final FirebaseFirestore _db = FirebaseFirestore.instance;

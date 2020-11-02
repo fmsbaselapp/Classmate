@@ -36,7 +36,7 @@ class AufgabeBig extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    aufgabe.fach.name + ' | ' + aufgabe.datum,
+                    aufgabe.fach + ' | ' + aufgabe.datum,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],

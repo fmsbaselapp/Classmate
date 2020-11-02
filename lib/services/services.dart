@@ -4,3 +4,4 @@ export '../app/locator.dart';
 export 'db.dart';
 export 'user_service.dart';
 export 'faecher_service.dart';
+export 'aufgaben_service.dart';

@@ -1,5 +1,3 @@
-import 'package:Classmate/models/models.dart';
-
 class AlleAufgaben {
   final List<Aufgabe> aufgaben;
 
@@ -7,7 +5,7 @@ class AlleAufgaben {
 
   factory AlleAufgaben.fromMap(Map data) {
     return AlleAufgaben(
-      aufgaben: (data['alleAufgaben'] as List ?? [])
+      aufgaben: (data['Aufgaben'] as List ?? [])
           .map((v) => Aufgabe.fromMap(v))
           .toList(),
     );
@@ -16,27 +14,20 @@ class AlleAufgaben {
 
 class Aufgabe {
   final String titel;
+  final String fach;
   final String datum;
-  final String notiz;
-  final bool fertig;
-  final bool privat;
-  final Fach fach;
 
-  Aufgabe(
-      {this.titel,
-      this.datum,
-      this.notiz,
-      this.fertig,
-      this.privat,
-      this.fach});
+  Aufgabe({
+    this.titel,
+    this.fach,
+    this.datum,
+  });
 
   factory Aufgabe.fromMap(Map data) {
     return Aufgabe(
-        titel: data['titel'] ?? '',
-        datum: data['datum'] ?? '',
-        notiz: data['notiz'] ?? '',
-        fertig: data['fertig'] ?? '',
-        privat: data['privat'] ?? '',
-        fach: (data['fach']) ?? '');
+      titel: data['titel'] ?? '',
+      fach: data['fach'] ?? '',
+      datum: data['datum'] ?? '',
+    );
   }
 }
