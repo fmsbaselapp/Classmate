@@ -16,6 +16,7 @@ class AufgabenHomeView extends StatelessWidget {
         builder: (context, model, child) => model.hasData
             ? ListView.separated(
                 shrinkWrap: true,
+                key: PageStorageKey('Aufgaben_Home_Key'),
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: model.aufgaben.length,
                 separatorBuilder: (BuildContext context, int index) {

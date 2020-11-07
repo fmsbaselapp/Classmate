@@ -1,9 +1,4 @@
-import 'dart:math';
-
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/ui/custom_icons_icons.dart';
-import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/ui/views/home/aufgabenHome_view.dart';
 import 'package:Classmate/ui/views/views.dart';
 import 'package:Classmate/ui/widgets/home_container.dart';
 import 'package:Classmate/viewmodels/uebersicht_viewmodel.dart';

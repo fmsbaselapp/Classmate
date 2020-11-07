@@ -21,6 +21,7 @@ class FaecherHomeView extends StatelessWidget {
               body: model.hasData
                   ? ListView.separated(
                       padding: EdgeInsets.only(left: 15, right: 15),
+                      key: PageStorageKey('Faecher_Home_Key'),
                       physics: BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       scrollDirection: Axis.horizontal,

@@ -16,6 +16,7 @@ class TestsHomeView extends StatelessWidget {
         builder: (context, model, child) => model.hasData
             ? ListView.separated(
                 shrinkWrap: true,
+                key: PageStorageKey('Test_Home_Key'),
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: model.tests.length,
                 separatorBuilder: (BuildContext context, int index) {

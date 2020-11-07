@@ -15,6 +15,7 @@ class InfosHomeView extends StatelessWidget {
         builder: (context, model, child) => model.hasData
             ? ListView.separated(
                 shrinkWrap: true,
+                key: PageStorageKey('Infos_Home_Key'),
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: model.infos.length,
                 separatorBuilder: (BuildContext context, int index) {
