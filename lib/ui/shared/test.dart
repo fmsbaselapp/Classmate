@@ -1,9 +1,13 @@
+import 'package:Classmate/models/test.dart';
 import 'package:flutter/material.dart';
 
 class TestBig extends StatelessWidget {
   const TestBig({
+    @required this.test,
     Key key,
   }) : super(key: key);
+
+  final Test test;
 
   @override
   Widget build(BuildContext context) {

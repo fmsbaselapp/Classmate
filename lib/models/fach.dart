@@ -1,16 +1,3 @@
-class AlleFaecher {
-  final List<Fach> faecher;
-
-  AlleFaecher({this.faecher});
-
-  factory AlleFaecher.fromMap(Map data) {
-    return AlleFaecher(
-      faecher:
-          (data['Faecher'] as List ?? []).map((v) => Fach.fromMap(v)).toList(),
-    );
-  }
-}
-
 class Fach {
   final String name;
   final int farbe;

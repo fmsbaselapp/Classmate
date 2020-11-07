@@ -6,4 +6,7 @@ export 'faecher_view.dart';
 export 'settings_view.dart';
 export 'login_view.dart';
 export 'signup_view.dart';
-export 'faecherHome_view.dart';
+export 'home/faecherHome_view.dart';
+export 'home/testsHome_view.dart';
+export 'home/aufgabenHome_view.dart';
+export 'home/infosHome_view.dart';

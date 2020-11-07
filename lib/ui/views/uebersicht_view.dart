@@ -1,12 +1,12 @@
+import 'dart:math';
+
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/models/models.dart';
-import 'package:Classmate/ui/views/aufgabenHome_view.dart';
-import 'package:Classmate/ui/views/views.dart';
-import 'package:Classmate/viewmodels/uebersicht_viewmodel.dart';
-
+import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/ui/widgets/export.dart';
-
+import 'package:Classmate/ui/views/home/aufgabenHome_view.dart';
+import 'package:Classmate/ui/views/views.dart';
+import 'package:Classmate/ui/widgets/home_container.dart';
+import 'package:Classmate/viewmodels/uebersicht_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -26,57 +26,42 @@ class UebersichtView extends StatelessWidget {
               ),
               body: SizedBox(
                 height: MediaQuery.of(context).size.height,
-                child: SingleChildScrollView(
+                child: CustomScrollView(
                   physics: BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
                   key: PageStorageKey('Home_Column_Key'),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 145.0,
-                        child: FaecherHomeView(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 15),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-
-                            /*                 HomeContainer(
-                              type: '',
-                              title: 'Info',
-                              list: [],
-                              // onPressed:
-                              //Listview
-                              // widgets: InfoBig(),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            AufgabenHomeView(),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            HomeContainer(
-                              type: '',
-                              list: [],
-                              // onPressed:
-                              //Listview
-                              title: 'Tests',
-                              //  widgets: TestBig(),
-                            ),*/
-                          ],
+                  slivers: [
+                    SliverPadding(
+                      padding: EdgeInsets.only(top: 20, bottom: 20),
+                      sliver: SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 145.0,
+                          child: FaecherHomeView(),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    SliverPadding(
+                      padding: EdgeInsets.only(left: 15, right: 15, bottom: 20),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            // To convert this infinite list to a list with three items,
+                            // uncomment the following line:
+                            // if (index > 3) return null;
+                            const List title = ['Infos', 'Aufgaben', 'Tests'];
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: HomeContainer(
+                                title: title[index],
+                              ),
+                            );
+                          },
+                          // Or, uncomment the following line:
+                          childCount: 3,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

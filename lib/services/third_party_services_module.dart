@@ -17,6 +17,15 @@ abstract class ThirdPartyServicesModule {
   FaecherService get faecherService;
 
   @lazySingleton
+  AufgabenService get aufgabenService;
+
+  @lazySingleton
+  InfosService get infosService;
+
+  @lazySingleton
+  TestsService get testsService;
+
+  @lazySingleton
   UserData get userService;
 }
 

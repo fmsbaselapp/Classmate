@@ -28,3 +28,25 @@ class RoundButton extends StatelessWidget {
     );
   }
 }
+
+class AufgabeButton extends StatelessWidget {
+  const AufgabeButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      width: 30,
+      child: RawMaterialButton(
+        fillColor: Theme.of(context).indicatorColor,
+        shape: CircleBorder(),
+        onPressed: () {},
+        child: Icon(
+          Icons.check_rounded,
+          size: 25,
+          color: Theme.of(context).primaryColorLight,
+        ),
+      ),
+    );
+  }
+}

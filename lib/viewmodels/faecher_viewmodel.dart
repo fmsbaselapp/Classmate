@@ -5,19 +5,19 @@ import 'package:stacked/stacked.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
-class FaecherViewModel extends StreamViewModel<AlleFaecher> {
+class FaecherViewModel extends StreamViewModel<List<Fach>> {
   final FaecherService _faecherService = locator<FaecherService>();
   bool _hasData = false;
 
   bool get hasData => _hasData;
-  List<Fach> get faecher => data.faecher;
+  List<Fach> get faecher => data;
 
   @override
-  Stream<AlleFaecher> get stream => faecherStream;
-  Stream<AlleFaecher> get faecherStream => _faecherService.streamFach();
+  Stream<List<Fach>> get stream => faecherStream;
+  Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
 
   @override
-  void onData(AlleFaecher data) {
+  void onData(List<Fach> data) {
     _hasData = true;
     super.onData(data);
   }

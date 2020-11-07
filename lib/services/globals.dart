@@ -25,40 +25,10 @@ class Global {
 // Data Models fake
 
   static final Map models = {
-    AlleFaecher: (data) => AlleFaecher.fromMap(data),
-    AlleInfos: (data) => AlleInfos.fromMap(data),
-    AlleAufgaben: (data) => AlleAufgaben.fromMap(data),
-    AlleTests: (data) => AlleTests.fromMap(data),
-    Fach: (data) => Fach.fromMap({
-          'name': 'Biologie',
-          'farbe': Color.fromRGBO(170, 255, 180, 1),
-          'icon': '🌱',
-          'zeit': '12:30-13:40',
-          'raum': '22B',
-          'teilnehmer': 12,
-        }),
-    Info: (data) => Info.fromMap({
-          'titel': 'Stunde fällt aus',
-          'notiz': 'Die nächste Stunde fällt aus',
-          'datum': 'Montag, 2, Febuar',
-          'privat': true,
-          'fach': 'Biologie'
-        }),
-    Aufgabe: (data) => Aufgabe.fromMap({
-          'titel': 'Deutsch lösen',
-          'datum': 'Montag, 8, Febuar',
-          'fach': 'Geographie',
-          'notiz': 'Keine Notizen',
-          'privat': false,
-        }),
-    Test: (data) => Test.fromMap({
-          'titel': 'Deutsch lösen',
-          'datum': 'Montag, 8, Febuar',
-          'fach': 'Geographie',
-          'notiz': 'Keine Notizen',
-          'gewichtung': 1.3,
-          'privat': false,
-        }),
+    Fach: (data) => Fach.fromMap({}),
+    Info: (data) => Info.fromMap({}),
+    Aufgabe: (data) => Aufgabe.fromMap({}),
+    Test: (data) => Test.fromMap({}),
   };
 
   // Firestore References for Writes
@@ -68,7 +38,6 @@ class Global {
       UserData<Report>(collection: 'Nutzer');
   static final Collection<Ausfall> ausfallRef =
       Collection<Ausfall>(path: 'Ausfall');
-  static final Collection<AlleFaecher> fachRef =
-      Collection<AlleFaecher>(path: 'Fach');
+
   //ect...
 }

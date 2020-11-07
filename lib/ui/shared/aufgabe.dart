@@ -1,6 +1,4 @@
 import 'package:Classmate/models/models.dart';
-import 'package:Classmate/ui/custom_icons_icons.dart';
-
 import 'package:flutter/material.dart';
 
 import 'export.dart';
@@ -43,7 +41,7 @@ class AufgabeBig extends StatelessWidget {
               ),
             ],
           ),
-          RoundButton(icon: CustomIcons.add, iconSize: 15, onPressed: () {}),
+          AufgabeButton(),
         ],
       ),
     );

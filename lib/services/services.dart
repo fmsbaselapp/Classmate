@@ -5,3 +5,5 @@ export 'db.dart';
 export 'user_service.dart';
 export 'faecher_service.dart';
 export 'aufgaben_service.dart';
+export 'infos_service.dart';
+export 'tests_service.dart';
