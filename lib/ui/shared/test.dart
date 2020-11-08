@@ -26,11 +26,11 @@ class TestBig extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Deutsch Aufsatz',
+                test.titel,
                 style: Theme.of(context).textTheme.headline2,
               ),
               Text(
-                'Biologie | Freitag, 31 Januar',
+                test.fach + ' | ' + test.datum,
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ],

@@ -12,7 +12,7 @@ class Info {
       titel: data['titel'] ?? '',
       notiz: data['notiz'] ?? '',
       datum: data['datum'] ?? '',
-      privat: data['privat'] ?? '',
+      privat: data['privat'] ?? true,
       fach: data['fach'] ?? '',
     );
   }

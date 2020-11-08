@@ -8,8 +8,6 @@ class TestsService<T> {
     final FirebaseAuth auth = FirebaseAuth.instance;
 
     return _db
-        .collection('Klassen')
-        .doc('Ih8mOpKpcCm9ftM5zlqW')
         .collection('Tests')
         .where('users', arrayContains: auth.currentUser.uid)
         .snapshots()

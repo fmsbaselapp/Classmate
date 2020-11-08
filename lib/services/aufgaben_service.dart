@@ -8,8 +8,6 @@ class AufgabenService<T> {
     final FirebaseAuth auth = FirebaseAuth.instance;
 
     return _db
-        .collection('Klassen')
-        .doc('Ih8mOpKpcCm9ftM5zlqW')
         .collection('Aufgaben')
         .where('users', arrayContains: auth.currentUser.uid)
         .snapshots()
