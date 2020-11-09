@@ -19,44 +19,47 @@ class UebersichtView extends StatelessWidget {
               appBar: AppBar(
                 title: Text('Übersicht'),
               ),
-              body: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: CustomScrollView(
-                  physics: BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  key: PageStorageKey('Home_Column_Key'),
-                  slivers: [
-                    SliverPadding(
-                      padding: EdgeInsets.only(top: 20, bottom: 20),
-                      sliver: SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 145.0,
-                          child: FaecherHomeView(),
+              body: SafeArea(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: CustomScrollView(
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    key: PageStorageKey('Home_Column_Key'),
+                    slivers: [
+                      SliverPadding(
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                        sliver: SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 145.0,
+                            child: FaecherHomeView(),
+                          ),
                         ),
                       ),
-                    ),
-                    SliverPadding(
-                      padding: EdgeInsets.only(left: 15, right: 15, bottom: 20),
-                      sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            // To convert this infinite list to a list with three items,
-                            // uncomment the following line:
-                            // if (index > 3) return null;
-                            const List title = ['Infos', 'Aufgaben', 'Tests'];
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: HomeContainer(
-                                title: title[index],
-                              ),
-                            );
-                          },
-                          // Or, uncomment the following line:
-                          childCount: 3,
+                      SliverPadding(
+                        padding:
+                            EdgeInsets.only(left: 15, right: 15, bottom: 20),
+                        sliver: SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              // To convert this infinite list to a list with three items,
+                              // uncomment the following line:
+                              // if (index > 3) return null;
+                              const List title = ['Info', 'Aufgabe', 'Test'];
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: HomeContainer(
+                                  title: title[index],
+                                ),
+                              );
+                            },
+                            // Or, uncomment the following line:
+                            childCount: 3,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

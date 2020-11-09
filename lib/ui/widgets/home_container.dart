@@ -1,5 +1,6 @@
 import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
+import 'package:Classmate/ui/views/erstellen_view.dart';
 import 'package:Classmate/ui/views/home/aufgabenHome_view.dart';
 import 'package:Classmate/ui/views/home/infosHome_view.dart';
 import 'package:Classmate/ui/views/views.dart';
@@ -55,13 +56,32 @@ class HomeContainer extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(right: 5),
                 child: RoundButton(
-                    icon: CustomIcons.add, iconSize: 15, onPressed: () {}),
-              ),
+                  icon: CustomIcons.add,
+                  iconSize: 15,
+                  onPressed: () {
+                    //FUNCTION TODO
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)),
+                      ),
+                      isScrollControlled: true,
+                      isDismissible: true,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      context: context,
+                      builder: (context) => ErstellenView(
+                        title: title,
+                      ),
+                    );
+                  },
+                ),
+              )
             ],
           ),
-          if (title == 'Infos') InfosHomeView(),
-          if (title == 'Aufgaben') AufgabenHomeView(),
-          if (title == 'Tests') TestsHomeView(),
+          if (title == 'Info') InfosHomeView(),
+          if (title == 'Aufgabe') AufgabenHomeView(),
+          if (title == 'Test') TestsHomeView(),
         ],
       ),
     );
