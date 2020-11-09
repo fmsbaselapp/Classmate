@@ -61,14 +61,9 @@ class HomeContainer extends StatelessWidget {
                   onPressed: () {
                     //FUNCTION TODO
                     showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
-                      ),
                       isScrollControlled: true,
                       isDismissible: true,
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: Theme.of(context).accentColor,
                       context: context,
                       builder: (context) => ErstellenView(
                         title: title,

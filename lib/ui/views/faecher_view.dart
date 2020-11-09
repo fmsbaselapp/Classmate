@@ -34,12 +34,18 @@ class FaecherView extends StatelessWidget {
                           },
                           itemBuilder: (BuildContext context, int index) {
                             Fach fach = model.faecher[index];
-                            return FachUI(
-                              fach: fach.name,
-                              zeit: fach.zeit,
-                              raum: fach.raum,
-                              icon: fach.icon,
-                              farbe: fach.farbe,
+                            return GestureDetector(
+                              onTap: () {
+                                model.navigateToDetailPage(
+                                    fach, index, context);
+                              },
+                              child: FachUI(
+                                fach: fach.name,
+                                zeit: fach.zeit,
+                                raum: fach.raum,
+                                icon: fach.icon,
+                                farbe: fach.farbe,
+                              ),
                             );
                           },
                         )

@@ -67,3 +67,36 @@ class FachUI extends StatelessWidget {
     );
   }
 }
+
+class FachUIerstellen extends StatelessWidget {
+  FachUIerstellen({
+    Key key,
+    this.fach,
+    this.icon,
+    this.farbe,
+  }) : super(key: key);
+
+  final String fach;
+  final String icon;
+  final int farbe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 5),
+      decoration: BoxDecoration(
+        color: Theme.of(context).highlightColor,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconFach(icon: icon, farbe: farbe),
+          ),
+          Text(fach, style: Theme.of(context).textTheme.headline2),
+        ],
+      ),
+    );
+  }
+}

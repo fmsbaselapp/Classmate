@@ -1,18 +1,23 @@
+import 'package:Classmate/models/models.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/viewmodels/viewmodels.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class ErstellenView extends StatelessWidget {
-  const ErstellenView({@required this.title, Key key}) : super(key: key);
+class FaecherDetailView extends StatelessWidget {
+  const FaecherDetailView({Key key, @required this.fach, this.index})
+      : super(key: key);
 
-  final String title;
+  final Fach fach;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ErstellenViewModel>.reactive(
+    return ViewModelBuilder<FaecherDetailViewModel>.nonReactive(
+        // 1 dispose viewmodel
         disposeViewModel: false,
+        // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => DraggableScrollableSheet(
               expand: false,
@@ -28,12 +33,6 @@ class ErstellenView extends StatelessWidget {
                   child: CustomScrollView(
                     controller: scrollController,
                     slivers: [
-                      SliverPersistentHeader(
-                        pinned: true,
-                        delegate: ErstellenAppBar(
-                            title: model.getTitle(title),
-                            color: model.getColor(title)),
-                      ),
                       SliverPadding(
                         padding: EdgeInsets.only(left: 15, right: 15),
                         sliver: SliverList(
@@ -42,13 +41,19 @@ class ErstellenView extends StatelessWidget {
                               SizedBox(
                                 height: 30,
                               ),
-                              ErstellenTextField(title: true),
                               SizedBox(
                                 height: 20,
                               ),
-                              ErstellenFaecherAuswahlView(),
-                              ErstellenDatumAuswahl(),
-                              ErstellenTextField(title: false),
+                              Hero(
+                                tag: fach.name + index.toString(),
+                                child: FachUI(
+                                  fach: fach.name,
+                                  zeit: fach.zeit,
+                                  raum: fach.raum,
+                                  icon: fach.icon,
+                                  farbe: fach.farbe,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -58,25 +63,6 @@ class ErstellenView extends StatelessWidget {
                 );
               },
             ),
-        viewModelBuilder: () => locator<ErstellenViewModel>());
-  }
-}
-
-class ErstellenDatumAuswahl extends StatelessWidget {
-  const ErstellenDatumAuswahl({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: () {
-        showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2020, 9, 7, 17, 30),
-          lastDate: DateTime(2020, 10, 7, 17, 30),
-        );
-      },
-      child: Text('Datum'),
-    );
+        viewModelBuilder: () => locator<FaecherDetailViewModel>());
   }
 }

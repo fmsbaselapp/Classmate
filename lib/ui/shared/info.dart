@@ -16,7 +16,7 @@ class InfoBig extends StatelessWidget {
       margin: EdgeInsets.only(top: 15),
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.circular(15.00),
       ),
       child: Row(
