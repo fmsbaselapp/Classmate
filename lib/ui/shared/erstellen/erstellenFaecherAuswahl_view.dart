@@ -5,16 +5,13 @@ import 'package:Classmate/viewmodels/viewmodels.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class ErstellenFaecherAuswahlView extends StatelessWidget {
+class ErstellenFaecherAuswahlView extends ViewModelBuilderWidget {
   const ErstellenFaecherAuswahlView({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<ErstellenFaecherAuswahlViewModel>.reactive(
-        // 1 dispose viewmodel
+  Widget builder(BuildContext context, ChangeNotifier model, Widget child) {
+    return ViewModelBuilder<ErstellenViewModel>.reactive(
         disposeViewModel: false,
-        // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
-        initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).highlightColor,
@@ -48,8 +45,12 @@ class ErstellenFaecherAuswahlView extends StatelessWidget {
                 child: null,
               ),
             ),
-        viewModelBuilder: () => locator<ErstellenFaecherAuswahlViewModel>());
+        viewModelBuilder: () => locator<ErstellenViewModel>());
   }
+
+  @override
+  ChangeNotifier viewModelBuilder(BuildContext context) =>
+      locator<ErstellenViewModel>();
 }
 
 class ExpandableListTile extends StatelessWidget {
@@ -153,10 +154,8 @@ class _ExpandableSectionState extends State<ExpandableSection>
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ErstellenFaecherAuswahlViewModel>.reactive(
-        // 1 dispose viewmodel
+    return ViewModelBuilder<ErstellenViewModel>.reactive(
         disposeViewModel: false,
-        // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => FadeTransition(
             opacity: opacityAnimation,
@@ -201,7 +200,7 @@ class _ExpandableSectionState extends State<ExpandableSection>
                 ],
               ),
             )),
-        viewModelBuilder: () => locator<ErstellenFaecherAuswahlViewModel>());
+        viewModelBuilder: () => locator<ErstellenViewModel>());
   }
 }
 

@@ -50,3 +50,28 @@ class AufgabeButton extends StatelessWidget {
     );
   }
 }
+
+class TextButtonCustom extends StatelessWidget {
+  const TextButtonCustom(
+      {@required this.onPressed, @required this.text, Key key})
+      : super(key: key);
+
+  final Function onPressed;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      child: RawMaterialButton(
+        fillColor: Theme.of(context).indicatorColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+      ),
+    );
+  }
+}

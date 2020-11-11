@@ -15,17 +15,17 @@ List<ThemeData> getThemes() {
       textTheme: TextTheme(
         //Titel
         headline1: TextStyle(
-          fontFamily: "Maax",
+          fontFamily: "MaaxBold",
           fontWeight: FontWeight.w700,
           fontSize: 40,
           color: Colors.white,
         ),
         //Untertitel
         headline2: TextStyle(
-            fontFamily: "Maax",
+            fontFamily: "MaaxBold",
             fontWeight: FontWeight.w700,
             fontSize: 20,
-            letterSpacing: 1,
+            //letterSpacing: 1,
             color: Colors.white),
         //Body Weiss
         bodyText1: TextStyle(

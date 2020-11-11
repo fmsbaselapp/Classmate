@@ -9,5 +9,4 @@ export 'signup_viewmodel.dart';
 export 'infos_viewmodel.dart';
 export 'tests_viewmodel.dart';
 export 'erstellen_viewmodel.dart';
-export 'erstellenFaecherAuswahl_viewmodel.dart';
 export 'faecherDetail_viewmodel.dart';

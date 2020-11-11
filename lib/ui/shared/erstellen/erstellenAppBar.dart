@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:Classmate/ui/shared/export.dart';
+import 'package:Classmate/viewmodels/viewmodels.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 class ErstellenAppBar extends SliverPersistentHeaderDelegate {
   const ErstellenAppBar({@required this.title, @required this.color, Key key});
@@ -33,21 +35,39 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
           padding:
               const EdgeInsets.only(top: 30, bottom: 10, left: 15, right: 15),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1
-                    .copyWith(fontSize: 30),
+              Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: RoundButton(
+                    icon: Icons.clear_rounded,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
               ),
-              RoundButton(
-                icon: Icons.clear_rounded,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+              Expanded(
+                flex: 4,
+                child: Text(
+                  title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1
+                      .copyWith(fontSize: 30),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: ErstellenSafeButton(),
+                ),
               )
             ],
           ),
@@ -66,4 +86,20 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     return true;
   }
+}
+
+class ErstellenSafeButton extends ViewModelBuilderWidget<ErstellenViewModel> {
+  const ErstellenSafeButton({Key key}) : super(key: key);
+
+  @override
+  Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
+    return TextButtonCustom(
+      onPressed: model.safe,
+      text: 'Speichern',
+    );
+  }
+
+  @override
+  ErstellenViewModel viewModelBuilder(BuildContext context) =>
+      ErstellenViewModel();
 }
