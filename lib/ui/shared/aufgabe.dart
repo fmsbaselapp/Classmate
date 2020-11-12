@@ -32,9 +32,23 @@ class AufgabeBig extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline2,
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  IconFach(
+                    farbe: aufgabe.fachFarbe,
+                    icon: aufgabe.fachIcon,
+                    small: true,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
                   Text(
-                    aufgabe.fach + ' | ' + aufgabe.datum,
+                    aufgabe.fachName +
+                        ' | ' +
+                        aufgabe.datum.weekday.toString() +
+                        ',' +
+                        aufgabe.datum.day.toString() +
+                        aufgabe.datum.month.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],

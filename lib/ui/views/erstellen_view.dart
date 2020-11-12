@@ -14,7 +14,7 @@ class ErstellenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(
         disposeViewModel: false,
-        //initialiseSpecialViewModelsOnce: false,
+        //initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => DraggableScrollableSheet(
               expand: false,
               initialChildSize: 0.95,

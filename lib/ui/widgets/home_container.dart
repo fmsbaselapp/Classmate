@@ -74,9 +74,9 @@ class HomeContainer extends StatelessWidget {
               )
             ],
           ),
-          if (title == 'Info') InfosHomeView(),
-          if (title == 'Aufgabe') AufgabenHomeView(),
-          if (title == 'Test') TestsHomeView(),
+          if (title == 'Infos') InfosHomeView(),
+          if (title == 'Aufgaben') AufgabenHomeView(),
+          if (title == 'Tests') TestsHomeView(),
         ],
       ),
     );

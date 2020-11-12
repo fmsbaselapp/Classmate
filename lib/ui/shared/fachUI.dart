@@ -41,7 +41,11 @@ class FachUI extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 15),
-                child: IconFach(icon: icon, farbe: farbe),
+                child: IconFach(
+                  icon: icon,
+                  farbe: farbe,
+                  small: false,
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +96,7 @@ class FachUIerstellen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: IconFach(icon: icon, farbe: farbe),
+            child: IconFach(icon: icon, farbe: farbe, small: false),
           ),
           Text(fach, style: Theme.of(context).textTheme.headline2),
         ],

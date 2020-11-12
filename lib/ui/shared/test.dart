@@ -1,4 +1,5 @@
 import 'package:Classmate/models/test.dart';
+import 'package:Classmate/ui/shared/export.dart';
 import 'package:flutter/material.dart';
 
 class TestBig extends StatelessWidget {
@@ -29,9 +30,27 @@ class TestBig extends StatelessWidget {
                 test.titel,
                 style: Theme.of(context).textTheme.headline2,
               ),
-              Text(
-                test.fach + ' | ' + test.datum,
-                style: Theme.of(context).textTheme.bodyText1,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconFach(
+                    farbe: test.fachFarbe,
+                    icon: test.fachIcon,
+                    small: true,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    test.fachName +
+                        ' | ' +
+                        test.datum.weekday.toString() +
+                        ',' +
+                        test.datum.day.toString() +
+                        test.datum.month.toString(),
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
               ),
             ],
           ),

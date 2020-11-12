@@ -6,7 +6,6 @@ class TestsService<T> {
   Stream<List<Test>> streamTests() {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
     final FirebaseAuth auth = FirebaseAuth.instance;
-
     return _db
         .collection('Tests')
         .where('users', arrayContains: auth.currentUser.uid)
@@ -20,5 +19,24 @@ class TestsService<T> {
               )
               .toList(),
         );
+  }
+
+  //Set
+  Future<void> setTest(Test test) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    return _db.collection('Tests').doc().set(
+      {
+        'titel': test.titel,
+        'fachName': test.fachName,
+        'fachFarbe': test.fachFarbe,
+        'fachIcon': test.fachIcon,
+        'fachID': test.fachID,
+        'datum': test.datum,
+
+        //gewichtung
+        'users': [auth.currentUser.uid],
+      },
+    );
   }
 }

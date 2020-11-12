@@ -1,4 +1,5 @@
 import 'package:Classmate/models/models.dart';
+import 'package:Classmate/ui/shared/export.dart';
 import 'package:flutter/material.dart';
 
 class InfoBig extends StatelessWidget {
@@ -36,7 +37,12 @@ class InfoBig extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    info.fach + ' | ' + info.datum,
+                    info.fachName +
+                        ' | ' +
+                        info.datum.weekday.toString() +
+                        ',' +
+                        info.datum.day.toString() +
+                        info.datum.month.toString(),
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   Text(
@@ -81,9 +87,23 @@ class InfoSmall extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline2,
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  IconFach(
+                    farbe: info.fachFarbe,
+                    icon: info.fachIcon,
+                    small: true,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
                   Text(
-                    info.fach + ' | ' + info.datum,
+                    info.fachName +
+                        ' | ' +
+                        info.datum.weekday.toString() +
+                        ',' +
+                        info.datum.day.toString() +
+                        info.datum.month.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],

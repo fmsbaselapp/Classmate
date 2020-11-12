@@ -45,7 +45,7 @@ class UebersichtView extends StatelessWidget {
                             // To convert this infinite list to a list with three items,
                             // uncomment the following line:
                             // if (index > 3) return null;
-                            const List title = ['Info', 'Aufgabe', 'Test'];
+                            const List title = ['Infos', 'Aufgaben', 'Tests'];
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 20),
                               child: HomeContainer(

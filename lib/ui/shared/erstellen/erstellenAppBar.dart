@@ -94,7 +94,7 @@ class ErstellenSafeButton extends ViewModelBuilderWidget<ErstellenViewModel> {
   @override
   Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
     return TextButtonCustom(
-      onPressed: model.safe,
+      onPressed: model.save,
       text: 'Speichern',
     );
   }

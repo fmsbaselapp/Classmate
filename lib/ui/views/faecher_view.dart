@@ -14,9 +14,9 @@ class FaecherView extends StatelessWidget {
     return ViewModelBuilder<FaecherViewModel>.reactive(
 
         // 1 dispose viewmodel
-        disposeViewModel: true,
+        disposeViewModel: false,
         // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
-        initialiseSpecialViewModelsOnce: false,
+        initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
                 title: Text('Fächer'),

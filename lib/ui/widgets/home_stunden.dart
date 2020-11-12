@@ -40,7 +40,11 @@ class HomeStunden extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: IconFach(icon: icon, farbe: farbe),
+              child: IconFach(
+                icon: icon,
+                farbe: farbe,
+                small: false,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),

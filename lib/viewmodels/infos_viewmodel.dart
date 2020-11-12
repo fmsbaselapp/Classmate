@@ -22,4 +22,9 @@ class InfosViewModel extends StreamViewModel<List<Info>> {
     _hasData = true;
     super.onData(data);
   }
+
+  @override
+  void onError(error) {
+    print(error);
+  }
 }

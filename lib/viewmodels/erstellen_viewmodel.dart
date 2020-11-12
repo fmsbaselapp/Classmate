@@ -8,10 +8,13 @@ import 'package:stacked/stacked.dart';
 @singleton
 class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   final FaecherService _faecherService = locator<FaecherService>();
+  final AufgabenService _aufgabenService = locator<AufgabenService>();
+  final InfosService _infosService = locator<InfosService>();
+  final TestsService _testsService = locator<TestsService>();
 
   bool _hasData = false;
   bool _isFachSelected = false;
-  bool _expanded = false;
+  static String _titleAppBar;
   static Fach _fachSelected;
   static String _title;
   static DateTime _dateTime;
@@ -20,7 +23,6 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   List<Fach> get faecher => data;
   Fach get selectedFach => _fachSelected;
   bool get isFachSelected => _isFachSelected;
-  bool get isExpanded => _expanded;
   String get title => _title;
 
   @override
@@ -35,9 +37,19 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   }
 
 //Daten in der Datenbank sichern
-  void safe() {
-    print(
-        _title + ' - ' + _fachSelected.name + ' - ' + _dateTime.day.toString());
+  void save() {
+    if (_titleAppBar == 'Info') {
+      saveInfo();
+    }
+
+    if (_titleAppBar == 'Aufgabe') {
+      saveAufgabe();
+    }
+
+    if (_titleAppBar == 'Test') {
+      saveTest();
+    }
+    //TODO else Error
   }
 
 //Titel Controller
@@ -50,7 +62,6 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   void fachSelect(Fach fach) {
     _fachSelected = fach;
     _isFachSelected = true;
-    expanded();
     notifyListeners();
   }
 
@@ -59,29 +70,56 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   }
 
 //Weist die Farbe der AppBar zu
-  Color getColor(title) {
+  Color getColor(titleAppBar) {
     //TODO Colors zu theme
-    if (title == 'Info') {
+    if (titleAppBar == 'Infos') {
+      _titleAppBar = 'Info';
       return Color.fromRGBO(252, 192, 45, 1);
     }
 
-    if (title == 'Aufgabe') {
+    if (titleAppBar == 'Aufgaben') {
+      _titleAppBar = 'Aufgabe';
       return Colors.blue;
     }
 
-    if (title == 'Test') {
+    if (titleAppBar == 'Tests') {
+      _titleAppBar = 'Test';
       return Colors.red;
     }
     //TODO else Error
   }
 
-//wechselt den expanded status von offen nach geschlossen und umgekehrt
-  void expanded() {
-    if (_expanded) {
-      _expanded = false;
-    } else {
-      _expanded = true;
-    }
-    notifyListeners();
+  //ERSTELLEN
+  void saveAufgabe() {
+    print(
+        _title + ' - ' + _fachSelected.name + ' - ' + _dateTime.day.toString());
+    _aufgabenService.setAufgabe(Aufgabe(
+        titel: _title,
+        datum: _dateTime,
+        fachName: _fachSelected.name,
+        fachFarbe: _fachSelected.farbe,
+        fachIcon: _fachSelected.icon));
+  }
+
+  void saveTest() {
+    print(
+        _title + ' - ' + _fachSelected.name + ' - ' + _dateTime.day.toString());
+    _testsService.setTest(Test(
+        titel: _title,
+        datum: _dateTime,
+        fachName: _fachSelected.name,
+        fachFarbe: _fachSelected.farbe,
+        fachIcon: _fachSelected.icon));
+  }
+
+  void saveInfo() {
+    print(
+        _title + ' - ' + _fachSelected.name + ' - ' + _dateTime.day.toString());
+    _infosService.setInfo(Info(
+        titel: _title,
+        datum: _dateTime,
+        fachName: _fachSelected.name,
+        fachFarbe: _fachSelected.farbe,
+        fachIcon: _fachSelected.icon));
   }
 }
