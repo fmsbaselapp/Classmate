@@ -11,3 +11,4 @@ export 'home/testsHome_view.dart';
 export 'home/aufgabenHome_view.dart';
 export 'home/infosHome_view.dart';
 export 'faecherDetail_view.dart';
+export 'testingOnly.dart';

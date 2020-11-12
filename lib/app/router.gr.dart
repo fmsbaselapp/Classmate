@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/views/calendar_view.dart';
 import '../ui/views/views.dart';
+import 'router.dart';
 
 class Routes {
   static const String startupView = '/';
@@ -21,6 +22,7 @@ class Routes {
   static const String settingsView = '/settings-view';
   static const String loginView = '/login-view';
   static const String signUpView = '/sign-up-view';
+  static const String viewForTesting = '/view-for-testing';
   static const all = <String>{
     startupView,
     homeView,
@@ -30,6 +32,7 @@ class Routes {
     settingsView,
     loginView,
     signUpView,
+    viewForTesting,
   };
 }
 
@@ -45,6 +48,7 @@ class Router extends RouterBase {
     RouteDef(Routes.settingsView, page: SettingsView),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signUpView, page: SignUpView),
+    RouteDef(Routes.viewForTesting, page: ViewForTesting),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;

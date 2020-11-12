@@ -15,60 +15,63 @@ class ErstellenView extends StatelessWidget {
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(
         disposeViewModel: false,
         //initialiseSpecialViewModelsOnce: true,
-        builder: (context, model, child) => DraggableScrollableSheet(
-              expand: false,
-              initialChildSize: 0.95,
-              minChildSize: 0.85,
-              maxChildSize: 0.95,
-              builder: (context, scrollController) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(20.0),
-                    topRight: const Radius.circular(20.0),
-                  ),
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onPanDown: (_) {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                    },
-                    child: CustomScrollView(
-                      controller: scrollController,
-                      slivers: [
-                        SliverPersistentHeader(
-                          pinned: true,
-                          delegate: ErstellenAppBar(
-                              title: title, color: model.getColor(title)),
-                        ),
-                        SliverPadding(
-                          padding: EdgeInsets.only(left: 15, right: 15),
-                          sliver: SliverList(
-                            delegate: SliverChildListDelegate(
-                              [
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                ErstellenTextField(title: true),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ErstellenFaecherAuswahlView(),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ErstellenTextField(title: false),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ErstellenDatumAuswahl(),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
+        builder: (context, model, child) => Scaffold(
+              backgroundColor: Theme.of(context).accentColor,
+              body: DraggableScrollableSheet(
+                expand: false,
+                initialChildSize: 0.95,
+                minChildSize: 0.85,
+                maxChildSize: 0.95,
+                builder: (context, scrollController) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(20.0),
+                      topRight: const Radius.circular(20.0),
                     ),
-                  ),
-                );
-              },
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onPanDown: (_) {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      },
+                      child: CustomScrollView(
+                        controller: scrollController,
+                        slivers: [
+                          SliverPersistentHeader(
+                            pinned: true,
+                            delegate: ErstellenAppBar(
+                                title: title, color: model.getColor(title)),
+                          ),
+                          SliverPadding(
+                            padding: EdgeInsets.only(left: 15, right: 15),
+                            sliver: SliverList(
+                              delegate: SliverChildListDelegate(
+                                [
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  ErstellenTextField(title: true),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  ErstellenFaecherAuswahlView(),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  ErstellenTextField(title: false),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  ErstellenDatumAuswahl(),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
         viewModelBuilder: () => locator<ErstellenViewModel>());
   }

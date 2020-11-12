@@ -26,6 +26,7 @@ class AufgabenHomeView extends StatelessWidget {
                 },
                 itemBuilder: (BuildContext context, int index) {
                   return AufgabeBig(
+                    index: index,
                     aufgabe: model.aufgaben[index],
                   );
                 },

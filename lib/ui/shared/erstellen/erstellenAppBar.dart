@@ -42,14 +42,7 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
               Expanded(
                 flex: 2,
                 child: Align(
-                  alignment: Alignment.topLeft,
-                  child: RoundButton(
-                    icon: Icons.clear_rounded,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
+                    alignment: Alignment.topLeft, child: ErstellenPopButton()),
               ),
               Expanded(
                 flex: 4,
@@ -88,18 +81,33 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
   }
 }
 
-class ErstellenSafeButton extends ViewModelBuilderWidget<ErstellenViewModel> {
+class ErstellenSafeButton extends ViewModelWidget<ErstellenViewModel> {
   const ErstellenSafeButton({Key key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
+  Widget build(
+    BuildContext context,
+    ErstellenViewModel model,
+  ) {
     return TextButtonCustom(
       onPressed: model.save,
       text: 'Speichern',
     );
   }
+}
+
+class ErstellenPopButton extends ViewModelWidget<ErstellenViewModel> {
+  const ErstellenPopButton({Key key}) : super(key: key);
 
   @override
-  ErstellenViewModel viewModelBuilder(BuildContext context) =>
-      ErstellenViewModel();
+  Widget build(
+    BuildContext context,
+    ErstellenViewModel model,
+  ) {
+    return RoundButton(
+        icon: Icons.clear_rounded,
+        onPressed: () {
+          model.exit();
+        });
+  }
 }

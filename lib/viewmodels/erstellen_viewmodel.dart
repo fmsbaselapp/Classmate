@@ -4,6 +4,7 @@ import 'package:Classmate/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 @singleton
 class ErstellenViewModel extends StreamViewModel<List<Fach>> {
@@ -11,6 +12,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   final AufgabenService _aufgabenService = locator<AufgabenService>();
   final InfosService _infosService = locator<InfosService>();
   final TestsService _testsService = locator<TestsService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   bool _hasData = false;
   bool _isFachSelected = false;
@@ -50,6 +52,10 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
       saveTest();
     }
     //TODO else Error
+  }
+
+  void exit() {
+    _navigationService.popRepeated(1);
   }
 
 //Titel Controller
