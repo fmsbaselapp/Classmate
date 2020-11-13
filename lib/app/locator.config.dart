@@ -8,20 +8,19 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../viewmodels/aufgaben_viewmodel.dart';
+import '../ui/views/aufgaben/aufgaben_viewmodel.dart';
 import '../services/services.dart';
-import '../viewmodels/calendar_viewmodel.dart';
-import '../viewmodels/erstellen_viewmodel.dart';
-import '../viewmodels/faecherDetail_viewmodel.dart';
-import '../viewmodels/faecher_viewmodel.dart';
-import '../viewmodels/home_viewmodel.dart';
-import '../viewmodels/infos_viewmodel.dart';
-import '../viewmodels/noten_viewmodel.dart';
-import '../viewmodels/settings_viewmodel.dart';
-import '../viewmodels/startup_viewmodel.dart';
-import '../viewmodels/tests_viewmodel.dart';
+import '../ui/views/calendar/calendar_viewmodel.dart';
+import '../ui/views/erstellen/erstellen_viewmodel.dart';
+import '../ui/views/faecher/faecher_viewmodel.dart';
+import '../ui/views/home/home_viewmodel.dart';
+import '../ui/views/info/infos_viewmodel.dart';
+import '../ui/views/noten/noten_viewmodel.dart';
+import '../ui/views/settings/settings_viewmodel.dart';
+import '../ui/views/startUp/startup_viewmodel.dart';
+import '../ui/views/tests/tests_viewmodel.dart';
 import '../services/third_party_services_module.dart';
-import '../viewmodels/uebersicht_viewmodel.dart';
+import '../ui/views/uebersicht/uebersicht_viewmodel.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -53,7 +52,6 @@ GetIt $initGetIt(
   gh.singleton<AufgabenViewModel>(AufgabenViewModel());
   gh.singleton<CalendarViewModel>(CalendarViewModel());
   gh.singleton<ErstellenViewModel>(ErstellenViewModel());
-  gh.singleton<FaecherDetailViewModel>(FaecherDetailViewModel());
   gh.singleton<FaecherViewModel>(FaecherViewModel());
   gh.singleton<HomeViewModel>(HomeViewModel());
   gh.singleton<InfosViewModel>(InfosViewModel());

@@ -1,11 +1,11 @@
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/viewmodels/home_viewmodel.dart';
+import 'package:Classmate/ui/views/home/home_viewmodel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class CalendarView extends StatelessWidget {
-  const CalendarView({Key key}) : super(key: key);
+class NotenView extends StatelessWidget {
+  const NotenView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CalendarView extends StatelessWidget {
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
               body: Center(
-                child: Text('Calendar'),
+                child: Text('Noten'),
               ),
             ),
         viewModelBuilder: () => locator<HomeViewModel>());

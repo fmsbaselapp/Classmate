@@ -3,7 +3,6 @@
 import 'package:Classmate/models/models.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/services/user_service.dart';
-import 'package:flutter/material.dart';
 
 /// Static global state. Immutable services that do not care about build context.
 class Global {

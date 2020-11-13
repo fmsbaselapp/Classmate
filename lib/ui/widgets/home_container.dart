@@ -1,6 +1,6 @@
 import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/ui/views/erstellen_view.dart';
+import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
 import 'package:Classmate/ui/views/home/aufgabenHome_view.dart';
 import 'package:Classmate/ui/views/home/infosHome_view.dart';
 import 'package:Classmate/ui/views/views.dart';

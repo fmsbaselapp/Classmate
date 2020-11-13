@@ -1,0 +1,12 @@
+export 'startUp/startup_viewmodel.dart';
+export 'home/home_viewmodel.dart';
+export 'calendar/calendar_viewmodel.dart';
+export 'noten/noten_viewmodel.dart';
+export 'faecher/faecher_viewmodel.dart';
+export 'settings/settings_viewmodel.dart';
+export 'signUp/login_viewmodel.dart';
+export 'signUp/signup_viewmodel.dart';
+export 'info/infos_viewmodel.dart';
+export 'tests/tests_viewmodel.dart';
+export 'erstellen/erstellen_viewmodel.dart';
+export 'uebersicht/uebersicht_viewmodel.dart';

@@ -1,7 +1,7 @@
 import 'package:Classmate/models/models.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/viewmodels/viewmodels.dart';
+import 'package:Classmate/ui/views/viewmodels.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,7 +14,7 @@ class FaecherDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<FaecherDetailViewModel>.nonReactive(
+    return ViewModelBuilder<FaecherViewModel>.nonReactive(
         // 1 dispose viewmodel
         disposeViewModel: false,
         // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
@@ -63,6 +63,6 @@ class FaecherDetailView extends StatelessWidget {
                 );
               },
             ),
-        viewModelBuilder: () => locator<FaecherDetailViewModel>());
+        viewModelBuilder: () => locator<FaecherViewModel>());
   }
 }

@@ -1,6 +1,6 @@
 import 'package:Classmate/models/models.dart';
 import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/viewmodels/viewmodels.dart';
+import 'package:Classmate/ui/views/viewmodels.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

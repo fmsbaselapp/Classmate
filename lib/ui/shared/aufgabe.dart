@@ -1,5 +1,5 @@
 import 'package:Classmate/models/models.dart';
-import 'package:Classmate/viewmodels/aufgaben_viewmodel.dart';
+import 'package:Classmate/ui/views/aufgaben/aufgaben_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,32 +17,53 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
 
   final Aufgabe aufgabe;
   final int index;
-  final GlobalKey _key = GlobalKey();
+  //final GlobalKey _key = GlobalKey();
   @override
   Widget build(BuildContext context, AufgabenViewModel model) {
     return GestureDetector(
-      key: _key,
+      //key: _key,
       onTapDown: (tap) => model.tapDown(tap),
-      onTapUp: (tap) => model.goToDetailPage(context, _key),
+      //onTap: () => model.goToDetailPage(context, _key),
+      onTap: () => model.goToDetailPage(context, index),
       child: Transform.scale(
         scale: model.scale,
-        child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(top: 15),
-          padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(24, 118, 210, 1),
-            borderRadius: BorderRadius.circular(15.00),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
+        child: Stack(
+          children: [
+            Hero(
+              tag: 'Container' + index.toString() + aufgabe.titel,
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 15),
+                padding:
+                    EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(24, 118, 210, 1),
+                  borderRadius: BorderRadius.circular(15.00),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AufgabeButton(),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: 20,
+              bottom: 5,
+              left: 15,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    aufgabe.titel,
-                    style: Theme.of(context).textTheme.headline2,
+                  //STACK
+                  Hero(
+                    tag: 'Title' + index.toString() + aufgabe.titel,
+                    child: Text(
+                      aufgabe.titel,
+                      style: Theme.of(context).textTheme.headline2,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,9 +89,8 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
                   ),
                 ],
               ),
-              AufgabeButton(),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

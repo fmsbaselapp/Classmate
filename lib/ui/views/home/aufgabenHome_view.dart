@@ -1,6 +1,6 @@
 import 'package:Classmate/app/locator.dart';
 import 'package:Classmate/ui/shared/aufgabe.dart';
-import 'package:Classmate/viewmodels/aufgaben_viewmodel.dart';
+import 'package:Classmate/ui/views/aufgaben/aufgaben_viewmodel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

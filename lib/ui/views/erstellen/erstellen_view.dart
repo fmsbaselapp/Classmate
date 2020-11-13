@@ -1,14 +1,27 @@
+import 'package:Classmate/models/models.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/viewmodels/viewmodels.dart';
+import 'package:Classmate/ui/views/erstellen/erstellen_viewmodel.dart';
+
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ErstellenView extends StatelessWidget {
-  const ErstellenView({@required this.title, Key key}) : super(key: key);
+  const ErstellenView(
+      {@required this.title,
+      this.aufgabe,
+      this.heroContainer,
+      this.heroTitle,
+      this.index,
+      Key key})
+      : super(key: key);
 
   final String title;
+  final int index;
+  final Aufgabe aufgabe;
+  final String heroContainer;
+  final String heroTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +52,10 @@ class ErstellenView extends StatelessWidget {
                           SliverPersistentHeader(
                             pinned: true,
                             delegate: ErstellenAppBar(
-                                title: title, color: model.getColor(title)),
+                                title: title,
+                                color: model.getColor(title),
+                                heroContainer: heroContainer,
+                                heroTitle: heroTitle),
                           ),
                           SliverPadding(
                             padding: EdgeInsets.only(left: 15, right: 15),

@@ -1,8 +1,9 @@
 import 'package:Classmate/app/locator.dart';
 import 'package:Classmate/ui/shared/export.dart';
+import 'package:Classmate/ui/views/uebersicht/uebersicht_viewmodel.dart';
 import 'package:Classmate/ui/views/views.dart';
 import 'package:Classmate/ui/widgets/home_container.dart';
-import 'package:Classmate/viewmodels/uebersicht_viewmodel.dart';
+
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

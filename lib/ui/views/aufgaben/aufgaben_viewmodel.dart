@@ -1,7 +1,7 @@
 import 'package:Classmate/app/locator.dart';
 import 'package:Classmate/models/aufgabe.dart';
 import 'package:Classmate/services/services.dart';
-import 'package:Classmate/ui/views/erstellen_view.dart';
+import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
 
 import 'package:flutter/material.dart';
 
@@ -23,6 +23,8 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
   Stream<List<Aufgabe>> get stream => aufgabenStream;
   Stream<List<Aufgabe>> get aufgabenStream => _aufgabenService.streamAufgabe();
 
+  get math => null;
+
   @override
   void onData(List<Aufgabe> data) {
     _hasData = true;
@@ -30,15 +32,41 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
   }
 
   tapDown(TapDownDetails tapDownDetails) {
-    //tapDownDetails.globalPosition.distance;
-    _scale = 0.8;
+    //_scale = 560 / tapDownDetails.globalPosition.distance;
     notifyListeners();
   }
 
-  goToDetailPage(BuildContext context, GlobalKey _key) {
+  goToDetailPage(BuildContext context, int index) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        fullscreenDialog: true,
+        transitionDuration: Duration(milliseconds: 5000),
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return ErstellenView(
+            title: aufgaben[index].titel,
+            aufgabe: aufgaben[index],
+            heroContainer:
+                'Container' + index.toString() + aufgaben[index].titel,
+            heroTitle: 'Title' + index.toString() + aufgaben[index].titel,
+          );
+        },
+        transitionsBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation, Widget child) {
+          return FadeTransition(
+            opacity:
+                animation, // CurvedAnimation(parent: animation, curve: Curves.elasticInOut),
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  oldgoToDetailPage(BuildContext context, GlobalKey _key) {
     final RenderBox renderBoxAufgabe = _key.currentContext.findRenderObject();
     final positionAufgabe = renderBoxAufgabe.localToGlobal(Offset.zero);
-    final viewportHeigh = MediaQuery.of(context).size.height;
+    //final viewportHeigh = MediaQuery.of(context).size.height;
 
     Navigator.of(context).push(
       PageRouteBuilder(

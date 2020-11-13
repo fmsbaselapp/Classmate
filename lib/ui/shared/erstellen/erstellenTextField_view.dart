@@ -1,4 +1,4 @@
-import 'package:Classmate/viewmodels/viewmodels.dart';
+import 'package:Classmate/ui/views/viewmodels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';

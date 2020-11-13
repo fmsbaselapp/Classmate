@@ -1,10 +1,10 @@
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/viewmodels/viewmodels.dart';
-import 'package:Classmate/ui/views/calendar_view.dart';
-import 'package:Classmate/ui/views/faecher_view.dart';
-import 'package:Classmate/ui/views/noten_view.dart';
-import 'package:Classmate/ui/views/settings_view.dart';
-import 'package:Classmate/ui/views/uebersicht_view.dart';
+import 'package:Classmate/ui/views/uebersicht/uebersicht_view.dart';
+import 'package:Classmate/ui/views/viewmodels.dart';
+import 'package:Classmate/ui/views/calendar/calendar_view.dart';
+import 'package:Classmate/ui/views/faecher/faecher_view.dart';
+import 'package:Classmate/ui/views/noten/noten_view.dart';
+import 'package:Classmate/ui/views/settings/settings_view.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

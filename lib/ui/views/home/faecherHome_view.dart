@@ -1,7 +1,7 @@
 import 'package:Classmate/app/locator.dart';
 import 'package:Classmate/models/models.dart';
 import 'package:Classmate/ui/widgets/home_stunden.dart';
-import 'package:Classmate/viewmodels/viewmodels.dart';
+import 'package:Classmate/ui/views/viewmodels.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
