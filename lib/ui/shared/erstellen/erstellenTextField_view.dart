@@ -1,10 +1,27 @@
+import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/views/viewmodels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 
-class ErstellenTextField extends HookViewModelWidget<ErstellenViewModel> {
-  const ErstellenTextField({
+class ErstellenTextField extends StatelessWidget {
+  const ErstellenTextField({@required this.title, Key key}) : super(key: key);
+  final bool title;
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<ErstellenViewModel>.nonReactive(
+        disposeViewModel: false,
+        //initialiseSpecialViewModelsOnce: true,
+        builder: (context, model, child) =>
+            ErstellenTextFieldHookWidget(title: title),
+        viewModelBuilder: () => locator<ErstellenViewModel>());
+  }
+}
+
+class ErstellenTextFieldHookWidget
+    extends HookViewModelWidget<ErstellenViewModel> {
+  const ErstellenTextFieldHookWidget({
     @required this.title,
     Key key,
   }) : super(

@@ -32,59 +32,43 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     final double visibleMainHeight = max(maxExtent - shrinkOffset, minExtent);
-    return Hero(
-      tag: heroContainer,
-      child: Container(
-        height: visibleMainHeight,
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(top: 0),
-        padding: EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0),
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(24, 118, 210, 1),
-          borderRadius: BorderRadius.circular(0),
-        ),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 30, bottom: 10, left: 15, right: 15),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: ErstellenPopButton()),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: Hero(
-                    tag: heroTitle,
-                    child: Text(
-                      title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          .copyWith(fontSize: 30),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: ErstellenSafeButton(),
-                  ),
-                )
-              ],
+
+    return Stack(
+      children: [
+        Hero(
+          tag: heroContainer,
+          child: Container(
+            height: visibleMainHeight,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(24, 118, 210, 1),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              ),
             ),
           ),
         ),
-      ),
+        Positioned(top: 30, left: 15, bottom: 10, child: ErstellenPopButton()),
+        Positioned(
+          top: 30,
+          left: 60,
+          bottom: 10,
+          child: Hero(
+            tag: heroTitle,
+            child: Text(
+              title,
+              style:
+                  Theme.of(context).textTheme.headline1.copyWith(fontSize: 30),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Positioned(
+            top: 30, right: 15, bottom: 10, child: ErstellenSafeButton()),
+      ],
     );
   }
 

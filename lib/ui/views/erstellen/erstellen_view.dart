@@ -13,6 +13,7 @@ class ErstellenView extends StatelessWidget {
       this.aufgabe,
       this.heroContainer,
       this.heroTitle,
+      this.heroPage,
       this.index,
       Key key})
       : super(key: key);
@@ -22,6 +23,7 @@ class ErstellenView extends StatelessWidget {
   final Aufgabe aufgabe;
   final String heroContainer;
   final String heroTitle;
+  final String heroPage;
 
   @override
   Widget build(BuildContext context) {
@@ -29,88 +31,110 @@ class ErstellenView extends StatelessWidget {
         disposeViewModel: false,
         //initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
-              backgroundColor: Theme.of(context).accentColor,
-              body: DraggableScrollableSheet(
-                expand: false,
-                initialChildSize: 0.95,
-                minChildSize: 0.85,
-                maxChildSize: 0.95,
-                builder: (context, scrollController) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(20.0),
-                      topRight: const Radius.circular(20.0),
-                    ),
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onPanDown: (_) {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                      },
-                      child: CustomScrollView(
-                        controller: scrollController,
-                        slivers: [
-                          SliverPersistentHeader(
-                            pinned: true,
-                            delegate: ErstellenAppBar(
-                                title: title,
-                                color: model.getColor(title),
-                                heroContainer: heroContainer,
-                                heroTitle: heroTitle),
-                          ),
-                          SliverPadding(
-                            padding: EdgeInsets.only(left: 15, right: 15),
-                            sliver: SliverList(
-                              delegate: SliverChildListDelegate(
-                                [
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  ErstellenTextField(title: true),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  ErstellenFaecherAuswahlView(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  ErstellenTextField(title: false),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  ErstellenDatumAuswahl(),
-                                ],
+              // backgroundColor: Theme.of(context).accentColor,
+              body: Stack(
+                children: [
+                  Hero(
+                    tag: heroPage,
+                    child: Material(
+                      child: Container(
+                        color: Theme.of(context).accentColor,
+                        height: double.infinity,
+                        child: DraggableScrollableSheet(
+                          expand: false,
+                          initialChildSize: 0.95,
+                          minChildSize: 0.85,
+                          maxChildSize: 0.95,
+                          builder: (context, scrollController) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: const Radius.circular(20.0),
+                                topRight: const Radius.circular(20.0),
                               ),
-                            ),
-                          )
-                        ],
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onPanDown: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                },
+                                child: CustomScrollView(
+                                  physics: BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  controller: scrollController,
+                                  slivers: [
+                                    SliverPadding(
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 15, top: 30),
+                                      sliver: SliverList(
+                                        delegate: SliverChildListDelegate(
+                                          [
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            ErstellenTextField(title: true),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            ErstellenFaecherAuswahlView(),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            ErstellenTextField(title: false),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            ErstellenDatumAuswahl(),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  );
-                },
+                  ),
+                  CustomScrollView(
+                    slivers: [
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: ErstellenAppBar(
+                          title: title,
+                          color: model.getColor(title),
+                          heroContainer: heroContainer,
+                          heroTitle: heroTitle,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
         viewModelBuilder: () => locator<ErstellenViewModel>());
   }
 }
 
-class ErstellenDatumAuswahl extends ViewModelBuilderWidget<ErstellenViewModel> {
+class ErstellenDatumAuswahl extends StatelessWidget {
   const ErstellenDatumAuswahl({Key key}) : super(key: key);
 
   @override
-  Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
-    return DatePicker(
-      DateTime.now(),
-      initialSelectedDate: DateTime.now(),
-      selectionColor: Theme.of(context).indicatorColor,
-      selectedTextColor: Colors.white,
-      onDateChange: (date) {
-        model.dateSelect(date);
-        // New date selected
-      },
-    );
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<ErstellenViewModel>.nonReactive(
+        builder: (context, model, child) => Material(
+              child: DatePicker(
+                DateTime.now(),
+                initialSelectedDate: DateTime.now(),
+                selectionColor: Theme.of(context).indicatorColor,
+                selectedTextColor: Colors.white,
+                onDateChange: (date) {
+                  model.dateSelect(date);
+                  // New date selected
+                },
+              ),
+            ),
+        viewModelBuilder: () => locator<ErstellenViewModel>());
   }
-
-  @override
-  ErstellenViewModel viewModelBuilder(BuildContext context) =>
-      ErstellenViewModel();
 }
