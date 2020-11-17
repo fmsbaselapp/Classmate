@@ -12,26 +12,29 @@ import 'package:stacked_services/stacked_services.dart';
 @singleton
 class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
   final AufgabenService _aufgabenService = locator<AufgabenService>();
+  bool _hasData = false;
   final NavigationService _navigationService = locator<NavigationService>();
 
-  bool _hasData = false;
-  //Animation<double> _animation;
-
-  bool get hasData => _hasData;
-  List<Aufgabe> get aufgaben => data;
   //Animation<double> get animation => _animation;
 
   @override
   Stream<List<Aufgabe>> get stream => aufgabenStream;
-  Stream<List<Aufgabe>> get aufgabenStream => _aufgabenService.streamAufgabe();
-
-  get math => null;
 
   @override
   void onData(List<Aufgabe> data) {
     _hasData = true;
     super.onData(data);
   }
+
+  //Animation<double> _animation;
+
+  bool get hasData => _hasData;
+
+  List<Aufgabe> get aufgaben => data;
+
+  Stream<List<Aufgabe>> get aufgabenStream => _aufgabenService.streamAufgabe();
+
+  get math => null;
 
   tapDown(TapDownDetails tapDownDetails) {
     //_scale = 560 / tapDownDetails.globalPosition.distance;
@@ -47,8 +50,8 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
           heroTitle: 'Title' + index.toString() + aufgaben[index].titel,
           heroPage: 'Page' + index.toString() + aufgaben[index].titel,
         ),
-        duration: Duration(milliseconds: 2000),
-        transition: 'fade');
+        duration: Duration(milliseconds: 300),
+        transition: 'downToUp');
 
 /*
     Navigator.of(context).push(
@@ -90,13 +93,15 @@ class ZoomTransition extends AnimatedWidget {
   })  : assert(sizeFactor != null),
         super(key: key, listenable: sizeFactor);
 
-  Animation<double> get sizeFactor => listenable as Animation<double>;
-  Animation<double> get width => listenable as Animation<double>;
-  Animation<double> get height => listenable as Animation<double>;
-
-  final double viewPortHeigh;
-  final Offset position;
   final Widget child;
+  final Offset position;
+  final double viewPortHeigh;
+
+  Animation<double> get sizeFactor => listenable as Animation<double>;
+
+  Animation<double> get width => listenable as Animation<double>;
+
+  Animation<double> get height => listenable as Animation<double>;
 
   get math => null;
 

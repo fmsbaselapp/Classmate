@@ -12,43 +12,6 @@ import 'package:stacked/stacked.dart';
 class HomeView extends StatelessWidget {
   const HomeView({Key key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: PageTransitionSwitcher(
-          duration: const Duration(milliseconds: 300),
-          reverse: model.reverse,
-          transitionBuilder: (
-            Widget child,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) {
-            return SharedAxisTransition(
-              fillColor: Theme.of(context).scaffoldBackgroundColor,
-              child: child,
-              animation: animation,
-              secondaryAnimation: secondaryAnimation,
-              transitionType: SharedAxisTransitionType.horizontal,
-            );
-          },
-          child: getViewForIndex(model.currentIndex),
-        ),
-        bottomNavigationBar: CustomBottomNavBar(
-          model: model,
-          children: [
-            Icon(Icons.home_rounded),
-            Icon(Icons.today_rounded),
-            Icon(Icons.timeline_rounded),
-            Icon(Icons.table_rows_rounded),
-            Icon(Icons.settings_rounded),
-          ],
-        ),
-      ),
-      viewModelBuilder: () => locator<HomeViewModel>(),
-    );
-  }
-
   Widget getViewForIndex(int index) {
     switch (index) {
       case 0:
@@ -65,19 +28,59 @@ class HomeView extends StatelessWidget {
         return UebersichtView();
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      builder: (context, model, child) => WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          body: PageTransitionSwitcher(
+            duration: const Duration(milliseconds: 300),
+            reverse: model.reverse,
+            transitionBuilder: (
+              Widget child,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+            ) {
+              return SharedAxisTransition(
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
+                child: child,
+                animation: animation,
+                secondaryAnimation: secondaryAnimation,
+                transitionType: SharedAxisTransitionType.horizontal,
+              );
+            },
+            child: getViewForIndex(model.currentIndex),
+          ),
+          bottomNavigationBar: CustomBottomNavBar(
+            model: model,
+            children: [
+              Icon(Icons.home_rounded),
+              Icon(Icons.today_rounded),
+              Icon(Icons.timeline_rounded),
+              Icon(Icons.table_rows_rounded),
+              Icon(Icons.settings_rounded),
+            ],
+          ),
+        ),
+      ),
+      viewModelBuilder: () => locator<HomeViewModel>(),
+    );
+  }
 }
 
 class CustomBottomNavBar extends StatelessWidget {
-  final List<Widget> children;
-  final Function(int) onChange;
-
-  final HomeViewModel model;
-
   CustomBottomNavBar({
     @required this.children,
     this.onChange,
     this.model,
   });
+
+  final List<Widget> children;
+  final HomeViewModel model;
+
+  final Function(int) onChange;
 
   @override
   Widget build(BuildContext context) {

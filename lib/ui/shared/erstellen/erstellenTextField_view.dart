@@ -7,7 +7,9 @@ import 'package:stacked_hooks/stacked_hooks.dart';
 
 class ErstellenTextField extends StatelessWidget {
   const ErstellenTextField({@required this.title, Key key}) : super(key: key);
+
   final bool title;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(

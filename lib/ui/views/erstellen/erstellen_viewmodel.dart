@@ -8,34 +8,54 @@ import 'package:stacked_services/stacked_services.dart';
 
 @singleton
 class ErstellenViewModel extends StreamViewModel<List<Fach>> {
-  final FaecherService _faecherService = locator<FaecherService>();
-  final AufgabenService _aufgabenService = locator<AufgabenService>();
-  final InfosService _infosService = locator<InfosService>();
-  final TestsService _testsService = locator<TestsService>();
-  final NavigationService _navigationService = locator<NavigationService>();
-
-  bool _hasData = false;
-  bool _isFachSelected = false;
-  static String _titleAppBar;
-  static Fach _fachSelected;
-  static String _title;
   static DateTime _dateTime;
+  static Fach _fachSelected;
+  static ScrollController _scrollController;
+  static String _title;
+  static String _titleAppBar;
 
-  bool get hasData => _hasData;
-  List<Fach> get faecher => data;
-  Fach get selectedFach => _fachSelected;
-  bool get isFachSelected => _isFachSelected;
-  String get title => _title;
+  final AufgabenService _aufgabenService = locator<AufgabenService>();
+  final FaecherService _faecherService = locator<FaecherService>();
+  bool _hasClosedSheet = false;
+  bool _hasData = false;
+  final InfosService _infosService = locator<InfosService>();
+  bool _isFachSelected = false;
+  final NavigationService _navigationService = locator<NavigationService>();
+  final TestsService _testsService = locator<TestsService>();
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
-  Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
 
 //On List Faecher Stream data
   @override
   void onData(List<Fach> data) {
     _hasData = true;
     super.onData(data);
+  }
+
+  bool get hasData => _hasData;
+
+  List<Fach> get faecher => data;
+
+  Fach get selectedFach => _fachSelected;
+
+  bool get isFachSelected => _isFachSelected;
+
+  String get title => _title;
+
+  Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
+
+  ScrollController get scrollController => _scrollController;
+
+  bool controller(DraggableScrollableNotification sheet) {
+    if (sheet.extent == 0.85 && _hasClosedSheet == false) {
+      _hasClosedSheet = true;
+      exit();
+
+      return true;
+    } else {
+      return false;
+    }
   }
 
 //Daten in der Datenbank sichern
@@ -55,7 +75,12 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   }
 
   void exit() {
-    _navigationService.popRepeated(1);
+    _navigationService.back();
+  }
+
+  void exit1(context) {
+    _navigationService.popUntil((route) => route.isActive);
+    //_navigationService.navigateToView(UebersichtView());
   }
 
 //Titel Controller

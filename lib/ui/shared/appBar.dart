@@ -8,6 +8,17 @@ class CustomAppBar extends SliverPersistentHeaderDelegate {
 
   final String title;
 
+  @override
+  double get maxExtent => 50.0;
+
+  @override
+  double get minExtent => 50.0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+
   double scrollAnimationValue(double shrinkOffset) {
     double maxScrollAllowed = maxExtent - minExtent;
     return ((maxScrollAllowed - shrinkOffset) / maxScrollAllowed)
@@ -47,16 +58,5 @@ class CustomAppBar extends SliverPersistentHeaderDelegate {
         ),
       ),
     );
-  }
-
-  @override
-  double get maxExtent => 50.0;
-
-  @override
-  double get minExtent => 50.0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
   }
 }

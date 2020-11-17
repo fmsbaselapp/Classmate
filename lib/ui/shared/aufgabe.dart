@@ -12,12 +12,14 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
     Key key,
   }) : super(key: key);
 
+  final Aufgabe aufgabe;
+  final int index;
+
+  final GlobalKey _key = GlobalKey();
+
   @override
   bool get reactive => true;
 
-  final Aufgabe aufgabe;
-  final int index;
-  final GlobalKey _key = GlobalKey();
   @override
   Widget build(BuildContext context, AufgabenViewModel model) {
     return GestureDetector(
