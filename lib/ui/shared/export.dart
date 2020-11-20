@@ -8,3 +8,4 @@ export 'erstellen/erstellenFaecherAuswahl_view.dart';
 export 'erstellen/erstellenTextField_view.dart';
 export 'fachUI.dart';
 export 'appBar.dart';
+export 'uiHelpers/fadeIn.dart';

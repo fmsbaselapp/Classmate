@@ -12,12 +12,14 @@ import 'package:stacked_services/stacked_services.dart';
 @singleton
 class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
   final AufgabenService _aufgabenService = locator<AufgabenService>();
-  bool _hasData = false;
   final NavigationService _navigationService = locator<NavigationService>();
 
-  //Animation<double> get animation => _animation;
+  bool _hasData = false;
 
-  @override
+  //Animation<double> _animation;
+  bool get hasData => _hasData;
+  List<Aufgabe> get aufgaben => data;
+  Stream<List<Aufgabe>> get aufgabenStream => _aufgabenService.streamAufgabe();
   Stream<List<Aufgabe>> get stream => aufgabenStream;
 
   @override
@@ -26,32 +28,34 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
     super.onData(data);
   }
 
-  //Animation<double> _animation;
-
-  bool get hasData => _hasData;
-
-  List<Aufgabe> get aufgaben => data;
-
-  Stream<List<Aufgabe>> get aufgabenStream => _aufgabenService.streamAufgabe();
-
-  get math => null;
-
-  tapDown(TapDownDetails tapDownDetails) {
-    //_scale = 560 / tapDownDetails.globalPosition.distance;
-    notifyListeners();
-  }
-
   goToDetailPage(BuildContext context, int index, GlobalKey _key) {
-    _navigationService.navigateWithTransition(
-        ErstellenView(
-          title: aufgaben[index].titel,
-          aufgabe: aufgaben[index],
-          heroContainer: 'Container' + index.toString() + aufgaben[index].titel,
-          heroTitle: 'Title' + index.toString() + aufgaben[index].titel,
-          heroPage: 'Page' + index.toString() + aufgaben[index].titel,
-        ),
-        duration: Duration(milliseconds: 300),
-        transition: 'downToUp');
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        opaque: false,
+        barrierDismissible: true,
+        fullscreenDialog: true,
+        transitionDuration: Duration(milliseconds: 300),
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return ErstellenView(
+            title: aufgaben[index].titel,
+            aufgabe: aufgaben[index],
+            heroContainer:
+                'Container' + index.toString() + aufgaben[index].titel,
+            heroTitle: 'Title' + index.toString() + aufgaben[index].titel,
+            heroPage: 'Page' + index.toString() + aufgaben[index].titel,
+          );
+        },
+        transitionsBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation, Widget child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
 
 /*
     Navigator.of(context).push(
@@ -78,7 +82,6 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
         },
       ),
     );*/
-  }
 }
 
 class ZoomTransition extends AnimatedWidget {

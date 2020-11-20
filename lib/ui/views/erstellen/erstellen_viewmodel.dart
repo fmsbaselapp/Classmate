@@ -16,36 +16,36 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
 
   final AufgabenService _aufgabenService = locator<AufgabenService>();
   final FaecherService _faecherService = locator<FaecherService>();
-  bool _hasClosedSheet = false;
-  bool _hasData = false;
   final InfosService _infosService = locator<InfosService>();
-  bool _isFachSelected = false;
   final NavigationService _navigationService = locator<NavigationService>();
   final TestsService _testsService = locator<TestsService>();
+
+  bool _hasClosedSheet = false;
+  bool _hasData = false;
+  bool _isFachSelected = false;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
 
-//On List Faecher Stream data
+  bool get hasData => _hasData;
+  List<Fach> get faecher => data;
+  Fach get selectedFach => _fachSelected;
+  bool get isFachSelected => _isFachSelected;
+  String get title => _title;
+  Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
+  ScrollController get scrollController => _scrollController;
+
+  //On List Faecher Stream data
   @override
   void onData(List<Fach> data) {
     _hasData = true;
     super.onData(data);
   }
 
-  bool get hasData => _hasData;
-
-  List<Fach> get faecher => data;
-
-  Fach get selectedFach => _fachSelected;
-
-  bool get isFachSelected => _isFachSelected;
-
-  String get title => _title;
-
-  Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
-
-  ScrollController get scrollController => _scrollController;
+  void controllerInitialize() {
+    _hasClosedSheet = false;
+    print(_hasClosedSheet);
+  }
 
   bool controller(DraggableScrollableNotification sheet) {
     if (sheet.extent == 0.85 && _hasClosedSheet == false) {
@@ -56,31 +56,6 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     } else {
       return false;
     }
-  }
-
-//Daten in der Datenbank sichern
-  void save() {
-    if (_titleAppBar == 'Info') {
-      saveInfo();
-    }
-
-    if (_titleAppBar == 'Aufgabe') {
-      saveAufgabe();
-    }
-
-    if (_titleAppBar == 'Test') {
-      saveTest();
-    }
-    //TODO else Error
-  }
-
-  void exit() {
-    _navigationService.back();
-  }
-
-  void exit1(context) {
-    _navigationService.popUntil((route) => route.isActive);
-    //_navigationService.navigateToView(UebersichtView());
   }
 
 //Titel Controller
@@ -120,7 +95,33 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     //TODO else Error
   }
 
-  //ERSTELLEN
+//ERSTELLEN
+
+//Daten in der Datenbank sichern
+  void save() {
+    if (_titleAppBar == 'Info') {
+      saveInfo();
+    }
+
+    if (_titleAppBar == 'Aufgabe') {
+      saveAufgabe();
+    }
+
+    if (_titleAppBar == 'Test') {
+      saveTest();
+    }
+    //TODO else Error
+  }
+
+  void exit() {
+    _navigationService.back();
+  }
+
+  void exit1(context) {
+    _navigationService.popUntil((route) => route.isActive);
+    //_navigationService.navigateToView(UebersichtView());
+  }
+
   void saveAufgabe() {
     print(
         _title + ' - ' + _fachSelected.name + ' - ' + _dateTime.day.toString());

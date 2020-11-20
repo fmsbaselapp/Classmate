@@ -1,5 +1,5 @@
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/app/router.gr.dart';
+import 'package:Classmate/ui/views/home/home_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:stacked/stacked.dart';
 import 'package:injectable/injectable.dart';
@@ -15,7 +15,9 @@ class StartupViewModel extends FutureViewModel<dynamic> {
     Firebase.initializeApp().then((value) async {
       setBusy(false);
 
-      await _navigationService.navigateTo(Routes.homeView);
+      await _navigationService.replaceWithTransition(HomeView(),
+          transition: 'fade',
+          duration: Duration(milliseconds: 1500)); //TODO: Fade?
       print('Connected to Firebase');
     }).catchError((error) {
       print('error');

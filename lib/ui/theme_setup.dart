@@ -2,51 +2,7 @@ import 'package:flutter/material.dart';
 
 List<ThemeData> getThemes() {
   return [
-    //DarkTheme
-    ThemeData(
-      brightness: Brightness.dark,
-      backgroundColor: Colors.black,
-      scaffoldBackgroundColor: Colors.black,
-      primaryColorLight: Colors.white,
-      accentColor: Color.fromRGBO(23, 23, 23, 1),
-      highlightColor: Color.fromRGBO(42, 42, 42, 1),
-      indicatorColor: Color.fromRGBO(64, 64, 64, 1),
-
-      textTheme: TextTheme(
-        //Titel
-        headline1: TextStyle(
-          fontFamily: "MaaxBold",
-          fontWeight: FontWeight.w700,
-          fontSize: 40,
-          color: Colors.white,
-        ),
-        //Untertitel
-        headline2: TextStyle(
-            fontFamily: "MaaxBold",
-            fontWeight: FontWeight.w700,
-            fontSize: 20,
-            //letterSpacing: 1,
-            color: Colors.white),
-        //Body Weiss
-        bodyText1: TextStyle(
-          fontFamily: "Maax",
-          fontWeight: FontWeight.w500,
-          fontSize: 15,
-          color: Colors.white,
-        ),
-        //Body Grau
-        bodyText2: TextStyle(
-          fontFamily: "Maax",
-          fontWeight: FontWeight.w500,
-          fontSize: 15,
-          color: Color.fromRGBO(153, 153, 153, 1),
-        ),
-      ),
-
-      buttonTheme: ButtonThemeData(),
-
-      //LightTheme
-    ),
+    ///LIGHT THEME
     ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: Color(0xfffcfcfc),
@@ -84,7 +40,47 @@ List<ThemeData> getThemes() {
           color: Color(0xff999999),
         ),
       ),
-      buttonTheme: ButtonThemeData(),
+    ),
+
+    ///DARK THEME
+    ThemeData(
+      brightness: Brightness.dark,
+      backgroundColor: Colors.black,
+      scaffoldBackgroundColor: Colors.black,
+      primaryColorLight: Colors.white,
+      accentColor: Color.fromRGBO(23, 23, 23, 1),
+      highlightColor: Color.fromRGBO(42, 42, 42, 1),
+      indicatorColor: Color.fromRGBO(64, 64, 64, 1),
+      textTheme: TextTheme(
+        //Titel
+        headline1: TextStyle(
+          fontFamily: "MaaxBold",
+          fontWeight: FontWeight.w700,
+          fontSize: 40,
+          color: Colors.white,
+        ),
+        //Untertitel
+        headline2: TextStyle(
+            fontFamily: "MaaxBold",
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+            //letterSpacing: 1,
+            color: Colors.white),
+        //Body Weiss
+        bodyText1: TextStyle(
+          fontFamily: "Maax",
+          fontWeight: FontWeight.w500,
+          fontSize: 15,
+          color: Colors.white,
+        ),
+        //Body Grau
+        bodyText2: TextStyle(
+          fontFamily: "Maax",
+          fontWeight: FontWeight.w500,
+          fontSize: 15,
+          color: Color.fromRGBO(153, 153, 153, 1),
+        ),
+      ),
     ),
   ];
 }

@@ -1,5 +1,6 @@
 import 'package:Classmate/models/models.dart';
 import 'package:Classmate/ui/views/aufgaben/aufgaben_viewmodel.dart';
+import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -24,7 +25,7 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
   Widget build(BuildContext context, AufgabenViewModel model) {
     return GestureDetector(
       key: _key,
-      onTapDown: (tap) => model.tapDown(tap),
+      //onTapDown: (tap) => model.tapDown(tap),
       onTap: () => model.goToDetailPage(context, index, _key),
       // onTap: () => model.goToDetailPage(context, index),
       child: Column(
@@ -39,14 +40,10 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
               children: [
                 Stack(
                   children: [
-                    Hero(
-                      tag: 'Page' + index.toString() + aufgabe.titel,
-                      child: Container(
-                        height: 60,
-                        width: double.infinity,
-                        color: Theme.of(context).accentColor,
-                      ),
-                    ),
+                    //DetailPageHero
+                    PageStackHeroAufgaben(index: index, aufgabe: aufgabe),
+
+                    //ContainerAufgabe
                     Hero(
                       tag: 'Container' + index.toString() + aufgabe.titel,
                       child: Container(
@@ -64,6 +61,8 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
                     ),
                   ],
                 ),
+
+                //Content
                 FractionallySizedBox(
                   widthFactor: 0.9,
                   child: Padding(
@@ -73,15 +72,24 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //STACK
+
                         Hero(
                           tag: 'Title' + index.toString() + aufgabe.titel,
-                          child: Text(
-                            aufgabe.titel,
-                            style: Theme.of(context).textTheme.headline2,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          child: FittedBox(
+                            alignment: Alignment.centerLeft,
+                            // clipBehavior: Clip.none,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                aufgabe.titel,
+                                style: Theme.of(context).textTheme.headline2,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ),
                         ),
+
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -137,5 +145,61 @@ class AufgabeSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     throw UnimplementedError();
+  }
+}
+
+class PageStackHeroAufgaben extends StatelessWidget {
+  const PageStackHeroAufgaben({
+    Key key,
+    @required this.index,
+    @required this.aufgabe,
+  }) : super(key: key);
+
+  final int index;
+  final Aufgabe aufgabe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: 'Page' + index.toString() + aufgabe.titel,
+      child: Material(
+        child: Container(
+          height: 60,
+          width: double.infinity,
+          color: Theme.of(context).accentColor,
+          child: CustomScrollView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            slivers: [
+              SliverPadding(
+                padding: EdgeInsets.only(left: 15, right: 15, top: 70),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      ErstellenTextField(title: true),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ErstellenFaecherAuswahlView(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ErstellenTextField(title: false),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ErstellenDatumAuswahl(),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

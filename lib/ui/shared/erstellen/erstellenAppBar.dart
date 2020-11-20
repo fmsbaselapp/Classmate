@@ -51,23 +51,45 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        Positioned(top: 30, left: 15, bottom: 10, child: ErstellenPopButton()),
         Positioned(
-          top: 30,
+            top: 25,
+            left: 15,
+            bottom: 15,
+            child: FadeIn(child: ErstellenPopButton())),
+        Positioned(
+          top: 25,
           left: 60,
-          bottom: 10,
+          //right: 90,
+          bottom: 15,
           child: Hero(
             tag: heroTitle,
-            child: Text(
-              title,
-              style:
-                  Theme.of(context).textTheme.headline1.copyWith(fontSize: 30),
-              textAlign: TextAlign.center,
+            child: FittedBox(
+              alignment: Alignment.centerLeft,
+              //clipBehavior: Clip.none,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width - 120,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        .copyWith(fontSize: 40),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
         Positioned(
-            top: 30, right: 15, bottom: 10, child: ErstellenSafeButton()),
+            top: 25,
+            right: 15,
+            bottom: 17,
+            child: FadeIn(child: ErstellenSafeButton())),
       ],
     );
   }
