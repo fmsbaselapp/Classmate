@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/viewmodels.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,14 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
       @required this.color,
       this.heroContainer,
       this.heroTitle,
+      this.heroPop,
       Key key});
 
   final String title;
   final Color color;
   final String heroContainer;
   final String heroTitle;
+  final String heroPop;
 
   double scrollAnimationValue(double shrinkOffset) {
     double maxScrollAllowed = maxExtent - minExtent;
@@ -52,53 +55,69 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
           ),
         ),
         Positioned(
-            top: 25,
-            left: 15,
-            bottom: 15,
-            child: FadeIn(child: ErstellenPopButton())),
-        Positioned(
-          top: 25,
-          left: 60,
-          //right: 90,
-          bottom: 15,
-          child: Hero(
-            tag: heroTitle,
-            child: FittedBox(
-              alignment: Alignment.centerLeft,
-              //clipBehavior: Clip.none,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width - 120,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1
-                        .copyWith(fontSize: 40),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
+          left: 15,
+          child: Container(
+            height: 70,
+            alignment: Alignment.centerLeft,
+            child: Hero(
+              tag: heroPop,
+              flightShuttleBuilder: (flightContext, animation, flightDirection,
+                  fromHeroContext, toHeroContext) {
+                final Hero toHero = toHeroContext.widget;
+                return FadeTransition(
+                  opacity: animation.drive(
+                    Tween<double>(begin: 0.0, end: 1.0).chain(
+                      CurveTween(
+                        curve: Interval(0.0, 1.0, curve: Curves.easeInCirc),
+                      ),
+                    ),
                   ),
+                  child: toHero.child,
+                );
+              },
+              child: Opacity(opacity: 1.0, child: ErstellenPopButton()),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          left: 60,
+          right: 100,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Material(
+              color: Colors.transparent,
+              child: Hero(
+                tag: heroTitle,
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.headline2,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
                 ),
               ),
             ),
           ),
         ),
         Positioned(
-            top: 25,
-            right: 15,
-            bottom: 17,
-            child: FadeIn(child: ErstellenSafeButton())),
+          right: 15,
+          child: Container(
+            height: 70,
+            alignment: Alignment.centerRight,
+            child: FadeIn(
+              child: ErstellenSafeButton(),
+            ),
+          ),
+        )
       ],
     );
   }
 
   @override
-  double get maxExtent => 75.0;
+  double get maxExtent => 70.0;
 
   @override
-  double get minExtent => 75.0;
+  double get minExtent => 70.0;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
@@ -121,18 +140,24 @@ class ErstellenSafeButton extends ViewModelWidget<ErstellenViewModel> {
   }
 }
 
-class ErstellenPopButton extends ViewModelWidget<ErstellenViewModel> {
+class ErstellenPopButton extends StatelessWidget {
   const ErstellenPopButton({Key key}) : super(key: key);
 
   @override
   Widget build(
     BuildContext context,
-    ErstellenViewModel model,
   ) {
-    return RoundButton(
-        icon: Icons.clear_rounded,
-        onPressed: () {
-          model.exit();
-        });
+    return ViewModelBuilder<ErstellenViewModel>.nonReactive(
+        disposeViewModel: false,
+        //initialiseSpecialViewModelsOnce: true,
+        builder: (context, model, child) {
+          return RoundButton(
+            icon: Icons.clear_rounded,
+            onPressed: () {
+              model.exit();
+            },
+          );
+        },
+        viewModelBuilder: () => locator<ErstellenViewModel>());
   }
 }

@@ -7,16 +7,15 @@ import 'package:flutter/material.dart';
 
 import 'package:stacked/stacked.dart';
 import 'package:injectable/injectable.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 @singleton
 class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
   final AufgabenService _aufgabenService = locator<AufgabenService>();
-  final NavigationService _navigationService = locator<NavigationService>();
 
   bool _hasData = false;
 
   //Animation<double> _animation;
+
   bool get hasData => _hasData;
   List<Aufgabe> get aufgaben => data;
   Stream<List<Aufgabe>> get aufgabenStream => _aufgabenService.streamAufgabe();
@@ -34,7 +33,7 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
         opaque: false,
         barrierDismissible: true,
         fullscreenDialog: true,
-        transitionDuration: Duration(milliseconds: 300),
+        transitionDuration: Duration(milliseconds: 600),
         pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return ErstellenView(
@@ -44,10 +43,12 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
                 'Container' + index.toString() + aufgaben[index].titel,
             heroTitle: 'Title' + index.toString() + aufgaben[index].titel,
             heroPage: 'Page' + index.toString() + aufgaben[index].titel,
+            heroPop: 'Pop' + index.toString() + aufgaben[index].titel,
           );
         },
         transitionsBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation, Widget child) {
+          Animation<double> _detailPageAnimation = animation;
           return FadeTransition(
             opacity: animation,
             child: child,

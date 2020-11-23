@@ -14,6 +14,7 @@ class ErstellenView extends StatelessWidget {
     this.heroContainer,
     this.heroTitle,
     this.heroPage,
+    this.heroPop,
     this.index,
     Key key,
   }) : super(key: key);
@@ -22,6 +23,7 @@ class ErstellenView extends StatelessWidget {
   final String heroContainer;
   final String heroPage;
   final String heroTitle;
+  final String heroPop;
 
   final int index;
   final String title;
@@ -66,13 +68,17 @@ class ErstellenView extends StatelessWidget {
                                       .requestFocus(FocusNode());
                                 },
                                 child: CustomScrollView(
+                                  shrinkWrap: false,
                                   physics: BouncingScrollPhysics(
                                       parent: AlwaysScrollableScrollPhysics()),
                                   controller: scrollController,
                                   slivers: [
                                     SliverPadding(
                                       padding: EdgeInsets.only(
-                                          left: 15, right: 15, top: 70),
+                                          left: 15,
+                                          right: 15,
+                                          top: 70,
+                                          bottom: 15),
                                       sliver: SliverList(
                                         delegate: SliverChildListDelegate(
                                           [
@@ -91,7 +97,7 @@ class ErstellenView extends StatelessWidget {
                                             SizedBox(
                                               height: 20,
                                             ),
-                                            ErstellenDatumAuswahl(),
+                                            // ErstellenDatumAuswahl(),
                                           ],
                                         ),
                                       ),
@@ -114,6 +120,7 @@ class ErstellenView extends StatelessWidget {
                               color: model.getColor(title),
                               heroContainer: heroContainer,
                               heroTitle: heroTitle,
+                              heroPop: heroPop,
                             ),
                           ),
                         ],
@@ -135,16 +142,18 @@ class ErstellenDatumAuswahl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(
-        builder: (context, model, child) => Material(
-              child: DatePicker(
-                DateTime.now(),
-                initialSelectedDate: DateTime.now(),
-                selectionColor: Theme.of(context).indicatorColor,
-                selectedTextColor: Colors.white,
-                onDateChange: (date) {
-                  model.dateSelect(date);
-                  // New date selected
-                },
+        builder: (context, model, child) => Container(
+              child: Material(
+                child: DatePicker(
+                  DateTime.now(),
+                  initialSelectedDate: DateTime.now(),
+                  selectionColor: Theme.of(context).indicatorColor,
+                  selectedTextColor: Colors.white,
+                  onDateChange: (date) {
+                    model.dateSelect(date);
+                    // New date selected
+                  },
+                ),
               ),
             ),
         viewModelBuilder: () => locator<ErstellenViewModel>());

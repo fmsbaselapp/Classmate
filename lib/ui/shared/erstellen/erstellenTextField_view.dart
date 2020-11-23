@@ -42,7 +42,7 @@ class ErstellenTextFieldHookWidget
       controller: text,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      autofocus: true,
+      autofocus: false, //TODO:
       minLines: title ? null : 4,
       maxLines: null,
       style: Theme.of(context).textTheme.headline2,

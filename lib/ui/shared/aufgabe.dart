@@ -35,100 +35,114 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
                   height: 15,
                 )
               : Wrap(),
-          SizedBox(
-            child: Stack(
-              children: [
-                Stack(
-                  children: [
-                    //DetailPageHero
-                    PageStackHeroAufgaben(index: index, aufgabe: aufgabe),
+          Stack(
+            children: [
+              //DetailPageHero
+              PageStackHeroAufgaben(index: index, aufgabe: aufgabe),
 
-                    //ContainerAufgabe
-                    Hero(
-                      tag: 'Container' + index.toString() + aufgabe.titel,
-                      child: Container(
-                        height: 60,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(24, 118, 210, 1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15)),
+              //ContainerAufgabe
+
+              Hero(
+                tag: 'Container' + index.toString() + aufgabe.titel,
+                child: Container(
+                  height: 60,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(24, 118, 210, 1),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 60,
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Hero(
+                        tag: 'Pop' + index.toString() + aufgabe.titel,
+                        flightShuttleBuilder: (flightContext, animation,
+                            flightDirection, fromHeroContext, toHeroContext) {
+                          final Hero toHero = fromHeroContext.widget;
+                          return FadeTransition(
+                            opacity: animation.drive(
+                                Tween<double>(begin: 0.0, end: 1.0).chain(
+                              Tween<double>(begin: 0.0, end: 1.0).chain(
+                                CurveTween(
+                                  curve: Interval(0.0, 1.0,
+                                      curve: Curves.easeInCirc),
+                                ),
+                              ),
+                            )),
+                            child: toHero,
+                          );
+                        },
+                        child: Opacity(
+                            opacity: 0.0, child: ErstellenPopButton()))),
+              ),
+
+              //Content
+              FractionallySizedBox(
+                widthFactor: 0.9,
+                child: Padding(
+                  padding:
+                      EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //STACK
+
+                      Hero(
+                        tag: 'Title' + index.toString() + aufgabe.titel,
+                        child: Text(
+                          aufgabe.titel,
+                          style: Theme.of(context).textTheme.headline2,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
                         ),
                       ),
-                    ),
-                  ],
-                ),
 
-                //Content
-                FractionallySizedBox(
-                  widthFactor: 0.9,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 10, bottom: 10, left: 15, right: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //STACK
-
-                        Hero(
-                          tag: 'Title' + index.toString() + aufgabe.titel,
-                          child: FittedBox(
-                            alignment: Alignment.centerLeft,
-                            // clipBehavior: Clip.none,
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                aufgabe.titel,
-                                style: Theme.of(context).textTheme.headline2,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconFach(
+                            farbe: aufgabe.fachFarbe,
+                            icon: aufgabe.fachIcon,
+                            small: true,
                           ),
-                        ),
-
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IconFach(
-                              farbe: aufgabe.fachFarbe,
-                              icon: aufgabe.fachIcon,
-                              small: true,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              aufgabe.fachName +
-                                  ' | ' +
-                                  aufgabe.datum.weekday.toString() +
-                                  ',' +
-                                  aufgabe.datum.day.toString() +
-                                  aufgabe.datum.month.toString(),
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            aufgabe.fachName +
+                                ' | ' +
+                                aufgabe.datum.weekday.toString() +
+                                ',' +
+                                aufgabe.datum.day.toString() +
+                                aufgabe.datum.month.toString(),
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  right: 15,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 15,
-                      bottom: 15,
-                      left: 15,
-                    ),
-                    child: AufgabeButton(),
+              ),
+              Positioned(
+                right: 15,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                    bottom: 15,
+                    left: 15,
                   ),
+                  child: AufgabeButton(),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
@@ -191,7 +205,7 @@ class PageStackHeroAufgaben extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      ErstellenDatumAuswahl(),
+                      //   ErstellenDatumAuswahl(),
                     ],
                   ),
                 ),
