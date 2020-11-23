@@ -31,9 +31,11 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
     Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
+        barrierColor: Colors.black.withOpacity(0.5),
         barrierDismissible: true,
         fullscreenDialog: true,
-        transitionDuration: Duration(milliseconds: 600),
+        transitionDuration: Duration(milliseconds: 300),
+        reverseTransitionDuration: Duration(milliseconds: 300),
         pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return ErstellenView(
@@ -48,7 +50,6 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
         },
         transitionsBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation, Widget child) {
-          Animation<double> _detailPageAnimation = animation;
           return FadeTransition(
             opacity: animation,
             child: child,

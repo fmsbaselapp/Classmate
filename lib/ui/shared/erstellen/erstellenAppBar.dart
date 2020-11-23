@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:Classmate/models/models.dart';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/viewmodels.dart';
@@ -13,6 +14,8 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
       this.heroContainer,
       this.heroTitle,
       this.heroPop,
+      this.heroAufgabeHome,
+      this.aufgabe,
       Key key});
 
   final String title;
@@ -20,6 +23,8 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
   final String heroContainer;
   final String heroTitle;
   final String heroPop;
+  final String heroAufgabeHome;
+  final Aufgabe aufgabe;
 
   double scrollAnimationValue(double shrinkOffset) {
     double maxScrollAllowed = maxExtent - minExtent;
@@ -82,18 +87,20 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
         Positioned.fill(
           left: 60,
           right: 100,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Material(
-              color: Colors.transparent,
-              child: Hero(
-                tag: heroTitle,
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.headline2,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.left,
+          child: Container(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Material(
+                color: Colors.transparent,
+                child: Hero(
+                  tag: heroTitle,
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.headline2,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ),
             ),

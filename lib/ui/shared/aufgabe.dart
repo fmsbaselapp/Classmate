@@ -42,23 +42,25 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
 
               //ContainerAufgabe
 
-              Hero(
-                tag: 'Container' + index.toString() + aufgabe.titel,
-                child: Container(
-                  height: 60,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(24, 118, 210, 1),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(15),
-                        bottomRight: Radius.circular(15)),
+              Positioned.fill(
+                child: Hero(
+                  tag: 'Container' + index.toString() + aufgabe.titel,
+                  child: Container(
+                    height: 65,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(24, 118, 210, 1),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15),
+                          bottomRight: Radius.circular(15)),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
-                height: 60,
+                height: 65,
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: Hero(
@@ -83,54 +85,59 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
                             opacity: 0.0, child: ErstellenPopButton()))),
               ),
 
-              //Content
-              FractionallySizedBox(
-                widthFactor: 0.9,
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              //STACK
+              Positioned.fill(
+                child: Container(
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  child: Stack(
                     children: [
-                      //STACK
-
-                      Hero(
-                        tag: 'Title' + index.toString() + aufgabe.titel,
-                        child: Text(
-                          aufgabe.titel,
-                          style: Theme.of(context).textTheme.headline2,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
+                      Positioned.fill(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 8, right: 20),
+                          child: Hero(
+                            tag: 'Title' + index.toString() + aufgabe.titel,
+                            child: Text(
+                              aufgabe.titel,
+                              style: Theme.of(context).textTheme.headline2,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
                         ),
                       ),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconFach(
-                            farbe: aufgabe.fachFarbe,
-                            icon: aufgabe.fachIcon,
-                            small: true,
+                      Positioned.fill(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 23),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              IconFach(
+                                farbe: aufgabe.fachFarbe,
+                                icon: aufgabe.fachIcon,
+                                small: true,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                aufgabe.fachName +
+                                    ' | ' +
+                                    aufgabe.datum.weekday.toString() +
+                                    ',' +
+                                    aufgabe.datum.day.toString() +
+                                    aufgabe.datum.month.toString(),
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            aufgabe.fachName +
-                                ' | ' +
-                                aufgabe.datum.weekday.toString() +
-                                ',' +
-                                aufgabe.datum.day.toString() +
-                                aufgabe.datum.month.toString(),
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
+
               Positioned(
                 right: 15,
                 child: Padding(
