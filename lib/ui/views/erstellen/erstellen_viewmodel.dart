@@ -23,6 +23,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _hasClosedSheet = false;
   bool _hasData = false;
   bool _isFachSelected = false;
+  bool _showSafeButton = false;
+  bool _isPop = false;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -31,6 +33,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   List<Fach> get faecher => data;
   Fach get selectedFach => _fachSelected;
   bool get isFachSelected => _isFachSelected;
+  bool get isPop => _isPop;
+  bool get showSafeButton => _showSafeButton;
   String get title => _title;
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
   ScrollController get scrollController => _scrollController;
@@ -42,9 +46,10 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     super.onData(data);
   }
 
-  void controllerInitialize() {
+  void initialize() {
+    _showSafeButton = false;
     _hasClosedSheet = false;
-    print(_hasClosedSheet);
+    _isPop = false;
   }
 
   bool controller(DraggableScrollableNotification sheet) {
@@ -58,10 +63,21 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     }
   }
 
+  void showSafeButtonChange(bool show) {
+    if (show) {
+      _showSafeButton = true;
+    } else
+      _showSafeButton = false;
+
+    notifyListeners();
+  }
+
 //Titel Controller
   void updateTitle(String value) {
     _title = value;
+
     notifyListeners();
+    showSafeButtonChange(true);
   }
 
 //Für Erstellen liste
@@ -75,26 +91,6 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _dateTime = date;
   }
 
-//Weist die Farbe der AppBar zu
-  Color getColor(titleAppBar) {
-    //TODO Colors zu theme
-    if (titleAppBar == 'Infos') {
-      _titleAppBar = 'Info';
-      return Color.fromRGBO(252, 192, 45, 1);
-    }
-
-    if (titleAppBar == 'Aufgaben') {
-      _titleAppBar = 'Aufgabe';
-      return Colors.blue;
-    }
-
-    if (titleAppBar == 'Tests') {
-      _titleAppBar = 'Test';
-      return Colors.red;
-    }
-    //TODO else Error
-  }
-
 //ERSTELLEN
 
 //Daten in der Datenbank sichern
@@ -102,11 +98,9 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     if (_titleAppBar == 'Info') {
       saveInfo();
     }
-
     if (_titleAppBar == 'Aufgabe') {
       saveAufgabe();
     }
-
     if (_titleAppBar == 'Test') {
       saveTest();
     }
@@ -114,13 +108,19 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   }
 
   void exit() {
+    showSafeButtonChange(false);
+    //für SafeButton
+    _isPop = true;
+    notifyListeners();
     _navigationService.back();
   }
 
+/*
   void exit1(context) {
     _navigationService.popUntil((route) => route.isActive);
     //_navigationService.navigateToView(UebersichtView());
   }
+*/
 
   void saveAufgabe() {
     print(

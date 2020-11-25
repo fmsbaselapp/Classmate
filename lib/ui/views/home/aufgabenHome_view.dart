@@ -1,6 +1,7 @@
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/ui/shared/aufgabe.dart';
+
 import 'package:Classmate/ui/views/aufgaben/aufgaben_viewmodel.dart';
+import 'package:Classmate/ui/views/views.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -25,9 +26,10 @@ class AufgabenHomeView extends StatelessWidget {
                   );
                 },
                 itemBuilder: (BuildContext context, int index) {
-                  return AufgabeBig(
+                  return ContentPanelView(
                     index: index,
-                    aufgabe: model.aufgaben[index],
+                    content: model.aufgaben[index],
+                    isAufgabe: true,
                   );
                 },
               )

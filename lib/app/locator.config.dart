@@ -11,6 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 import '../ui/views/aufgaben/aufgaben_viewmodel.dart';
 import '../services/services.dart';
 import '../ui/views/calendar/calendar_viewmodel.dart';
+import '../ui/views/contentPanel/contentPanel_viewmodel.dart';
 import '../ui/views/erstellen/erstellen_viewmodel.dart';
 import '../ui/views/faecher/faecher_viewmodel.dart';
 import '../ui/views/home/home_viewmodel.dart';
@@ -51,6 +52,7 @@ GetIt $initGetIt(
   // Eager singletons must be registered in the right order
   gh.singleton<AufgabenViewModel>(AufgabenViewModel());
   gh.singleton<CalendarViewModel>(CalendarViewModel());
+  gh.singleton<ContentPanelViewModel>(ContentPanelViewModel());
   gh.singleton<ErstellenViewModel>(ErstellenViewModel());
   gh.singleton<FaecherViewModel>(FaecherViewModel());
   gh.singleton<HomeViewModel>(HomeViewModel());

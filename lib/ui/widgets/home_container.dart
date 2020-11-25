@@ -1,7 +1,6 @@
 import 'package:Classmate/models/models.dart';
 import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
 import 'package:Classmate/ui/views/home/aufgabenHome_view.dart';
 import 'package:Classmate/ui/views/home/infosHome_view.dart';
 import 'package:Classmate/ui/views/views.dart';
@@ -62,15 +61,15 @@ class HomeContainer extends StatelessWidget {
                   iconSize: 15,
                   onPressed: () {
                     //FUNCTION TODO
-                    showModalBottomSheet(
+                    /* showModalBottomSheet(
                       isScrollControlled: true,
                       isDismissible: true,
                       backgroundColor: Theme.of(context).accentColor,
                       context: context,
                       builder: (context) => ErstellenView(
-                        aufgabe: aufgabe,
+                        type: type,
                       ),
-                    );
+                    ); */
                   },
                 ),
               )

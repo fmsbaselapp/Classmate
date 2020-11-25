@@ -1,6 +1,6 @@
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/ui/shared/info.dart';
 import 'package:Classmate/ui/views/viewmodels.dart';
+import 'package:Classmate/ui/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -20,12 +20,14 @@ class InfosHomeView extends StatelessWidget {
                 itemCount: model.infos.length,
                 separatorBuilder: (BuildContext context, int index) {
                   return const SizedBox(
-                    width: 15,
+                    height: 15,
                   );
                 },
                 itemBuilder: (BuildContext context, int index) {
-                  return InfoBig(
-                    info: model.infos[index],
+                  return ContentPanelView(
+                    content: model.infos[index],
+                    index: index,
+                    isInfo: true,
                   );
                 },
               )

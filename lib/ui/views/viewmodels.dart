@@ -10,3 +10,4 @@ export 'info/infos_viewmodel.dart';
 export 'tests/tests_viewmodel.dart';
 export 'erstellen/erstellen_viewmodel.dart';
 export 'uebersicht/uebersicht_viewmodel.dart';
+export 'contentPanel/contentPanel_viewmodel.dart';

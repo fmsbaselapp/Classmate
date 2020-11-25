@@ -1,6 +1,7 @@
 import 'package:Classmate/app/locator.dart';
-import 'package:Classmate/ui/shared/test.dart';
+
 import 'package:Classmate/ui/views/viewmodels.dart';
+import 'package:Classmate/ui/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -24,8 +25,10 @@ class TestsHomeView extends StatelessWidget {
                   );
                 },
                 itemBuilder: (BuildContext context, int index) {
-                  return TestBig(
-                    test: model.tests[index],
+                  return ContentPanelView(
+                    content: model.tests[index],
+                    index: index,
+                    isTest: true,
                   );
                 },
               )
