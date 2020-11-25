@@ -9,12 +9,12 @@ import 'package:stacked/stacked.dart';
 
 class ErstellenView extends StatelessWidget {
   const ErstellenView({
-    @required this.title,
     this.aufgabe,
     this.heroContainer,
     this.heroTitle,
     this.heroPage,
     this.heroPop,
+    this.heroDetails,
     this.index,
     Key key,
   }) : super(key: key);
@@ -24,12 +24,13 @@ class ErstellenView extends StatelessWidget {
   final String heroPage;
   final String heroTitle;
   final String heroPop;
+  final String heroDetails;
 
   final int index;
-  final String title;
 
   @override
   Widget build(BuildContext context) {
+    print('Erstellen: Aufgabe');
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(
         disposeViewModel: false,
         //initialiseSpecialViewModelsOnce: true,
@@ -116,12 +117,12 @@ class ErstellenView extends StatelessWidget {
                           SliverPersistentHeader(
                             pinned: true,
                             delegate: ErstellenAppBar(
-                              title: title,
-                              color: model.getColor(title),
-                              heroContainer: heroContainer,
-                              heroTitle: heroTitle,
-                              heroPop: heroPop,
-                            ),
+                                aufgabe: aufgabe,
+                                color: model.getColor(aufgabe.titel),
+                                heroContainer: heroContainer,
+                                heroTitle: heroTitle,
+                                heroPop: heroPop,
+                                heroDetails: heroDetails),
                           ),
                         ],
                       ),

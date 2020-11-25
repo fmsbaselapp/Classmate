@@ -1,3 +1,4 @@
+import 'package:Classmate/models/models.dart';
 import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
@@ -9,11 +10,12 @@ import 'package:flutter/material.dart';
 class HomeContainer extends StatelessWidget {
   HomeContainer({
     @required this.title,
+    this.aufgabe,
     Key key,
   }) : super(key: key);
 
+  final Aufgabe aufgabe;
   final String title;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,7 +68,7 @@ class HomeContainer extends StatelessWidget {
                       backgroundColor: Theme.of(context).accentColor,
                       context: context,
                       builder: (context) => ErstellenView(
-                        title: title,
+                        aufgabe: aufgabe,
                       ),
                     );
                   },

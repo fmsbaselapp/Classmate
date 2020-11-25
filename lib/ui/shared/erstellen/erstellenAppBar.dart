@@ -9,21 +9,20 @@ import 'package:stacked/stacked.dart';
 
 class ErstellenAppBar extends SliverPersistentHeaderDelegate {
   const ErstellenAppBar(
-      {@required this.title,
-      @required this.color,
+      {@required this.color,
       this.heroContainer,
       this.heroTitle,
       this.heroPop,
-      this.heroAufgabeHome,
+      this.heroDetails,
       this.aufgabe,
       Key key});
 
-  final String title;
   final Color color;
   final String heroContainer;
   final String heroTitle;
   final String heroPop;
-  final String heroAufgabeHome;
+  final String heroDetails;
+
   final Aufgabe aufgabe;
 
   double scrollAnimationValue(double shrinkOffset) {
@@ -41,82 +40,133 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
   ) {
     final double visibleMainHeight = max(maxExtent - shrinkOffset, minExtent);
 
-    return Stack(
-      children: [
-        Hero(
-          tag: heroContainer,
-          child: Container(
-            height: visibleMainHeight,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(24, 118, 210, 1),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15),
+    return Material(
+      color: Colors.transparent,
+      child: Stack(
+        children: [
+          //Container
+          Hero(
+            tag: heroContainer,
+            child: Container(
+              height: visibleMainHeight,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(24, 118, 210, 1),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                  bottomLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          left: 15,
-          child: Container(
-            height: 70,
-            alignment: Alignment.centerLeft,
+          //PopButton
+          Positioned(
+            left: 15,
+            child: Container(
+              height: 70,
+              alignment: Alignment.centerLeft,
+              child: Hero(
+                tag: heroPop,
+                flightShuttleBuilder: (flightContext, animation,
+                    flightDirection, fromHeroContext, toHeroContext) {
+                  final Hero toHero = toHeroContext.widget;
+                  return FadeTransition(
+                    opacity: animation.drive(
+                      Tween<double>(begin: 0.0, end: 1.0).chain(
+                        CurveTween(
+                          curve: Interval(0.0, 1.0, curve: Curves.easeInCirc),
+                        ),
+                      ),
+                    ),
+                    child: toHero.child,
+                  );
+                },
+                child: Opacity(opacity: 1.0, child: ErstellenPopButton()),
+              ),
+            ),
+          ),
+          //title
+          Positioned.fill(
+            left: 60,
+            right: 100,
+            top: 21,
             child: Hero(
-              tag: heroPop,
+              tag: heroTitle,
+              child: Text(
+                aufgabe.titel,
+                style: Theme.of(context).textTheme.headline2,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ),
+
+          //Hero Details (fadetOut)
+          Positioned(
+            top: 50,
+            left: 60,
+            child: Hero(
+              tag: heroDetails,
               flightShuttleBuilder: (flightContext, animation, flightDirection,
                   fromHeroContext, toHeroContext) {
                 final Hero toHero = toHeroContext.widget;
                 return FadeTransition(
                   opacity: animation.drive(
-                    Tween<double>(begin: 0.0, end: 1.0).chain(
+                    Tween<double>(begin: 1.0, end: 0.0).chain(
                       CurveTween(
-                        curve: Interval(0.0, 1.0, curve: Curves.easeInCirc),
+                        curve: Interval(
+                          0.0,
+                          1.0,
+                        ),
                       ),
                     ),
                   ),
-                  child: toHero.child,
+                  child: toHero,
                 );
               },
-              child: Opacity(opacity: 1.0, child: ErstellenPopButton()),
-            ),
-          ),
-        ),
-        Positioned.fill(
-          left: 60,
-          right: 100,
-          child: Container(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Material(
-                color: Colors.transparent,
-                child: Hero(
-                  tag: heroTitle,
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.headline2,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                  ),
+              child: Opacity(
+                opacity: 0.0,
+                child: Row(
+                  children: [
+                    IconFach(
+                      farbe: aufgabe.fachFarbe,
+                      icon: aufgabe.fachIcon,
+                      small: true,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      aufgabe.fachName +
+                          ' | ' +
+                          aufgabe.datum.weekday.toString() +
+                          ',' +
+                          aufgabe.datum.day.toString() +
+                          aufgabe.datum.month.toString(),
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          right: 15,
-          child: Container(
-            height: 70,
-            alignment: Alignment.centerRight,
-            child: FadeIn(
-              child: ErstellenSafeButton(),
+
+          //SafeButton
+          Positioned(
+            right: 15,
+            child: Container(
+              height: 70,
+              alignment: Alignment.centerRight,
+              child: FadeIn(
+                child: ErstellenSafeButton(),
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 

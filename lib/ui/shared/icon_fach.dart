@@ -14,28 +14,31 @@ class IconFach extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: small ? 17 : 30,
-          height: small ? 17 : 30,
-          decoration: BoxDecoration(
-            color: Color(farbe).withOpacity(0.3),
-            shape: BoxShape.circle,
+    return Material(
+      color: Colors.transparent,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: small ? 17 : 30,
+            height: small ? 17 : 30,
+            decoration: BoxDecoration(
+              color: Color(farbe).withOpacity(0.3),
+              shape: BoxShape.circle,
+            ),
           ),
-        ),
-        Container(
-          width: small ? 13 : 20,
-          height: small ? 13 : 20,
-          decoration: BoxDecoration(
-              color: Color(farbe).withOpacity(1), shape: BoxShape.circle),
-        ),
-        Text(
-          icon ?? '',
-          style: TextStyle(fontSize: small ? 7 : 15),
-        ),
-      ],
+          Container(
+            width: small ? 13 : 20,
+            height: small ? 13 : 20,
+            decoration: BoxDecoration(
+                color: Color(farbe).withOpacity(1), shape: BoxShape.circle),
+          ),
+          Text(
+            icon ?? '',
+            style: TextStyle(fontSize: small ? 7 : 15),
+          ),
+        ],
+      ),
     );
   }
 }

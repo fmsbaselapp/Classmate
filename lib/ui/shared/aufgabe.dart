@@ -27,7 +27,6 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
       key: _key,
       //onTapDown: (tap) => model.tapDown(tap),
       onTap: () => model.goToDetailPage(context, index, _key),
-      // onTap: () => model.goToDetailPage(context, index),
       child: Column(
         children: [
           index == 0
@@ -59,6 +58,7 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
                   ),
                 ),
               ),
+              //Pop
               SizedBox(
                 height: 65,
                 child: Align(
@@ -91,45 +91,70 @@ class AufgabeBig extends ViewModelWidget<AufgabenViewModel> {
                   padding: EdgeInsets.only(left: 15, right: 15),
                   child: Stack(
                     children: [
+                      //titel
                       Positioned.fill(
-                        child: Container(
-                          padding: EdgeInsets.only(top: 8, right: 20),
-                          child: Hero(
-                            tag: 'Title' + index.toString() + aufgabe.titel,
-                            child: Text(
-                              aufgabe.titel,
-                              style: Theme.of(context).textTheme.headline2,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                            ),
+                        top: 10,
+                        child: Hero(
+                          tag: 'Title' + index.toString() + aufgabe.titel,
+                          child: Text(
+                            aufgabe.titel,
+                            style: Theme.of(context).textTheme.headline2,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
                           ),
                         ),
                       ),
+                      //details
                       Positioned.fill(
                         child: Container(
                           padding: EdgeInsets.only(top: 23),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              IconFach(
-                                farbe: aufgabe.fachFarbe,
-                                icon: aufgabe.fachIcon,
-                                small: true,
+                          child: Hero(
+                            tag: 'Details' + index.toString() + aufgabe.titel,
+                            flightShuttleBuilder: (flightContext,
+                                animation,
+                                flightDirection,
+                                fromHeroContext,
+                                toHeroContext) {
+                              final Hero toHero = toHeroContext.widget;
+                              return FadeTransition(
+                                opacity: animation.drive(
+                                  Tween<double>(begin: 1.0, end: 0.0).chain(
+                                    CurveTween(
+                                      curve: Interval(0.0, 1.0,
+                                          curve: Curves.easeInOutExpo),
+                                    ),
+                                  ),
+                                ),
+                                child: toHero.child,
+                              );
+                            },
+                            child: Opacity(
+                              opacity: 1.0,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  IconFach(
+                                    farbe: aufgabe.fachFarbe,
+                                    icon: aufgabe.fachIcon,
+                                    small: true,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    aufgabe.fachName +
+                                        ' | ' +
+                                        aufgabe.datum.weekday.toString() +
+                                        ',' +
+                                        aufgabe.datum.day.toString() +
+                                        aufgabe.datum.month.toString(),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                aufgabe.fachName +
-                                    ' | ' +
-                                    aufgabe.datum.weekday.toString() +
-                                    ',' +
-                                    aufgabe.datum.day.toString() +
-                                    aufgabe.datum.month.toString(),
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),

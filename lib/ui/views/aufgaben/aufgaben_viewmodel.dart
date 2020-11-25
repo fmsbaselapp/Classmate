@@ -14,8 +14,6 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
 
   bool _hasData = false;
 
-  //Animation<double> _animation;
-
   bool get hasData => _hasData;
   List<Aufgabe> get aufgaben => data;
   Stream<List<Aufgabe>> get aufgabenStream => _aufgabenService.streamAufgabe();
@@ -39,13 +37,13 @@ class AufgabenViewModel extends StreamViewModel<List<Aufgabe>> {
         pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return ErstellenView(
-            title: aufgaben[index].titel,
             aufgabe: aufgaben[index],
             heroContainer:
                 'Container' + index.toString() + aufgaben[index].titel,
             heroTitle: 'Title' + index.toString() + aufgaben[index].titel,
             heroPage: 'Page' + index.toString() + aufgaben[index].titel,
             heroPop: 'Pop' + index.toString() + aufgaben[index].titel,
+            heroDetails: 'Details' + index.toString() + aufgaben[index].titel,
           );
         },
         transitionsBuilder: (BuildContext context, Animation<double> animation,
