@@ -12,6 +12,7 @@ import 'package:injectable/injectable.dart';
 class FaecherViewModel extends StreamViewModel<List<Fach>> {
   final FaecherService _faecherService = locator<FaecherService>();
   bool _hasData = false;
+  int _selectedIndex = 0;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -23,7 +24,7 @@ class FaecherViewModel extends StreamViewModel<List<Fach>> {
   }
 
   bool get hasData => _hasData;
-
+  int get selectedIndex => _selectedIndex;
   List<Fach> get faecher => data;
 
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
@@ -39,5 +40,10 @@ class FaecherViewModel extends StreamViewModel<List<Fach>> {
               fach: fach,
               index: index,
             ));
+  }
+
+  void selectedIndexChange(int index) {
+    _selectedIndex = index;
+    notifyListeners();
   }
 }

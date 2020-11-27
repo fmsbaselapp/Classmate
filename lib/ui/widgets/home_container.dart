@@ -15,10 +15,10 @@ class HomeContainer extends StatelessWidget {
 
   final Aufgabe aufgabe;
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Theme.of(context).accentColor,

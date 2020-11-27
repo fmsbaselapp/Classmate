@@ -14,11 +14,12 @@ class CalendarView extends StatelessWidget {
         disposeViewModel: false,
         // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
         initialiseSpecialViewModelsOnce: true,
-        builder: (context, model, child) => Scaffold(
+        builder: (context, model, child) {
+          return Scaffold(
               body: Center(
-                child: Text('Calendar'),
-              ),
-            ),
+            child: Text('Calender'),
+          ));
+        },
         viewModelBuilder: () => locator<HomeViewModel>());
   }
 }

@@ -35,6 +35,7 @@ class ErstellenTextFieldHookWidget
 
   @override
   Widget buildViewModelWidget(BuildContext context, ErstellenViewModel model) {
+    print('Build TextField $title');
     var text = useTextEditingController();
     return TextField(
       //TODO: autofillHints: ,

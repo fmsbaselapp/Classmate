@@ -23,6 +23,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _hasClosedSheet = false;
   bool _hasData = false;
   bool _isFachSelected = false;
+  bool _isAuswahlExpanded = false;
   bool _showSafeButton = false;
   bool _isPop = false;
 
@@ -30,8 +31,10 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   Stream<List<Fach>> get stream => faecherStream;
 
   bool get hasData => _hasData;
+
   List<Fach> get faecher => data;
   Fach get selectedFach => _fachSelected;
+  bool get isExpanded => _isAuswahlExpanded;
   bool get isFachSelected => _isFachSelected;
   bool get isPop => _isPop;
   bool get showSafeButton => _showSafeButton;
@@ -49,6 +52,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   void initialize() {
     _showSafeButton = false;
     _hasClosedSheet = false;
+    _isFachSelected = false;
+    // _faecherAuswahlExpanded = false;
     _isPop = false;
   }
 
@@ -61,6 +66,15 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     } else {
       return false;
     }
+  }
+
+  void faecherAuswahlController() {
+    if (_isAuswahlExpanded) {
+      _isAuswahlExpanded = false;
+    } else {
+      _isAuswahlExpanded = true;
+    }
+    notifyListeners();
   }
 
   void showSafeButtonChange(bool show) {
@@ -84,6 +98,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   void fachSelect(Fach fach) {
     _fachSelected = fach;
     _isFachSelected = true;
+    _isAuswahlExpanded = false;
     notifyListeners();
   }
 

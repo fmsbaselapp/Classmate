@@ -90,7 +90,7 @@ class FachUIerstellen extends StatelessWidget {
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 5),
       decoration: BoxDecoration(
         color: Theme.of(context).highlightColor,
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
         children: [
