@@ -280,37 +280,6 @@ class PageStackHero extends StatelessWidget {
             height: 60,
             width: double.infinity,
             color: Theme.of(context).accentColor,
-            child: CustomScrollView(
-              physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              slivers: [
-                SliverPadding(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 70),
-                  sliver: SliverList(
-                    delegate: SliverChildListDelegate(
-                      [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        ErstellenTextField(title: true),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ErstellenFaecherAuswahlView(),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ErstellenTextField(title: false),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        //   ErstellenDatumAuswahl(),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
           ),
         ),
       ),

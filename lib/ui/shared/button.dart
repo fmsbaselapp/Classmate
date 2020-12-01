@@ -1,4 +1,6 @@
+import 'package:Classmate/ui/views/erstellen/erstellen_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 class RoundButton extends StatelessWidget {
   RoundButton(
@@ -74,4 +76,50 @@ class TextButtonCustom extends StatelessWidget {
       ),
     );
   }
+}
+
+class ErstellenFuerButton extends ViewModelBuilderWidget<ErstellenViewModel> {
+  const ErstellenFuerButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 15),
+      decoration: BoxDecoration(
+        color: Theme.of(context).highlightColor,
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0.00, 5.00),
+            color: Color(0xff000000).withOpacity(0.10),
+            blurRadius: 20,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Für alle erstellen',
+            style: Theme.of(context).textTheme.headline2,
+          ),
+          SizedBox(
+            height: 30,
+            child: Switch.adaptive(
+              activeColor: Theme.of(context).accentColor,
+              value: model.isFuerAlle,
+              onChanged: (val) => model.fuerAlleChange(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  ErstellenViewModel viewModelBuilder(BuildContext context) =>
+      ErstellenViewModel();
 }

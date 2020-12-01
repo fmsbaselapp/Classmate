@@ -7,18 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ErstellenFaecherAuswahlView extends StatelessWidget {
-  const ErstellenFaecherAuswahlView({Key key}) : super(key: key);
+  const ErstellenFaecherAuswahlView({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     print('Build: FaecherAuswahl');
+
     return ViewModelBuilder<ErstellenViewModel>.reactive(
         disposeViewModel: false,
         builder: (context, model, child) => Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).highlightColor,
                 borderRadius: BorderRadius.all(
-                  Radius.circular(20),
+                  Radius.circular(15),
                 ),
               ),
               child: ExpandableListTile(
@@ -36,12 +39,16 @@ class ErstellenFaecherAuswahlView extends StatelessWidget {
                               icon: model.selectedFach.icon)
                           : Wrap(),
                     ),
-                    Text(
-                      model.isFachSelected
-                          ? model.selectedFach.name
-                          : 'Fach wählen',
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
+                    model.isFachSelected
+                        ? Text(model.selectedFach.name,
+                            style: Theme.of(context).textTheme.headline2)
+                        : Text(
+                            'Fach wählen',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2
+                                .copyWith(color: Theme.of(context).hintColor),
+                          )
                   ],
                 ),
                 expanded: model.isExpanded,
@@ -77,7 +84,11 @@ class ExpandableListTile extends StatelessWidget {
               child: SizedBox(
                 height: 30,
                 width: 30,
-                child: Icon(Icons.expand_more),
+                child: Icon(
+                  Icons.expand_more_rounded,
+                  size: 30,
+                  color: Theme.of(context).hintColor,
+                ),
               )),
         ),
       ),
@@ -123,7 +134,7 @@ class _ExpandableSectionState extends State<ExpandableSection>
     );
     sizeAnimation = CurvedAnimation(
       parent: animationController,
-      curve: Curves.fastOutSlowIn,
+      curve: Curves.easeOutBack,
     );
     opacityAnimation = CurvedAnimation(
       parent: animationController,
@@ -174,7 +185,7 @@ class _ExpandableSectionState extends State<ExpandableSection>
                           itemCount: model.faecher.length,
                           separatorBuilder: (BuildContext context, int index) {
                             return const SizedBox(
-                              height: 10,
+                              height: 15,
                             );
                           },
                           itemBuilder: (BuildContext context, int index) {
@@ -192,10 +203,16 @@ class _ExpandableSectionState extends State<ExpandableSection>
                           },
                         )
                       : Wrap(),
+                  SizedBox(
+                    height: 15,
+                  ),
                   FlatButton(
                     onPressed: () {},
                     child: Text('Fach erstellen'),
-                  )
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             )),
@@ -211,8 +228,8 @@ class RotatableSection extends StatefulWidget {
   RotatableSection(
       {this.rotated = false,
       this.child,
-      this.initialSpin = 0,
-      this.endingSpin = 0.5});
+      this.initialSpin = 0.75,
+      this.endingSpin = 1});
 
   @override
   _RotatableSectionState createState() => _RotatableSectionState();

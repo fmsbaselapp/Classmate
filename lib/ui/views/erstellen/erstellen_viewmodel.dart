@@ -26,6 +26,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _isAuswahlExpanded = false;
   bool _showSafeButton = false;
   bool _isPop = false;
+  bool _isFuerAlle = true;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -37,6 +38,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool get isExpanded => _isAuswahlExpanded;
   bool get isFachSelected => _isFachSelected;
   bool get isPop => _isPop;
+  bool get isFuerAlle => _isFuerAlle;
+
   bool get showSafeButton => _showSafeButton;
   String get title => _title;
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
@@ -53,8 +56,15 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _showSafeButton = false;
     _hasClosedSheet = false;
     _isFachSelected = false;
-    // _faecherAuswahlExpanded = false;
+    _isAuswahlExpanded = false;
+
     _isPop = false;
+  }
+
+  fuerAlleChange() {
+    _isFuerAlle = !_isFuerAlle;
+
+    notifyListeners();
   }
 
   bool controller(DraggableScrollableNotification sheet) {
@@ -69,12 +79,16 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   }
 
   void faecherAuswahlController() {
-    if (_isAuswahlExpanded) {
-      _isAuswahlExpanded = false;
-    } else {
-      _isAuswahlExpanded = true;
-    }
+    _isAuswahlExpanded = !_isAuswahlExpanded;
     notifyListeners();
+  }
+
+  void faecherAuswahlShow() {
+    Future.delayed(Duration(milliseconds: 500)).then(
+      (value) {
+        notifyListeners();
+      },
+    );
   }
 
   void showSafeButtonChange(bool show) {
@@ -126,6 +140,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     showSafeButtonChange(false);
     //für SafeButton
     _isPop = true;
+
     notifyListeners();
     _navigationService.back();
   }

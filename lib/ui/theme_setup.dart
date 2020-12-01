@@ -51,6 +51,7 @@ List<ThemeData> getThemes() {
       accentColor: Color.fromRGBO(23, 23, 23, 1),
       highlightColor: Color.fromRGBO(42, 42, 42, 1),
       indicatorColor: Color.fromRGBO(64, 64, 64, 1),
+      hintColor: Colors.white60,
       textTheme: TextTheme(
         //Titel
         headline1: TextStyle(
