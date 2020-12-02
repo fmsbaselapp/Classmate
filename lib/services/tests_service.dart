@@ -13,9 +13,7 @@ class TestsService<T> {
         .map(
           (list) => list.docs
               .map(
-                (doc) => Test.fromMap(
-                  (doc.data()),
-                ),
+                (doc) => Test.fromJSON(doc.id, doc.data()),
               )
               .toList(),
         );
@@ -38,5 +36,12 @@ class TestsService<T> {
         'users': [auth.currentUser.uid],
       },
     );
+  }
+
+  //Delete
+  Future<void> deleteAufgabe(type) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+    return _db.collection('Tests').doc(type.docRef).delete();
   }
 }

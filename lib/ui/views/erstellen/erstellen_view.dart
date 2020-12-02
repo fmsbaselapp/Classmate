@@ -130,12 +130,21 @@ class ErstellenView extends StatelessWidget {
                                               ),
                                               ErstellenTextField(title: false),
                                               SizedBox(
-                                                height: 20,
+                                                height: 40,
                                               ),
 
                                               //FachTestDrop(),
                                               // ErstellenDatumAuswahl(),
-                                              ErstellenFuerButton(),
+                                              ContainerWidget(
+                                                child: ErstellenFuerButton(),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              ContainerWidget(
+                                                child:
+                                                    ErstellenDelete(type: type),
+                                              )
                                             ],
                                           ),
                                         ),
@@ -175,6 +184,46 @@ class ErstellenView extends StatelessWidget {
         },
         viewModelBuilder: () => locator<ErstellenViewModel>());
   }
+}
+
+class ErstellenDelete extends ViewModelBuilderWidget<ErstellenViewModel> {
+  const ErstellenDelete({
+    this.type,
+    Key key,
+  }) : super(key: key);
+
+  final dynamic type;
+  @override
+  Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
+    return GestureDetector(
+      onTap: () {
+        model.delete(type);
+      },
+      child: Container(
+        color: Colors.transparent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${type.typeName} löschen',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            SizedBox(
+              height: 30,
+              child: Icon(
+                Icons.delete_rounded,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  ErstellenViewModel viewModelBuilder(BuildContext context) =>
+      ErstellenViewModel();
 }
 
 class ErstellenDatumAuswahl extends StatelessWidget {

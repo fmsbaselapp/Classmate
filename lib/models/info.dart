@@ -9,6 +9,8 @@ class Info {
   final int fachFarbe;
   final String fachIcon;
   final String fachID;
+  final String typeName;
+  final String docRef;
 
   Info({
     this.titel,
@@ -19,9 +21,11 @@ class Info {
     this.fachFarbe,
     this.fachIcon,
     this.fachID,
+    this.typeName,
+    this.docRef,
   });
 
-  factory Info.fromMap(Map data) {
+  factory Info.fromJSON(String id, Map<String, dynamic> data) {
     return Info(
       titel: data['titel'] ?? '',
       notiz: data['notiz'] ?? '',
@@ -31,6 +35,8 @@ class Info {
       fachFarbe: data['fachFarbe'] ?? 0,
       fachIcon: data['fachIcon'] ?? '❔',
       fachID: data['fachID'] ?? '',
+      docRef: id,
+      typeName: 'Info',
     );
   }
 }

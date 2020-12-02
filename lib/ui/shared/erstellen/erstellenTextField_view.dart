@@ -46,7 +46,9 @@ class ErstellenTextFieldHookWidget
       autofocus: false, //TODO:
       minLines: title ? null : 4,
       maxLines: null,
-      style: Theme.of(context).textTheme.headline2,
+      style: title
+          ? Theme.of(context).textTheme.headline2
+          : Theme.of(context).textTheme.bodyText1,
       textAlignVertical: TextAlignVertical.top,
 
       decoration: InputDecoration(

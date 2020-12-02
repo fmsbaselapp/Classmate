@@ -25,9 +25,9 @@ class Global {
 
   static final Map models = {
     Fach: (data) => Fach.fromMap({}),
-    Info: (data) => Info.fromMap({}),
-    Aufgabe: (data) => Aufgabe.fromMap({}),
-    Test: (data) => Test.fromMap({}),
+    //Info: (data) => Info.fromMap({}),
+    //Aufgabe: (data) => Aufgabe.fromJSON((),{}),
+    //Test: (data) => Test.fromMap({}),
   };
 
   // Firestore References for Writes

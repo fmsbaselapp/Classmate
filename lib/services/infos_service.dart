@@ -13,9 +13,7 @@ class InfosService<T> {
         .map(
           (list) => list.docs
               .map(
-                (doc) => Info.fromMap(
-                  (doc.data()),
-                ),
+                (doc) => Info.fromJSON(doc.id, doc.data()),
               )
               .toList(),
         );
@@ -36,5 +34,12 @@ class InfosService<T> {
         'users': [auth.currentUser.uid],
       },
     );
+  }
+
+  //Delete
+  Future<void> deleteAufgabe(type) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+    return _db.collection('Infos').doc(type.docRef).delete();
   }
 }

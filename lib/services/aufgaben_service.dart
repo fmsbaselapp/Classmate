@@ -14,9 +14,7 @@ class AufgabenService<T> {
         .map(
           (list) => list.docs
               .map(
-                (doc) => Aufgabe.fromMap(
-                  (doc.data()),
-                ),
+                (doc) => Aufgabe.fromJSON(doc.id, doc.data()),
               )
               .toList(),
         );
@@ -37,5 +35,12 @@ class AufgabenService<T> {
         'users': [auth.currentUser.uid],
       },
     );
+  }
+
+  //Delete
+  Future<void> deleteAufgabe(type) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+    return _db.collection('Aufgaben').doc(type.docRef).delete();
   }
 }

@@ -6,13 +6,14 @@ class Fach {
   final String raum;
   final int teilnehmer;
 
-  Fach(
-      {this.name,
-      this.farbe,
-      this.icon,
-      this.zeit,
-      this.raum,
-      this.teilnehmer});
+  Fach({
+    this.name,
+    this.farbe,
+    this.icon,
+    this.zeit,
+    this.raum,
+    this.teilnehmer,
+  });
 
   factory Fach.fromMap(Map data) {
     return Fach(

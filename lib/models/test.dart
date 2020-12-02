@@ -11,20 +11,23 @@ class Test {
   final int fachFarbe;
   final String fachIcon;
   final String fachID;
+  final String typeName;
+  final String docRef;
 
-  Test({
-    this.titel,
-    this.datum,
-    this.gewichtung,
-    this.notiz,
-    this.privat,
-    this.fachName,
-    this.fachFarbe,
-    this.fachIcon,
-    this.fachID,
-  });
+  Test(
+      {this.titel,
+      this.datum,
+      this.gewichtung,
+      this.notiz,
+      this.privat,
+      this.fachName,
+      this.fachFarbe,
+      this.fachIcon,
+      this.fachID,
+      this.typeName,
+      this.docRef});
 
-  factory Test.fromMap(Map data) {
+  factory Test.fromJSON(String id, Map<String, dynamic> data) {
     return Test(
       titel: data['titel'] ?? '',
       datum: (data['datum'] as Timestamp ?? Timestamp(0, 0)).toDate(),
@@ -35,6 +38,8 @@ class Test {
       fachFarbe: data['fachFarbe'] ?? 0,
       fachIcon: data['fachIcon'] ?? '❔',
       fachID: data['fachID'] ?? '',
+      docRef: id,
+      typeName: 'Test',
     );
   }
 }

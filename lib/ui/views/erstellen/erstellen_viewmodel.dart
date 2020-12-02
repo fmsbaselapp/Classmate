@@ -35,13 +35,14 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
 
   List<Fach> get faecher => data;
   Fach get selectedFach => _fachSelected;
+
   bool get isExpanded => _isAuswahlExpanded;
   bool get isFachSelected => _isFachSelected;
   bool get isPop => _isPop;
   bool get isFuerAlle => _isFuerAlle;
 
   bool get showSafeButton => _showSafeButton;
-  String get title => _title;
+
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
   ScrollController get scrollController => _scrollController;
 
@@ -179,9 +180,27 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
         _title + ' - ' + _fachSelected.name + ' - ' + _dateTime.day.toString());
     _infosService.setInfo(Info(
         titel: _title,
-        datum: _dateTime,
+        datum: DateTime.now(), //_dateTime,
         fachName: _fachSelected.name,
         fachFarbe: _fachSelected.farbe,
         fachIcon: _fachSelected.icon));
+  }
+
+  void delete(type) {
+    switch (type.typeName) {
+      case 'Info':
+        return print(type.docRef);
+
+      case 'Aufgabe':
+        _aufgabenService.deleteAufgabe(type);
+        return exit();
+
+      case 'Test':
+        return print(type.docRef);
+        break;
+      default:
+    }
+
+    print('deleted');
   }
 }

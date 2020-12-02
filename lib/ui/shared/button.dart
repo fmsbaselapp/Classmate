@@ -78,13 +78,11 @@ class TextButtonCustom extends StatelessWidget {
   }
 }
 
-class ErstellenFuerButton extends ViewModelBuilderWidget<ErstellenViewModel> {
-  const ErstellenFuerButton({
-    Key key,
-  }) : super(key: key);
-
+class ContainerWidget extends StatelessWidget {
+  const ContainerWidget({Key key, this.child}) : super(key: key);
+  final Widget child;
   @override
-  Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 15),
@@ -99,22 +97,39 @@ class ErstellenFuerButton extends ViewModelBuilderWidget<ErstellenViewModel> {
         ],
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Für alle erstellen',
-            style: Theme.of(context).textTheme.headline2,
-          ),
-          SizedBox(
-            height: 30,
-            child: Switch.adaptive(
-              activeColor: Theme.of(context).accentColor,
-              value: model.isFuerAlle,
-              onChanged: (val) => model.fuerAlleChange(),
+      child: child,
+    );
+  }
+}
+
+class ErstellenFuerButton extends ViewModelBuilderWidget<ErstellenViewModel> {
+  const ErstellenFuerButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
+    return GestureDetector(
+      onTap: () => model.fuerAlleChange(),
+      child: Container(
+        color: Colors.transparent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Für alle erstellen',
+              style: Theme.of(context).textTheme.headline2,
             ),
-          ),
-        ],
+            SizedBox(
+              height: 30,
+              child: Switch.adaptive(
+                activeColor: Theme.of(context).accentColor,
+                value: model.isFuerAlle,
+                onChanged: (val) => model.fuerAlleChange(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
