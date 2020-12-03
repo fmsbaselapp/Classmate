@@ -1,11 +1,10 @@
-import 'dart:math';
 import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/viewmodels.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class ErstellenAppBar extends SliverPersistentHeaderDelegate {
+class ErstellenAppBar extends StatelessWidget {
   const ErstellenAppBar(
       {@required this.color,
       @required this.colorTitle,
@@ -27,21 +26,10 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
 
   final dynamic type;
 
-  double scrollAnimationValue(double shrinkOffset) {
-    double maxScrollAllowed = maxExtent - minExtent;
-    return ((maxScrollAllowed - shrinkOffset) / maxScrollAllowed)
-        .clamp(0, 1)
-        .toDouble();
-  }
-
   @override
   Widget build(
     BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
   ) {
-    final double visibleMainHeight = max(maxExtent - shrinkOffset, minExtent);
-
     return Material(
       color: Colors.transparent,
       child: Stack(
@@ -50,7 +38,7 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
           Hero(
             tag: heroContainer,
             child: Container(
-              height: visibleMainHeight,
+              height: 70,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: color,
@@ -186,17 +174,6 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
         ],
       ),
     );
-  }
-
-  @override
-  double get maxExtent => 70.0;
-
-  @override
-  double get minExtent => 70.0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
   }
 }
 

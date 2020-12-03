@@ -1,6 +1,7 @@
 import 'package:Classmate/models/models.dart';
 import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
+import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
 import 'package:Classmate/ui/views/home/aufgabenHome_view.dart';
 import 'package:Classmate/ui/views/home/infosHome_view.dart';
 import 'package:Classmate/ui/views/views.dart';
@@ -57,21 +58,36 @@ class HomeContainer extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(right: 5),
                 child: RoundButton(
-                  icon: CustomIcons.add,
-                  iconSize: 15,
-                  onPressed: () {
-                    //FUNCTION TODO
-                    /* showModalBottomSheet(
-                      isScrollControlled: true,
-                      isDismissible: true,
-                      backgroundColor: Theme.of(context).accentColor,
-                      context: context,
-                      builder: (context) => ErstellenView(
-                        type: type,
-                      ),
-                    ); */
-                  },
-                ),
+                    icon: CustomIcons.add,
+                    iconSize: 15,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          opaque: false,
+                          barrierColor: Colors.black.withOpacity(0.5),
+                          barrierDismissible: true,
+                          fullscreenDialog: true,
+                          transitionDuration: Duration(milliseconds: 500),
+                          reverseTransitionDuration:
+                              Duration(milliseconds: 300),
+                          pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) {
+                            return ErstellenView(
+                              color: Colors.green,
+                              colorTitle: TextStyle(color: Colors.green),
+                              heroButtonRight: '',
+                              heroContainer: '',
+                              heroDetails: '',
+                              heroPage: '',
+                              heroPop: '',
+                              heroTitle: '',
+                              type: null,
+                            );
+                          },
+                        ),
+                      );
+                    }),
               )
             ],
           ),

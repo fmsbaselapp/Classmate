@@ -27,6 +27,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _showSafeButton = false;
   bool _isPop = false;
   bool _isFuerAlle = true;
+  bool _transparent = true;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -40,11 +41,11 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool get isFachSelected => _isFachSelected;
   bool get isPop => _isPop;
   bool get isFuerAlle => _isFuerAlle;
-
+  bool get transparent => _transparent;
   bool get showSafeButton => _showSafeButton;
 
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
-  ScrollController get scrollController => _scrollController;
+  get scrollController => _scrollController;
 
   //On List Faecher Stream data
   @override
@@ -58,7 +59,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _hasClosedSheet = false;
     _isFachSelected = false;
     _isAuswahlExpanded = false;
-
+    _transparent = false;
+    print('transparent' + _transparent.toString());
     _isPop = false;
   }
 
@@ -141,7 +143,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     showSafeButtonChange(false);
     //für SafeButton
     _isPop = true;
-
+    _transparent = true;
+    print('transparent' + _transparent.toString());
     notifyListeners();
     _navigationService.back();
   }

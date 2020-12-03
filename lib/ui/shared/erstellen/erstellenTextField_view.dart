@@ -14,7 +14,7 @@ class ErstellenTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(
         disposeViewModel: false,
-        //initialiseSpecialViewModelsOnce: true,
+        initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) =>
             ErstellenTextFieldHookWidget(title: title),
         viewModelBuilder: () => locator<ErstellenViewModel>());
@@ -35,7 +35,7 @@ class ErstellenTextFieldHookWidget
 
   @override
   Widget buildViewModelWidget(BuildContext context, ErstellenViewModel model) {
-    print('Build TextField $title');
+    //print('Build TextField $title');
     var text = useTextEditingController();
     return TextField(
       //TODO: autofillHints: ,

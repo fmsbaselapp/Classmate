@@ -26,7 +26,7 @@ dependencies:
   
   #theme/ui
   stacked_themes: ^0.2.2+1
-  date_picker_timeline: ^1.2.1
+  sliding_sheet: ^0.4.1
   #firebase
   firebase_core: "^0.5.0+1"
   cloud_firestore: ^0.14.2
