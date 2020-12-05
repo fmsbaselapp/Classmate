@@ -27,7 +27,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _showSafeButton = false;
   bool _isPop = false;
   bool _isFuerAlle = true;
-  bool _transparent = true;
+  bool _dissmissSheet = true;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -36,16 +36,16 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
 
   List<Fach> get faecher => data;
   Fach get selectedFach => _fachSelected;
-
+  bool get dismissSheet => _dissmissSheet;
   bool get isExpanded => _isAuswahlExpanded;
   bool get isFachSelected => _isFachSelected;
   bool get isPop => _isPop;
   bool get isFuerAlle => _isFuerAlle;
-  bool get transparent => _transparent;
+
   bool get showSafeButton => _showSafeButton;
 
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
-  get scrollController => _scrollController;
+  ScrollController get scrollController => _scrollController;
 
   //On List Faecher Stream data
   @override
@@ -54,13 +54,13 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     super.onData(data);
   }
 
-  void initialize() {
+  void initialize(bool neu) {
     _showSafeButton = false;
     _hasClosedSheet = false;
     _isFachSelected = false;
     _isAuswahlExpanded = false;
-    _transparent = false;
-    print('transparent' + _transparent.toString());
+    _dissmissSheet = true;
+
     _isPop = false;
   }
 
@@ -75,6 +75,15 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
       _hasClosedSheet = true;
       exit();
 
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+//TODO: DONT DISMISS
+  bool dismissSheetChange() {
+    if (_dissmissSheet) {
       return true;
     } else {
       return false;
@@ -97,9 +106,9 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   void showSafeButtonChange(bool show) {
     if (show) {
       _showSafeButton = true;
+      notifyListeners();
     } else
       _showSafeButton = false;
-
     notifyListeners();
   }
 
@@ -108,6 +117,12 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _title = value;
 
     notifyListeners();
+    /*  if (value == "") {
+      _
+    } else {
+     
+    } */
+
     showSafeButtonChange(true);
   }
 
@@ -143,8 +158,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     showSafeButtonChange(false);
     //für SafeButton
     _isPop = true;
-    _transparent = true;
-    print('transparent' + _transparent.toString());
+
     notifyListeners();
     _navigationService.back();
   }

@@ -11,6 +11,9 @@ abstract class ThirdPartyServicesModule {
   DialogService get dialogService;
 
   @lazySingleton
+  BottomSheetService get bottomSheetService;
+
+  @lazySingleton
   AuthenticationService get authenticationService;
 
   @lazySingleton

@@ -37,6 +37,8 @@ GetIt $initGetIt(
       () => thirdPartyServicesModule.aufgabenService);
   gh.lazySingleton<AuthenticationService>(
       () => thirdPartyServicesModule.authenticationService);
+  gh.lazySingleton<BottomSheetService>(
+      () => thirdPartyServicesModule.bottomSheetService);
   gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
   gh.lazySingleton<FaecherService<dynamic>>(
       () => thirdPartyServicesModule.faecherService);
@@ -72,6 +74,8 @@ class _$ThirdPartyServicesModule extends ThirdPartyServicesModule {
   AufgabenService<dynamic> get aufgabenService => AufgabenService();
   @override
   AuthenticationService get authenticationService => AuthenticationService();
+  @override
+  BottomSheetService get bottomSheetService => BottomSheetService();
   @override
   DialogService get dialogService => DialogService();
   @override

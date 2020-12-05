@@ -1,4 +1,5 @@
 import 'package:Classmate/models/models.dart';
+import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
@@ -6,6 +7,7 @@ import 'package:Classmate/ui/views/home/aufgabenHome_view.dart';
 import 'package:Classmate/ui/views/home/infosHome_view.dart';
 import 'package:Classmate/ui/views/views.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class HomeContainer extends StatelessWidget {
   HomeContainer({
@@ -58,10 +60,49 @@ class HomeContainer extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(right: 5),
                 child: RoundButton(
-                    icon: CustomIcons.add,
-                    iconSize: 15,
-                    onPressed: () {
-                      Navigator.of(context).push(
+                  icon: CustomIcons.add,
+                  iconSize: 15,
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      barrierColor: Colors.black.withOpacity(0.5),
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      //backgroundColor: Colors.transparent,
+                      builder: (context) => GestureDetector(
+                        onVerticalDragStart: (_) {},
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {},
+                        child: ErstellenView(
+                          neu: true,
+                          color: Colors.green,
+                          colorTitle: TextStyle(color: Colors.green),
+                        ),
+                      ),
+                    );
+
+/* ErstellenView(
+                          neu: true,
+                          color: Colors.green,
+                          colorTitle: TextStyle(color: Colors.green),
+                        ), */
+
+                    //==========================
+
+                    /*  final builders = {
+                      BottomSheetType.ScrollableList:
+                          (context, sheetRequest, completer) =>
+                              _FloatingBoxBottomSheet(
+                                  request: sheetRequest, completer: completer)
+                    };
+
+                    bottomSheetService.setCustomSheetBuilders(builders);
+
+                    bottomSheetService.showCustomSheet(
+                      variant: BottomSheetType.ScrollableList,
+                    ); */
+
+                    /*  Navigator.of(context).push(
                         PageRouteBuilder(
                           opaque: false,
                           barrierColor: Colors.black.withOpacity(0.5),
@@ -74,26 +115,69 @@ class HomeContainer extends StatelessWidget {
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) {
                             return ErstellenView(
+                              neu: true,
                               color: Colors.green,
                               colorTitle: TextStyle(color: Colors.green),
-                              heroButtonRight: '',
-                              heroContainer: '',
-                              heroDetails: '',
-                              heroPage: '',
-                              heroPop: '',
-                              heroTitle: '',
-                              type: null,
-                            );
-                          },
-                        ),
-                      );
-                    }),
-              )
+                            ); */
+                  },
+                ),
+              ),
             ],
           ),
           if (title == 'Infos') InfosHomeView(),
           if (title == 'Aufgaben') AufgabenHomeView(),
           if (title == 'Tests') TestsHomeView(),
+        ],
+      ),
+    );
+  }
+}
+
+class _FloatingBoxBottomSheet extends StatelessWidget {
+  final SheetRequest request;
+  final Function(SheetResponse) completer;
+  const _FloatingBoxBottomSheet({
+    Key key,
+    this.request,
+    this.completer,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      builder: (context, scrollController) => ListView(
+        controller: scrollController,
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        //shrinkWrap: true,
+        children: [
+          Container(
+            color: Colors.red,
+            height: 50,
+          ),
+          Container(
+            color: Colors.green,
+            height: 50,
+          ),
+          Container(
+            color: Colors.red,
+            height: 50,
+          ),
+          Container(
+            color: Colors.blue,
+            height: 50,
+          ),
+          Container(
+            color: Colors.red,
+            height: 300,
+          ),
+          Container(
+            color: Colors.yellow,
+            height: 300,
+          ),
+          Container(
+            color: Colors.green,
+            height: 300,
+          )
         ],
       ),
     );

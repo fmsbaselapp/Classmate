@@ -19,6 +19,7 @@ class ContentPanelViewModel extends BaseViewModel {
         pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return ErstellenView(
+            neu: false,
             colorTitle: colorTitle,
             color: color,
             type: type,
