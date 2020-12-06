@@ -27,7 +27,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _showSafeButton = false;
   bool _isPop = false;
   bool _isFuerAlle = true;
-  bool _dissmissSheet = true;
+  // bool _dissmissSheet = true;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -36,7 +36,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
 
   List<Fach> get faecher => data;
   Fach get selectedFach => _fachSelected;
-  bool get dismissSheet => _dissmissSheet;
+  // bool get dismissSheet => _dissmissSheet;
   bool get isExpanded => _isAuswahlExpanded;
   bool get isFachSelected => _isFachSelected;
   bool get isPop => _isPop;
@@ -59,10 +59,15 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _hasClosedSheet = false;
     _isFachSelected = false;
     _isAuswahlExpanded = false;
-    _dissmissSheet = true;
 
     _isPop = false;
+    //initializeSheet(neu);
   }
+
+  /*  initializeSheet(bool neu) {
+    // _dissmissSheet = false;
+    notifyListeners();
+  } */
 
   fuerAlleChange() {
     _isFuerAlle = !_isFuerAlle;
@@ -81,14 +86,15 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     }
   }
 
-//TODO: DONT DISMISS
-  bool dismissSheetChange() {
-    if (_dissmissSheet) {
-      return true;
-    } else {
-      return false;
+  /* void dismissSheetChange(bool changeTo) {
+    if (changeTo == false) {
+      _dissmissSheet = false;
+      notifyListeners();
+    } else if (changeTo == false) {
+      _dissmissSheet = false;
+      notifyListeners();
     }
-  }
+  } */
 
   void faecherAuswahlController() {
     _isAuswahlExpanded = !_isAuswahlExpanded;
@@ -117,10 +123,10 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _title = value;
 
     notifyListeners();
-    /*  if (value == "") {
-      _
+    /*  if (value == "h") {
+      dismissSheetChange(false);
     } else {
-     
+      dismissSheetChange(true);
     } */
 
     showSafeButtonChange(true);

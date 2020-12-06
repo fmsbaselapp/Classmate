@@ -1,5 +1,4 @@
 import 'package:Classmate/models/models.dart';
-import 'package:Classmate/services/services.dart';
 import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/erstellen/erstellen_view.dart';
@@ -18,6 +17,38 @@ class HomeContainer extends StatelessWidget {
 
   final Aufgabe aufgabe;
   final String title;
+
+  bool isInfo(title) {
+    if (title == 'Infos') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Color getColor(String title, BuildContext context) {
+    if (title == 'Tests') {
+      return Color.fromRGBO(210, 48, 47, 1);
+    } else if (title == 'Aufgaben') {
+      return Color.fromRGBO(24, 118, 210, 1);
+    } else {
+      return Theme.of(context).highlightColor;
+    }
+  }
+
+  String getTitle(String title) {
+    if (title == 'Aufgaben') {
+      return 'Neue Aufgabe';
+    }
+    if (title == 'Tests') {
+      return 'Neuer Test';
+    }
+    if (title == 'Infos') {
+      return 'Neue Info';
+    } else {
+      return 'Fehler';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +105,13 @@ class HomeContainer extends StatelessWidget {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {},
                         child: ErstellenView(
+                          title: getTitle(title),
                           neu: true,
-                          color: Colors.green,
-                          colorTitle: TextStyle(color: Colors.green),
+                          color: getColor(title, context),
+                          colorTitle: isInfo(title)
+                              ? Theme.of(context).textTheme.headline2.copyWith(
+                                  color: Color.fromRGBO(252, 192, 45, 1))
+                              : Theme.of(context).textTheme.headline2,
                         ),
                       ),
                     );

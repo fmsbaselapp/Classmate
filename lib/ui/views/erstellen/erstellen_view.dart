@@ -19,6 +19,7 @@ class ErstellenView extends StatelessWidget {
     this.heroDetails,
     this.heroButtonRight,
     @required this.neu,
+    this.title,
     Key key,
   }) : super(key: key);
 
@@ -32,6 +33,7 @@ class ErstellenView extends StatelessWidget {
   final String heroPop;
   final String heroDetails;
   final String heroButtonRight;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,9 @@ class ErstellenView extends StatelessWidget {
                           ? _ContentErstellenView(
                               neu: neu,
                               type: type,
-                              scrollController: scrollController)
+                              scrollController: scrollController,
+                              title: title,
+                            )
                           : Hero(
                               tag: heroPage,
                               flightShuttleBuilder: (flightContext,
@@ -82,9 +86,10 @@ class ErstellenView extends StatelessWidget {
                                 );
                               },
                               child: _ContentErstellenView(
-                                  neu: neu,
-                                  type: type,
-                                  scrollController: scrollController),
+                                neu: neu,
+                                type: type,
+                                scrollController: scrollController,
+                              ),
                             ),
                       CustomScrollView(
                         physics: NeverScrollableScrollPhysics(),
@@ -101,7 +106,8 @@ class ErstellenView extends StatelessWidget {
                                 heroTitle: heroTitle,
                                 heroPop: heroPop,
                                 heroDetails: heroDetails,
-                                heroButtonRight: heroButtonRight),
+                                heroButtonRight: heroButtonRight,
+                                title: title),
                           ),
                         ],
                       ),
@@ -122,11 +128,13 @@ class _ContentErstellenView extends StatelessWidget {
     @required this.neu,
     @required this.type,
     @required this.scrollController,
+    this.title,
   }) : super(key: key);
 
   final bool neu;
-  final type;
+  final dynamic type;
   final ScrollController scrollController;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -160,9 +168,8 @@ class _ContentErstellenView extends StatelessWidget {
                         shrinkWrap: false,
                         physics: BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
-                        controller: model.dismissSheetChange()
-                            ? scrollController
-                            : null,
+                        controller: scrollController,
+                        // model.dismissSheet ? scrollController : null,
                         slivers: [
                           SliverPadding(
                             padding: EdgeInsets.only(
@@ -173,7 +180,10 @@ class _ContentErstellenView extends StatelessWidget {
                                   SizedBox(
                                     height: 30,
                                   ),
-                                  ErstellenTextField(title: true),
+                                  ErstellenTextField(
+                                      title: true,
+                                      initialText:
+                                          title == null ? type.titel : title),
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -200,13 +210,6 @@ class _ContentErstellenView extends StatelessWidget {
                                       ? ContainerWidget(
                                           child: ErstellenDelete(type: type))
                                       : Wrap(),
-                                  FlatButton(
-                                      onPressed: () {
-                                        print(model.dismissSheet);
-                                        model.dismissSheetChange();
-                                        print(model.dismissSheet);
-                                      },
-                                      child: Text('hei'))
                                 ],
                               ),
                             ),

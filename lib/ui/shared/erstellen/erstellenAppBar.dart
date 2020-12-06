@@ -16,6 +16,7 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
       this.heroButtonRight,
       this.type,
       this.neu,
+      this.title,
       Key key});
 
   final Color color;
@@ -27,6 +28,7 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
   final String heroButtonRight;
   final bool neu;
   final dynamic type;
+  final String title;
 
   double scrollAnimationValue(double shrinkOffset) {
     double maxScrollAllowed = maxExtent - minExtent;
@@ -58,7 +60,12 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
                 ),
           //PopButton
           neu
-              ? Positioned(left: 15, child: ErstellenPopButton())
+              ? Positioned(
+                  left: 15,
+                  child: Container(
+                      height: 70,
+                      alignment: Alignment.centerLeft,
+                      child: ErstellenPopButton()))
               : Positioned(
                   left: 15,
                   child: Container(
@@ -92,6 +99,7 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
             type: type,
             neu: neu,
             colorTitle: colorTitle,
+            title: title,
           ),
 
           //Hero Details der Aufgabe (fadetOut)
@@ -233,12 +241,14 @@ class _AppBarContainer extends StatelessWidget {
 class ErstellenAppBarTitle extends ViewModelWidget<ErstellenViewModel> {
   const ErstellenAppBarTitle({
     Key key,
+    this.title,
     @required this.heroTitle,
     @required this.type,
     @required this.colorTitle,
     @required this.neu,
   }) : super(key: key);
 
+  final String title;
   final bool neu;
   final String heroTitle;
   final dynamic type;
@@ -251,7 +261,12 @@ class ErstellenAppBarTitle extends ViewModelWidget<ErstellenViewModel> {
       right: model.showSafeButton | model.isPop ? 100 : 20,
       top: 21,
       child: neu
-          ? _Title(neu: neu, type: type, colorTitle: colorTitle)
+          ? _Title(
+              neu: neu,
+              type: type,
+              colorTitle: colorTitle,
+              title: title,
+            )
           : Hero(
               tag: heroTitle,
               child: _Title(neu: neu, type: type, colorTitle: colorTitle),
@@ -263,11 +278,13 @@ class ErstellenAppBarTitle extends ViewModelWidget<ErstellenViewModel> {
 class _Title extends StatelessWidget {
   const _Title({
     Key key,
+    this.title,
     @required this.neu,
     @required this.type,
     @required this.colorTitle,
   }) : super(key: key);
 
+  final String title;
   final bool neu;
   final type;
   final TextStyle colorTitle;
@@ -275,7 +292,7 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      neu ? 'Aufgabe' : type.titel,
+      neu ? title : type.titel,
       style: colorTitle,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
