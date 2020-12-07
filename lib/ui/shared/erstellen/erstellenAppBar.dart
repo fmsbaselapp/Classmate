@@ -190,7 +190,11 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
             child: Container(
               height: 70,
               alignment: Alignment.centerRight,
-              child: ErstellenSafeButton(),
+              child: ErstellenSafeButton(
+                title: title,
+                neu: neu,
+                type: type,
+              ),
             ),
           ),
         ],
@@ -302,7 +306,14 @@ class _Title extends StatelessWidget {
 }
 
 class ErstellenSafeButton extends ViewModelWidget<ErstellenViewModel> {
-  const ErstellenSafeButton({Key key}) : super(key: key);
+  const ErstellenSafeButton(
+      {@required this.title, @required this.neu, @required this.type, Key key})
+      : super(key: key);
+
+  final String title;
+  final bool neu;
+
+  final dynamic type;
 
   @override
   Widget build(
@@ -313,7 +324,13 @@ class ErstellenSafeButton extends ViewModelWidget<ErstellenViewModel> {
       duration: Duration(milliseconds: model.isPop ? 10 : 300),
       opacity: model.showSafeButton ? 1.0 : 0.0,
       child: TextButtonCustom(
-        onPressed: model.save,
+        onPressed: () {
+          model.save(
+            title,
+            type,
+            neu,
+          );
+        },
         text: 'Speichern',
       ),
     );

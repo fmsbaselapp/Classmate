@@ -32,12 +32,31 @@ class InfosService<T> {
         'fachID': info.fachID,
         'datum': info.datum,
         'users': [auth.currentUser.uid],
+        'notiz': info.notiz,
+      },
+    );
+  }
+
+  //Set
+  Future<void> updateInfo(Info info) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    return _db.collection('Infos').doc(info.docRef).update(
+      {
+        'titel': info.titel,
+        'fachName': info.fachName,
+        'fachFarbe': info.fachFarbe,
+        'fachIcon': info.fachIcon,
+        'fachID': info.fachID,
+        'datum': info.datum,
+        'users': [auth.currentUser.uid],
+        'notiz': info.notiz,
       },
     );
   }
 
   //Delete
-  Future<void> deleteAufgabe(type) async {
+  Future<void> deleteInfo(type) async {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
 
     return _db.collection('Infos').doc(type.docRef).delete();

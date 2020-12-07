@@ -9,6 +9,7 @@ class Aufgabe {
   final DateTime datum;
   final String typeName;
   final String docRef;
+  final String notiz;
 
   Aufgabe(
       {this.titel,
@@ -18,7 +19,8 @@ class Aufgabe {
       this.fachID,
       this.datum,
       this.typeName,
-      this.docRef});
+      this.docRef,
+      this.notiz});
 
   factory Aufgabe.fromJSON(String id, Map<String, dynamic> data) {
     return Aufgabe(
@@ -29,6 +31,7 @@ class Aufgabe {
         fachID: data['fachID'] ?? '',
         typeName: 'Aufgabe',
         docRef: id,
+        notiz: (data['notiz'] ?? ''),
         datum: (data['datum'] as Timestamp ?? Timestamp(0, 0)).toDate());
   }
 }

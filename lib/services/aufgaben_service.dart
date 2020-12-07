@@ -33,6 +33,25 @@ class AufgabenService<T> {
         'fachID': aufgabe.fachID,
         'datum': aufgabe.datum,
         'users': [auth.currentUser.uid],
+        'notiz': aufgabe.notiz,
+      },
+    );
+  }
+
+  //Set
+  Future<void> updateAufgabe(Aufgabe aufgabe) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    return _db.collection('Aufgaben').doc(aufgabe.docRef).update(
+      {
+        'titel': aufgabe.titel,
+        'fachName': aufgabe.fachName,
+        'fachFarbe': aufgabe.fachFarbe,
+        'fachIcon': aufgabe.fachIcon,
+        'fachID': aufgabe.fachID,
+        'datum': aufgabe.datum,
+        'users': [auth.currentUser.uid],
+        'notiz': aufgabe.notiz,
       },
     );
   }

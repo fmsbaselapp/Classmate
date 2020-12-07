@@ -21,7 +21,7 @@ class TestsHomeView extends StatelessWidget {
                 itemCount: model.tests.length,
                 separatorBuilder: (BuildContext context, int index) {
                   return const SizedBox(
-                    width: 15,
+                    height: 15,
                   );
                 },
                 itemBuilder: (BuildContext context, int index) {

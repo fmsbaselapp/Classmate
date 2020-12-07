@@ -6,9 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 
 class ErstellenTextField extends StatelessWidget {
-  const ErstellenTextField({@required this.title, this.initialText, Key key})
-      : super(key: key);
-  final String initialText;
+  const ErstellenTextField({@required this.title, Key key}) : super(key: key);
   final bool title;
 
   @override
@@ -18,7 +16,6 @@ class ErstellenTextField extends StatelessWidget {
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => ErstellenTextFieldHookWidget(
               title: title,
-              inititalText: initialText,
             ),
         viewModelBuilder: () => locator<ErstellenViewModel>());
   }
@@ -42,12 +39,13 @@ class ErstellenTextFieldHookWidget
   Widget buildViewModelWidget(BuildContext context, ErstellenViewModel model) {
     //print('Build TextField $title');
 
-    var text = useTextEditingController(text: inititalText);
+    var text = useTextEditingController(
+        text: title ? model.initialTitle : model.initialNotiz);
 
     return TextField(
       //TODO: autofillHints: ,
 
-      onChanged: model.updateTitle,
+      onChanged: title ? model.updateTitle : model.updateNotiz,
 
       controller: text,
       keyboardType: TextInputType.text,

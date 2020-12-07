@@ -37,12 +37,17 @@ class ErstellenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String initialTitle = title == null ? type.titel : title;
     print('Build: ErstellenView');
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(
         disposeViewModel: false,
-        //initialiseSpecialViewModelsOnce: true,
+        initialiseSpecialViewModelsOnce: true,
+        onModelReady: (model) => model.initialize(
+              neu,
+              type,
+              initialTitle,
+            ),
         builder: (context, model, child) {
-          model.initialize(neu);
           model.faecherAuswahlShow();
 
           // backgroundColor: Theme.of(context).accentColor,
@@ -134,6 +139,7 @@ class _ContentErstellenView extends StatelessWidget {
   final bool neu;
   final dynamic type;
   final ScrollController scrollController;
+
   final String title;
 
   @override
@@ -168,8 +174,8 @@ class _ContentErstellenView extends StatelessWidget {
                         shrinkWrap: false,
                         physics: BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
-                        controller: scrollController,
-                        // model.dismissSheet ? scrollController : null,
+                        controller: //scrollController,
+                            model.dismissSheet ? scrollController : null,
                         slivers: [
                           SliverPadding(
                             padding: EdgeInsets.only(
@@ -181,9 +187,8 @@ class _ContentErstellenView extends StatelessWidget {
                                     height: 30,
                                   ),
                                   ErstellenTextField(
-                                      title: true,
-                                      initialText:
-                                          title == null ? type.titel : title),
+                                    title: true,
+                                  ),
                                   SizedBox(
                                     height: 20,
                                   ),

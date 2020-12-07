@@ -31,6 +31,27 @@ class TestsService<T> {
         'fachIcon': test.fachIcon,
         'fachID': test.fachID,
         'datum': test.datum,
+        'notiz': test.notiz,
+
+        //gewichtung
+        'users': [auth.currentUser.uid],
+      },
+    );
+  }
+
+  //Update
+  Future<void> updateTest(Test test) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    return _db.collection('Tests').doc(test.docRef).update(
+      {
+        'titel': test.titel,
+        'fachName': test.fachName,
+        'fachFarbe': test.fachFarbe,
+        'fachIcon': test.fachIcon,
+        'fachID': test.fachID,
+        'datum': test.datum,
+        'notiz': test.notiz,
 
         //gewichtung
         'users': [auth.currentUser.uid],
@@ -39,7 +60,7 @@ class TestsService<T> {
   }
 
   //Delete
-  Future<void> deleteAufgabe(type) async {
+  Future<void> deleteTest(type) async {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
 
     return _db.collection('Tests').doc(type.docRef).delete();
