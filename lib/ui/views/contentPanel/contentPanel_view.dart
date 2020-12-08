@@ -3,9 +3,13 @@ import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/viewmodels.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class ContentPanelView extends StatelessWidget {
+  DateFormat dateFormat = DateFormat(
+    "dd. MMM",
+  );
   ContentPanelView({
     this.content,
     this.isAufgabe,
@@ -67,12 +71,12 @@ class ContentPanelView extends StatelessWidget {
                   children: [
                     //DetailPageHero
 
-                    PageStackHero(index: index, titel: type.titel),
+                    PageStackHero(index: index, type: type),
 
                     //ContainerAufgabe
                     Positioned.fill(
                       child: Hero(
-                        tag: 'Container' + index.toString() + type.titel,
+                        tag: 'Container' + index.toString() + type.docRef,
                         child: Container(
                           height:
                               65 * MediaQuery.textScaleFactorOf(context) * 0.85,
@@ -95,7 +99,7 @@ class ContentPanelView extends StatelessWidget {
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Hero(
-                              tag: 'Pop' + index.toString() + type.titel,
+                              tag: 'Pop' + index.toString() + type.docRef,
                               flightShuttleBuilder: (flightContext,
                                   animation,
                                   flightDirection,
@@ -128,7 +132,7 @@ class ContentPanelView extends StatelessWidget {
                             Positioned.fill(
                               top: 9,
                               child: Hero(
-                                tag: 'Title' + index.toString() + type.titel,
+                                tag: 'Title' + index.toString() + type.docRef,
                                 child: Text(
                                   type.titel,
                                   style: colorTitle,
@@ -144,8 +148,9 @@ class ContentPanelView extends StatelessWidget {
                               child: Container(
                                 padding: EdgeInsets.only(top: 29),
                                 child: Hero(
-                                  tag:
-                                      'Details' + index.toString() + type.titel,
+                                  tag: 'Details' +
+                                      index.toString() +
+                                      type.docRef,
                                   flightShuttleBuilder: (flightContext,
                                       animation,
                                       flightDirection,
@@ -184,10 +189,7 @@ class ContentPanelView extends StatelessWidget {
                                         Text(
                                           type.fachName +
                                               ' | ' +
-                                              type.datum.weekday.toString() +
-                                              ',' +
-                                              type.datum.day.toString() +
-                                              type.datum.month.toString(),
+                                              dateFormat.format(type.datum),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -202,35 +204,43 @@ class ContentPanelView extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    //AufgabeButton
-                    Positioned.fill(
-                      right: 15,
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: Hero(
-                          tag: 'ButtonRight' + index.toString() + type.titel,
-                          flightShuttleBuilder: (flightContext, animation,
-                              flightDirection, fromHeroContext, toHeroContext) {
-                            final Hero toHero = toHeroContext.widget;
-                            return FadeTransition(
-                              opacity: animation.drive(
-                                Tween<double>(begin: 1.0, end: 0.0).chain(
-                                  CurveTween(
-                                    curve: Interval(
-                                      0.0,
-                                      0.2,
+                    isAufgabe
+                        ?
+                        //AufgabeButton
+                        Positioned.fill(
+                            right: 15,
+                            child: Container(
+                              alignment: Alignment.centerRight,
+                              child: Hero(
+                                tag: 'ButtonRight' +
+                                    index.toString() +
+                                    type.docRef,
+                                flightShuttleBuilder: (flightContext,
+                                    animation,
+                                    flightDirection,
+                                    fromHeroContext,
+                                    toHeroContext) {
+                                  final Hero toHero = toHeroContext.widget;
+                                  return FadeTransition(
+                                    opacity: animation.drive(
+                                      Tween<double>(begin: 1.0, end: 0.0).chain(
+                                        CurveTween(
+                                          curve: Interval(
+                                            0.0,
+                                            0.2,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                    child: toHero.child,
+                                  );
+                                },
+                                child: Opacity(
+                                    opacity: 1.0, child: AufgabeButton()),
                               ),
-                              child: toHero.child,
-                            );
-                          },
-                          child: Opacity(opacity: 1.0, child: AufgabeButton()),
-                        ),
-                      ),
-                    ),
+                            ),
+                          )
+                        : Wrap()
                   ],
                 ),
               ],
@@ -245,16 +255,16 @@ class PageStackHero extends StatelessWidget {
   const PageStackHero({
     Key key,
     @required this.index,
-    @required this.titel,
+    @required this.type,
   }) : super(key: key);
 
   final int index;
-  final String titel;
+  final dynamic type;
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: 'Page' + index.toString() + titel,
+      tag: 'Page' + index.toString() + type.docRef,
       flightShuttleBuilder: (flightContext, animation, flightDirection,
           fromHeroContext, toHeroContext) {
         final Hero toHero = fromHeroContext.widget;

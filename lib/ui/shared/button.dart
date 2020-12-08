@@ -64,14 +64,17 @@ class TextButtonCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
+      height: 35,
       child: RawMaterialButton(
         fillColor: Theme.of(context).indicatorColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodyText1,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
         ),
       ),
     );

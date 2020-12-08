@@ -21,6 +21,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   final TestsService _testsService = locator<TestsService>();
   final DialogService _dialogService = locator<DialogService>();
 
+  dynamic _type;
+  bool _neu;
   String _initialTitle;
   String _initialNotiz;
   Fach _initialFach;
@@ -33,6 +35,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _isFuerAlle = true;
   bool _dissmissSheet = true;
   bool _edited = false;
+  String _heroTitleText;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -49,6 +52,8 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool get showSafeButton => _showSafeButton;
   String get initialTitle => _initialTitle;
   String get initialNotiz => _initialNotiz;
+  bool get neu => _neu;
+  String get heroTitleText => _heroTitleText;
 
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
 
@@ -71,20 +76,23 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _edited = false;
     _initialNotiz = !neu ? type.notiz : '';
     _dissmissSheet = true;
-    fachSelectInitialize(neu, type);
+    _type = type;
+    _neu = neu;
+    _heroTitleText = type.titel;
+    fachSelectInitialize();
     //initializeSheet(neu);
   }
 
-  void fachSelectInitialize(bool neu, dynamic type) {
-    if (neu) {
+  void fachSelectInitialize() {
+    if (_neu) {
       _isFachSelected = false;
     } else {
       Fach fach = Fach(
           //TODO: Aufgabe hat nicht alle Infos des Fachs sondern nur name, farbe und info
           //muss das entsprechende Fach mithilfe der id anfragen, wenn die aufgabe geöffnet wird?
-          name: type.fachName,
-          farbe: type.fachFarbe,
-          icon: type.fachIcon);
+          name: _type.fachName,
+          farbe: _type.fachFarbe,
+          icon: _type.fachIcon);
       _initialFach = fach;
       fachSelect(fach);
     }
@@ -107,6 +115,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
       dismissSheetChange(true);
     } */
     if (value != _initialTitle) {
+      _heroTitleText = value;
       edited(true);
     } else {
       edited(false);
@@ -153,7 +162,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     if (sheet.extent == 0.85 && _hasClosedSheet == false) {
       _hasClosedSheet = true;
 
-      exit();
+      exit(true);
 
       return true;
     } else {
@@ -202,34 +211,53 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
 //=======ERSTELLEN=====================================================================================
 
 //Daten in der Datenbank sichern
-  void save(String title, dynamic type, bool neu) {
-    if (neu) {
+  void save(
+    String title,
+    bool shouldExit,
+  ) {
+    if (_neu) {
       if (title == 'Neue Info') {
-        saveInfo(false, type);
+        saveInfo(
+          false,
+        );
       }
       if (title == 'Neue Aufgabe') {
-        saveAufgabe(false, type);
+        saveAufgabe(
+          false,
+        );
       }
       if (title == 'Neuer Test') {
-        saveTest(false, type);
+        saveTest(
+          false,
+        );
       }
     } else {
-      if (type.typeName == 'Info') {
-        saveInfo(true, type);
+      if (_type.typeName == 'Info') {
+        saveInfo(
+          true,
+        );
       }
-      if (type.typeName == 'Aufgabe') {
-        saveAufgabe(true, type);
+      if (_type.typeName == 'Aufgabe') {
+        saveAufgabe(
+          true,
+        );
       }
-      if (type.typeName == 'Test') {
-        saveTest(true, type);
+      if (_type.typeName == 'Test') {
+        saveTest(
+          true,
+        );
       }
     }
 
     //TODO else Error
-    exit();
+    if (shouldExit) {
+      exit(true);
+    }
   }
 
-  void saveAufgabe(bool update, dynamic type) {
+  void saveAufgabe(
+    bool update,
+  ) {
     print(_title + ' - ' + _fachSelected.name + ' - ');
 
     Aufgabe aufgabe = Aufgabe(
@@ -239,7 +267,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
         fachName: _fachSelected.name,
         fachFarbe: _fachSelected.farbe,
         fachIcon: _fachSelected.icon,
-        docRef: update ? type.docRef : null);
+        docRef: update ? _type.docRef : null);
 
     if (update) {
       _aufgabenService.updateAufgabe(aufgabe);
@@ -248,7 +276,9 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     }
   }
 
-  void saveTest(bool update, dynamic type) {
+  void saveTest(
+    bool update,
+  ) {
     print(_title + ' - ' + _fachSelected.name + ' - ');
 
     Test test = Test(
@@ -258,7 +288,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
         fachName: _fachSelected.name,
         fachFarbe: _fachSelected.farbe,
         fachIcon: _fachSelected.icon,
-        docRef: update ? type.docRef : null);
+        docRef: update ? _type.docRef : null);
 
     if (update) {
       _testsService.updateTest(test);
@@ -267,7 +297,9 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     }
   }
 
-  void saveInfo(bool update, dynamic type) {
+  void saveInfo(
+    bool update,
+  ) {
     print(_title +
         ' - ' +
         _fachSelected.name +
@@ -281,7 +313,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
         fachName: _fachSelected.name,
         fachFarbe: _fachSelected.farbe,
         fachIcon: _fachSelected.icon,
-        docRef: update ? type.docRef : null);
+        docRef: update ? _type.docRef : null);
 
     if (update) {
       _infosService.updateInfo(info);
@@ -290,19 +322,19 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     }
   }
 
-  void delete(type) {
-    switch (type.typeName) {
+  void delete() {
+    switch (_type.typeName) {
       case 'Info':
-        _infosService.deleteInfo(type);
-        return exit();
+        _infosService.deleteInfo(_type);
+        return exit(false);
 
       case 'Aufgabe':
-        _aufgabenService.deleteAufgabe(type);
-        return exit();
+        _aufgabenService.deleteAufgabe(_type);
+        return exit(false);
 
       case 'Test':
-        _testsService.deleteTest(type);
-        return exit();
+        _testsService.deleteTest(_type);
+        return exit(false);
         break;
       default:
     }
@@ -312,10 +344,10 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
 
   //=======Exit=====================================================================================
 
-  void exit() async {
+  void exit(bool speichern) async {
     //edited(false);
 
-    if (_edited) {
+    if (_edited && !speichern) {
       print('hellou');
       FocusManager.instance.primaryFocus.unfocus();
       Future.delayed(Duration(milliseconds: 100)).then((value) async {
@@ -327,7 +359,10 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
           buttonTitle: 'Speichern',
         );
         if (response.confirmed) {
-          // save();
+          save('', false);
+          _isPop = true;
+          notifyListeners();
+          _navigationService.back();
         } else {
           _isPop = true;
           notifyListeners();

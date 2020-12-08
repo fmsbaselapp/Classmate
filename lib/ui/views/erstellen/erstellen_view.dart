@@ -241,7 +241,7 @@ class ErstellenDelete extends ViewModelBuilderWidget<ErstellenViewModel> {
   Widget builder(BuildContext context, ErstellenViewModel model, Widget child) {
     return GestureDetector(
       onTap: () {
-        model.delete(type);
+        model.delete();
       },
       child: Container(
         color: Colors.transparent,

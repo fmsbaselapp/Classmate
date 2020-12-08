@@ -95,9 +95,9 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
 
           //title
           ErstellenAppBarTitle(
+            neu: neu,
             heroTitle: heroTitle,
             type: type,
-            neu: neu,
             colorTitle: colorTitle,
             title: title,
           ),
@@ -262,18 +262,21 @@ class ErstellenAppBarTitle extends ViewModelWidget<ErstellenViewModel> {
   Widget build(BuildContext context, ErstellenViewModel model) {
     return Positioned.fill(
       left: 60,
-      right: model.showSafeButton | model.isPop ? 100 : 20,
+      right: model.showSafeButton | model.isPop ? 125 : 20,
       top: 21,
       child: neu
           ? _Title(
               neu: neu,
-              type: type,
+              modelText: model.heroTitleText,
               colorTitle: colorTitle,
               title: title,
             )
           : Hero(
               tag: heroTitle,
-              child: _Title(neu: neu, type: type, colorTitle: colorTitle),
+              child: _Title(
+                  neu: neu,
+                  modelText: model.heroTitleText,
+                  colorTitle: colorTitle),
             ),
     );
   }
@@ -284,19 +287,19 @@ class _Title extends StatelessWidget {
     Key key,
     this.title,
     @required this.neu,
-    @required this.type,
+    @required this.modelText,
     @required this.colorTitle,
   }) : super(key: key);
 
   final String title;
   final bool neu;
-  final type;
+  final String modelText;
   final TextStyle colorTitle;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      neu ? title : type.titel,
+      neu ? title : modelText,
       style: colorTitle,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
@@ -327,8 +330,7 @@ class ErstellenSafeButton extends ViewModelWidget<ErstellenViewModel> {
         onPressed: () {
           model.save(
             title,
-            type,
-            neu,
+            true,
           );
         },
         text: 'Speichern',
@@ -351,7 +353,7 @@ class ErstellenPopButton extends StatelessWidget {
           return RoundButton(
             icon: Icons.clear_rounded,
             onPressed: () {
-              model.exit();
+              model.exit(false);
             },
           );
         },
