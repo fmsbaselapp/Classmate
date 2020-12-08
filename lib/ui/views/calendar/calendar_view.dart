@@ -1,4 +1,5 @@
 import 'package:Classmate/app/locator.dart';
+import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/home/home_viewmodel.dart';
 
 import 'package:flutter/material.dart';
@@ -16,9 +17,25 @@ class CalendarView extends StatelessWidget {
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) {
           return Scaffold(
-              body: Center(
-            child: Text('Calender'),
-          ));
+            body: SafeArea(
+              child: CustomScrollView(
+                physics: BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                key: PageStorageKey('Kalendar_Column_Key'),
+                slivers: [
+                  CustomAppBar(
+                    title: 'Kalender',
+                    onPressed: () {},
+                  ),
+                  SliverToBoxAdapter(
+                    child: Center(
+                      child: Text('Kalender'),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
         },
         viewModelBuilder: () => locator<HomeViewModel>());
   }

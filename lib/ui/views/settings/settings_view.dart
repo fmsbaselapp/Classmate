@@ -1,4 +1,5 @@
 import 'package:Classmate/app/locator.dart';
+import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/home/home_viewmodel.dart';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,24 @@ import 'package:stacked/stacked.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key key}) : super(key: key);
+
+  static List<String> titles = [
+    'Aufgaben und Tests',
+    'Ferienmodus',
+    'Klasse',
+    'Schule',
+    'Mitteilungen',
+    'Aussehen',
+    'Übersicht',
+    'Stundenplan',
+    'Noten',
+    'Fächer',
+    'Support',
+    'Kontakt',
+    'Abmelden',
+    'Nutzungsbedingungen',
+    'Datenschutzerklärung',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -15,34 +34,31 @@ class SettingsView extends StatelessWidget {
         // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
-              appBar: AppBar(
-                title: Text('Einstellungen'),
-              ),
               body: SafeArea(
-                child: Padding(
-                    padding: EdgeInsets.only(left: 15, right: 15),
-                    child: ListView(
-                      children: [
-                        SizedBox(
-                          height: 20,
+                child: CustomScrollView(
+                  physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  key: PageStorageKey('Settings_Column_Key'),
+                  slivers: [
+                    CustomAppBar(
+                      title: 'Einstellungen',
+                      onPressed: () {},
+                    ),
+                    SliverPadding(
+                      padding: EdgeInsets.only(left: 15, right: 15, top: 20),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return Padding(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: SettingsButton(test: titles[index]));
+                          },
+                          childCount: 15,
                         ),
-                        SettingsButton(test: 'Aufgaben und Tests'),
-                        SettingsButton(test: 'Ferienmodus'),
-                        SettingsButton(test: 'Klasse'),
-                        SettingsButton(test: 'Schule'),
-                        SettingsButton(test: 'Mitteilungen'),
-                        SettingsButton(test: 'Aussehen'),
-                        SettingsButton(test: 'Übersicht'),
-                        SettingsButton(test: 'Stundenplan'),
-                        SettingsButton(test: 'Noten'),
-                        SettingsButton(test: 'Fächer'),
-                        SettingsButton(test: 'Support'),
-                        SettingsButton(test: 'Kontakt'),
-                        SettingsButton(test: 'Abmelden'),
-                        SettingsButton(test: 'Nutzungsbedingungen'),
-                        SettingsButton(test: 'Datenschutzerklärung'),
-                      ],
-                    )),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
         viewModelBuilder: () => locator<HomeViewModel>());

@@ -1,4 +1,5 @@
 import 'package:Classmate/app/locator.dart';
+import 'package:Classmate/ui/shared/export.dart';
 import 'package:Classmate/ui/views/home/home_viewmodel.dart';
 
 import 'package:flutter/material.dart';
@@ -15,8 +16,23 @@ class NotenView extends StatelessWidget {
         // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
-              body: Center(
-                child: Text('Noten'),
+              body: SafeArea(
+                child: CustomScrollView(
+                  physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  key: PageStorageKey('Noten_Column_Key'),
+                  slivers: [
+                    CustomAppBar(
+                      title: 'Noten',
+                      onPressed: () {},
+                    ),
+                    SliverToBoxAdapter(
+                      child: Center(
+                        child: Text('Noten'),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
         viewModelBuilder: () => locator<HomeViewModel>());

@@ -25,9 +25,9 @@ class UebersichtView extends StatelessWidget {
                       parent: AlwaysScrollableScrollPhysics()),
                   key: PageStorageKey('Home_Column_Key'),
                   slivers: [
-                    SliverPersistentHeader(
-                      //floating: true,
-                      delegate: CustomAppBar(title: 'Übersicht'),
+                    CustomAppBar(
+                      title: 'Übersicht',
+                      onPressed: () {},
                     ),
                     SliverPadding(
                       padding: EdgeInsets.only(top: 20, bottom: 20),
