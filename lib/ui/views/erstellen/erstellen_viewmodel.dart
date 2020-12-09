@@ -10,7 +10,7 @@ import 'package:stacked_services/stacked_services.dart';
 class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   static DateTime _dateTime;
   static Fach _fachSelected;
-  static ScrollController _scrollController;
+
   static String _title;
   static String _notiz;
 
@@ -35,7 +35,6 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   bool _isFuerAlle = true;
   bool _dissmissSheet = true;
   bool _edited = false;
-  String _heroTitleText;
 
   @override
   Stream<List<Fach>> get stream => faecherStream;
@@ -53,7 +52,6 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
   String get initialTitle => _initialTitle;
   String get initialNotiz => _initialNotiz;
   bool get neu => _neu;
-  String get heroTitleText => _heroTitleText;
 
   Stream<List<Fach>> get faecherStream => _faecherService.streamFach();
 
@@ -66,8 +64,13 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
 
 //=======INITIALIZER=====================================================================================
 
-  void initialize(bool neu, dynamic type, String initialTitle) {
-    _initialTitle = initialTitle;
+  void initialize(bool neu, dynamic type, String title) {
+    if (title == null) {
+      _initialTitle = type.titel;
+    } else {
+      _initialTitle = title;
+    }
+
     _showSafeButton = false;
     _hasClosedSheet = false;
     _isAuswahlExpanded = false;
@@ -78,7 +81,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
     _dissmissSheet = true;
     _type = type;
     _neu = neu;
-    _heroTitleText = type.titel;
+
     fachSelectInitialize();
     //initializeSheet(neu);
   }
@@ -115,7 +118,7 @@ class ErstellenViewModel extends StreamViewModel<List<Fach>> {
       dismissSheetChange(true);
     } */
     if (value != _initialTitle) {
-      _heroTitleText = value;
+      _initialTitle = value;
       edited(true);
     } else {
       edited(false);

@@ -267,7 +267,7 @@ class ErstellenAppBarTitle extends ViewModelWidget<ErstellenViewModel> {
       child: neu
           ? _Title(
               neu: neu,
-              modelText: model.heroTitleText,
+              modelText: model.initialTitle,
               colorTitle: colorTitle,
               title: title,
             )
@@ -275,7 +275,7 @@ class ErstellenAppBarTitle extends ViewModelWidget<ErstellenViewModel> {
               tag: heroTitle,
               child: _Title(
                   neu: neu,
-                  modelText: model.heroTitleText,
+                  modelText: model.initialTitle,
                   colorTitle: colorTitle),
             ),
     );

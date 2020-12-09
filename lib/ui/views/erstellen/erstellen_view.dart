@@ -37,7 +37,6 @@ class ErstellenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String initialTitle = title == null ? type.titel : title;
     print('Build: ErstellenView');
     return ViewModelBuilder<ErstellenViewModel>.nonReactive(
         disposeViewModel: false,
@@ -45,7 +44,7 @@ class ErstellenView extends StatelessWidget {
         onModelReady: (model) => model.initialize(
               neu,
               type,
-              initialTitle,
+              title,
             ),
         builder: (context, model, child) {
           model.faecherAuswahlShow();
