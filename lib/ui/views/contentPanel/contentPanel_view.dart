@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class ContentPanelView extends StatelessWidget {
-  DateFormat dateFormat = DateFormat(
+  final DateFormat dateFormat = DateFormat(
     "dd. MMM",
   );
   ContentPanelView({
@@ -181,7 +181,7 @@ class ContentPanelView extends StatelessWidget {
                                         IconFach(
                                           farbe: type.fachFarbe,
                                           icon: type.fachIcon,
-                                          small: true,
+                                          size: 17,
                                         ),
                                         SizedBox(
                                           width: 5,

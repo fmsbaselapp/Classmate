@@ -44,7 +44,7 @@ class FachUI extends StatelessWidget {
                 child: IconFach(
                   icon: icon,
                   farbe: farbe,
-                  small: false,
+                  size: 20,
                 ),
               ),
               Column(
@@ -96,7 +96,11 @@ class FachUIerstellen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: IconFach(icon: icon, farbe: farbe, small: false),
+            child: IconFach(
+              icon: icon,
+              farbe: farbe,
+              size: 30,
+            ),
           ),
           Text(fach, style: Theme.of(context).textTheme.headline2),
         ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class IconFach extends StatelessWidget {
   IconFach({
-    @required this.small,
+    @required this.size,
     @required this.farbe,
     @required this.icon,
     Key key,
@@ -10,7 +10,8 @@ class IconFach extends StatelessWidget {
 
   final String icon;
   final int farbe;
-  final bool small;
+
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +21,26 @@ class IconFach extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Container(
-            width: small ? 17 : 30,
-            height: small ? 17 : 30,
+            width: size,
+            height: size,
             decoration: BoxDecoration(
               color: Color(farbe).withOpacity(0.3),
               shape: BoxShape.circle,
             ),
           ),
           Container(
-            width: small ? 13 : 20,
-            height: small ? 13 : 20,
+            width: size / 1.35,
+            height: size / 1.35,
             decoration: BoxDecoration(
                 color: Color(farbe).withOpacity(1), shape: BoxShape.circle),
-          ),
-          Text(
-            icon ?? '',
-            style: TextStyle(fontSize: small ? 7 : 15),
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                icon ?? '',
+                //   '🤯',
+                style: TextStyle(fontSize: 8),
+              ),
+            ),
           ),
         ],
       ),

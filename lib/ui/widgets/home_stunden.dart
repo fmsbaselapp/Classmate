@@ -45,7 +45,7 @@ class HomeStunden extends StatelessWidget {
                 child: IconFach(
                   icon: icon,
                   farbe: farbe,
-                  small: false,
+                  size: 30,
                 ),
               ),
               Padding(

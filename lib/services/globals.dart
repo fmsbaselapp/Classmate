@@ -24,7 +24,7 @@ class Global {
 // Data Models fake
 
   static final Map models = {
-    Fach: (data) => Fach.fromMap({}),
+    // Fach: (data) => Fach.fromMap({}),
     //Info: (data) => Info.fromMap({}),
     //Aufgabe: (data) => Aufgabe.fromJSON((),{}),
     //Test: (data) => Test.fromMap({}),

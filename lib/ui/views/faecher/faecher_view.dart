@@ -1,7 +1,7 @@
 import 'package:Classmate/app/locator.dart';
 import 'package:Classmate/models/models.dart';
+import 'package:Classmate/ui/custom_icons_icons.dart';
 import 'package:Classmate/ui/shared/export.dart';
-import 'package:Classmate/ui/shared/fachUI.dart';
 import 'package:Classmate/ui/views/viewmodels.dart';
 
 import 'package:flutter/material.dart';
@@ -38,19 +38,7 @@ class FaecherView extends StatelessWidget {
                                   Fach fach = model.faecher[index];
                                   return Padding(
                                     padding: EdgeInsets.only(bottom: 15),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        model.navigateToDetailPage(
-                                            fach, index, context);
-                                      },
-                                      child: FachUI(
-                                        fach: fach.name,
-                                        zeit: fach.zeit,
-                                        raum: fach.raum,
-                                        icon: fach.icon,
-                                        farbe: fach.farbe,
-                                      ),
-                                    ),
+                                    child: FachPanel(fach: fach, index: index),
                                   );
                                 },
                                 childCount: model.faecher.length,
@@ -69,6 +57,187 @@ class FaecherView extends StatelessWidget {
                     )
                   ],
                 ),
+              ),
+            ),
+        viewModelBuilder: () => locator<FaecherViewModel>());
+  }
+}
+
+class FachPanel extends StatelessWidget {
+  const FachPanel({
+    Key key,
+    @required this.fach,
+    @required this.index,
+  }) : super(key: key);
+
+  final Fach fach;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<FaecherViewModel>.reactive(
+
+        // 1 dispose viewmodel
+        disposeViewModel: false,
+        // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
+        initialiseSpecialViewModelsOnce: true,
+        builder: (context, model, child) => GestureDetector(
+              //key: _key,
+              onTap: () {
+                model.navigateToDetailPage(
+                    /*   
+                context, index, _key, type, color, colorTitle), */
+                    fach,
+                    index,
+                    context);
+              },
+              child: Column(
+                children: [
+                  index == 0
+                      ? SizedBox(
+                          height: 15,
+                        )
+                      : Wrap(),
+                  Stack(
+                    children: [
+                      //DetailPageHero
+
+                      // PageStackHero(index: index, type: type),
+
+                      //ContainerAufgabe
+                      Positioned.fill(
+                        child: Hero(
+                          tag: 'Container' + index.toString() + fach.docRef,
+                          child: Container(
+                            height: 80 *
+                                MediaQuery.textScaleFactorOf(context) *
+                                0.85,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).accentColor,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //PopButton
+                      SizedBox(
+                        height:
+                            80 * MediaQuery.textScaleFactorOf(context) * 0.85,
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Hero(
+                                tag: 'Pop' + index.toString() + fach.docRef,
+                                flightShuttleBuilder: (flightContext,
+                                    animation,
+                                    flightDirection,
+                                    fromHeroContext,
+                                    toHeroContext) {
+                                  final Hero toHero = fromHeroContext.widget;
+                                  return FadeTransition(
+                                    opacity: animation.drive(
+                                      Tween<double>(begin: 0.0, end: 1.0).chain(
+                                        CurveTween(
+                                          curve: Interval(0.6, 1.0,
+                                              curve: Curves.easeInCirc),
+                                        ),
+                                      ),
+                                    ),
+                                    child: toHero,
+                                  );
+                                },
+                                child: Opacity(
+                                    opacity: 0.0,
+                                    child: /* ErstellenPopButton() */ Container(
+                                      height: 30,
+                                      color: Colors.green,
+                                    )))),
+                      ),
+
+                      //STACK
+                      Positioned.fill(
+                        child: Container(
+                          padding: EdgeInsets.only(left: 15, right: 30),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                top: 5,
+                                bottom: 4,
+                                child: Hero(
+                                  tag: 'Title' + index.toString() + fach.docRef,
+
+                                  //Details
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 10),
+                                        child: IconFach(
+                                          farbe: fach.farbe,
+                                          icon: fach.icon,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            fach.name,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                fach.zeit + ' | ' + fach.raum,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned.fill(
+                        right: 15,
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          child: RoundButton(
+                              icon: CustomIcons.add,
+                              iconSize: 15,
+                              onPressed: () {}),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
         viewModelBuilder: () => locator<FaecherViewModel>());

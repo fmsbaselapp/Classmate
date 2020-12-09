@@ -34,7 +34,7 @@ class ErstellenFaecherAuswahlView extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10),
                       child: model.isFachSelected
                           ? IconFach(
-                              small: false,
+                              size: 30,
                               farbe: model.selectedFach.farbe,
                               icon: model.selectedFach.icon)
                           : Wrap(),

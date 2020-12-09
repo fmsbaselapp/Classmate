@@ -15,8 +15,9 @@ class FaecherService<T> {
         .map(
           (list) => list.docs
               .map(
-                (doc) => Fach.fromMap(
-                  (doc.data()),
+                (doc) => Fach.fromJSON(
+                  doc.id,
+                  doc.data(),
                 ),
               )
               .toList(),

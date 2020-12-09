@@ -135,7 +135,7 @@ class ErstellenAppBar extends SliverPersistentHeaderDelegate {
                           IconFach(
                             farbe: type.fachFarbe,
                             icon: type.fachIcon,
-                            small: true,
+                            size: 30,
                           ),
                           SizedBox(
                             width: 5,
