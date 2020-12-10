@@ -64,7 +64,7 @@ class FaecherView extends StatelessWidget {
 }
 
 class FachPanel extends StatelessWidget {
-  const FachPanel({
+  FachPanel({
     Key key,
     @required this.fach,
     @required this.index,
@@ -72,7 +72,7 @@ class FachPanel extends StatelessWidget {
 
   final Fach fach;
   final int index;
-
+  GlobalKey _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FaecherViewModel>.reactive(
@@ -82,14 +82,17 @@ class FachPanel extends StatelessWidget {
         // 3. set initialiseSpecialViewModelsOnce to true to indicate only initialising once
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => GestureDetector(
-              //key: _key,
+              key: _key,
               onTap: () {
                 model.navigateToDetailPage(
-                    /*   
+                  /*   
                 context, index, _key, type, color, colorTitle), */
-                    fach,
-                    index,
-                    context);
+
+                  fach,
+                  index,
+                  context,
+                  _key,
+                );
               },
               child: Column(
                 children: [
@@ -102,7 +105,7 @@ class FachPanel extends StatelessWidget {
                     children: [
                       //DetailPageHero
 
-                      // PageStackHero(index: index, type: type),
+                      PageStackHeroFaecher(index: index, fach: fach),
 
                       //ContainerAufgabe
                       Positioned.fill(
@@ -241,5 +244,51 @@ class FachPanel extends StatelessWidget {
               ),
             ),
         viewModelBuilder: () => locator<FaecherViewModel>());
+  }
+}
+
+class PageStackHeroFaecher extends StatelessWidget {
+  const PageStackHeroFaecher({
+    Key key,
+    @required this.index,
+    @required this.fach,
+  }) : super(key: key);
+
+  final int index;
+  final Fach fach;
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: 'Page' + index.toString() + fach.docRef,
+      flightShuttleBuilder: (flightContext, animation, flightDirection,
+          fromHeroContext, toHeroContext) {
+        final Hero toHero = fromHeroContext.widget;
+        return FadeTransition(
+          opacity: animation.drive(
+            Tween<double>(begin: 0.0, end: 1.0).chain(
+              CurveTween(
+                curve: Interval(
+                  0.2,
+                  0.5,
+                ),
+              ),
+            ),
+          ),
+          child: toHero,
+        );
+      },
+      child: Opacity(
+        opacity: 0.0,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            color: Theme.of(context).accentColor,
+          ),
+        ),
+      ),
+    );
   }
 }
